@@ -262,23 +262,9 @@ footer a:hover{color:#EEF0FF}
   .section-sub{font-size:.82rem;margin-bottom:1rem}
   footer{padding:20px 16px}
 
-  /* ── Module cards: horizontal swipe ── */
-  .module-grid,.modules-grid{
-    display:flex!important;overflow-x:auto;scroll-snap-type:x mandatory;
-    -webkit-overflow-scrolling:touch;gap:.75rem;
-    margin:0 -16px;padding:0 16px .75rem;scrollbar-width:none;
-  }
-  .module-grid::-webkit-scrollbar,.modules-grid::-webkit-scrollbar{display:none}
-  .module-grid>*,.modules-grid>*{flex:0 0 82%;scroll-snap-align:start;min-width:0}
-
-  /* ── Pricing: horizontal swipe ── */
-  .pricing-cards,.price-cards{
-    display:flex!important;overflow-x:auto;scroll-snap-type:x mandatory;
-    -webkit-overflow-scrolling:touch;gap:.75rem;
-    margin:0 -16px;padding:0 16px .75rem;scrollbar-width:none;
-  }
-  .pricing-cards::-webkit-scrollbar,.price-cards::-webkit-scrollbar{display:none}
-  .pricing-cards>*,.price-cards>*{flex:0 0 84%;scroll-snap-align:start;min-width:0}
+  /* ── Module & pricing grids: clean single column ── */
+  .module-grid,.modules-grid{grid-template-columns:1fr!important}
+  .pricing-cards,.price-cards{grid-template-columns:1fr!important}
 
   /* ── Tools: 2-col grid ── */
   .tools-grid{grid-template-columns:repeat(2,1fr);gap:.5rem}
