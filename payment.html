@@ -192,6 +192,17 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:1
   .form-row{grid-template-columns:1fr;}
   .trust-row{grid-template-columns:1fr 1fr;}
   .payment-methods{grid-template-columns:repeat(2,1fr);}
+  input,select,textarea{font-size:16px!important;} /* prevent iOS auto-zoom */
+  .order-sticky{position:static;border-radius:16px;}
+  .nav-wrap{padding:0 1rem;}
+  .nav-logo span:first-of-type{font-size:.85rem;}
+  .step-label{display:none;}
+  .step-line{width:24px;}
+}
+@media(max-width:360px){
+  .trust-row{grid-template-columns:1fr;}
+  .plan-tabs{gap:.35rem;}
+  .plan-tab{padding:.5rem .6rem;font-size:.75rem;}
 }
 </style>
     <link rel="icon" href="logo-icon.svg" type="image/svg+xml">

@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Choose Your Formation — STATIC Academy</title>
+<link rel="icon" href="logo-icon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#07080f">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#07080f;--bg2:#0d0f1c;--bg3:#131629;
+  --primary:#5b6cf5;--primary2:#8b5cf6;
+  --gold:#c9a84c;--success:#10b981;
+  --border:rgba(91,108,245,.14);--border2:rgba(255,255,255,.07);
+  --text:#e8ecff;--text2:#9ca3af;--text3:#6b7280;
+  --font:'Inter','Segoe UI',system-ui,sans-serif;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh;overflow-x:hidden;}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 2rem;height:64px;
+  background:rgba(7,8,15,.95);border-bottom:1px solid var(--border);
+  backdrop-filter:blur(12px);
+}
+.nav-logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;}
+.nav-logo img{width:32px;height:32px;}
+.logo-name{font-size:.95rem;font-weight:800;letter-spacing:.06em;color:var(--text);}
+.logo-sub-text{font-size:.45rem;font-weight:500;letter-spacing:.2em;color:rgba(232,236,255,.35);text-transform:uppercase;}
+.nav-right{display:flex;align-items:center;gap:1rem;}
+.nav-link-plain{color:var(--text2);text-decoration:none;font-size:.875rem;transition:color .2s;}
+.nav-link-plain:hover{color:var(--text);}
+.nav-back-btn{
+  display:flex;align-items:center;gap:.4rem;padding:.45rem .9rem;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);
+  border-radius:8px;color:var(--text2);font-size:.82rem;cursor:pointer;
+  text-decoration:none;transition:all .2s;
+}
+.nav-back-btn:hover{color:var(--text);border-color:rgba(91,108,245,.4);}
+
+/* ── BACKGROUND ── */
+.bg-orbs{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+.orb{position:absolute;border-radius:50%;filter:blur(120px);opacity:.25;}
+.orb1{width:600px;height:600px;background:radial-gradient(circle,#5b6cf5,transparent);top:-200px;left:-200px;}
+.orb2{width:500px;height:500px;background:radial-gradient(circle,#8b5cf6,transparent);bottom:-150px;right:-150px;}
+.orb3{width:400px;height:400px;background:radial-gradient(circle,#c9a84c,transparent);top:50%;left:50%;transform:translate(-50%,-50%);}
+
+/* ── MAIN ── */
+.main{
+  position:relative;z-index:1;
+  padding:100px 1.5rem 4rem;
+  max-width:1100px;margin:0 auto;
+}
+
+/* ── HEADER ── */
+.page-header{text-align:center;margin-bottom:3.5rem;}
+.step-badge{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.4rem 1rem;border-radius:100px;
+  background:rgba(91,108,245,.1);border:1px solid rgba(91,108,245,.25);
+  font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:#818cf8;margin-bottom:1.5rem;
+}
+.step-dot{width:6px;height:6px;border-radius:50%;background:#5b6cf5;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
+.page-title{
+  font-size:clamp(2rem,5vw,3.2rem);font-weight:900;letter-spacing:-.03em;
+  line-height:1.1;margin-bottom:1rem;
+}
+.page-title .grad{
+  background:linear-gradient(135deg,#818cf8 0%,#c9a84c 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.page-sub{font-size:1rem;color:var(--text2);max-width:520px;margin:0 auto;line-height:1.7;}
+
+/* ── PROGRESS STEPS ── */
+.steps-row{
+  display:flex;align-items:center;justify-content:center;gap:0;
+  margin-bottom:3.5rem;
+}
+.step-item{display:flex;align-items:center;gap:0;}
+.step-circle{
+  width:32px;height:32px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.78rem;font-weight:700;border:2px solid;
+  flex-shrink:0;
+}
+.step-circle.done{background:var(--primary);border-color:var(--primary);color:#fff;}
+.step-circle.active{background:rgba(91,108,245,.15);border-color:var(--primary);color:var(--primary);}
+.step-circle.todo{background:transparent;border-color:rgba(255,255,255,.15);color:var(--text3);}
+.step-label{font-size:.72rem;font-weight:600;margin-left:.5rem;margin-right:.5rem;}
+.step-label.active{color:var(--text);}
+.step-label.todo{color:var(--text3);}
+.step-line{width:40px;height:1px;background:rgba(255,255,255,.1);}
+
+/* ── CARDS GRID ── */
+.cards-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:1.5rem;
+  margin-bottom:2rem;
+}
+@media(max-width:700px){
+  .cards-grid{grid-template-columns:1fr;}
+}
+
+.formation-card{
+  position:relative;overflow:hidden;
+  background:var(--bg2);
+  border:1px solid var(--border2);
+  border-radius:24px;
+  padding:2.5rem 2rem 2rem;
+  cursor:pointer;
+  transition:all .3s cubic-bezier(.22,1,.36,1);
+  text-decoration:none;color:inherit;
+  display:block;
+}
+.formation-card:hover{
+  border-color:var(--card-accent,var(--primary));
+  transform:translateY(-6px);
+  box-shadow:0 24px 60px rgba(0,0,0,.5);
+}
+.formation-card::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 30% 0%,var(--card-glow,rgba(91,108,245,.12)),transparent 70%);
+  opacity:0;transition:opacity .3s;
+}
+.formation-card:hover::before{opacity:1;}
+
+.card-ec{--card-accent:#5b6cf5;--card-glow:rgba(91,108,245,.18);}
+.card-tr{--card-accent:#c9a84c;--card-glow:rgba(201,168,76,.18);}
+
+.card-badge{
+  display:inline-flex;align-items:center;gap:.4rem;
+  padding:.3rem .75rem;border-radius:100px;
+  font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  margin-bottom:1.5rem;
+}
+.badge-ec{background:rgba(91,108,245,.15);color:#818cf8;border:1px solid rgba(91,108,245,.3);}
+.badge-tr{background:rgba(201,168,76,.12);color:#c9a84c;border:1px solid rgba(201,168,76,.25);}
+
+.card-icon{font-size:3rem;margin-bottom:1rem;display:block;}
+.card-title{font-size:1.5rem;font-weight:800;letter-spacing:-.02em;margin-bottom:.6rem;line-height:1.2;}
+.card-desc{font-size:.9rem;color:var(--text2);line-height:1.6;margin-bottom:1.75rem;}
+
+.card-features{list-style:none;margin-bottom:2rem;display:flex;flex-direction:column;gap:.45rem;}
+.card-features li{
+  display:flex;align-items:center;gap:.6rem;
+  font-size:.83rem;color:var(--text2);
+}
+.card-features li::before{
+  content:'✓';width:18px;height:18px;border-radius:50%;
+  background:rgba(91,108,245,.15);color:var(--primary);
+  display:flex;align-items:center;justify-content:center;
+  font-size:.65rem;font-weight:700;flex-shrink:0;
+}
+.card-tr .card-features li::before{background:rgba(201,168,76,.12);color:#c9a84c;}
+
+.card-meta{
+  display:flex;align-items:center;justify-content:space-between;
+  padding-top:1.5rem;border-top:1px solid var(--border2);
+}
+.card-price{font-size:1.1rem;font-weight:800;}
+.card-price span{font-size:.8rem;font-weight:500;color:var(--text3);}
+.card-cta{
+  display:inline-flex;align-items:center;gap:.4rem;
+  padding:.6rem 1.25rem;border-radius:10px;font-size:.85rem;font-weight:700;
+  transition:all .25s;letter-spacing:.02em;
+}
+.cta-ec{background:rgba(91,108,245,.15);color:#818cf8;border:1px solid rgba(91,108,245,.3);}
+.cta-ec:hover{background:var(--primary);color:#fff;border-color:var(--primary);}
+.cta-tr{background:rgba(201,168,76,.12);color:#c9a84c;border:1px solid rgba(201,168,76,.25);}
+.cta-tr:hover{background:#c9a84c;color:#07080f;border-color:#c9a84c;}
+
+/* ── POPULAR TAG ── */
+.popular-tag{
+  position:absolute;top:1.25rem;right:1.25rem;
+  padding:.25rem .75rem;border-radius:100px;
+  font-size:.65rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+  background:linear-gradient(135deg,#5b6cf5,#8b5cf6);color:#fff;
+}
+
+/* ── BUNDLE ROW ── */
+.bundle-card{
+  position:relative;overflow:hidden;
+  background:linear-gradient(135deg,rgba(91,108,245,.08),rgba(201,168,76,.06));
+  border:1px solid rgba(91,108,245,.25);
+  border-radius:20px;
+  padding:1.75rem 2rem;
+  display:flex;align-items:center;justify-content:space-between;gap:1.5rem;
+  cursor:pointer;transition:all .3s;text-decoration:none;color:inherit;
+}
+.bundle-card:hover{
+  border-color:rgba(91,108,245,.5);
+  transform:translateY(-3px);
+  box-shadow:0 16px 40px rgba(0,0,0,.4);
+}
+.bundle-card::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 30% 50%,rgba(91,108,245,.08),transparent 60%);
+  opacity:0;transition:opacity .3s;
+}
+.bundle-card:hover::before{opacity:1;}
+.bundle-left{display:flex;align-items:center;gap:1.25rem;}
+.bundle-icon{font-size:2.25rem;}
+.bundle-title{font-size:1.1rem;font-weight:800;margin-bottom:.25rem;}
+.bundle-sub{font-size:.82rem;color:var(--text2);}
+.bundle-right{display:flex;align-items:center;gap:1.5rem;flex-shrink:0;}
+.bundle-savings{
+  text-align:center;
+  background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);
+  border-radius:10px;padding:.5rem .9rem;
+}
+.savings-label{font-size:.65rem;color:#c9a84c;font-weight:700;text-transform:uppercase;letter-spacing:.08em;}
+.savings-val{font-size:1rem;font-weight:800;color:#c9a84c;}
+.bundle-cta-btn{
+  padding:.7rem 1.5rem;border-radius:10px;font-size:.88rem;font-weight:700;
+  background:linear-gradient(135deg,var(--primary),var(--primary2));
+  color:#fff;border:none;cursor:pointer;transition:all .25s;
+  white-space:nowrap;text-decoration:none;display:inline-block;letter-spacing:.02em;
+}
+.bundle-cta-btn:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(91,108,245,.35);}
+
+/* ── TRUST ROW ── */
+.trust-row{
+  display:flex;align-items:center;justify-content:center;gap:2rem;
+  margin-top:2.5rem;flex-wrap:wrap;
+}
+.trust-item{
+  display:flex;align-items:center;gap:.5rem;
+  font-size:.8rem;color:var(--text3);
+}
+.trust-item span:first-child{font-size:1rem;}
+
+/* ── RESPONSIVE ── */
+@media(max-width:600px){
+  nav{padding:0 1rem;}
+  .main{padding:88px 1rem 3rem;}
+  .page-title{font-size:1.75rem;}
+  .page-sub{font-size:.88rem;}
+  .steps-row{gap:.25rem;}
+  .step-label{display:none;}
+  .step-line{width:20px;}
+  .formation-card{padding:1.75rem 1.25rem 1.5rem;}
+  .card-title{font-size:1.25rem;}
+  .bundle-card{flex-direction:column;align-items:flex-start;gap:1rem;}
+  .bundle-right{width:100%;justify-content:space-between;}
+  .trust-row{gap:1rem;}
+}
+</style>
+</head>
+<body>
+
+<div class="bg-orbs">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+</div>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="logo-icon.svg" alt="STATIC Academy">
+    <div style="display:flex;flex-direction:column;line-height:1.1;">
+      <span class="logo-name">STATIC</span>
+      <span class="logo-sub-text">Academy</span>
+    </div>
+  </a>
+  <div class="nav-right">
+    <a href="auth.html?mode=signin" class="nav-link-plain" id="navSignin">Sign In</a>
+    <a href="index.html" class="nav-back-btn">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+      <span id="navBackLabel">Back</span>
+    </a>
+  </div>
+</nav>
+
+<div class="main">
+
+  <!-- HEADER -->
+  <div class="page-header">
+    <div class="step-badge">
+      <span class="step-dot"></span>
+      <span id="stepBadgeText">Step 1 of 2</span>
+    </div>
+    <h1 class="page-title" id="pageTitle">Choose Your <span class="grad">Formation</span></h1>
+    <p class="page-sub" id="pageSub">Select the course that matches your goals. You can access both with the Bundle.</p>
+  </div>
+
+  <!-- PROGRESS STEPS -->
+  <div class="steps-row">
+    <div class="step-item">
+      <div class="step-circle active">1</div>
+      <span class="step-label active" id="stepLabel1">Choose Course</span>
+    </div>
+    <div class="step-line"></div>
+    <div class="step-item">
+      <div class="step-circle todo">2</div>
+      <span class="step-label todo" id="stepLabel2">Create Account</span>
+    </div>
+    <div class="step-line"></div>
+    <div class="step-item">
+      <div class="step-circle todo">3</div>
+      <span class="step-label todo" id="stepLabel3">Start Learning</span>
+    </div>
+  </div>
+
+  <!-- FORMATION CARDS -->
+  <div class="cards-grid">
+
+    <!-- E-COMMERCE -->
+    <a class="formation-card card-ec" href="ecommerce-home.html" id="cardEC">
+      <div class="popular-tag" id="popularTag">🔥 Most Popular</div>
+      <div class="card-badge badge-ec">🛒 E-Commerce</div>
+      <span class="card-icon">🛒</span>
+      <div class="card-title" id="ecTitle">E-Commerce Mastery</div>
+      <div class="card-desc" id="ecDesc">Build a profitable online store from zero to €100k/month. Shopify, Facebook Ads, TikTok Shop, private label and more.</div>
+      <ul class="card-features" id="ecFeatures">
+        <li>12 complete modules · 40+ hours</li>
+        <li>Shopify, Facebook Ads, TikTok Shop</li>
+        <li>Private label & drop shipping</li>
+        <li>Email marketing & branding</li>
+        <li>From €0 to 6-figure exit strategy</li>
+      </ul>
+      <div class="card-meta">
+        <div class="card-price" id="ecPrice">From <strong>€149</strong> <span>one-time</span></div>
+        <span class="card-cta cta-ec" id="ecCta">Explore →</span>
+      </div>
+    </a>
+
+    <!-- TRADING -->
+    <a class="formation-card card-tr" href="trading-home.html" id="cardTR">
+      <div class="card-badge badge-tr">📈 Trading</div>
+      <span class="card-icon">📈</span>
+      <div class="card-title" id="trTitle">Forex & Crypto Trading</div>
+      <div class="card-desc" id="trDesc">Master the financial markets with proven strategies. Technical analysis, risk management and trading psychology.</div>
+      <ul class="card-features" id="trFeatures">
+        <li>8 modules · 50+ hours of content</li>
+        <li>Forex, Crypto & stock indices</li>
+        <li>Technical analysis & indicators</li>
+        <li>Risk management & position sizing</li>
+        <li>Live trade examples & strategies</li>
+      </ul>
+      <div class="card-meta">
+        <div class="card-price" id="trPrice">From <strong>€149</strong> <span>one-time</span></div>
+        <span class="card-cta cta-tr" id="trCta">Explore →</span>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- BUNDLE -->
+  <a class="bundle-card" href="payment.html?course=bundle&plan=pro" id="bundleCard">
+    <div class="bundle-left">
+      <div class="bundle-icon">⚡</div>
+      <div>
+        <div class="bundle-title" id="bundleTitle">Bundle — Both Formations</div>
+        <div class="bundle-sub" id="bundleSub">E-Commerce Mastery + Forex & Crypto Trading · Lifetime access · All updates included</div>
+      </div>
+    </div>
+    <div class="bundle-right">
+      <div class="bundle-savings">
+        <div class="savings-label" id="savingsLabel">You save</div>
+        <div class="savings-val">€39</div>
+      </div>
+      <span class="bundle-cta-btn" id="bundleBtn">Get Bundle →</span>
+    </div>
+  </a>
+
+  <!-- TRUST ROW -->
+  <div class="trust-row">
+    <div class="trust-item"><span>🔒</span><span id="t1">Secure one-time payment</span></div>
+    <div class="trust-item"><span>♾️</span><span id="t2">Lifetime access</span></div>
+    <div class="trust-item"><span>📱</span><span id="t3">All devices</span></div>
+    <div class="trust-item"><span>🎯</span><span id="t4">5,000+ students</span></div>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  var lang = localStorage.getItem('sa_lang') || 'en';
+  var isFR = lang === 'fr';
+
+  if(isFR){
+    document.title = 'Choisissez votre Formation — STATIC Academy';
+    document.getElementById('navBackLabel').textContent = 'Retour';
+    document.getElementById('navSignin').textContent = 'Connexion';
+    document.getElementById('stepBadgeText').textContent = 'Étape 1 sur 2';
+    document.getElementById('pageTitle').innerHTML = 'Choisissez votre <span class="grad">Formation</span>';
+    document.getElementById('pageSub').textContent = 'Sélectionnez la formation qui correspond à vos objectifs. Le Bundle vous donne accès aux deux.';
+    document.getElementById('stepLabel1').textContent = 'Choisir';
+    document.getElementById('stepLabel2').textContent = 'Créer un compte';
+    document.getElementById('stepLabel3').textContent = 'Commencer';
+    document.getElementById('popularTag').textContent = '🔥 Plus populaire';
+    document.getElementById('ecTitle').textContent = 'Maîtrise E-Commerce';
+    document.getElementById('ecDesc').textContent = 'Construisez une boutique rentable de zéro à 100k€/mois. Shopify, Facebook Ads, TikTok Shop, marque privée et plus.';
+    var ecF = document.getElementById('ecFeatures').querySelectorAll('li');
+    if(ecF[0]) ecF[0].textContent = '12 modules complets · 40+ heures';
+    if(ecF[1]) ecF[1].textContent = 'Shopify, Facebook Ads, TikTok Shop';
+    if(ecF[2]) ecF[2].textContent = 'Marque privée & drop shipping';
+    if(ecF[3]) ecF[3].textContent = 'Email marketing & branding';
+    if(ecF[4]) ecF[4].textContent = 'De 0€ à l\'exit à 6 chiffres';
+    document.getElementById('ecPrice').innerHTML = 'À partir de <strong>149€</strong> <span>paiement unique</span>';
+    document.getElementById('ecCta').textContent = 'Découvrir →';
+    document.getElementById('trTitle').textContent = 'Trading Forex & Crypto';
+    document.getElementById('trDesc').textContent = 'Maîtrisez les marchés financiers. Analyse technique, gestion du risque et psychologie du trading.';
+    var trF = document.getElementById('trFeatures').querySelectorAll('li');
+    if(trF[0]) trF[0].textContent = '8 modules · 50+ heures de contenu';
+    if(trF[1]) trF[1].textContent = 'Forex, Crypto & indices boursiers';
+    if(trF[2]) trF[2].textContent = 'Analyse technique & indicateurs';
+    if(trF[3]) trF[3].textContent = 'Gestion du risque & position sizing';
+    if(trF[4]) trF[4].textContent = 'Exemples de trades en direct';
+    document.getElementById('trPrice').innerHTML = 'À partir de <strong>149€</strong> <span>paiement unique</span>';
+    document.getElementById('trCta').textContent = 'Découvrir →';
+    document.getElementById('bundleTitle').textContent = 'Bundle — Les 2 Formations';
+    document.getElementById('bundleSub').textContent = 'Maîtrise E-Commerce + Trading Forex & Crypto · Accès à vie · Mises à jour incluses';
+    document.getElementById('savingsLabel').textContent = 'Économisez';
+    document.getElementById('bundleBtn').textContent = 'Prendre le Bundle →';
+    document.getElementById('t1').textContent = 'Paiement sécurisé unique';
+    document.getElementById('t2').textContent = 'Accès à vie';
+    document.getElementById('t3').textContent = 'Tous les appareils';
+    document.getElementById('t4').textContent = '5 000+ étudiants';
+  }
+
+  // Card hover glow effect on mobile (tap)
+  document.querySelectorAll('.formation-card').forEach(function(card){
+    card.addEventListener('touchstart', function(){ this.style.transform='translateY(-4px)'; }, {passive:true});
+    card.addEventListener('touchend', function(){ this.style.transform=''; }, {passive:true});
+  });
+})();
+</script>
+</body>
+</html>

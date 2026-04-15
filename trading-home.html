@@ -204,6 +204,23 @@ footer a:hover{color:#f59e0b}
   .nav-left{flex-direction:column;gap:8px}
   .mkt-ticker{display:none}
 }
+@media(max-width:600px){
+  .hero{padding:80px 16px 36px}
+  .hero h1{font-size:clamp(1.75rem,7vw,2.4rem)!important}
+  .hero-desc{font-size:.88rem}
+  .hero-ctas{flex-direction:column;align-items:stretch}
+  .hero-ctas a,.hero-ctas button{text-align:center}
+  .hero-nums,.hn-row{flex-wrap:wrap;gap:20px}
+  .module-grid,.modules-grid,.cards-grid{grid-template-columns:1fr}
+  .tarifs-grid,.pricing-grid,.price-cards{grid-template-columns:1fr}
+  .section-title{font-size:clamp(1.4rem,5vw,1.9rem)!important}
+  .section,.section-alt{padding:48px 16px}
+  footer{padding:24px 16px}
+  .learn-list{grid-template-columns:1fr}
+  nav{padding:0 16px}
+  .nav-back{font-size:.78rem}
+  .nav-cta{padding:.45rem .9rem;font-size:.8rem}
+}
 /* LIVE MARKET TICKER */
 .mkt-ticker{position:fixed;top:64px;left:0;right:0;z-index:199;height:32px;background:rgba(4,5,13,.97);border-bottom:1px solid rgba(245,158,11,.15);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;overflow:hidden}
 .mkt-inner{display:flex;align-items:center;gap:0;max-width:1200px;width:100%;padding:0 40px}

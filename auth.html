@@ -293,11 +293,24 @@
         @media (max-width: 480px) {
             .auth-container {
                 padding: 1.5rem;
+                margin: 0 .75rem;
+                border-radius: 16px;
             }
-
             .form-toggle {
                 flex-direction: column;
             }
+            body {
+                padding: 1rem .75rem;
+                align-items: flex-start;
+                padding-top: 4rem;
+            }
+            .auth-logo { margin-bottom: 1.5rem; }
+            input, select, button[type="submit"], .btn-submit {
+                font-size: 16px !important; /* prevent iOS zoom */
+            }
+        }
+        @media (max-width: 360px) {
+            .auth-container { padding: 1.25rem 1rem; }
         }
     </style>
     <link rel="icon" href="logo-icon.svg" type="image/svg+xml">

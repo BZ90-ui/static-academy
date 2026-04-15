@@ -2291,6 +2291,160 @@
             white-space: nowrap;
             font-size: clamp(0.75rem, 1.5vw, 0.95rem);
         }
+
+        /* ============================================================
+           COMPREHENSIVE MOBILE RESPONSIVE FIXES
+           ============================================================ */
+
+        /* Hide lang select on very small screens */
+        @media (max-width: 480px) {
+            .lang-select { display: none; }
+            .nav-btn { padding: .45rem .75rem; font-size: .78rem; }
+            nav { padding: 0 1rem; height: 58px; }
+        }
+
+        /* Hero section mobile */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 90px 1.25rem 3rem;
+                min-height: auto;
+            }
+            .hero-content {
+                text-align: center;
+            }
+            h1 {
+                font-size: clamp(2rem, 8vw, 2.8rem) !important;
+                line-height: 1.15;
+            }
+            .hero-subtitle {
+                font-size: .95rem;
+                max-width: 100%;
+            }
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            .hero-buttons .btn {
+                width: 100%;
+                max-width: 320px;
+                justify-content: center;
+                text-align: center;
+            }
+            .hero-stats {
+                grid-template-columns: repeat(2, 1fr);
+                gap: .75rem;
+            }
+        }
+
+        /* Formation cards on mobile */
+        @media (max-width: 600px) {
+            .formations-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            .formation-card {
+                padding: 1.5rem;
+            }
+            .fc-badges {
+                flex-wrap: wrap;
+                gap: .4rem;
+            }
+        }
+
+        /* Pricing cards */
+        @media (max-width: 600px) {
+            .pricing-cards {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            .pricing-card {
+                padding: 1.5rem 1.25rem;
+            }
+        }
+
+        /* Features grid */
+        @media (max-width: 600px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            .feature-card {
+                padding: 1.25rem;
+            }
+        }
+
+        /* Steps grid */
+        @media (max-width: 600px) {
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Testimonials */
+        @media (max-width: 640px) {
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Marquee on mobile */
+        @media (max-width: 480px) {
+            .marquee-chip {
+                padding: .35rem .8rem;
+                font-size: .78rem;
+            }
+        }
+
+        /* Footer */
+        @media (max-width: 640px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                text-align: center;
+            }
+            .footer-links li { text-align: center; }
+            .footer-bottom {
+                flex-direction: column;
+                gap: .75rem;
+                text-align: center;
+            }
+        }
+
+        /* Section padding reduction on mobile */
+        @media (max-width: 640px) {
+            .section { padding: 3rem 1.25rem; }
+            .section-title { font-size: clamp(1.5rem, 6vw, 2rem); }
+            .section-sub { font-size: .88rem; }
+            .container { padding: 0 1.25rem; }
+        }
+
+        /* CTA section on mobile */
+        @media (max-width: 600px) {
+            .final-cta .buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            .final-cta .buttons .btn {
+                width: 100%;
+                max-width: 300px;
+                text-align: center;
+                justify-content: center;
+            }
+            .final-cta h2 { font-size: 1.75rem; }
+        }
+
+        /* Floating hero cards — hide on small phones */
+        @media (max-width: 640px) {
+            .hero-side { display: none !important; }
+        }
+
+        /* Bundle pricing cards */
+        @media (max-width: 500px) {
+            .bundle-pricing-row {
+                flex-direction: column;
+                gap: .75rem;
+            }
+        }
     </style>
 </head>
 <body id="top">
@@ -2323,7 +2477,7 @@
             </select>
 
             <a href="auth.html?mode=signin" class="nav-btn" data-t="nav_signin">Sign In</a>
-            <a href="auth.html?mode=signup" class="nav-btn nav-btn-primary" data-t="nav_start">Get Started</a>
+            <a href="choose-formation.html" class="nav-btn nav-btn-primary" data-t="nav_start">Get Started</a>
         </div>
     </nav>
 
@@ -2366,7 +2520,7 @@
                 <p class="hero-subtitle" data-t="hero_subtitle">Learn from industry experts. Start your journey from zero to six figures with proven, step-by-step strategies.</p>
 
                 <div class="hero-buttons">
-                    <a href="auth.html?mode=signup" class="btn btn-primary" data-t="hero_cta_free">Begin Now</a>
+                    <a href="choose-formation.html" class="btn btn-primary" data-t="hero_cta_free">Begin Now</a>
                     <a href="#formations" class="btn btn-secondary" data-t="hero_cta_view" onclick="event.preventDefault();document.getElementById('formations').scrollIntoView({behavior:'smooth'});">Explore Courses ↓</a>
                 </div>
 
@@ -3068,7 +3222,7 @@
                     <li>Community Access</li>
                     <li>Email Support</li>
                 </ul>
-                <button class="pricing-cta" style="background:transparent;border:1px solid var(--border2);color:var(--text2);" onclick="window.location.href='auth.html?mode=signup'">Get Started Free</button>
+                <button class="pricing-cta" style="background:transparent;border:1px solid var(--border2);color:var(--text2);" onclick="window.location.href='choose-formation.html'">Get Started Free</button>
             </div>
 
             <div class="pricing-card plan-pro">
@@ -3118,7 +3272,7 @@
                     <li>Community Access</li>
                     <li>Email Support</li>
                 </ul>
-                <button class="pricing-cta" style="background:transparent;border:1px solid var(--border2);color:var(--text2);" onclick="window.location.href='auth.html?mode=signup'">Get Started Free</button>
+                <button class="pricing-cta" style="background:transparent;border:1px solid var(--border2);color:var(--text2);" onclick="window.location.href='choose-formation.html'">Get Started Free</button>
             </div>
 
             <div class="pricing-card plan-pro">
@@ -3167,7 +3321,7 @@
                     <li>Community Access</li>
                     <li>Email Support</li>
                 </ul>
-                <button class="pricing-cta" style="background:transparent;border:1px solid var(--border2);color:var(--text2);" onclick="window.location.href='auth.html?mode=signup'">Get Started Free</button>
+                <button class="pricing-cta" style="background:transparent;border:1px solid var(--border2);color:var(--text2);" onclick="window.location.href='choose-formation.html'">Get Started Free</button>
             </div>
 
             <div class="pricing-card plan-pro">
@@ -3222,7 +3376,7 @@
         <h2 data-t="cta_title">Ready to Transform Your Financial Future?</h2>
         <p data-t="cta_subtitle">Join thousands of successful students. Start your formation today, completely free.</p>
         <div class="buttons">
-            <a href="auth.html?mode=signup" class="btn btn-primary" data-t="cta_btn1">Join Static Academy Free</a>
+            <a href="choose-formation.html" class="btn btn-primary" data-t="cta_btn1">Join Static Academy Free</a>
             <a href="#pricing" class="btn btn-secondary" data-t="cta_btn2" onclick="event.preventDefault();document.getElementById('pricing').scrollIntoView({behavior:'smooth'});">See All Plans</a>
         </div>
     </section>
