@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Politique de Remboursement — STATIC Academy</title>
-<script>window.location.replace('legal.html');</script>
 <style>
   *{margin:0;padding:0;box-sizing:border-box;}
   :root{
@@ -104,7 +103,7 @@
   <p>En cas d'erreur technique avérée ayant entraîné une double facturation ou un prélèvement incorrect, STATIC Academy s'engage à corriger l'erreur sous 5 jours ouvrés. Une telle situation doit être signalée par email dans les 72 heures suivant la transaction en joignant la preuve de la double facturation.</p>
 
   <div class="warn-box">
-    <p>📧 Pour tout signalement d'erreur de facturation uniquement : <strong>contact@staticacademy.fr</strong><br>Délai de réponse : 2–5 jours ouvrés.</p>
+    <p>📧 Pour tout signalement d'erreur de facturation uniquement : <strong>support@staticacademy.com</strong><br>Délai de réponse : 2–5 jours ouvrés.</p>
   </div>
 
   <h2>5. Responsabilité et résultats</h2>
@@ -117,5 +116,64 @@
 <footer>
   <p>&copy; 2026 STATIC Academy — <a href="confidentialite.html">Confidentialité</a> · <a href="politique-remboursement.html">Remboursement</a> · <a href="risques.html">Avertissement sur les risques</a></p>
 </footer>
+<script>
+(function(){
+  var isFR = (localStorage.getItem('sa_lang') || 'en') !== 'en';
+  if(isFR) return;
+  var container = document.querySelector('.container');
+  if(!container) return;
+  document.querySelector('title').textContent = 'Refund Policy — STATIC Academy';
+  document.querySelector('.page-tag').textContent = 'Legal';
+  document.querySelector('h1').textContent = 'Refund Policy';
+  document.querySelector('.last-updated').textContent = 'Last updated: March 31, 2026';
+  document.querySelector('span[style*="color:var(--text);font-size:.875rem"]') && (document.querySelector('span[style*="color:var(--text);font-size:.875rem"]').textContent = 'Refund Policy');
+  container.innerHTML = `
+    <div class="page-tag">Legal</div>
+    <h1>Refund Policy</h1>
+    <p class="last-updated">Last updated: March 31, 2026</p>
+
+    <div class="notice-box">
+      <p>⚠️ By purchasing one of our courses, you acknowledge that you have read and fully accept this refund policy, which is final and without exception.</p>
+    </div>
+
+    <h2>1. No-Refund Policy</h2>
+    <p>STATIC Academy enforces a <strong style="color:var(--text);">strict no-refund policy</strong> on all its digital products and courses. No refund will be granted once access to the course has been provided, regardless of the circumstances.</p>
+    <p>This policy applies to:</p>
+    <ul>
+      <li>All subscription plans (FREE, PRO, ELITE)</li>
+      <li>All one-time purchases for modules or courses</li>
+      <li>All payments made through our platform</li>
+    </ul>
+
+    <h2>2. Nature of Digital Products</h2>
+    <p>STATIC Academy courses are <strong style="color:var(--text);">digital goods with immediate access</strong>. In accordance with applicable consumer law, the 14-day right of withdrawal does not apply to digital content provided on an intangible medium whose execution has begun with the prior express consent of the consumer.</p>
+    <p>By completing your purchase and accessing your course space, you expressly consent to the immediate provision of the content and waive your right of withdrawal.</p>
+
+    <h2>3. Non-Accepted Reasons</h2>
+    <p>The following reasons do not constitute a valid basis for a refund:</p>
+    <ul>
+      <li>Change of mind or personal circumstances after purchase</li>
+      <li>Subjective dissatisfaction with the educational content</li>
+      <li>Financial results not achieved (success depends on each individual's effort and decisions)</li>
+      <li>Non-use of the course after purchase</li>
+      <li>Misunderstanding of the program or required level</li>
+      <li>Technical difficulties on the user's device</li>
+    </ul>
+
+    <h2>4. Billing Errors</h2>
+    <p>In the event of a proven technical error resulting in a double charge or incorrect billing, STATIC Academy commits to correcting the error within 5 business days. Such a situation must be reported by email within 72 hours of the transaction, with proof of the double charge.</p>
+
+    <div class="warn-box">
+      <p>📧 For billing error reports only: <strong>support@staticacademy.com</strong><br>Response time: 2–5 business days.</p>
+    </div>
+
+    <h2>5. Liability and Results</h2>
+    <p>STATIC Academy provides educational courses for informational purposes only. Results obtained by learners depend exclusively on their commitment, personal work, and the decisions they make. No specific financial result is guaranteed or implicitly promised.</p>
+
+    <h2>6. Acceptance of Terms</h2>
+    <p>Purchasing a STATIC Academy course constitutes full and complete acceptance of this refund policy. If you do not accept these terms, we invite you not to finalize your purchase.</p>
+  `;
+})();
+</script>
 </body>
 </html>
