@@ -3474,12 +3474,21 @@ function canAccess(level) {
 }
 
 
+function applyUILang(lang) {
+  var isEN = lang === 'en';
+  var subLink = document.querySelector('a[href="subscription.html"]');
+  if (subLink) subLink.title = isEN ? 'My Subscription' : 'Mon abonnement';
+  var repLink = document.querySelector('a[href="report.html?type=bug"]');
+  if (repLink) repLink.title = isEN ? 'Report an Issue' : 'Signaler un problème';
+}
+
 function setLang(lang) {
   currentLang = lang;
   localStorage.setItem('static_lang', lang);
   document.querySelectorAll('.lang-btn').forEach(function(b) { b.classList.remove('active'); });
   var btn = document.getElementById('langBtn' + lang.toUpperCase());
   if (btn) btn.classList.add('active');
+  applyUILang(lang);
   buildSidebar();
   if (currentMod !== undefined && currentLes !== undefined) {
     loadLesson(currentMod, currentLes);
@@ -3742,6 +3751,7 @@ document.addEventListener('error', function(e) {
 
 // Sort modules: FREE → PRO → ELITE for clean ordering
 (function(){ const r={free:0,pro:1,elite:2}; COURSE.modules.sort(function(a,b){return (r[a.level]||0)-(r[b.level]||0);}); })();
+applyUILang(currentLang);
 buildSidebar();
 loadLesson(0, 0);
 </script>

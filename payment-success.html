@@ -220,5 +220,88 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:1
 
 })();
 </script>
+
+<!-- EN Translation overlay -->
+<script>
+(function(){
+  var isEN = (localStorage.getItem('sa_lang') || 'en') === 'en';
+  if(!isEN) return;
+
+  function applyEN(){
+    // Title
+    var h1 = document.querySelector('.success-title');
+    if(h1) h1.textContent = 'Payment Confirmed!';
+
+    // Subtitle — overridden by main script, so patch COURSE_NAMES and PLAN_LABELS too
+    var sub = document.getElementById('successSub');
+    if(sub){
+      // Re-read params to rebuild EN subtitle
+      var params = new URLSearchParams(window.location.search);
+      var course = params.get('course') || 'ec';
+      var COURSE_NAMES_EN = {
+        ec:     'E-Commerce Mastery',
+        tr:     'Forex & Crypto Trading',
+        bundle: 'Bundle — 2 Formations'
+      };
+      var cn = COURSE_NAMES_EN[course] || COURSE_NAMES_EN.ec;
+      sub.textContent = 'Your access to "' + cn + '" has been activated. Welcome to STATIC Academy!';
+    }
+
+    // Info card heading
+    var h3 = document.querySelector('.info-card h3');
+    if(h3) h3.textContent = 'Order Summary';
+
+    // Labels
+    var labels = document.querySelectorAll('.info-label');
+    var labelMap = ['Course', 'Plan', 'Access'];
+    labels.forEach(function(el, i){ if(labelMap[i]) el.textContent = labelMap[i]; });
+
+    // Lifetime access value
+    var values = document.querySelectorAll('.info-value');
+    values.forEach(function(el){
+      if(el.textContent.indexOf('vie') !== -1 || el.textContent.indexOf('Mises') !== -1){
+        el.textContent = 'Lifetime · Updates included';
+      }
+    });
+
+    // Plan labels (re-patch after main script ran)
+    var planEl = document.getElementById('infoPlan');
+    if(planEl){
+      var params2 = new URLSearchParams(window.location.search);
+      var plan = params2.get('plan') || 'pro';
+      var PLAN_LABELS_EN = {
+        pro:   '⭐ Pro — Full Access',
+        elite: '💎 Elite — Full Access + Bonuses'
+      };
+      planEl.textContent = PLAN_LABELS_EN[plan] || PLAN_LABELS_EN.pro;
+    }
+
+    // Email card
+    var emailCard = document.querySelector('.email-card p');
+    if(emailCard) emailCard.innerHTML = 'A confirmation email has been sent to you by <strong>Stripe</strong>. Check your spam folder if you don\'t receive it within a few minutes.';
+
+    // CTA button
+    var btn = document.getElementById('btnAccess');
+    if(btn) btn.innerHTML = '🚀 Access My Course';
+
+    // Redirect label
+    var rl = document.querySelector('.redirect-label');
+    if(rl){
+      var cd = document.getElementById('countdown');
+      var n = cd ? cd.textContent : '5';
+      rl.innerHTML = 'Automatic redirect in <span id="countdown">' + n + '</span>s…';
+    }
+  }
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', function(){
+      // Wait a tick so main script runs first and sets course/plan values
+      setTimeout(applyEN, 50);
+    });
+  } else {
+    setTimeout(applyEN, 50);
+  }
+})();
+</script>
 </body>
 </html>

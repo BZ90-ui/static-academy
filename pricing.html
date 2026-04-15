@@ -394,5 +394,50 @@
 </script>
 <script src="ai-chat.js"></script>
 <script src="session-sync.js"></script>
+<!-- EN Translation patch for untranslated French strings -->
+<script>
+(function(){
+  var isEN = (localStorage.getItem('sa_lang') || 'en') === 'en';
+
+  function applyLang(){
+    // "Accès Sécurisé & Support Prioritaire" heading
+    var h3els = document.querySelectorAll('.guarantee-box h3');
+    h3els.forEach(function(el){
+      if(el.textContent.indexOf('Accès') !== -1 || el.textContent.indexOf('S\u00e9curis') !== -1){
+        el.textContent = isEN ? 'Secure Access & Priority Support' : 'Accès Sécurisé & Support Prioritaire';
+      }
+    });
+
+    // Nav dropdown: Mon abonnement / Signaler un problème
+    document.querySelectorAll('.user-dropdown a').forEach(function(el){
+      if(el.href && el.href.indexOf('subscription.html') !== -1){
+        el.textContent = isEN ? 'My Subscription' : 'Mon abonnement';
+      }
+      if(el.href && el.href.indexOf('report.html') !== -1){
+        el.textContent = isEN ? 'Report an Issue' : 'Signaler un problème';
+      }
+    });
+
+    // Footer support column links
+    document.querySelectorAll('.footer-links a').forEach(function(el){
+      if(el.href && el.href.indexOf('report.html') !== -1){
+        el.textContent = isEN ? 'Report an Issue' : 'Signaler un problème';
+      }
+      if(el.href && el.href.indexOf('subscription.html') !== -1){
+        el.textContent = isEN ? 'My Subscription' : 'Mon abonnement';
+      }
+      if(el.href && el.href.indexOf('legal.html') !== -1 && el.textContent.indexOf('légales') !== -1){
+        el.textContent = isEN ? 'Legal' : 'Mentions légales';
+      }
+    });
+  }
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', applyLang);
+  } else {
+    applyLang();
+  }
+})();
+</script>
 </body>
 </html>

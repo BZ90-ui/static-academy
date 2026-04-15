@@ -551,42 +551,125 @@ renderReviews();
 <script src="session-sync.js"></script>
 <script>
 (function(){
-  var lang = (localStorage.getItem('sa_lang') || localStorage.getItem('static_user') && JSON.parse(localStorage.getItem('static_user')||'{}').lang) || 'fr';
-  var T = {
-    en: {
-    pay_card: "Card",
-    pay_paypal: "PayPal",
-    pay_apple: "Apple Pay",
-    pay_submit: "Complete Purchase",
-    pay_cancel: "← Back",
-    },
-    fr: {
-    pay_card: "Carte",
-    pay_paypal: "PayPal",
-    pay_apple: "Apple Pay",
-    pay_submit: "Finaliser l'achat",
-    pay_cancel: "← Retour",
-    }
-  };
-  function applyI18n() {
-    var t = T[lang] || T['fr'];
-    document.querySelectorAll('[data-i18n]').forEach(function(el) {
-      var k = el.getAttribute('data-i18n');
-      if (t[k] !== undefined) el.textContent = t[k];
-    });
-    document.querySelectorAll('[data-i18n-ph]').forEach(function(el) {
-      var k = el.getAttribute('data-i18n-ph');
-      if (t[k] !== undefined) el.placeholder = t[k];
-    });
-    document.querySelectorAll('[data-i18n-html]').forEach(function(el) {
-      var k = el.getAttribute('data-i18n-html');
-      if (t[k] !== undefined) el.innerHTML = t[k];
-    });
+  var isEN = (localStorage.getItem('sa_lang') || 'en') === 'en';
+  if(!isEN) return;
+
+  function qs(sel){ return document.querySelector(sel); }
+  function qsa(sel){ return document.querySelectorAll(sel); }
+  function setText(sel,t){ var el=qs(sel); if(el) el.textContent=t; }
+  function setHTML(sel,t){ var el=qs(sel); if(el) el.innerHTML=t; }
+
+  // Update COURSES & FEATURES data for EN
+  if(typeof COURSES !== 'undefined'){
+    COURSES.ec     = { name:'E-Commerce Mastery',       sub:'Dropshipping · Shopify · Advertising · Branding',       path:'course-player.html',  trading:false };
+    COURSES.tr     = { name:'Forex & Crypto Trading',   sub:'Technical Analysis · Prop Firms · Risk Management',     path:'trading-player.html', trading:true  };
+    COURSES.bundle = { name:'Elite Bundle — 2 Courses', sub:'E-Commerce + Trading · Full Access',                    path:'dashboard.html',      trading:true  };
   }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', applyI18n);
+  if(typeof FEATURES !== 'undefined'){
+    FEATURES.ec     = ['Immediate access after payment','12 modules · 60+ lessons','Free lifetime updates','Advanced scaling strategies','PDF cheat sheets & resources','Priority support included'];
+    FEATURES.tr     = ['Immediate access after payment','10 modules · 60+ lessons','Free lifetime updates','ICT & Smart Money Concepts','Prop firm preparation pack','Priority support included'];
+    FEATURES.bundle = ['Full access to both courses','22+ modules · 130+ lessons','Free lifetime updates','Advanced strategies for both tracks','Full PDF resource library','Priority support included'];
+  }
+
+  function applyEN(){
+    // Nav
+    var navSecure = qs('.pay-nav-secure');
+    if(navSecure) navSecure.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> 100% Secure & Encrypted Payment';
+
+    // Steps
+    var steps = qsa('.step span');
+    var stepLabels = ['Offer','Payment','Access'];
+    steps.forEach(function(s,i){ if(stepLabels[i]) s.textContent = stepLabels[i]; });
+
+    // Order card title
+    var cardTitles = qsa('.pay-card-title');
+    if(cardTitles[0]) cardTitles[0].innerHTML = '<span>🛒</span> Order Summary';
+    if(cardTitles[1]) cardTitles[1].innerHTML = '<span>💳</span> Payment Information';
+
+    // Price table labels
+    var priceRows = qsa('.price-row span:first-child');
+    if(priceRows[0]) priceRows[0].textContent = 'List price';
+    if(priceRows[1]) priceRows[1].textContent = 'Launch discount';
+    if(priceRows[2]) priceRows[2].textContent = "Today's total";
+
+    // Trust badges
+    var tiLabels = qsa('.ti-label');
+    if(tiLabels[0]) tiLabels[0].textContent = 'SSL 256-bit Encrypted';
+    if(tiLabels[1]) tiLabels[1].textContent = 'Secure Payment';
+    if(tiLabels[2]) tiLabels[2].textContent = 'Lifetime Access';
+
+    // Trading disclaimer
+    var tradingDisc = qs('#tradingDisclaimer');
+    if(tradingDisc) tradingDisc.innerHTML = '<strong>⚠️ Financial Risk Warning</strong> Trading CFDs, Forex, cryptocurrencies and other financial instruments involves a high risk of capital loss. STATIC Academy is an educational provider and <strong>not a licensed financial advisor</strong>. The information in this course is provided for educational purposes only and does not constitute financial advice, investment recommendations, or a solicitation to buy or sell any financial instrument. <strong>STATIC Academy shall not be held liable for financial losses resulting from the use of these courses.</strong> Trading is not suitable for all profiles — make sure you understand the risks before investing. Past performance does not guarantee future results.';
+
+    // General disclaimer
+    var goldDisc = qs('.disclaimer-box[style*="rgba(201"]');
+    if(goldDisc) goldDisc.innerHTML = '<strong style="color:rgba(255,220,130,.9);">📋 Terms of Sale</strong><span style="color:rgba(255,220,160,.75);"> By making this purchase, you accept our <a href="legal.html" style="color:var(--gold);text-decoration:none;">terms and conditions</a> and our <a href="legal.html" style="color:var(--gold);text-decoration:none;">legal notice</a>. This purchase is reserved for personal, non-commercial use. Resale or redistribution of content is strictly prohibited. STATIC Academy shall not be liable for any commercial or financial decision based on course content.</span>';
+
+    // Reviews section
+    var reviewsTitle = qs('.reviews-title');
+    if(reviewsTitle) reviewsTitle.innerHTML = '<span>💬</span> Verified Reviews <div class="stars-avg"><span class="stars">★★★★★</span> 4.9/5 · 318 reviews</div>';
+
+    // Stripe badge
+    var stripeBadge = qs('.pay-card .pay-card-title + div span');
+    var stripeSpans = qsa('.pay-card span[style*="font-size:.82rem"]');
+    stripeSpans.forEach(function(s){ if(s.textContent.includes('données bancaires')) s.innerHTML = 'Secure payment via <strong style="color:#635bff;">Stripe</strong> — Your banking details never transit through our servers'; });
+
+    // Form labels
+    var labels = qsa('#paymentForm label');
+    if(labels[0]) labels[0].textContent = 'Full name';
+    if(labels[1]) labels[1].textContent = 'Email address';
+    if(labels[2]) labels[2].textContent = 'Country';
+
+    // Placeholders
+    var fnInput = qs('#fullName');
+    var emInput = qs('#email');
+    if(fnInput) fnInput.placeholder = 'John Smith';
+    if(emInput) emInput.placeholder = 'john@example.com';
+
+    // Country select
+    var countrySelect = qs('#country');
+    if(countrySelect){
+      var firstOpt = countrySelect.querySelector('option[value=""]');
+      if(firstOpt) firstOpt.textContent = 'Select a country';
+      var countryMap = {FR:'🇫🇷 France',BE:'🇧🇪 Belgium',CH:'🇨🇭 Switzerland',LU:'🇱🇺 Luxembourg',MC:'Monaco',CA:'🇨🇦 Canada',MA:'🇲🇦 Morocco',DZ:'🇩🇿 Algeria',TN:'🇹🇳 Tunisia',SN:'🇸🇳 Senegal',CI:'🇨🇮 Ivory Coast',DE:'🇩🇪 Germany',ES:'🇪🇸 Spain',IT:'🇮🇹 Italy',UK:'🇬🇧 United Kingdom',US:'🇺🇸 United States',Other:'Other'};
+      countrySelect.querySelectorAll('option[value]').forEach(function(o){ if(countryMap[o.value]) o.textContent = countryMap[o.value]; });
+    }
+
+    // Stripe redirect notice
+    var noticeTitle = qs('.pay-card div[style*="font-weight:600;color:var(--text)"]');
+    var noticeText  = qs('.pay-card div[style*="font-size:.78rem;color:var(--text2)"]');
+    if(noticeTitle) noticeTitle.textContent = 'Secure Stripe Payment';
+    if(noticeText)  noticeText.innerHTML = 'After clicking the button, you will be redirected to the secure Stripe payment page to enter your banking details. Card, Apple Pay & Google Pay accepted.';
+
+    // Checkboxes
+    var termLabel = qs('label[for="termsCheck"]');
+    if(termLabel) termLabel.innerHTML = 'I have read and accept the <a href="legal.html">terms and conditions</a> and the <a href="confidentialite.html">privacy policy</a>';
+    var riskLabel = qs('#riskCheckLabel');
+    if(riskLabel) riskLabel.textContent = 'I acknowledge that I have been informed of the risks related to this course and that results may vary based on effort';
+
+    // Cancel button
+    var cancelBtn = qs('.btn-cancel');
+    if(cancelBtn) cancelBtn.textContent = '← Back';
+
+    // Secure badges
+    var secureBadges = qsa('.secure-badge');
+    if(secureBadges[0]) secureBadges[0].textContent = '🔐 256-bit Encryption';
+    if(secureBadges[1]) secureBadges[1].textContent = '🛡️ 3D Secure';
+    if(secureBadges[2]) secureBadges[2].textContent = '✅ PCI-DSS';
+
+    // Report link
+    var reportLink = qs('a[href="report.html?type=payment"]');
+    if(reportLink) reportLink.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> Report a payment issue';
+
+    // Risk check label for trading
+    if(typeof updatePage === 'function') updatePage();
+  }
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', applyEN);
   } else {
-    applyI18n();
+    applyEN();
   }
 })();
 </script>

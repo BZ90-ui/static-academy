@@ -1088,5 +1088,19 @@
   });
 </script>
 <script src="session-sync.js"></script>
+<!-- EN patch for untranslated footer links -->
+<script>
+(function(){
+  var isEN = (localStorage.getItem('sa_lang') || 'en') === 'en';
+  function applyLang(){
+    document.querySelectorAll('.footer-links a').forEach(function(el){
+      if(el.href && el.href.indexOf('report.html') !== -1) el.textContent = isEN ? 'Report an Issue' : 'Signaler un problème';
+      if(el.href && el.href.indexOf('subscription.html') !== -1) el.textContent = isEN ? 'My Subscription' : 'Mon abonnement';
+      if(el.href && el.href.indexOf('legal.html') !== -1 && el.textContent.indexOf('légales') !== -1) el.textContent = isEN ? 'Legal' : 'Mentions légales';
+    });
+  }
+  if(document.readyState === 'loading'){ document.addEventListener('DOMContentLoaded', applyLang); } else { applyLang(); }
+})();
+</script>
 </body>
 </html>

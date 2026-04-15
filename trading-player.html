@@ -2115,12 +2115,41 @@ function goUpgrade() { window.location.href = 'payment.html'; }
 
 // ── SIDEBAR ──
 
+function applyUILang(lang) {
+  var isEN = lang === 'en';
+  // Risk banner
+  var banner = document.getElementById('tradingRiskBanner');
+  if (banner) {
+    var strong = banner.querySelector('strong');
+    var div = banner.querySelector('div');
+    var link = banner.querySelector('a');
+    var closeBtn = banner.querySelector('button');
+    if (strong) strong.textContent = isEN ? 'Risk Warning:' : 'Avertissement risque :';
+    if (link) link.textContent = isEN ? 'Read full disclaimer' : "Voir l'avertissement complet";
+    if (closeBtn) closeBtn.title = isEN ? 'Close' : 'Fermer';
+    if (div) {
+      var txt = isEN
+        ? ' Trading carries a high risk of capital loss. These courses are educational only — STATIC Academy is not a financial advisor. '
+        : ' Le trading comporte un risque élevé de perte en capital. Ces formations sont éducatives uniquement — STATIC Academy n\'est pas un conseiller financier. ';
+      // Rebuild inner text nodes around the link
+      div.childNodes.forEach(function(n){ if(n.nodeType===3) n.textContent=''; });
+      div.firstChild && (div.firstChild.nodeType===3) && (div.firstChild.textContent = txt);
+    }
+  }
+  // Nav icon tooltips
+  var subLink = document.querySelector('a[href="subscription.html"]');
+  if (subLink) subLink.title = isEN ? 'My Subscription' : 'Mon abonnement';
+  var repLink = document.querySelector('a[href="report.html?type=bug"]');
+  if (repLink) repLink.title = isEN ? 'Report an Issue' : 'Signaler un problème';
+}
+
 function setLang(lang) {
   currentLang = lang;
   localStorage.setItem('static_lang', lang);
   document.querySelectorAll('.lang-btn').forEach(function(b) { b.classList.remove('active'); });
   var btn = document.getElementById('langBtn' + lang.toUpperCase());
   if (btn) btn.classList.add('active');
+  applyUILang(lang);
   buildSidebar();
   if (currentMod !== undefined && currentLes !== undefined) {
     loadLesson(currentMod, currentLes);
@@ -2400,6 +2429,7 @@ if (upgradeBtn && userPlan !== 'free') upgradeBtn.style.display = 'none';
 // ── INIT ──
 // Sort modules: FREE → PRO → ELITE for clean ordering
 (function(){ const r={free:0,pro:1,elite:2}; COURSE.modules.sort(function(a,b){return (r[a.level]||0)-(r[b.level]||0);}); })();
+applyUILang(currentLang);
 buildSidebar();
 loadLesson(0, 0);
 

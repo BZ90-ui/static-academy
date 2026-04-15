@@ -899,5 +899,32 @@
   });
 </script>
 <script src="session-sync.js"></script>
+<!-- EN patch for footer -->
+<script>
+(function(){
+  var isEN = (localStorage.getItem('sa_lang') || 'en') === 'en';
+  function applyLang(){
+    document.querySelectorAll('footer a, .footer a').forEach(function(el){
+      if(!el.href) return;
+      if(el.href.indexOf('report.html') !== -1 && el.textContent.indexOf('Signaler') !== -1)
+        el.textContent = isEN ? 'Report an Issue' : 'Signaler un problème';
+      if(el.href.indexOf('subscription.html') !== -1 && el.textContent.indexOf('abonnement') !== -1)
+        el.textContent = isEN ? 'My Subscription' : 'Mon abonnement';
+      if(el.href.indexOf('legal.html') !== -1 && el.textContent.indexOf('légales') !== -1)
+        el.textContent = isEN ? 'Legal' : 'Mentions légales';
+      if(el.href.indexOf('confidentialite.html') !== -1 && el.textContent.indexOf('Confidentialité') !== -1)
+        el.textContent = isEN ? 'Privacy' : 'Confidentialité';
+      if(el.href.indexOf('risques.html') !== -1 && el.textContent === 'Risques')
+        el.textContent = isEN ? 'Risk Disclaimer' : 'Risques';
+    });
+    // Footer copyright and privacy
+    document.querySelectorAll('footer p, .footer p').forEach(function(el){
+      if(el.textContent.indexOf('Tous droits réservés') !== -1)
+        el.textContent = isEN ? '© 2026 STATIC Academy. All rights reserved.' : '© 2026 STATIC Academy. Tous droits réservés.';
+    });
+  }
+  if(document.readyState === 'loading'){ document.addEventListener('DOMContentLoaded', applyLang); } else { applyLang(); }
+})();
+</script>
 </body>
 </html>
