@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Signaler un problème — STATIC Academy</title>
     <meta name="description" content="Signalez un bug, un problème de paiement ou de contenu à l'équipe STATIC Academy.">
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script>emailjs.init('IK3UtcNDyYkGxicbS');</script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 :root{
@@ -341,7 +343,7 @@ function submitReport(){
   // Generate ticket ID
   const ticketId = 'STX-' + Date.now().toString().slice(-6);
 
-  // Save to localStorage (in a real app this would be an API call)
+  // Save to localStorage
   const reports = JSON.parse(localStorage.getItem('static_reports')||'[]');
   reports.push({
     id: ticketId,
@@ -357,10 +359,29 @@ function submitReport(){
   });
   localStorage.setItem('static_reports', JSON.stringify(reports));
 
-  // Show success
-  document.getElementById('reportForm').style.display = 'none';
-  document.getElementById('ticketIdEl').textContent = ticketId;
-  document.getElementById('successState').style.display = 'block';
+  // Send email via EmailJS
+  const btn = document.querySelector('.btn-submit');
+  if(btn){ btn.disabled = true; btn.textContent = '⏳ Sending…'; }
+
+  emailjs.send('service_cgl07fx', 'template_1bbmczo', {
+    ticket_id:   ticketId,
+    name:        name,
+    email:       email,
+    course:      document.getElementById('rptCourse').value || 'Not specified',
+    order_id:    document.getElementById('rptOrderId').value || 'N/A',
+    type:        currentType,
+    priority:    currentPrio,
+    title:       subj,
+    description: desc
+  }).then(function(){
+    document.getElementById('reportForm').style.display = 'none';
+    document.getElementById('ticketIdEl').textContent = ticketId;
+    document.getElementById('successState').style.display = 'block';
+  }).catch(function(err){
+    if(btn){ btn.disabled = false; btn.textContent = _rptEN ? 'Send Report' : 'Envoyer'; }
+    alert(_rptEN ? 'Error sending report. Please try again.' : 'Erreur lors de l\'envoi. Veuillez réessayer.');
+    console.error('EmailJS error:', err);
+  });
 }
 
 // Init
