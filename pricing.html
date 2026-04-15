@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pricing — STATIC Academy</title>
+  <meta name="description" content="Simple, transparent pricing. Free forever, or unlock everything with a single one-time payment. No subscriptions, no recurring fees."/>
+      <link rel="icon" href="logo-icon.svg" type="image/svg+xml">
+    <meta name="theme-color" content="#07080f">
+    <link rel="stylesheet" href="styles.css"/>
+  <style>
+    .one-time-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(16,185,129,0.12);
+      border: 1px solid rgba(16,185,129,0.3);
+      color: #10b981;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 50px;
+      margin-bottom: 40px;
+    }
+    /* Comparison table */
+    .compare-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      margin-top: 64px;
+    }
+    .compare-table th {
+      padding: 16px 20px;
+      text-align: center;
+      font-size: 15px;
+      font-weight: 700;
+      background: var(--bg-3);
+      border-bottom: 1px solid var(--border-2);
+    }
+    .compare-table th:first-child { text-align: left; border-radius: var(--radius-sm) 0 0 0; }
+    .compare-table th:last-child { border-radius: 0 var(--radius-sm) 0 0; }
+    .compare-table th.featured { background: rgba(108,99,255,0.15); color: var(--primary-2); }
+    .compare-table td {
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+      color: var(--text-2);
+      text-align: center;
+      background: var(--bg-2);
+    }
+    .compare-table td:first-child { text-align: left; color: var(--text-2); }
+    .compare-table td.featured { background: rgba(108,99,255,0.06); }
+    .compare-table tr:last-child td { border-bottom: none; }
+    .compare-table tr:last-child td:first-child { border-radius: 0 0 0 var(--radius-sm); }
+    .compare-table tr:last-child td:last-child { border-radius: 0 0 var(--radius-sm) 0; }
+    .compare-table .section-row td {
+      background: var(--bg-3);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-4);
+      padding: 10px 20px;
+    }
+    .check-y { color: var(--green); font-size: 16px; }
+    .check-n { color: var(--text-4); font-size: 16px; }
+    .check-s { font-size: 13px; color: var(--text-3); }
+    .guarantee-box {
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 40px;
+      text-align: center;
+      max-width: 600px;
+      margin: 64px auto 0;
+    }
+    .guarantee-icon { font-size: 56px; margin-bottom: 16px; }
+    @media (max-width: 768px) {
+      .compare-table { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="nav">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" style="display:flex;align-items:center;gap:.65rem;text-decoration:none;">
+        <img src="logo-icon.svg" alt="STATIC Academy" style="width:38px;height:38px;flex-shrink:0;">
+        <div style="display:flex;flex-direction:column;line-height:1.1;">
+          <span style="font-size:.95rem;font-weight:800;letter-spacing:.06em;color:#e8ecff;">STATIC</span>
+          <span style="font-size:.52rem;font-weight:500;letter-spacing:.22em;color:rgba(232,236,255,.38);text-transform:uppercase;">Academy</span>
+        </div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html" data-i18n="nav_home">Home</a></li>
+        <li><a href="courses.html" data-i18n="nav_courses">Courses</a></li>
+        <li><a href="learning-paths.html" data-i18n="nav_paths">Learning Paths</a></li>
+        <li><a href="community.html" data-i18n="nav_community">Community</a></li>
+        <li><a href="pricing.html" data-i18n="nav_pricing">Pricing</a></li>
+        <li><a href="dashboard.html" class="nav-dash-link" style="display:none">Dashboard</a></li>
+      </ul>
+      <div class="nav-right" id="navRight">
+        <div class="lang-select">
+          <button class="lang-btn"><span class="lang-current">🇺🇸 EN</span>
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
+          <div class="lang-dropdown">
+            <div class="lang-option" data-lang="en"><span class="lang-flag">🇺🇸</span> English</div>
+            <div class="lang-option" data-lang="fr"><span class="lang-flag">🇫🇷</span> Français</div>
+            <div class="lang-option" data-lang="es"><span class="lang-flag">🇪🇸</span> Español</div>
+            <div class="lang-option" data-lang="de"><span class="lang-flag">🇩🇪</span> Deutsch</div>
+            <div class="lang-option" data-lang="pt"><span class="lang-flag">🇧🇷</span> Português</div>
+          </div>
+        </div>
+        <div class="nav-guest d-flex gap-8 align-center">
+          <a href="auth.html" class="btn btn-ghost btn-sm" data-i18n="nav_login">Sign In</a>
+          <a href="auth.html?tab=register" class="btn btn-primary btn-sm" data-i18n="nav_cta">Get Started</a>
+        </div>
+        <div class="nav-user d-flex gap-8 align-center" style="display:none!important">
+          <a href="dashboard.html" class="btn btn-ghost btn-sm">Dashboard</a>
+          <div class="user-menu">
+            <div class="user-avatar" data-dropdown-trigger=".user-dropdown">SA</div>
+            <div class="user-dropdown">
+              <div class="user-info"><div class="user-name"></div><div class="user-email"></div><span class="user-plan plan-free">Free</span></div>
+              <a href="dashboard.html">Dashboard</a>
+              <a href="subscription.html">Mon abonnement</a>
+              <a href="report.html">Signaler un problème</a>
+              <div class="divider"></div>
+              <button class="logout-btn" data-i18n="nav_logout">Sign Out</button>
+            </div>
+          </div>
+        </div>
+        <button class="nav-toggle"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="mobile-nav" id="mobileNav">
+  <ul class="mobile-nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="courses.html">Courses</a></li>
+    <li><a href="learning-paths.html">Learning Paths</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a href="dashboard.html">Dashboard</a></li>
+  </ul>
+  <div class="mobile-nav-divider"></div>
+  <div class="mobile-nav-ctas">
+    <a href="auth.html" class="btn btn-outline" style="justify-content:center;text-align:center">Sign In</a>
+    <a href="checkout.html?plan=pro" class="btn btn-primary" style="justify-content:center;text-align:center">Get Started →</a>
+  </div>
+</div>
+
+<!-- ── Hero ── -->
+<section style="padding:120px 0 60px;text-align:center;position:relative;overflow:hidden">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 30%,rgba(108,99,255,0.1),transparent);pointer-events:none"></div>
+  <div class="container" style="position:relative;z-index:1">
+    <span class="badge badge-primary fade-up" style="display:inline-flex;margin-bottom:16px">💎 Simple Pricing</span>
+    <h1 class="fade-up fade-up-1" style="margin-bottom:16px">Plans for every <span class="grad-text">stage of growth</span></h1>
+    <p class="fade-up fade-up-2" style="font-size:1.05rem;color:var(--text-2);max-width:500px;margin:0 auto 0">Start free. Pay once to unlock everything. No subscriptions, no recurring fees — ever.</p>
+  </div>
+</section>
+
+<!-- ── Pricing Cards ── -->
+<section class="section" style="padding-top:32px">
+  <div class="container">
+    <div style="text-align:center">
+      <div class="one-time-badge">✓ One-time payment &nbsp;·&nbsp; Lifetime access &nbsp;·&nbsp; No subscriptions</div>
+    </div>
+
+    <!-- Pricing Cards -->
+    <div class="pricing-grid">
+      <!-- Free -->
+      <div class="pricing-card">
+        <div class="pricing-plan">Starter</div>
+        <div class="pricing-price" style="color:var(--text)"><sup>$</sup>0</div>
+        <div class="pricing-period">Forever free</div>
+        <p class="pricing-desc">Explore the foundations of e-commerce with zero commitment.</p>
+        <ul class="pricing-features">
+          <li><span class="check">✓</span> Module 1 — E-Commerce Foundations</li>
+          <li><span class="check">✓</span> Module 2 — Market Research</li>
+          <li><span class="check">✓</span> Community forum access</li>
+          <li><span class="check">✓</span> Basic resources library</li>
+          <li><span class="check">✓</span> Progress tracking</li>
+          <li><span class="cross">✗</span> Pro/Elite modules</li>
+          <li><span class="cross">✗</span> Templates & tools</li>
+          <li><span class="cross">✗</span> Coaching calls</li>
+          <li><span class="cross">✗</span> Certificates</li>
+        </ul>
+        <a href="auth.html?tab=register" class="btn btn-outline pricing-cta" id="freeBtn">Get Started Free</a>
+      </div>
+
+      <!-- Pro -->
+      <div class="pricing-card featured">
+        <span class="pricing-popular badge badge-primary">✦ Most Popular</span>
+        <div class="pricing-plan">Pro</div>
+        <div class="pricing-price grad-text-primary"><sup>$</sup>247</div>
+        <div class="pricing-period">one-time payment</div>
+        <p class="pricing-desc">Everything you need to build and grow a 6-figure e-commerce business. Pay once, access forever.</p>
+        <ul class="pricing-features">
+          <li><span class="check">✓</span> All 12 core modules (lifetime access)</li>
+          <li><span class="check">✓</span> Full templates & tools library</li>
+          <li><span class="check">✓</span> 50+ downloadable resources</li>
+          <li><span class="check">✓</span> Private community access</li>
+          <li><span class="check">✓</span> 1-on-1 coaching call (45 min)</li>
+          <li><span class="check">✓</span> Certificate of completion</li>
+          <li><span class="check">✓</span> All future updates included</li>
+          <li><span class="cross">✗</span> Weekly group coaching</li>
+          <li><span class="cross">✗</span> Business audit</li>
+        </ul>
+        <button class="btn btn-primary pricing-cta" onclick="selectPlan('pro')">
+          <span id="proBtn">Get Instant Access — $247</span>
+        </button>
+      </div>
+
+      <!-- Elite -->
+      <div class="pricing-card elite">
+        <div class="pricing-plan" style="color:var(--gold)">Elite</div>
+        <div class="pricing-price" style="color:var(--gold)"><sup>$</sup>497</div>
+        <div class="pricing-period">one-time payment</div>
+        <p class="pricing-desc">For serious entrepreneurs determined to build a 7-figure brand. The complete system, one payment.</p>
+        <ul class="pricing-features">
+          <li><span class="check">✓</span> Everything in Pro</li>
+          <li><span class="check">✓</span> Weekly group coaching calls</li>
+          <li><span class="check">✓</span> Monthly business audit & review</li>
+          <li><span class="check">✓</span> Priority email support (24h)</li>
+          <li><span class="check">✓</span> Exclusive bonus modules (4 extra)</li>
+          <li><span class="check">✓</span> Direct access to Alex</li>
+          <li><span class="check">✓</span> Store review & feedback</li>
+          <li><span class="check">✓</span> Early access to new content</li>
+        </ul>
+        <button class="btn btn-gold pricing-cta" onclick="selectPlan('elite')">
+          <span id="eliteBtn">Get Instant Access — $497</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Comparison table -->
+    <div style="overflow-x:auto;margin-top:64px">
+      <div style="text-align:center;margin-bottom:32px">
+        <h2 style="font-size:1.6rem;margin-bottom:8px">Full feature <span class="grad-text">comparison</span></h2>
+        <p style="color:var(--text-3);font-size:14px">Everything side by side so you can make the right choice.</p>
+      </div>
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Starter<br><span style="font-size:12px;color:var(--text-3);font-weight:400">Free forever</span></th>
+            <th class="featured">Pro<br><span style="font-size:12px;color:var(--primary-2);font-weight:400">$247 one-time</span></th>
+            <th>Elite<br><span style="font-size:12px;color:var(--gold);font-weight:400">$497 one-time</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="section-row"><td colspan="4">Content Access</td></tr>
+          <tr><td>Modules included</td><td>2 of 12</td><td class="featured">All 12</td><td>All 12 + 4 bonus</td></tr>
+          <tr><td>HD video quality</td><td class="check-n">—</td><td class="featured check-y">✓</td><td class="check-y">✓</td></tr>
+          <tr><td>Downloadable resources</td><td class="check-n">—</td><td class="featured check-s">50+ files</td><td class="check-s">50+ files</td></tr>
+          <tr><td>Lifetime content access</td><td class="check-y">✓</td><td class="featured check-y">✓</td><td class="check-y">✓</td></tr>
+          <tr><td>Bonus exclusive modules</td><td class="check-n">—</td><td class="featured check-n">—</td><td class="check-y">✓ (4 modules)</td></tr>
+
+          <tr class="section-row"><td colspan="4">Tools & Resources</td></tr>
+          <tr><td>Templates library</td><td class="check-n">—</td><td class="featured check-y">✓</td><td class="check-y">✓</td></tr>
+          <tr><td>Ad copy frameworks</td><td class="check-n">—</td><td class="featured check-y">✓</td><td class="check-y">✓</td></tr>
+          <tr><td>Email sequence templates</td><td class="check-n">—</td><td class="featured check-y">✓</td><td class="check-y">✓</td></tr>
+          <tr><td>Financial trackers (Excel)</td><td class="check-n">—</td><td class="featured check-y">✓</td><td class="check-y">✓</td></tr>
+          <tr><td>Store launch checklist</td><td class="check-n">—</td><td class="featured check-y">✓</td><td class="check-y">✓</td></tr>
+
+          <tr class="section-row"><td colspan="4">Community & Support</td></tr>
+          <tr><td>Community forum access</td><td class="check-y">✓</td><td class="featured check-y">✓</td><td class="check-y">✓</td></tr>
+          <tr><td>Email support</td><td class="check-s">48h</td><td class="featured check-s">36h</td><td class="check-s">24h priority</td></tr>
+          <tr><td>Direct access to Alex</td><td class="check-n">—</td><td class="featured check-n">—</td><td class="check-y">✓</td></tr>
+
+          <tr class="section-row"><td colspan="4">Coaching</td></tr>
+          <tr><td>1-on-1 coaching call</td><td class="check-n">—</td><td class="featured check-s">1 included</td><td class="check-s">3 included</td></tr>
+          <tr><td>Weekly group coaching calls</td><td class="check-n">—</td><td class="featured check-n">—</td><td class="check-y">✓ weekly</td></tr>
+          <tr><td>Business audit & review</td><td class="check-n">—</td><td class="featured check-n">—</td><td class="check-s">Monthly</td></tr>
+          <tr><td>Store feedback & review</td><td class="check-n">—</td><td class="featured check-n">—</td><td class="check-y">✓</td></tr>
+
+          <tr class="section-row"><td colspan="4">Recognition</td></tr>
+          <tr><td>Certificate of completion</td><td class="check-n">—</td><td class="featured check-y">✓</td><td class="check-y">✓</td></tr>
+          <tr><td>LinkedIn-shareable badge</td><td class="check-n">—</td><td class="featured check-y">✓</td><td class="check-y">✓</td></tr>
+          <tr><td>Early access to new content</td><td class="check-n">—</td><td class="featured check-n">—</td><td class="check-y">✓</td></tr>
+          <tr>
+            <td></td>
+            <td><a href="auth.html?tab=register" class="btn btn-outline btn-sm w-full">Start Free</a></td>
+            <td class="featured"><a href="checkout.html?plan=pro" class="btn btn-primary btn-sm w-full" style="display:block;text-align:center">Start Pro</a></td>
+            <td><a href="checkout.html?plan=elite" class="btn btn-gold btn-sm w-full" style="display:block;text-align:center">Go Elite</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Access & support box -->
+    <div class="guarantee-box">
+      <div class="guarantee-icon">⚡</div>
+      <h3 style="font-size:1.3rem;margin-bottom:10px">Accès Sécurisé & Support Prioritaire</h3>
+      <p style="font-size:15px;color:var(--text-2);margin-bottom:20px;line-height:1.7">All purchases are final. If you have any technical issue accessing your content, contact our support team and we'll resolve it immediately.</p>
+      <div style="display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap;font-size:14px;color:var(--text-3)">
+        <span>✓ Lifetime access</span>
+        <span>✓ No questions asked</span>
+        <span>✓ One-time payment only</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── FAQ on pricing ── -->
+<section class="section" style="padding-top:40px">
+  <div class="container">
+    <h2 class="section-title" style="margin-bottom:12px">Pricing <span class="grad-text">questions</span></h2>
+    <p class="section-sub">Quick answers about our one-time payment model.</p>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-question">Is this really a one-time payment with no recurring fees? <span class="faq-icon">+</span></div>
+        <div class="faq-answer"><div class="faq-answer-inner">Yes, 100%. You pay once and get lifetime access to all content in your plan — including every future update we release. There are no monthly fees, no annual renewals, and no hidden charges.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Can I upgrade from Pro to Elite later? <span class="faq-icon">+</span></div>
+        <div class="faq-answer"><div class="faq-answer-inner">Yes! You can upgrade at any time and you'll only pay the difference between the two plans. Your progress and account data are preserved when you upgrade.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Do you offer team or group discounts? <span class="faq-icon">+</span></div>
+        <div class="faq-answer"><div class="faq-answer-inner">Yes! For groups of 3+ people, we offer 15% off. For groups of 10+, we offer 25% off plus a dedicated onboarding session. Contact us at teams@staticacademy.com.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">What payment methods do you accept? <span class="faq-icon">+</span></div>
+        <div class="faq-answer"><div class="faq-answer-inner">We accept all major credit and debit cards (Visa, Mastercard, Amex), PayPal, and Apple Pay. All payments are processed securely through Stripe.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">What is the access policy? <span class="faq-icon">+</span></div>
+        <div class="faq-answer"><div class="faq-answer-inner">All sales are final. If you experience any technical issue accessing your content, our support team will resolve it at no charge.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-bg"></div>
+  <div class="container">
+    <div class="cta-inner">
+      <h2 class="cta-title" data-i18n-html="pricing_hero_title">Simple, transparent pricing</h2>
+      <p class="cta-sub">Free forever plan — no credit card required. Upgrade when you see the value.</p>
+      <div class="cta-actions">
+        <a href="auth.html?tab=register" class="btn btn-primary btn-xl">Create Free Account →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo" style="display:flex;align-items:center;gap:.65rem;text-decoration:none;">
+          <img src="logo-icon.svg" alt="STATIC Academy" style="width:38px;height:38px;flex-shrink:0;">
+          <div style="display:flex;flex-direction:column;line-height:1.1;">
+            <span style="font-size:.95rem;font-weight:800;letter-spacing:.06em;color:#e8ecff;">STATIC</span>
+            <span style="font-size:.52rem;font-weight:500;letter-spacing:.22em;color:rgba(232,236,255,.38);text-transform:uppercase;">Academy</span>
+          </div>
+        </a>
+        <p data-i18n="footer_tagline">The premium e-commerce academy for modern entrepreneurs.</p>
+      </div>
+      <div><div class="footer-col-title">Learn</div><ul class="footer-links"><li><a href="courses.html">All Courses</a></li><li><a href="courses.html?filter=free">Free Modules</a></li></ul></div>
+      <div><div class="footer-col-title">Company</div><ul class="footer-links"><li><a href="pricing.html">Pricing</a></li><li><a href="#">About</a></li></ul></div>
+      <div><div class="footer-col-title">Support</div><ul class="footer-links"><li><a href="report.html">Signaler un problème</a></li><li><a href="subscription.html">Mon abonnement</a></li><li><a href="legal.html">Mentions légales</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span class="footer-copy">© 2025 STATIC Academy. All rights reserved.</span></div>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+<script>
+  function selectPlan(plan) {
+    // Always go to checkout page — handles both new and existing users
+    window.location.href = 'checkout.html?plan=' + plan;
+  }
+
+  // Show current plan badge if logged in
+  window.addEventListener('load', () => {
+    if (App.user) {
+      const plan = App.user.plan;
+      const cards = { free: 0, pro: 1, elite: 2 };
+      const pricingCards = document.querySelectorAll('.pricing-card');
+      if (pricingCards[cards[plan]]) {
+        const btn = pricingCards[cards[plan]].querySelector('.pricing-cta');
+        if (btn) btn.textContent = '✓ Current Plan';
+      }
+    }
+  });
+</script>
+<script src="ai-chat.js"></script>
+<script src="session-sync.js"></script>
+</body>
+</html>

@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Learning Paths — STATIC Academy</title>
+    <meta name="description" content="Suivez un parcours structuré pour devenir expert en e-commerce ou en trading.">
+    <link rel="icon" href="logo-icon.svg" type="image/svg+xml">
+    <meta name="theme-color" content="#07080f">
+    <link rel="stylesheet" href="styles.css">
+<style>
+  /* ── Learning Paths page styles ── */
+  .lp-hero {
+    padding: 120px 0 60px;
+    text-align: center;
+    background: radial-gradient(ellipse 80% 40% at 50% 0%, rgba(108,99,255,.18) 0%, transparent 70%);
+  }
+  .lp-hero h1 { font-size: clamp(2rem,5vw,3.2rem); margin-bottom: 1rem; }
+  .lp-hero p  { color: var(--text-muted); font-size: 1.15rem; max-width: 600px; margin: 0 auto 2.5rem; }
+  .lp-hero-badges { display: flex; gap: .75rem; justify-content: center; flex-wrap: wrap; }
+  .lp-hero-badges span {
+    background: rgba(108,99,255,.15); border: 1px solid rgba(108,99,255,.3);
+    color: var(--primary); border-radius: 50px; padding: .35rem 1rem; font-size: .85rem; font-weight: 600;
+  }
+
+  /* ── Track overview cards ── */
+  .tracks-overview {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    margin: 3rem 0;
+  }
+  .track-overview-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 1.75rem;
+    cursor: pointer; transition: all .25s;
+    position: relative; overflow: hidden;
+  }
+  .track-overview-card::before {
+    content: ''; position: absolute; inset: 0;
+    opacity: 0; transition: opacity .25s;
+  }
+  .track-overview-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,.4); }
+  .track-overview-card.active { border-color: var(--primary); box-shadow: 0 0 0 1px var(--primary); }
+
+  .track-ov-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+  .track-ov-name { font-size: 1.05rem; font-weight: 700; margin-bottom: .4rem; }
+  .track-ov-count { font-size: .85rem; color: var(--text-muted); margin-bottom: 1rem; }
+  .track-ov-bar { height: 4px; background: var(--border); border-radius: 4px; overflow: hidden; }
+  .track-ov-bar-fill { height: 100%; border-radius: 4px; transition: width .6s ease; }
+
+  /* Colour accent per track */
+  .track-core   .track-ov-bar-fill { background: var(--primary); }
+  .track-spec   .track-ov-bar-fill { background: #10b981; }
+  .track-mktg   .track-ov-bar-fill { background: #f59e0b; }
+  .track-biz    .track-ov-bar-fill { background: #ef4444; }
+
+  .track-core.active  { border-color: var(--primary); box-shadow: 0 0 0 1px var(--primary); }
+  .track-spec.active  { border-color: #10b981; box-shadow: 0 0 0 1px #10b981; }
+  .track-mktg.active  { border-color: #f59e0b; box-shadow: 0 0 0 1px #f59e0b; }
+  .track-biz.active   { border-color: #ef4444; box-shadow: 0 0 0 1px #ef4444; }
+
+  /* ── Path detail panel ── */
+  .path-detail { display: none; }
+  .path-detail.visible { display: block; }
+
+  .path-header {
+    display: flex; align-items: center; gap: 1.5rem;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 20px; padding: 2rem 2.5rem;
+    margin-bottom: 2.5rem;
+  }
+  .path-header-icon { font-size: 3.5rem; flex-shrink: 0; }
+  .path-header-info h2 { font-size: 1.7rem; margin-bottom: .4rem; }
+  .path-header-info p  { color: var(--text-muted); margin-bottom: 1rem; line-height: 1.6; }
+  .path-header-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+  .path-header-meta span { font-size: .85rem; color: var(--text-muted); }
+  .path-header-meta strong { color: var(--text); }
+  .path-header-cta { margin-left: auto; flex-shrink: 0; }
+
+  /* ── Step-by-step visual path ── */
+  .path-steps { position: relative; padding-left: 3rem; }
+  .path-steps::before {
+    content: ''; position: absolute; left: 1.15rem; top: 0; bottom: 0;
+    width: 2px; background: linear-gradient(to bottom, var(--primary), transparent);
+  }
+  .path-step {
+    position: relative; margin-bottom: 1.75rem;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 14px; padding: 1.5rem 1.75rem;
+    transition: border-color .2s;
+  }
+  .path-step:hover { border-color: var(--primary); }
+  .path-step::before {
+    content: attr(data-num);
+    position: absolute; left: -2.6rem; top: 1.5rem;
+    width: 2rem; height: 2rem;
+    background: var(--primary); color: #fff;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: .8rem; font-weight: 700;
+    box-shadow: 0 0 0 4px var(--bg);
+  }
+
+  /* colour variants */
+  .path-spec  .path-steps::before { background: linear-gradient(to bottom, #10b981, transparent); }
+  .path-spec  .path-step::before  { background: #10b981; }
+  .path-spec  .path-step:hover    { border-color: #10b981; }
+  .path-mktg  .path-steps::before { background: linear-gradient(to bottom, #f59e0b, transparent); }
+  .path-mktg  .path-step::before  { background: #f59e0b; }
+  .path-mktg  .path-step:hover    { border-color: #f59e0b; }
+  .path-biz   .path-steps::before { background: linear-gradient(to bottom, #ef4444, transparent); }
+  .path-biz   .path-step::before  { background: #ef4444; }
+  .path-biz   .path-step:hover    { border-color: #ef4444; }
+
+  .step-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+  .step-title { font-size: 1.05rem; font-weight: 700; margin-bottom: .3rem; }
+  .step-sub   { font-size: .85rem; color: var(--text-muted); }
+  .step-badges { display: flex; gap: .5rem; flex-wrap: wrap; margin-top: .75rem; }
+  .step-badge {
+    font-size: .75rem; font-weight: 600; padding: .25rem .7rem;
+    border-radius: 50px; border: 1px solid;
+  }
+  .badge-free  { color: #10b981; border-color: rgba(16,185,129,.35); background: rgba(16,185,129,.08); }
+  .badge-pro   { color: var(--primary); border-color: rgba(108,99,255,.35); background: rgba(108,99,255,.08); }
+  .badge-elite { color: var(--gold); border-color: rgba(245,166,35,.35); background: rgba(245,166,35,.08); }
+  .badge-lessons { color: var(--text-muted); border-color: var(--border); background: transparent; }
+
+  .step-action {
+    display: inline-flex; align-items: center; gap: .4rem;
+    font-size: .82rem; font-weight: 600; color: var(--primary);
+    text-decoration: none; margin-top: 1rem;
+    transition: gap .2s;
+  }
+  .step-action:hover { gap: .7rem; }
+
+  /* ── Outcome section ── */
+  .path-outcomes {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 2rem; margin-top: 2.5rem;
+  }
+  .path-outcomes h3 { font-size: 1.2rem; margin-bottom: 1.25rem; }
+  .outcomes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+  .outcome-item { display: flex; align-items: flex-start; gap: .75rem; }
+  .outcome-check { color: #10b981; font-size: 1.1rem; flex-shrink: 0; margin-top: .1rem; }
+  .outcome-text  { font-size: .9rem; color: var(--text-muted); line-height: 1.5; }
+
+  /* ── Compare all paths ── */
+  .all-paths-compare { margin-top: 4rem; }
+  .all-paths-compare h2 { font-size: 1.7rem; margin-bottom: 2rem; }
+  .compare-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+  .compare-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 1.75rem; transition: all .25s;
+  }
+  .compare-card:hover { transform: translateY(-3px); }
+  .cc-icon  { font-size: 2rem; margin-bottom: .75rem; }
+  .cc-name  { font-size: 1.1rem; font-weight: 700; margin-bottom: .5rem; }
+  .cc-desc  { font-size: .88rem; color: var(--text-muted); line-height: 1.55; margin-bottom: 1.25rem; }
+  .cc-stats { display: flex; gap: 1.25rem; font-size: .82rem; color: var(--text-muted); margin-bottom: 1.25rem; }
+  .cc-stats strong { color: var(--text); display: block; font-size: 1rem; }
+
+  /* ── CTA ── */
+  .lp-cta {
+    text-align: center; padding: 5rem 0;
+    background: radial-gradient(ellipse 60% 40% at 50% 100%, rgba(108,99,255,.15), transparent);
+  }
+  .lp-cta h2 { font-size: clamp(1.6rem,4vw,2.4rem); margin-bottom: 1rem; }
+  .lp-cta p  { color: var(--text-muted); margin-bottom: 2rem; max-width: 520px; margin-left: auto; margin-right: auto; }
+  .lp-cta .btn-row { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+  @media(max-width:768px) {
+    .path-header { flex-direction: column; text-align: center; }
+    .path-header-meta { justify-content: center; }
+    .path-header-cta { margin-left: 0; }
+    .path-steps { padding-left: 2.5rem; }
+    .step-top { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── Navigation ── -->
+<nav class="nav" id="mainNav">
+  <div class="container">
+    <div class="nav-inner">
+
+      <a href="index.html" class="nav-logo" style="display:flex;align-items:center;gap:.65rem;text-decoration:none;">
+        <img src="logo-icon.svg" alt="STATIC Academy" style="width:38px;height:38px;flex-shrink:0;">
+        <div style="display:flex;flex-direction:column;line-height:1.1;">
+          <span style="font-size:.95rem;font-weight:800;letter-spacing:.06em;color:#e8ecff;">STATIC</span>
+          <span style="font-size:.52rem;font-weight:500;letter-spacing:.22em;color:rgba(232,236,255,.38);text-transform:uppercase;">Academy</span>
+        </div>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html" data-i18n="nav_home">Home</a></li>
+        <li><a href="courses.html" data-i18n="nav_courses">Courses</a></li>
+        <li><a href="learning-paths.html" data-i18n="nav_paths">Learning Paths</a></li>
+        <li><a href="community.html" data-i18n="nav_community">Community</a></li>
+        <li><a href="pricing.html" data-i18n="nav_pricing">Pricing</a></li>
+        <li><a href="dashboard.html" class="nav-dash-link" data-i18n="nav_dashboard" style="display:none">Dashboard</a></li>
+      </ul>
+
+      <div class="nav-right" id="navRight">
+        <!-- Language Selector -->
+        <div class="lang-select">
+          <button class="lang-btn" aria-label="Language">
+            <span class="lang-current">🇺🇸 EN</span>
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
+          <div class="lang-dropdown">
+            <div class="lang-option" data-lang="en"><span class="lang-flag">🇺🇸</span> English</div>
+            <div class="lang-option" data-lang="fr"><span class="lang-flag">🇫🇷</span> Français</div>
+            <div class="lang-option" data-lang="es"><span class="lang-flag">🇪🇸</span> Español</div>
+            <div class="lang-option" data-lang="de"><span class="lang-flag">🇩🇪</span> Deutsch</div>
+            <div class="lang-option" data-lang="pt"><span class="lang-flag">🇧🇷</span> Português</div>
+          </div>
+        </div>
+
+        <!-- Guest buttons -->
+        <div class="nav-guest d-flex gap-8 align-center">
+          <a href="auth.html" class="btn btn-ghost btn-sm" data-i18n="nav_login">Sign In</a>
+          <a href="auth.html?tab=register" class="btn btn-primary btn-sm" data-i18n="nav_cta">Get Started</a>
+        </div>
+
+        <!-- User menu -->
+        <div class="nav-user d-flex gap-8 align-center" style="display:none!important">
+          <a href="dashboard.html" class="btn btn-ghost btn-sm" data-i18n="nav_dashboard">Dashboard</a>
+          <div class="user-menu">
+            <div class="user-avatar" data-dropdown-trigger=".user-dropdown">SA</div>
+            <div class="user-dropdown">
+              <div class="user-info">
+                <div class="user-name">Student</div>
+                <div class="user-email">student@staticacademy.com</div>
+                <span class="user-plan plan-free">Free</span>
+              </div>
+              <a href="dashboard.html">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+                Dashboard
+              </a>
+              <a href="courses.html">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                My Courses
+              </a>
+              <a href="pricing.html">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                Upgrade Plan
+              </a>
+              <div class="divider"></div>
+              <button class="logout-btn" data-i18n="nav_logout">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                Sign Out
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <button class="nav-toggle" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="lp-hero">
+  <div class="container">
+    <span style="display:inline-block;background:rgba(108,99,255,.15);border:1px solid rgba(108,99,255,.3);color:var(--primary);border-radius:50px;padding:.35rem 1.2rem;font-size:.85rem;font-weight:600;margin-bottom:1.25rem;">
+      🗺️ Structured Learning
+    </span>
+    <h1>Choose Your <span class="gradient-text">Learning Path</span></h1>
+    <p>Four expertly designed tracks take you from complete beginner to e-commerce expert. Pick the path that matches your goals and follow the step-by-step curriculum.</p>
+    <div class="lp-hero-badges">
+      <span>📚 32 Courses</span>
+      <span>⏱️ 70+ Hours</span>
+      <span>🎯 4 Tracks</span>
+      <span>🏆 Certificates</span>
+    </div>
+  </div>
+</section>
+
+<!-- TRACK OVERVIEW CARDS -->
+<section style="padding:0 0 3rem;">
+  <div class="container">
+    <div class="tracks-overview">
+      <div class="track-overview-card track-core active" onclick="showPath('core')">
+        <div class="track-ov-icon">🏗️</div>
+        <div class="track-ov-name">Core Curriculum</div>
+        <div class="track-ov-count">12 courses · 60+ lessons · Beginner–Intermediate</div>
+        <div class="track-ov-bar"><div class="track-ov-bar-fill" style="width:100%"></div></div>
+      </div>
+      <div class="track-overview-card track-spec" onclick="showPath('spec')">
+        <div class="track-ov-icon">🎯</div>
+        <div class="track-ov-name">Specialty Paths</div>
+        <div class="track-ov-count">8 courses · 40+ lessons · Intermediate</div>
+        <div class="track-ov-bar"><div class="track-ov-bar-fill" style="width:66%"></div></div>
+      </div>
+      <div class="track-overview-card track-mktg" onclick="showPath('mktg')">
+        <div class="track-ov-icon">📣</div>
+        <div class="track-ov-name">Marketing Deep Dives</div>
+        <div class="track-ov-count">6 courses · 30+ lessons · Intermediate–Advanced</div>
+        <div class="track-ov-bar"><div class="track-ov-bar-fill" style="width:50%"></div></div>
+      </div>
+      <div class="track-overview-card track-biz" onclick="showPath('biz')">
+        <div class="track-ov-icon">🚀</div>
+        <div class="track-ov-name">Advanced Business</div>
+        <div class="track-ov-count">6 courses · 25+ lessons · Advanced</div>
+        <div class="track-ov-bar"><div class="track-ov-bar-fill" style="width:50%"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PATH DETAILS -->
+<section style="padding:0 0 4rem;">
+  <div class="container">
+
+    <!-- CORE CURRICULUM -->
+    <div class="path-detail path-core visible" id="path-core">
+      <div class="path-header">
+        <div class="path-header-icon">🏗️</div>
+        <div class="path-header-info">
+          <h2>Core Curriculum</h2>
+          <p>The complete foundation every e-commerce entrepreneur needs. Go from zero to your first profitable online store with this comprehensive 12-module path.</p>
+          <div class="path-header-meta">
+            <span><strong>12</strong> Courses</span>
+            <span><strong>60+</strong> Lessons</span>
+            <span><strong>35h+</strong> Content</span>
+            <span><strong>Beginner</strong> Friendly</span>
+          </div>
+        </div>
+        <div class="path-header-cta">
+          <a href="courses.html?track=core" class="btn btn-primary">Start This Path →</a>
+        </div>
+      </div>
+
+      <div class="path-steps">
+        <div class="path-step" data-num="1">
+          <div class="step-top">
+            <div>
+              <div class="step-title">E-Commerce Foundations</div>
+              <div class="step-sub">Understand the landscape, business models, and core terminology before building anything.</div>
+            </div>
+          </div>
+          <div class="step-badges">
+            <span class="step-badge badge-free">Free</span>
+            <span class="step-badge badge-lessons">5 lessons</span>
+          </div>
+          <a href="course-player.html?module=1" class="step-action">Start course →</a>
+        </div>
+        <div class="path-step" data-num="2">
+          <div class="step-top">
+            <div>
+              <div class="step-title">Product Research & Validation</div>
+              <div class="step-sub">Find winning products with data-driven research tools. Validate demand before investing.</div>
+            </div>
+          </div>
+          <div class="step-badges">
+            <span class="step-badge badge-free">Free</span>
+            <span class="step-badge badge-lessons">6 lessons</span>
+          </div>
+          <a href="course-player.html?module=2" class="step-action">Start course →</a>
+        </div>
+        <div class="path-step" data-num="3">
+          <div class="step-top">
+            <div>
+              <div class="step-title">Shopify Store Setup</div>
+              <div class="step-sub">Build a professional, conversion-optimised Shopify store from scratch — step by step.</div>
+            </div>
+          </div>
+          <div class="step-badges">
+            <span class="step-badge badge-pro">Pro</span>
+            <span class="step-badge badge-lessons">8 lessons</span>
+          </div>
+          <a href="course-player.html?module=3" class="step-action">Start course →</a>
+        </div>
+        <div class="path-step" data-num="4">
+          <div class="step-top">
+            <div>
+              <div class="step-title">Supplier & Inventory Management</div>
+              <div class="step-sub">Source reliable suppliers on Alibaba, AliExpress & domestically. Negotiate terms and manage inventory.</div>
+            </div>
+          </div>
+          <div class="step-badges">
+            <span class="step-badge badge-pro">Pro</span>
+            <span class="step-badge badge-lessons">5 lessons</span>
+          </div>
+          <a href="course-player.html?module=4" class="step-action">Start course →</a>
+        </div>
+        <div class="path-step" data-num="5">
+          <div class="step-top">
+            <div>
+              <div class="step-title">Pricing Strategy & Margins</div>
+              <div class="step-sub">Master pricing psychology, competitive positioning, and protect your profit margins at scale.</div>
+            </div>
+          </div>
+          <div class="step-badges">
+            <span class="step-badge badge-pro">Pro</span>
+            <span class="step-badge badge-lessons">4 lessons</span>
+          </div>
+          <a href="course-player.html?module=5" class="step-action">Start course →</a>
+        </div>
+        <div class="path-step" data-num="6">
+          <div class="step-top">
+            <div>
+              <div class="step-title">Facebook & Instagram Ads</div>
+              <div class="step-sub">Run profitable paid social campaigns from day one. Scale winners and cut losers systematically.</div>
+            </div>
+          </div>
+          <div class="step-badges">
+            <span class="step-badge badge-pro">Pro</span>
+            <span class="step-badge badge-lessons">9 lessons</span>
+          </div>
+          <a href="course-player.html?module=6" class="step-action">Start course →</a>
+        </div>
+        <div class="path-step" data-num="7">
+          <div class="step-top">
+            <div>
+              <div class="step-title">Email Marketing & Automation</div>
+              <div class="step-sub">Build revenue-generating email flows: welcome series, abandoned cart, post-purchase & win-back.</div>
+            </div>
+          </div>
+          <div class="step-badges">
+            <span class="step-badge badge-pro">Pro</span>
+            <span class="step-badge badge-lessons">7 lessons</span>
+          </div>
+          <a href="course-player.html?module=7" class="step-action">Start course →</a>
+        </div>
+        <div class="path-step" data-num="8">
+          <div class="step-top">
+            <div>
+              <div class="step-title">SEO for E-Commerce</div>
+              <div class="step-sub">Drive free, compounding traffic with on-page SEO, content strategy, and technical optimisation.</div>
+            </div>
+          </div>
+          <div class="step-badges">
+            <span class="step-badge badge-pro">Pro</span>
+            <span class="step-badge badge-lessons">6 lessons</span>
+          </div>
+          <a href="course-player.html?module=8" class="step-action">Start course →</a>
+        </div>
+        <div class="path-step" data-num="9">
+          <div class="step-top">
+            <div>
+              <div class="step-title">Conversion Rate Optimisation</div>
+              <div class="step-sub">Turn more visitors into buyers. A/B test pages, optimise checkout flows, and reduce abandonment.</div>
+            </div>
+          </div>
+          <div class="step-badges">
+            <span class="step-badge badge-elite">Elite</span>
+            <span class="step-badge badge-lessons">5 lessons</span>
+          </div>
+          <a href="course-player.html?module=9" class="step-action">Start course →</a>
+        </div>
+        <div class="path-step" data-num="10">
+          <div class="step-top">
+            <div>
+              <div class="step-title">Customer Service & Retention</div>
+              <div class="step-sub">Build loyalty that turns one-time buyers into repeat customers and brand advocates.</div>
+            </div>
+          </div>
+          <div class="step-badges">
+            <span class="step-badge badge-pro">Pro</span>
+            <span class="step-badge badge-lessons">4 lessons</span>
+          </div>
+          <a href="course-player.html?module=10" class="step-action">Start course →</a>
+        </div>
+        <div class="path-step" data-num="11">
+          <div class="step-top">
+            <div>
+              <div class="step-title">Analytics & Data-Driven Decisions</div>
+              <div class="step-sub">Master Google Analytics 4, Shopify reports, and attribution models to optimise every decision.</div>
+            </div>
+          </div>
+          <div class="step-badges">
+            <span class="step-badge badge-elite">Elite</span>
+            <span class="step-badge badge-lessons">5 lessons</span>
+          </div>
+          <a href="course-player.html?module=11" class="step-action">Start course →</a>
+        </div>
+        <div class="path-step" data-num="12">
+          <div class="step-top">
+            <div>
+              <div class="step-title">Scaling to 6 Figures</div>
+              <div class="step-sub">Hire your first VA, automate fulfillment, expand to new markets and hit your first $100K month.</div>
+            </div>
+          </div>
+          <div class="step-badges">
+            <span class="step-badge badge-elite">Elite</span>
+            <span class="step-badge badge-lessons">6 lessons</span>
+          </div>
+          <a href="course-player.html?module=12" class="step-action">Start course →</a>
+        </div>
+      </div>
+
+      <div class="path-outcomes">
+        <h3>✅ What you'll achieve</h3>
+        <div class="outcomes-grid">
+          <div class="outcome-item"><span class="outcome-check">✓</span><span class="outcome-text">Launch a fully functional online store</span></div>
+          <div class="outcome-item"><span class="outcome-check">✓</span><span class="outcome-text">Source profitable products confidently</span></div>
+          <div class="outcome-item"><span class="outcome-check">✓</span><span class="outcome-text">Run paid ads with positive ROAS</span></div>
+          <div class="outcome-item"><span class="outcome-check">✓</span><span class="outcome-text">Build automated email revenue streams</span></div>
+          <div class="outcome-item"><span class="outcome-check">✓</span><span class="outcome-text">Rank on Google with organic SEO</span></div>
+          <div class="outcome-item"><span class="outcome-check">✓</span><span class="outcome-text">Scale beyond your first $10K month</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SPECIALTY PATHS -->
+    <div class="path-detail path-spec" id="path-spec">
+      <div class="path-header">
+        <div class="path-header-icon">🎯</div>
+        <div class="path-header-info">
+          <h2>Specialty Paths</h2>
+          <p>Dive deep into specific business models — from dropshipping and Amazon FBA to print-on-demand and digital products. Build expertise in your chosen niche.</p>
+          <div class="path-header-meta">
+            <span><strong>8</strong> Courses</span>
+            <span><strong>40+</strong> Lessons</span>
+            <span><strong>22h+</strong> Content</span>
+            <span><strong>Intermediate</strong></span>
+          </div>
+        </div>
+        <div class="path-header-cta">
+          <a href="courses.html?track=spec" class="btn btn-primary" style="background:linear-gradient(135deg,#10b981,#059669);">Start This Path →</a>
+        </div>
+      </div>
+
+      <div class="path-steps path-spec">
+        <div class="path-step" data-num="1">
+          <div class="step-title">Dropshipping Accelerator</div>
+          <div class="step-sub">Full dropshipping system: product research, supplier vetting, store setup, and ad scaling in one power course.</div>
+          <div class="step-badges"><span class="step-badge badge-pro">Pro</span><span class="step-badge badge-lessons">10 lessons</span></div>
+          <a href="course-player.html?module=13" class="step-action" style="color:#10b981;">Start course →</a>
+        </div>
+        <div class="path-step" data-num="2">
+          <div class="step-title">Amazon FBA Masterclass</div>
+          <div class="step-sub">From product idea to first sale on Amazon. PPC, listing optimisation, reviews, and BSR strategy.</div>
+          <div class="step-badges"><span class="step-badge badge-elite">Elite</span><span class="step-badge badge-lessons">8 lessons</span></div>
+          <a href="course-player.html?module=14" class="step-action" style="color:#10b981;">Start course →</a>
+        </div>
+        <div class="path-step" data-num="3">
+          <div class="step-title">Print-on-Demand Business</div>
+          <div class="step-sub">Sell custom-designed products with zero inventory using Printful, Printify, and Gelato integrations.</div>
+          <div class="step-badges"><span class="step-badge badge-pro">Pro</span><span class="step-badge badge-lessons">5 lessons</span></div>
+          <a href="course-player.html?module=15" class="step-action" style="color:#10b981;">Start course →</a>
+        </div>
+        <div class="path-step" data-num="4">
+          <div class="step-title">Digital Products & Courses</div>
+          <div class="step-sub">Create, price, and sell ebooks, templates, and online courses with 90%+ profit margins.</div>
+          <div class="step-badges"><span class="step-badge badge-pro">Pro</span><span class="step-badge badge-lessons">6 lessons</span></div>
+          <a href="course-player.html?module=16" class="step-action" style="color:#10b981;">Start course →</a>
+        </div>
+        <div class="path-step" data-num="5">
+          <div class="step-title">Etsy & Marketplace Selling</div>
+          <div class="step-sub">Dominate Etsy search, optimise your shop, and use Etsy Ads to drive consistent revenue.</div>
+          <div class="step-badges"><span class="step-badge badge-pro">Pro</span><span class="step-badge badge-lessons">5 lessons</span></div>
+          <a href="course-player.html?module=17" class="step-action" style="color:#10b981;">Start course →</a>
+        </div>
+        <div class="path-step" data-num="6">
+          <div class="step-title">Wholesale & B2B E-Commerce</div>
+          <div class="step-sub">Sell to retailers at volume. Set up wholesale pricing, portals, and B2B funnels on Shopify.</div>
+          <div class="step-badges"><span class="step-badge badge-elite">Elite</span><span class="step-badge badge-lessons">5 lessons</span></div>
+          <a href="course-player.html?module=18" class="step-action" style="color:#10b981;">Start course →</a>
+        </div>
+        <div class="path-step" data-num="7">
+          <div class="step-title">Subscription Box Business</div>
+          <div class="step-sub">Design, launch, and grow a recurring subscription box. Predictable revenue, loyal community.</div>
+          <div class="step-badges"><span class="step-badge badge-elite">Elite</span><span class="step-badge badge-lessons">6 lessons</span></div>
+          <a href="course-player.html?module=19" class="step-action" style="color:#10b981;">Start course →</a>
+        </div>
+        <div class="path-step" data-num="8">
+          <div class="step-title">Private Label Brand Building</div>
+          <div class="step-sub">Create a brand from scratch with private label products. Packaging, patents, and brand story.</div>
+          <div class="step-badges"><span class="step-badge badge-elite">Elite</span><span class="step-badge badge-lessons">7 lessons</span></div>
+          <a href="course-player.html?module=20" class="step-action" style="color:#10b981;">Start course →</a>
+        </div>
+      </div>
+
+      <div class="path-outcomes">
+        <h3>✅ What you'll achieve</h3>
+        <div class="outcomes-grid">
+          <div class="outcome-item"><span class="outcome-check" style="color:#10b981;">✓</span><span class="outcome-text">Master your chosen business model</span></div>
+          <div class="outcome-item"><span class="outcome-check" style="color:#10b981;">✓</span><span class="outcome-text">Source and sell in your niche profitably</span></div>
+          <div class="outcome-item"><span class="outcome-check" style="color:#10b981;">✓</span><span class="outcome-text">List on multiple marketplaces (Amazon, Etsy)</span></div>
+          <div class="outcome-item"><span class="outcome-check" style="color:#10b981;">✓</span><span class="outcome-text">Build recurring revenue streams</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MARKETING DEEP DIVES -->
+    <div class="path-detail path-mktg" id="path-mktg">
+      <div class="path-header">
+        <div class="path-header-icon">📣</div>
+        <div class="path-header-info">
+          <h2>Marketing Deep Dives</h2>
+          <p>Advanced marketing tactics for every channel. Master each platform individually and build a multi-channel acquisition engine that runs on autopilot.</p>
+          <div class="path-header-meta">
+            <span><strong>6</strong> Courses</span>
+            <span><strong>30+</strong> Lessons</span>
+            <span><strong>18h+</strong> Content</span>
+            <span><strong>Advanced</strong></span>
+          </div>
+        </div>
+        <div class="path-header-cta">
+          <a href="courses.html?track=mktg" class="btn btn-primary" style="background:linear-gradient(135deg,#f59e0b,#d97706);">Start This Path →</a>
+        </div>
+      </div>
+
+      <div class="path-steps path-mktg">
+        <div class="path-step" data-num="1">
+          <div class="step-title">Google Ads & Shopping Campaigns</div>
+          <div class="step-sub">Run profitable Google Shopping, Performance Max, and Search campaigns. Master bid strategies and feed optimisation.</div>
+          <div class="step-badges"><span class="step-badge badge-elite">Elite</span><span class="step-badge badge-lessons">7 lessons</span></div>
+          <a href="course-player.html?module=21" class="step-action" style="color:#f59e0b;">Start course →</a>
+        </div>
+        <div class="path-step" data-num="2">
+          <div class="step-title">TikTok Shop & Viral Marketing</div>
+          <div class="step-sub">Crack TikTok's algorithm, create viral content, and use TikTok Shop to drive massive sales volumes.</div>
+          <div class="step-badges"><span class="step-badge badge-pro">Pro</span><span class="step-badge badge-lessons">6 lessons</span></div>
+          <a href="course-player.html?module=22" class="step-action" style="color:#f59e0b;">Start course →</a>
+        </div>
+        <div class="path-step" data-num="3">
+          <div class="step-title">Influencer & UGC Marketing</div>
+          <div class="step-sub">Find micro-influencers, negotiate deals, brief creators, and measure ROI on every collab.</div>
+          <div class="step-badges"><span class="step-badge badge-pro">Pro</span><span class="step-badge badge-lessons">5 lessons</span></div>
+          <a href="course-player.html?module=23" class="step-action" style="color:#f59e0b;">Start course →</a>
+        </div>
+        <div class="path-step" data-num="4">
+          <div class="step-title">Advanced Email & SMS Marketing</div>
+          <div class="step-sub">Build sophisticated Klaviyo flows, segmentation strategies, A/B tests, and SMS revenue streams.</div>
+          <div class="step-badges"><span class="step-badge badge-elite">Elite</span><span class="step-badge badge-lessons">6 lessons</span></div>
+          <a href="course-player.html?module=24" class="step-action" style="color:#f59e0b;">Start course →</a>
+        </div>
+        <div class="path-step" data-num="5">
+          <div class="step-title">Content Marketing & Blogging</div>
+          <div class="step-sub">Build a content engine that drives organic traffic, builds authority, and converts readers to buyers.</div>
+          <div class="step-badges"><span class="step-badge badge-pro">Pro</span><span class="step-badge badge-lessons">5 lessons</span></div>
+          <a href="course-player.html?module=25" class="step-action" style="color:#f59e0b;">Start course →</a>
+        </div>
+        <div class="path-step" data-num="6">
+          <div class="step-title">Affiliate & Referral Programs</div>
+          <div class="step-sub">Build a performance-based marketing army. Set up affiliate programs, commissions, and tracking.</div>
+          <div class="step-badges"><span class="step-badge badge-elite">Elite</span><span class="step-badge badge-lessons">5 lessons</span></div>
+          <a href="course-player.html?module=26" class="step-action" style="color:#f59e0b;">Start course →</a>
+        </div>
+      </div>
+
+      <div class="path-outcomes">
+        <h3>✅ What you'll achieve</h3>
+        <div class="outcomes-grid">
+          <div class="outcome-item"><span class="outcome-check" style="color:#f59e0b;">✓</span><span class="outcome-text">Run profitable Google Shopping campaigns</span></div>
+          <div class="outcome-item"><span class="outcome-check" style="color:#f59e0b;">✓</span><span class="outcome-text">Build a viral TikTok content strategy</span></div>
+          <div class="outcome-item"><span class="outcome-check" style="color:#f59e0b;">✓</span><span class="outcome-text">Launch and manage influencer partnerships</span></div>
+          <div class="outcome-item"><span class="outcome-check" style="color:#f59e0b;">✓</span><span class="outcome-text">Build a multi-channel traffic machine</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ADVANCED BUSINESS -->
+    <div class="path-detail path-biz" id="path-biz">
+      <div class="path-header">
+        <div class="path-header-icon">🚀</div>
+        <div class="path-header-info">
+          <h2>Advanced Business</h2>
+          <p>Operate and scale like a CEO. From legal structures and international expansion to automation, exit planning, and building teams that run without you.</p>
+          <div class="path-header-meta">
+            <span><strong>6</strong> Courses</span>
+            <span><strong>25+</strong> Lessons</span>
+            <span><strong>16h+</strong> Content</span>
+            <span><strong>Advanced</strong></span>
+          </div>
+        </div>
+        <div class="path-header-cta">
+          <a href="courses.html?track=biz" class="btn btn-primary" style="background:linear-gradient(135deg,#ef4444,#dc2626);">Start This Path →</a>
+        </div>
+      </div>
+
+      <div class="path-steps path-biz">
+        <div class="path-step" data-num="1">
+          <div class="step-title">Legal, Tax & Business Structure</div>
+          <div class="step-sub">LLC vs. Corp, VAT, sales tax nexus, IP protection, and contracts — protect your business from day one.</div>
+          <div class="step-badges"><span class="step-badge badge-elite">Elite</span><span class="step-badge badge-lessons">5 lessons</span></div>
+          <a href="course-player.html?module=27" class="step-action" style="color:#ef4444;">Start course →</a>
+        </div>
+        <div class="path-step" data-num="2">
+          <div class="step-title">International Expansion</div>
+          <div class="step-sub">Enter new markets: localisation, currency, duties, payment methods, and logistics across borders.</div>
+          <div class="step-badges"><span class="step-badge badge-elite">Elite</span><span class="step-badge badge-lessons">5 lessons</span></div>
+          <a href="course-player.html?module=28" class="step-action" style="color:#ef4444;">Start course →</a>
+        </div>
+        <div class="path-step" data-num="3">
+          <div class="step-title">Automation & Systems Building</div>
+          <div class="step-sub">SOPs, Zapier automations, VA management, and operations playbooks to remove yourself from daily tasks.</div>
+          <div class="step-badges"><span class="step-badge badge-elite">Elite</span><span class="step-badge badge-lessons">4 lessons</span></div>
+          <a href="course-player.html?module=29" class="step-action" style="color:#ef4444;">Start course →</a>
+        </div>
+        <div class="path-step" data-num="4">
+          <div class="step-title">Funding & Investment Strategies</div>
+          <div class="step-sub">Revenue-based financing, inventory loans, angel investors, and bootstrapping frameworks for growth capital.</div>
+          <div class="step-badges"><span class="step-badge badge-elite">Elite</span><span class="step-badge badge-lessons">4 lessons</span></div>
+          <a href="course-player.html?module=30" class="step-action" style="color:#ef4444;">Start course →</a>
+        </div>
+        <div class="path-step" data-num="5">
+          <div class="step-title">Brand Building & Positioning</div>
+          <div class="step-sub">Move from commodity to brand. Story, identity, community, and the price premium that comes with true branding.</div>
+          <div class="step-badges"><span class="step-badge badge-elite">Elite</span><span class="step-badge badge-lessons">4 lessons</span></div>
+          <a href="course-player.html?module=31" class="step-action" style="color:#ef4444;">Start course →</a>
+        </div>
+        <div class="path-step" data-num="6">
+          <div class="step-title">Exit Strategies & Business Sales</div>
+          <div class="step-sub">Value your store, prepare for due diligence, and exit on platforms like Acquire.com or Empire Flippers.</div>
+          <div class="step-badges"><span class="step-badge badge-elite">Elite</span><span class="step-badge badge-lessons">4 lessons</span></div>
+          <a href="course-player.html?module=32" class="step-action" style="color:#ef4444;">Start course →</a>
+        </div>
+      </div>
+
+      <div class="path-outcomes">
+        <h3>✅ What you'll achieve</h3>
+        <div class="outcomes-grid">
+          <div class="outcome-item"><span class="outcome-check" style="color:#ef4444;">✓</span><span class="outcome-text">Structure your business correctly from day one</span></div>
+          <div class="outcome-item"><span class="outcome-check" style="color:#ef4444;">✓</span><span class="outcome-text">Expand into international markets profitably</span></div>
+          <div class="outcome-item"><span class="outcome-check" style="color:#ef4444;">✓</span><span class="outcome-text">Build systems that run without you</span></div>
+          <div class="outcome-item"><span class="outcome-check" style="color:#ef4444;">✓</span><span class="outcome-text">Exit your business at maximum valuation</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /container -->
+</section>
+
+<!-- COMPARE ALL PATHS -->
+<section class="all-paths-compare">
+  <div class="container">
+    <h2>All Learning Paths at a Glance</h2>
+    <div class="compare-grid">
+      <div class="compare-card" onclick="showPath('core')" style="cursor:pointer;">
+        <div class="cc-icon">🏗️</div>
+        <div class="cc-name">Core Curriculum</div>
+        <div class="cc-desc">Everything you need to launch and grow an e-commerce store from scratch. The complete beginner-to-pro journey.</div>
+        <div class="cc-stats">
+          <div><strong>12</strong> Courses</div>
+          <div><strong>60+</strong> Lessons</div>
+          <div><strong>35h+</strong></div>
+        </div>
+        <a href="courses.html?track=core" class="btn btn-primary btn-sm" style="font-size:.85rem;padding:.5rem 1.2rem;">Browse Courses →</a>
+      </div>
+      <div class="compare-card" onclick="showPath('spec')" style="cursor:pointer;">
+        <div class="cc-icon">🎯</div>
+        <div class="cc-name">Specialty Paths</div>
+        <div class="cc-desc">Deep dives into specific business models: dropshipping, FBA, print-on-demand, digital products, and more.</div>
+        <div class="cc-stats">
+          <div><strong>8</strong> Courses</div>
+          <div><strong>40+</strong> Lessons</div>
+          <div><strong>22h+</strong></div>
+        </div>
+        <a href="courses.html?track=spec" class="btn btn-primary btn-sm" style="font-size:.85rem;padding:.5rem 1.2rem;background:linear-gradient(135deg,#10b981,#059669);">Browse Courses →</a>
+      </div>
+      <div class="compare-card" onclick="showPath('mktg')" style="cursor:pointer;">
+        <div class="cc-icon">📣</div>
+        <div class="cc-name">Marketing Deep Dives</div>
+        <div class="cc-desc">Advanced tactics for every channel: Google, TikTok, influencers, email, content, and affiliates.</div>
+        <div class="cc-stats">
+          <div><strong>6</strong> Courses</div>
+          <div><strong>30+</strong> Lessons</div>
+          <div><strong>18h+</strong></div>
+        </div>
+        <a href="courses.html?track=mktg" class="btn btn-primary btn-sm" style="font-size:.85rem;padding:.5rem 1.2rem;background:linear-gradient(135deg,#f59e0b,#d97706);">Browse Courses →</a>
+      </div>
+      <div class="compare-card" onclick="showPath('biz')" style="cursor:pointer;">
+        <div class="cc-icon">🚀</div>
+        <div class="cc-name">Advanced Business</div>
+        <div class="cc-desc">CEO-level skills: legal structures, international expansion, automation, funding, and exit strategies.</div>
+        <div class="cc-stats">
+          <div><strong>6</strong> Courses</div>
+          <div><strong>25+</strong> Lessons</div>
+          <div><strong>16h+</strong></div>
+        </div>
+        <a href="courses.html?track=biz" class="btn btn-primary btn-sm" style="font-size:.85rem;padding:.5rem 1.2rem;background:linear-gradient(135deg,#ef4444,#dc2626);">Browse Courses →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="lp-cta">
+  <div class="container">
+    <h2>Ready to Start Your Journey?</h2>
+    <p>Join 12,400+ students already building their e-commerce business. Pick your path and take the first step today.</p>
+    <div class="btn-row">
+      <a href="auth.html?tab=register" class="btn btn-primary btn-lg">Get Started Free</a>
+      <a href="pricing.html" class="btn btn-outline btn-lg">View Pricing</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer style="background:var(--card);border-top:1px solid var(--border);padding:3rem 0 2rem;">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2rem;margin-bottom:2rem;">
+      <div>
+        <a href="index.html" class="nav-logo" style="display:flex;align-items:center;gap:.65rem;text-decoration:none;margin-bottom:1rem;">
+          <img src="logo-icon.svg" alt="STATIC Academy" style="width:38px;height:38px;flex-shrink:0;">
+          <div style="display:flex;flex-direction:column;line-height:1.1;">
+            <span style="font-size:.95rem;font-weight:800;letter-spacing:.06em;color:#e8ecff;">STATIC</span>
+            <span style="font-size:.52rem;font-weight:500;letter-spacing:.22em;color:rgba(232,236,255,.38);text-transform:uppercase;">Academy</span>
+          </div>
+        </a>
+        <p style="color:var(--text-muted);font-size:.9rem;line-height:1.6;max-width:260px;">The most comprehensive e-commerce training platform. From beginner to expert.</p>
+      </div>
+      <div>
+        <p style="font-weight:700;margin-bottom:1rem;">Platform</p>
+        <div style="display:flex;flex-direction:column;gap:.6rem;">
+          <a href="courses.html" style="color:var(--text-muted);font-size:.9rem;text-decoration:none;">Courses</a>
+          <a href="learning-paths.html" style="color:var(--text-muted);font-size:.9rem;text-decoration:none;">Learning Paths</a>
+          <a href="pricing.html" style="color:var(--text-muted);font-size:.9rem;text-decoration:none;">Pricing</a>
+        </div>
+      </div>
+      <div>
+        <p style="font-weight:700;margin-bottom:1rem;">Account</p>
+        <div style="display:flex;flex-direction:column;gap:.6rem;">
+          <a href="auth.html" style="color:var(--text-muted);font-size:.9rem;text-decoration:none;">Login</a>
+          <a href="auth.html?tab=register" style="color:var(--text-muted);font-size:.9rem;text-decoration:none;">Register</a>
+          <a href="dashboard.html" style="color:var(--text-muted);font-size:.9rem;text-decoration:none;">Dashboard</a>
+        </div>
+      </div>
+      <div>
+        <p style="font-weight:700;margin-bottom:1rem;">Support</p>
+        <div style="display:flex;flex-direction:column;gap:.6rem;">
+          <a href="report.html" style="color:var(--text-muted);font-size:.9rem;text-decoration:none;">Signaler un problème</a>
+          <a href="subscription.html" style="color:var(--text-muted);font-size:.9rem;text-decoration:none;">Mon abonnement</a>
+          <a href="legal.html" style="color:var(--text-muted);font-size:.9rem;text-decoration:none;">Mentions légales</a>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid var(--border);padding-top:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
+      <p style="color:var(--text-muted);font-size:.85rem;">© 2026 STATIC Academy. Tous droits réservés.</p>
+      <div style="display:flex;gap:1.5rem;">
+        <a href="confidentialite.html" style="color:var(--text-muted);font-size:.85rem;text-decoration:none;">Confidentialité</a>
+        <a href="risques.html" style="color:var(--text-muted);font-size:.85rem;text-decoration:none;">Risques</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Mobile Nav -->
+<div class="mobile-nav" id="mobileNav">
+  <ul class="mobile-nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="courses.html">Courses</a></li>
+    <li><a href="learning-paths.html">Learning Paths</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a href="dashboard.html">Dashboard</a></li>
+  </ul>
+  <div class="mobile-nav-divider"></div>
+  <div class="mobile-nav-ctas">
+    <a href="auth.html" class="btn btn-outline" style="justify-content:center;text-align:center">Sign In</a>
+    <a href="auth.html?tab=register" class="btn btn-primary" style="justify-content:center;text-align:center">Start for Free →</a>
+  </div>
+</div>
+
+<script src="app.js"></script>
+<script>
+  // ── Path switching ──
+  const PATHS = ['core', 'spec', 'mktg', 'biz'];
+  const TRACK_MAP = { core: 'track-core', spec: 'track-spec', mktg: 'track-mktg', biz: 'track-biz' };
+
+  function showPath(id) {
+    // Overview card active state
+    PATHS.forEach(p => {
+      const card = document.querySelector(`.${TRACK_MAP[p]}`);
+      if (card) card.classList.toggle('active', p === id);
+    });
+    // Detail panels
+    PATHS.forEach(p => {
+      const panel = document.getElementById('path-' + p);
+      if (panel) panel.classList.toggle('visible', p === id);
+    });
+    // Scroll to detail
+    const target = document.getElementById('path-' + id);
+    if (target) {
+      setTimeout(() => {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 50);
+    }
+  }
+
+  // Support URL params like ?track=spec
+  document.addEventListener('DOMContentLoaded', () => {
+    App._initNav();
+    App._initLangSwitcher();
+    const params = new URLSearchParams(location.search);
+    const track = params.get('track');
+    if (track && PATHS.includes(track)) showPath(track);
+  });
+</script>
+<script src="session-sync.js"></script>
+</body>
+</html>

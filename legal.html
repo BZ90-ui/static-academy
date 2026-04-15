@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentions Légales — STATIC Academy</title>
+    <meta name="description" content="Mentions légales et conditions générales de STATIC Academy.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #080810;
+            color: #EEF0FF;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+        }
+
+        /* Top Navigation Bar */
+        .top-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background-color: rgba(8, 8, 16, 0.95);
+            border-bottom: 1px solid rgba(92, 110, 232, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .top-nav-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .top-nav-left a {
+            color: #5C6EE8;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .top-nav-left a:hover {
+            color: #EEF0FF;
+        }
+
+        .language-toggle {
+            display: flex;
+            gap: 10px;
+            background-color: rgba(92, 110, 232, 0.1);
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid rgba(92, 110, 232, 0.3);
+        }
+
+        .language-toggle button {
+            background: none;
+            border: none;
+            color: #EEF0FF;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 0 8px;
+        }
+
+        .language-toggle button.active {
+            color: #5C6EE8;
+        }
+
+        .language-toggle button:hover {
+            color: #5C6EE8;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 60px;
+            width: 250px;
+            height: calc(100vh - 60px);
+            background-color: rgba(8, 8, 16, 0.8);
+            border-right: 1px solid rgba(92, 110, 232, 0.2);
+            padding: 30px 0;
+            overflow-y: auto;
+            z-index: 999;
+        }
+
+        .sidebar h3 {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #5C6EE8;
+            padding: 0 20px 15px;
+            font-weight: 600;
+        }
+
+        .sidebar ul {
+            list-style: none;
+        }
+
+        .sidebar li {
+            margin: 0;
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 12px 20px;
+            color: #EEF0FF;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
+        }
+
+        .sidebar a:hover {
+            background-color: rgba(92, 110, 232, 0.1);
+            border-left-color: #5C6EE8;
+            color: #5C6EE8;
+        }
+
+        .sidebar a.active {
+            background-color: rgba(92, 110, 232, 0.15);
+            border-left-color: #5C6EE8;
+            color: #5C6EE8;
+            font-weight: 500;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 250px;
+            margin-top: 60px;
+            padding: 60px 80px;
+            max-width: 1000px;
+        }
+
+        .legal-section {
+            margin-bottom: 60px;
+            display: none;
+        }
+
+        .legal-section.active {
+            display: block;
+        }
+
+        .legal-section h2 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            color: #EEF0FF;
+        }
+
+        .legal-section .section-subtitle {
+            font-size: 14px;
+            color: #5C6EE8;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .legal-section {
+            padding-left: 30px;
+            border-left: 4px solid #5C6EE8;
+            padding-bottom: 40px;
+        }
+
+        .legal-section h3 {
+            font-size: 20px;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            color: #EEF0FF;
+        }
+
+        .legal-section h4 {
+            font-size: 16px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            color: #EEF0FF;
+            font-weight: 600;
+        }
+
+        .legal-section p {
+            margin-bottom: 15px;
+            color: #EEF0FF;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .legal-section ul, .legal-section ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .legal-section li {
+            margin-bottom: 8px;
+            color: #EEF0FF;
+            font-size: 15px;
+        }
+
+        .legal-section strong {
+            color: #5C6EE8;
+        }
+
+        .highlight-box {
+            background-color: rgba(92, 110, 232, 0.1);
+            border: 1px solid rgba(92, 110, 232, 0.3);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            color: #EEF0FF;
+        }
+
+        .highlight-box.warning {
+            background-color: rgba(255, 71, 87, 0.1);
+            border-color: rgba(255, 71, 87, 0.3);
+        }
+
+        .last-updated {
+            color: #5C6EE8;
+            font-size: 13px;
+            margin-bottom: 40px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 200px;
+            }
+
+            .main-content {
+                margin-left: 200px;
+                padding: 40px 30px;
+            }
+
+            .legal-section h2 {
+                font-size: 24px;
+            }
+
+            .top-nav {
+                flex-wrap: wrap;
+                height: auto;
+                padding: 10px 15px;
+            }
+
+            .top-nav-left {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+            .language-toggle {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .sidebar {
+                top: auto;
+                bottom: 0;
+                width: 100%;
+                height: auto;
+                border-right: none;
+                border-top: 1px solid rgba(92, 110, 232, 0.2);
+                padding: 20px;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+
+            .main-content {
+                margin-left: 0;
+                margin-top: 120px;
+                margin-bottom: 200px;
+            }
+        }
+
+        /* Scrollbar styling */
+        .sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .sidebar::-webkit-scrollbar-track {
+            background: rgba(92, 110, 232, 0.05);
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: rgba(92, 110, 232, 0.3);
+            border-radius: 3px;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb:hover {
+            background: rgba(92, 110, 232, 0.5);
+        }
+    </style>
+    <link rel="icon" href="logo-icon.svg" type="image/svg+xml">
+    <meta name="theme-color" content="#07080f">
+</head>
+<body>
+    <!-- Top Navigation -->
+    <div class="top-nav">
+        <div class="top-nav-left">
+            <a href="index.html" style="display:flex;align-items:center;gap:.6rem;text-decoration:none;color:inherit;">
+              <img src="logo-icon.svg" alt="STATIC Academy" style="width:34px;height:34px;flex-shrink:0;">
+              <div style="display:flex;flex-direction:column;line-height:1.1;">
+                <span style="font-size:.88rem;font-weight:800;letter-spacing:.06em;color:#e8ecff;">STATIC</span>
+                <span style="font-size:.48rem;font-weight:500;letter-spacing:.2em;color:rgba(232,236,255,.35);text-transform:uppercase;">Academy</span>
+              </div>
+            </a>
+            <button onclick="window.history.length>1?window.history.back():window.location.href='index.html'" id="legalBackBtn" style="margin-left:.75rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:7px;padding:.35rem .8rem;color:rgba(232,236,255,.5);font-size:.78rem;cursor:pointer;display:flex;align-items:center;gap:.3rem;font-family:inherit;" onmouseover="this.style.color='#e8ecff';this.style.borderColor='rgba(91,108,245,.5)'" onmouseout="this.style.color='rgba(232,236,255,.5)';this.style.borderColor='rgba(255,255,255,.1)'">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+              <span id="legalBackLabel">Retour</span>
+            </button>
+        </div>
+        <div class="language-toggle">
+            <button class="lang-btn active" data-lang="en">English</button>
+            <button class="lang-btn" data-lang="fr">Français</button>
+        </div>
+    </div>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <h3 data-lang-key="sections">Sections</h3>
+        <ul>
+            <li><a href="#" data-section="terms" class="nav-link active">Terms of Service</a></li>
+            <li><a href="#" data-section="privacy" class="nav-link">Privacy Policy</a></li>
+            <li><a href="#" data-section="risk" class="nav-link">Risk Disclaimer</a></li>
+            <li><a href="#" data-section="liability" class="nav-link">Liability Limitation</a></li>
+            <li><a href="#" data-section="ip" class="nav-link">Intellectual Property</a></li>
+            <li><a href="#" data-section="cookies" class="nav-link">Cookie Policy</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="last-updated" data-lang-key="last-updated">Last updated: March 2026</div>
+
+        <!-- TERMS OF SERVICE -->
+        <section class="legal-section active" id="terms">
+            <h2 data-lang-key="tos-title">Terms of Service</h2>
+            <div class="section-subtitle" data-lang-key="tos-subtitle">Conditions Générales de Vente (CGV)</div>
+
+            <h3 data-lang-key="tos-acceptance">1. Acceptance of Terms</h3>
+            <p data-lang-key="tos-acceptance-text">By accessing and using STATIC Academy, you agree to be bound by these Terms of Service. If you do not agree with any part of these terms, you must not use our platform. STATIC Academy reserves the right to modify these terms at any time. Continued use of the platform following modifications constitutes your acceptance of the updated terms.</p>
+
+            <h3 data-lang-key="tos-course">2. Course Description and Access Rights</h3>
+            <p data-lang-key="tos-course-text">STATIC Academy provides online educational content related to e-commerce and financial trading. Upon purchase, you receive a personal, non-transferable license to access the course materials for your own educational purposes. Access is provided through our online platform and remains valid for the duration specified at the time of purchase. You may not share your login credentials with third parties, and you are solely responsible for maintaining the confidentiality of your account.</p>
+
+            <h3 data-lang-key="tos-payment">3. Payment and One-Time Purchase</h3>
+            <p data-lang-key="tos-payment-text">All courses are sold as one-time purchases. STATIC Academy does not operate on a subscription basis. Payment is processed securely through Stripe, a third-party payment processor. By completing a purchase, you authorize Stripe to charge your payment method. All prices are listed in the currency selected at checkout and are subject to applicable taxes.</p>
+
+            <h3 data-lang-key="tos-refund">4. No Refund Policy</h3>
+            <p data-lang-key="tos-refund-text">As digital educational content is delivered immediately upon purchase and cannot be "un-purchased," STATIC Academy operates under a strict no-refund policy. This applies regardless of whether the customer accesses the course materials. Since digital content is non-returnable by nature, no refunds will be issued for purchases of course materials. If you have technical issues accessing your purchased content, our support team will work to resolve them at no additional cost.</p>
+
+            <h3 data-lang-key="tos-ip">5. Intellectual Property Rights</h3>
+            <p data-lang-key="tos-ip-text">All course content, including but not limited to videos, slides, documents, graphics, and text, is the exclusive intellectual property of STATIC Academy. You are granted a personal, non-exclusive, non-transferable license to access and use this content for your own educational purposes only. You may not:</p>
+            <ul>
+                <li data-lang-key="tos-ip-1">Reproduce, distribute, or transmit the content to third parties</li>
+                <li data-lang-key="tos-ip-2">Create derivative works based on the course materials</li>
+                <li data-lang-key="tos-ip-3">Sell, rent, or lease access to the content</li>
+                <li data-lang-key="tos-ip-4">Use the content for commercial purposes without explicit written permission</li>
+                <li data-lang-key="tos-ip-5">Remove or alter any copyright, trademark, or other proprietary notices</li>
+            </ul>
+
+            <h3 data-lang-key="tos-prohibited">6. Prohibited Uses</h3>
+            <p data-lang-key="tos-prohibited-text">You agree not to use STATIC Academy for any unlawful purpose or in any way that could damage, disable, or impair the platform. Prohibited activities include but are not limited to:</p>
+            <ul>
+                <li data-lang-key="tos-prohibited-1">Hacking, unauthorized access, or security breaches</li>
+                <li data-lang-key="tos-prohibited-2">Distributing malware or viruses</li>
+                <li data-lang-key="tos-prohibited-3">Harassment, threats, or abusive behavior toward other users or staff</li>
+                <li data-lang-key="tos-prohibited-4">Unauthorized recording or screenshotting of course content</li>
+                <li data-lang-key="tos-prohibited-5">Reselling or sharing access credentials</li>
+                <li data-lang-key="tos-prohibited-6">Violating any applicable laws or regulations</li>
+            </ul>
+
+            <h3 data-lang-key="tos-account">7. Account Responsibility</h3>
+            <p data-lang-key="tos-account-text">You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account. You agree to notify STATIC Academy immediately of any unauthorized access or use of your account. STATIC Academy is not liable for any loss or damage arising from your failure to protect your account information.</p>
+
+            <h3 data-lang-key="tos-law">8. Governing Law and Jurisdiction</h3>
+            <p data-lang-key="tos-law-text">These Terms of Service are governed by the laws of France, without regard to its conflict of law provisions. Any legal action or proceeding related to these terms shall be brought exclusively in the competent courts of France. You consent to the jurisdiction and venue of such courts and waive any objections to jurisdiction or venue.</p>
+        </section>
+
+        <!-- PRIVACY POLICY -->
+        <section class="legal-section" id="privacy">
+            <h2 data-lang-key="privacy-title">Privacy Policy</h2>
+            <div class="section-subtitle" data-lang-key="privacy-subtitle">Politique de Confidentialité</div>
+
+            <h3 data-lang-key="privacy-controller">1. Data Controller</h3>
+            <p data-lang-key="privacy-controller-text">STATIC Academy is the data controller responsible for the processing of your personal information. For privacy-related inquiries, please contact us at legal@static-academy.fr.</p>
+
+            <h3 data-lang-key="privacy-collected">2. Data Collection</h3>
+            <p data-lang-key="privacy-collected-text">We collect the following information when you create an account and make a purchase:</p>
+            <ul>
+                <li data-lang-key="privacy-collected-1"><strong>Contact Information:</strong> Name, email address, and phone number</li>
+                <li data-lang-key="privacy-collected-2"><strong>Payment Information:</strong> Payment method details are processed by Stripe and are NOT stored on our servers. STATIC Academy never has access to full credit card numbers.</li>
+                <li data-lang-key="privacy-collected-3"><strong>Account Information:</strong> Username, password (encrypted), and account preferences</li>
+                <li data-lang-key="privacy-collected-4"><strong>Usage Data:</strong> Course progress, completion status, and access logs for support purposes</li>
+            </ul>
+
+            <h3 data-lang-key="privacy-purpose">3. Purpose of Data Processing</h3>
+            <p data-lang-key="privacy-purpose-text">Your personal data is processed for the following purposes:</p>
+            <ul>
+                <li data-lang-key="privacy-purpose-1">Providing and managing access to purchased courses</li>
+                <li data-lang-key="privacy-purpose-2">Processing payments and managing transactions</li>
+                <li data-lang-key="privacy-purpose-3">Communicating course updates, technical notifications, and important account information</li>
+                <li data-lang-key="privacy-purpose-4">Customer support and technical assistance</li>
+                <li data-lang-key="privacy-purpose-5">Compliance with legal obligations</li>
+                <li data-lang-key="privacy-purpose-6">Platform security and fraud prevention</li>
+            </ul>
+
+            <h3 data-lang-key="privacy-retention">4. Data Retention</h3>
+            <p data-lang-key="privacy-retention-text">STATIC Academy retains your personal data for the duration of your account and for a period of three (3) years following account termination, in accordance with French law and accounting requirements. After this period, your data will be securely deleted unless we are required by law to retain it longer.</p>
+
+            <h3 data-lang-key="privacy-rights">5. Your Rights (GDPR/RGPD)</h3>
+            <p data-lang-key="privacy-rights-text">Under the General Data Protection Regulation (GDPR) and French data protection laws, you have the following rights:</p>
+            <ul>
+                <li data-lang-key="privacy-rights-1"><strong>Right to Access:</strong> You can request a copy of all personal data we hold about you.</li>
+                <li data-lang-key="privacy-rights-2"><strong>Right to Rectification:</strong> You can request correction of inaccurate or incomplete information.</li>
+                <li data-lang-key="privacy-rights-3"><strong>Right to Erasure:</strong> You can request deletion of your data, subject to legal retention requirements.</li>
+                <li data-lang-key="privacy-rights-4"><strong>Right to Restrict Processing:</strong> You can request limitation of how your data is used.</li>
+                <li data-lang-key="privacy-rights-5"><strong>Right to Data Portability:</strong> You can receive your data in a structured, machine-readable format.</li>
+                <li data-lang-key="privacy-rights-6"><strong>Right to Object:</strong> You can object to certain processing activities.</li>
+            </ul>
+            <p data-lang-key="privacy-rights-exercise">To exercise any of these rights, please contact us at legal@static-academy.fr with your request and proof of identity. We will respond within 30 days.</p>
+
+            <h3 data-lang-key="privacy-third-party">6. No Third-Party Data Sales</h3>
+            <p data-lang-key="privacy-third-party-text">STATIC Academy does NOT sell, rent, or lease your personal information to third parties. We do not share your data with marketing firms, data brokers, or other commercial entities. Your information is used solely for the purposes stated in this policy and to provide you with access to our courses and services.</p>
+
+            <h3 data-lang-key="privacy-cookies">7. Cookies and Tracking</h3>
+            <p data-lang-key="privacy-cookies-text">STATIC Academy uses only essential session cookies necessary for the platform to function properly. These cookies:</p>
+            <ul>
+                <li data-lang-key="privacy-cookies-1">Maintain your login session</li>
+                <li data-lang-key="privacy-cookies-2">Remember your language preference</li>
+                <li data-lang-key="privacy-cookies-3">Protect against security threats</li>
+            </ul>
+            <p data-lang-key="privacy-cookies-no">We do NOT use tracking cookies, analytics cookies, or advertising cookies. You can disable cookies through your browser settings, though this may affect platform functionality. We do not use Google Analytics, Facebook Pixel, or any third-party tracking systems.</p>
+
+            <h3 data-lang-key="privacy-security">8. Data Security</h3>
+            <p data-lang-key="privacy-security-text">STATIC Academy implements industry-standard security measures to protect your personal data, including encryption, secure servers, and access controls. However, no transmission over the internet is completely secure. While we strive to protect your information, we cannot guarantee absolute security.</p>
+
+            <h3 data-lang-key="privacy-contact">9. Contact Us</h3>
+            <p data-lang-key="privacy-contact-text">For any privacy concerns or inquiries, please contact us at:</p>
+            <p><strong>Email:</strong> legal@static-academy.fr</p>
+        </section>
+
+        <!-- RISK DISCLAIMER -->
+        <section class="legal-section" id="risk">
+            <h2 data-lang-key="risk-title">Risk Disclaimer</h2>
+            <div class="section-subtitle" data-lang-key="risk-subtitle">Avertissement sur les Risques</div>
+
+            <div class="highlight-box warning">
+                <p data-lang-key="risk-warning-bold"><strong>IMPORTANT WARNING:</strong> Financial and trading activities involve significant risk of loss. The educational content provided by STATIC Academy is for informational purposes only and should not be construed as financial advice or a recommendation to engage in any particular investment strategy.</p>
+            </div>
+
+            <h3 data-lang-key="risk-high">1. High-Risk Activity</h3>
+            <p data-lang-key="risk-high-text">Trading in financial instruments, including stocks, forex, cryptocurrencies, and derivatives, carries substantial risk of capital loss. Many traders, particularly beginners, lose money. You should only trade with capital you can afford to lose completely. Past performance does not guarantee future results.</p>
+
+            <h3 data-lang-key="risk-performance">2. Past Performance</h3>
+            <p data-lang-key="risk-performance-text">Any historical performance data, case studies, or examples presented in STATIC Academy courses are for educational illustration only. They do not represent typical results and should not be relied upon as an indicator of future performance. Market conditions change, and strategies that worked in the past may not work in the future.</p>
+
+            <h3 data-lang-key="risk-not-advice">3. Educational Content - Not Financial Advice</h3>
+            <p data-lang-key="risk-not-advice-text">STATIC Academy provides educational content about e-commerce and trading strategies. This content is NOT financial advice, investment advice, or a recommendation to buy, sell, or hold any particular financial instrument. The instructors and STATIC Academy are not licensed financial advisors. Any trading or investment decisions are your sole responsibility, and you should consult with a qualified financial professional before making any investment.</p>
+
+            <h3 data-lang-key="risk-capital">4. Capital at Risk</h3>
+            <p data-lang-key="risk-capital-text">When trading, your capital is at risk. You could lose some or all of your invested capital. Do not invest money you cannot afford to lose. Leverage and margin trading amplify both gains and losses, increasing the risk of losing more than your initial investment.</p>
+
+            <h3 data-lang-key="risk-derivatives">5. Derivatives and Leverage Risk</h3>
+            <p data-lang-key="risk-derivatives-text">Derivatives (futures, options, CFDs) and leveraged products are complex instruments that carry substantially higher risk than spot trading. Leverage can result in losses exceeding your original investment. A small adverse price movement can wipe out your entire position. These products are suitable only for experienced traders with substantial risk tolerance.</p>
+
+            <h3 data-lang-key="risk-demo">6. Demo Accounts for Beginners</h3>
+            <p data-lang-key="risk-demo-text">STATIC Academy strongly recommends that beginner traders practice extensively on demo accounts before trading with real capital. Demo accounts allow you to learn without financial risk. Trading with real money introduces psychological factors and real consequences that are absent in demo trading.</p>
+
+            <h3 data-lang-key="risk-advisor">7. Consult a Financial Professional</h3>
+            <p data-lang-key="risk-advisor-text">Before making any investment or trading decisions, consult with a qualified, certified financial advisor or investment professional who understands your financial situation, risk tolerance, and investment objectives. A financial professional can provide personalized advice tailored to your circumstances, whereas STATIC Academy provides general educational information only.</p>
+
+            <h3 data-lang-key="risk-not-regulated">8. Not Regulated as a Financial Advisor</h3>
+            <p data-lang-key="risk-not-regulated-text">STATIC Academy is NOT regulated by the AMF (Autorité des Marchés Financiers) or any other financial regulatory authority. We do not hold a license to provide financial advisory services. Our platform is purely educational. Any regulatory compliance or licensing requirements for financial trading are your responsibility.</p>
+
+            <h3 data-lang-key="risk-volatility">9. Market Volatility and Geopolitical Risk</h3>
+            <p data-lang-key="risk-volatility-text">Financial markets are subject to extreme volatility caused by economic data, geopolitical events, central bank decisions, and unforeseen circumstances. Markets can move rapidly and unpredictably, resulting in significant losses. Flash crashes, trading halts, and liquidity problems can occur without warning.</p>
+
+            <h3 data-lang-key="risk-acknowledgment">10. Acknowledgment</h3>
+            <p data-lang-key="risk-acknowledgment-text">By using STATIC Academy, you acknowledge that you understand the risks involved in trading and investing, that you have read this disclaimer, and that you assume full responsibility for your trading and investment decisions. You agree that STATIC Academy is not liable for any losses you incur.</p>
+        </section>
+
+        <!-- LIABILITY LIMITATION -->
+        <section class="legal-section" id="liability">
+            <h2 data-lang-key="liability-title">Limitation of Liability</h2>
+            <div class="section-subtitle" data-lang-key="liability-subtitle">Limitation de Responsabilité</div>
+
+            <h3 data-lang-key="liability-educational">1. Educational Content Only</h3>
+            <p data-lang-key="liability-educational-text">STATIC Academy provides educational content for informational purposes only. We make no representations or warranties regarding the accuracy, completeness, or usefulness of any information provided. The content is offered "as is" without any guarantees. You rely on this content at your own risk.</p>
+
+            <h3 data-lang-key="liability-no-guarantee">2. No Guarantee of Results</h3>
+            <p data-lang-key="liability-no-guarantee-text">STATIC Academy does NOT guarantee any specific income, profits, or returns from using our courses. No instructor has guaranteed any particular level of success or earnings. Results vary greatly depending on individual skill, market conditions, capital available, and numerous other factors beyond our control. Some users may make no profit or may incur losses.</p>
+
+            <h3 data-lang-key="liability-responsibility">3. User Responsibility</h3>
+            <p data-lang-key="liability-responsibility-text">You assume full responsibility for all trading, business, and investment decisions made based on information from STATIC Academy. You agree to hold STATIC Academy, its owners, instructors, employees, and agents harmless from any claims, damages, or losses arising from your use of our platform or implementation of any strategies learned.</p>
+
+            <h3 data-lang-key="liability-uptime">4. Platform Availability - Best Effort Basis</h3>
+            <p data-lang-key="liability-uptime-text">STATIC Academy operates the platform on a best-effort basis to maintain availability and functionality. However, we do not provide a Service Level Agreement (SLA) or guarantee specific uptime percentages. The platform may be unavailable due to maintenance, updates, technical issues, or circumstances beyond our control. We are not liable for losses or damages resulting from platform downtime or unavailability.</p>
+
+            <h3 data-lang-key="liability-technical">5. Technical Issues</h3>
+            <p data-lang-key="liability-technical-text">While we strive to provide a reliable platform, technical issues, server errors, or connection problems may occur. STATIC Academy is not liable for any damages, lost profits, or lost data resulting from technical problems. It is your responsibility to maintain backups of any important information and to ensure you have reliable internet access.</p>
+
+            <h3 data-lang-key="liability-third-party">6. Third-Party Content and Links</h3>
+            <p data-lang-key="liability-third-party-text">STATIC Academy may reference or link to third-party websites, brokers, or services. We are not responsible for the content, accuracy, or reliability of third-party websites. Your use of third-party services is governed by their terms and policies. STATIC Academy is not liable for any losses or damages resulting from third-party services.</p>
+
+            <h3 data-lang-key="liability-force-majeure">7. Force Majeure</h3>
+            <p data-lang-key="liability-force-majeure-text">STATIC Academy is not liable for any failure to perform its obligations due to events beyond reasonable control, including but not limited to: natural disasters, wars, terrorism, pandemics, government actions, or extreme market conditions. During such events, we will make reasonable efforts to restore service but cannot guarantee continuous operation.</p>
+
+            <h3 data-lang-key="liability-limitation-amount">8. Limitation of Damages</h3>
+            <p data-lang-key="liability-limitation-amount-text">In no event shall STATIC Academy's total liability to you exceed the amount you paid for the course or service in question. This limitation applies to all claims, whether based on contract, tort, or any other legal theory. Some jurisdictions do not allow limitation of liability, so this provision may not apply to you.</p>
+        </section>
+
+        <!-- INTELLECTUAL PROPERTY -->
+        <section class="legal-section" id="ip">
+            <h2 data-lang-key="ip-title">Intellectual Property Rights</h2>
+            <div class="section-subtitle" data-lang-key="ip-subtitle">Propriété Intellectuelle</div>
+
+            <h3 data-lang-key="ip-ownership">1. Ownership of Course Content</h3>
+            <p data-lang-key="ip-ownership-text">All course materials, including but not limited to video content, slides, documents, graphics, text, audio, and any other media, are the exclusive intellectual property of STATIC Academy or its content providers. These materials are protected by copyright, trademark, and other intellectual property laws. No license to any intellectual property is granted except the limited right to use the materials for personal, non-commercial educational purposes.</p>
+
+            <h3 data-lang-key="ip-personal-use">2. Personal Use License</h3>
+            <p data-lang-key="ip-personal-use-text">Upon purchase, you receive a personal, limited, non-exclusive, non-transferable license to view and study the course materials on your own. This license permits you to:</p>
+            <ul>
+                <li data-lang-key="ip-personal-use-1">Access the materials through your personal account</li>
+                <li data-lang-key="ip-personal-use-2">Take personal notes for studying</li>
+                <li data-lang-key="ip-personal-use-3">Review materials multiple times during the access period</li>
+            </ul>
+
+            <h3 data-lang-key="ip-prohibitions">3. Prohibited Uses</h3>
+            <p data-lang-key="ip-prohibitions-text">You may NOT:</p>
+            <ul>
+                <li data-lang-key="ip-prohibitions-1">Share login credentials or grant others access to your account</li>
+                <li data-lang-key="ip-prohibitions-2">Record, screenshot, or download course materials without explicit permission</li>
+                <li data-lang-key="ip-prohibitions-3">Distribute, publish, or upload course materials to any platform (public or private)</li>
+                <li data-lang-key="ip-prohibitions-4">Create derivative works based on the content</li>
+                <li data-lang-key="ip-prohibitions-5">Use the content for commercial purposes or resale</li>
+                <li data-lang-key="ip-prohibitions-6">Transcribe or translate the content without permission</li>
+                <li data-lang-key="ip-prohibitions-7">Use the content in breach of any applicable laws</li>
+            </ul>
+
+            <h3 data-lang-key="ip-copyright">4. Copyright Notices</h3>
+            <p data-lang-key="ip-copyright-text">You agree not to remove, obscure, or alter any copyright, trademark, or proprietary notices displayed in the course materials. These notices serve as proof of intellectual property ownership.</p>
+
+            <h3 data-lang-key="ip-enforcement">5. Enforcement</h3>
+            <p data-lang-key="ip-enforcement-text">STATIC Academy actively monitors for unauthorized use and distribution of course materials. Violations of intellectual property rights may result in:</p>
+            <ul>
+                <li data-lang-key="ip-enforcement-1">Immediate termination of your account and access to all courses</li>
+                <li data-lang-key="ip-enforcement-2">Legal action and claims for damages</li>
+                <li data-lang-key="ip-enforcement-3">Criminal prosecution for serious violations</li>
+            </ul>
+        </section>
+
+        <!-- COOKIE POLICY -->
+        <section class="legal-section" id="cookies">
+            <h2 data-lang-key="cookies-title">Cookie Policy</h2>
+            <div class="section-subtitle" data-lang-key="cookies-subtitle">Politique relative aux Cookies</div>
+
+            <h3 data-lang-key="cookies-definition">1. What Are Cookies?</h3>
+            <p data-lang-key="cookies-definition-text">Cookies are small text files stored on your device by your web browser. They are used to remember information about your visit and preferences. STATIC Academy uses cookies only when necessary for platform functionality.</p>
+
+            <h3 data-lang-key="cookies-types">2. Types of Cookies We Use</h3>
+            <p data-lang-key="cookies-types-text">STATIC Academy uses ONLY essential session cookies:</p>
+            <ul>
+                <li data-lang-key="cookies-types-1"><strong>Session Authentication:</strong> Maintains your login session so you don't have to re-enter credentials on every page</li>
+                <li data-lang-key="cookies-types-2"><strong>Language Preference:</strong> Remembers whether you prefer English or French</li>
+                <li data-lang-key="cookies-types-3"><strong>Security:</strong> Protects against security threats and unauthorized access</li>
+            </ul>
+
+            <h3 data-lang-key="cookies-no-tracking">3. No Tracking or Analytics Cookies</h3>
+            <p data-lang-key="cookies-no-tracking-text">STATIC Academy does NOT use:</p>
+            <ul>
+                <li data-lang-key="cookies-no-tracking-1">Google Analytics or other analytics tracking</li>
+                <li data-lang-key="cookies-no-tracking-2">Advertising or marketing cookies</li>
+                <li data-lang-key="cookies-no-tracking-3">Third-party tracking pixels (Facebook Pixel, etc.)</li>
+                <li data-lang-key="cookies-no-tracking-4">Retargeting or behavioral tracking cookies</li>
+                <li data-lang-key="cookies-no-tracking-5">Any cookies that build profiles of your browsing behavior</li>
+            </ul>
+            <p data-lang-key="cookies-no-tracking-text-2">Your privacy is respected. We do not track your activity across the web or build profiles for advertising purposes.</p>
+
+            <h3 data-lang-key="cookies-control">4. Controlling Cookies</h3>
+            <p data-lang-key="cookies-control-text">You can control cookies through your browser settings:</p>
+            <ul>
+                <li data-lang-key="cookies-control-1"><strong>Disable all cookies:</strong> Most browsers allow you to reject or delete cookies. However, disabling essential cookies may prevent the platform from functioning properly.</li>
+                <li data-lang-key="cookies-control-2"><strong>Clear cookies:</strong> You can clear stored cookies at any time through your browser settings.</li>
+                <li data-lang-key="cookies-control-3"><strong>Private browsing:</strong> Use your browser's private/incognito mode to browse without persistent cookies.</li>
+            </ul>
+            <p data-lang-key="cookies-control-warning">Please note: Disabling essential session cookies may prevent you from logging in and accessing your courses.</p>
+
+            <h3 data-lang-key="cookies-third-party">5. Third-Party Cookies</h3>
+            <p data-lang-key="cookies-third-party-text">STATIC Academy does not intentionally allow third-party cookies. However, if you click external links to third-party websites (such as broker sites), those websites may set their own cookies according to their policies. We are not responsible for third-party cookie practices.</p>
+
+            <h3 data-lang-key="cookies-gdpr">6. GDPR and Cookie Consent</h3>
+            <p data-lang-key="cookies-gdpr-text">Since STATIC Academy uses only essential cookies necessary for platform functionality, explicit consent is not legally required under GDPR. Essential cookies are exempt from consent requirements as they are necessary to provide the requested service. If we introduce non-essential cookies in the future, we will obtain your consent first.</p>
+
+            <h3 data-lang-key="cookies-contact">7. Questions About Cookies</h3>
+            <p data-lang-key="cookies-contact-text">If you have questions about our cookie policy, please contact us at legal@static-academy.fr.</p>
+        </section>
+    </div>
+
+    <script>
+        // Language data
+        const content = {
+            en: {
+                'sections': 'Sections',
+                'last-updated': 'Last updated: March 2026',
+                'tos-title': 'Terms of Service',
+                'tos-subtitle': 'Conditions Générales de Vente (CGV)',
+                'tos-acceptance': '1. Acceptance of Terms',
+                'tos-acceptance-text': 'By accessing and using STATIC Academy, you agree to be bound by these Terms of Service. If you do not agree with any part of these terms, you must not use our platform. STATIC Academy reserves the right to modify these terms at any time. Continued use of the platform following modifications constitutes your acceptance of the updated terms.',
+                'tos-course': '2. Course Description and Access Rights',
+                'tos-course-text': 'STATIC Academy provides online educational content related to e-commerce and financial trading. Upon purchase, you receive a personal, non-transferable license to access the course materials for your own educational purposes. Access is provided through our online platform and remains valid for the duration specified at the time of purchase. You may not share your login credentials with third parties, and you are solely responsible for maintaining the confidentiality of your account.',
+                'tos-payment': '3. Payment and One-Time Purchase',
+                'tos-payment-text': 'All courses are sold as one-time purchases. STATIC Academy does not operate on a subscription basis. Payment is processed securely through Stripe, a third-party payment processor. By completing a purchase, you authorize Stripe to charge your payment method. All prices are listed in the currency selected at checkout and are subject to applicable taxes.',
+                'tos-refund': '4. No Refund Policy',
+                'tos-refund-text': 'As digital educational content is delivered immediately upon purchase and cannot be "un-purchased," STATIC Academy operates under a strict no-refund policy. This applies regardless of whether the customer accesses the course materials. Since digital content is non-returnable by nature, no refunds will be issued for purchases of course materials. If you have technical issues accessing your purchased content, our support team will work to resolve them at no additional cost.',
+                'tos-ip': '5. Intellectual Property Rights',
+                'tos-ip-text': 'All course content, including but not limited to videos, slides, documents, graphics, and text, is the exclusive intellectual property of STATIC Academy. You are granted a personal, non-exclusive, non-transferable license to access and use this content for your own educational purposes only. You may not:',
+                'tos-ip-1': 'Reproduce, distribute, or transmit the content to third parties',
+                'tos-ip-2': 'Create derivative works based on the course materials',
+                'tos-ip-3': 'Sell, rent, or lease access to the content',
+                'tos-ip-4': 'Use the content for commercial purposes without explicit written permission',
+                'tos-ip-5': 'Remove or alter any copyright, trademark, or other proprietary notices',
+                'tos-prohibited': '6. Prohibited Uses',
+                'tos-prohibited-text': 'You agree not to use STATIC Academy for any unlawful purpose or in any way that could damage, disable, or impair the platform. Prohibited activities include but are not limited to:',
+                'tos-prohibited-1': 'Hacking, unauthorized access, or security breaches',
+                'tos-prohibited-2': 'Distributing malware or viruses',
+                'tos-prohibited-3': 'Harassment, threats, or abusive behavior toward other users or staff',
+                'tos-prohibited-4': 'Unauthorized recording or screenshotting of course content',
+                'tos-prohibited-5': 'Reselling or sharing access credentials',
+                'tos-prohibited-6': 'Violating any applicable laws or regulations',
+                'tos-account': '7. Account Responsibility',
+                'tos-account-text': 'You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account. You agree to notify STATIC Academy immediately of any unauthorized access or use of your account. STATIC Academy is not liable for any loss or damage arising from your failure to protect your account information.',
+                'tos-law': '8. Governing Law and Jurisdiction',
+                'tos-law-text': 'These Terms of Service are governed by the laws of France, without regard to its conflict of law provisions. Any legal action or proceeding related to these terms shall be brought exclusively in the competent courts of France. You consent to the jurisdiction and venue of such courts and waive any objections to jurisdiction or venue.',
+                'privacy-title': 'Privacy Policy',
+                'privacy-subtitle': 'Politique de Confidentialité',
+                'privacy-controller': '1. Data Controller',
+                'privacy-controller-text': 'STATIC Academy is the data controller responsible for the processing of your personal information. For privacy-related inquiries, please contact us at legal@static-academy.fr.',
+                'privacy-collected': '2. Data Collection',
+                'privacy-collected-text': 'We collect the following information when you create an account and make a purchase:',
+                'privacy-collected-1': 'Contact Information: Name, email address, and phone number',
+                'privacy-collected-2': 'Payment Information: Payment method details are processed by Stripe and are NOT stored on our servers. STATIC Academy never has access to full credit card numbers.',
+                'privacy-collected-3': 'Account Information: Username, password (encrypted), and account preferences',
+                'privacy-collected-4': 'Usage Data: Course progress, completion status, and access logs for support purposes',
+                'privacy-purpose': '3. Purpose of Data Processing',
+                'privacy-purpose-text': 'Your personal data is processed for the following purposes:',
+                'privacy-purpose-1': 'Providing and managing access to purchased courses',
+                'privacy-purpose-2': 'Processing payments and managing transactions',
+                'privacy-purpose-3': 'Communicating course updates, technical notifications, and important account information',
+                'privacy-purpose-4': 'Customer support and technical assistance',
+                'privacy-purpose-5': 'Compliance with legal obligations',
+                'privacy-purpose-6': 'Platform security and fraud prevention',
+                'privacy-retention': '4. Data Retention',
+                'privacy-retention-text': 'STATIC Academy retains your personal data for the duration of your account and for a period of three (3) years following account termination, in accordance with French law and accounting requirements. After this period, your data will be securely deleted unless we are required by law to retain it longer.',
+                'privacy-rights': '5. Your Rights (GDPR/RGPD)',
+                'privacy-rights-text': 'Under the General Data Protection Regulation (GDPR) and French data protection laws, you have the following rights:',
+                'privacy-rights-1': 'Right to Access: You can request a copy of all personal data we hold about you.',
+                'privacy-rights-2': 'Right to Rectification: You can request correction of inaccurate or incomplete information.',
+                'privacy-rights-3': 'Right to Erasure: You can request deletion of your data, subject to legal retention requirements.',
+                'privacy-rights-4': 'Right to Restrict Processing: You can request limitation of how your data is used.',
+                'privacy-rights-5': 'Right to Data Portability: You can receive your data in a structured, machine-readable format.',
+                'privacy-rights-6': 'Right to Object: You can object to certain processing activities.',
+                'privacy-rights-exercise': 'To exercise any of these rights, please contact us at legal@static-academy.fr with your request and proof of identity. We will respond within 30 days.',
+                'privacy-third-party': '6. No Third-Party Data Sales',
+                'privacy-third-party-text': 'STATIC Academy does NOT sell, rent, or lease your personal information to third parties. We do not share your data with marketing firms, data brokers, or other commercial entities. Your information is used solely for the purposes stated in this policy and to provide you with access to our courses and services.',
+                'privacy-cookies': '7. Cookies and Tracking',
+                'privacy-cookies-text': 'STATIC Academy uses only essential session cookies necessary for the platform to function properly. These cookies:',
+                'privacy-cookies-1': 'Maintain your login session',
+                'privacy-cookies-2': 'Remember your language preference',
+                'privacy-cookies-3': 'Protect against security threats',
+                'privacy-cookies-no': 'We do NOT use tracking cookies, analytics cookies, or advertising cookies. You can disable cookies through your browser settings, though this may affect platform functionality. We do not use Google Analytics, Facebook Pixel, or any third-party tracking systems.',
+                'privacy-security': '8. Data Security',
+                'privacy-security-text': 'STATIC Academy implements industry-standard security measures to protect your personal data, including encryption, secure servers, and access controls. However, no transmission over the internet is completely secure. While we strive to protect your information, we cannot guarantee absolute security.',
+                'privacy-contact': '9. Contact Us',
+                'privacy-contact-text': 'For any privacy concerns or inquiries, please contact us at:',
+                'risk-title': 'Risk Disclaimer',
+                'risk-subtitle': 'Avertissement sur les Risques',
+                'risk-warning-bold': 'IMPORTANT WARNING: Financial and trading activities involve significant risk of loss. The educational content provided by STATIC Academy is for informational purposes only and should not be construed as financial advice or a recommendation to engage in any particular investment strategy.',
+                'risk-high': '1. High-Risk Activity',
+                'risk-high-text': 'Trading in financial instruments, including stocks, forex, cryptocurrencies, and derivatives, carries substantial risk of capital loss. Many traders, particularly beginners, lose money. You should only trade with capital you can afford to lose completely. Past performance does not guarantee future results.',
+                'risk-performance': '2. Past Performance',
+                'risk-performance-text': 'Any historical performance data, case studies, or examples presented in STATIC Academy courses are for educational illustration only. They do not represent typical results and should not be relied upon as an indicator of future performance. Market conditions change, and strategies that worked in the past may not work in the future.',
+                'risk-not-advice': '3. Educational Content - Not Financial Advice',
+                'risk-not-advice-text': 'STATIC Academy provides educational content about e-commerce and trading strategies. This content is NOT financial advice, investment advice, or a recommendation to buy, sell, or hold any particular financial instrument. The instructors and STATIC Academy are not licensed financial advisors. Any trading or investment decisions are your sole responsibility, and you should consult with a qualified financial professional before making any investment.',
+                'risk-capital': '4. Capital at Risk',
+                'risk-capital-text': 'When trading, your capital is at risk. You could lose some or all of your invested capital. Do not invest money you cannot afford to lose. Leverage and margin trading amplify both gains and losses, increasing the risk of losing more than your initial investment.',
+                'risk-derivatives': '5. Derivatives and Leverage Risk',
+                'risk-derivatives-text': 'Derivatives (futures, options, CFDs) and leveraged products are complex instruments that carry substantially higher risk than spot trading. Leverage can result in losses exceeding your original investment. A small adverse price movement can wipe out your entire position. These products are suitable only for experienced traders with substantial risk tolerance.',
+                'risk-demo': '6. Demo Accounts for Beginners',
+                'risk-demo-text': 'STATIC Academy strongly recommends that beginner traders practice extensively on demo accounts before trading with real capital. Demo accounts allow you to learn without financial risk. Trading with real money introduces psychological factors and real consequences that are absent in demo trading.',
+                'risk-advisor': '7. Consult a Financial Professional',
+                'risk-advisor-text': 'Before making any investment or trading decisions, consult with a qualified, certified financial advisor or investment professional who understands your financial situation, risk tolerance, and investment objectives. A financial professional can provide personalized advice tailored to your circumstances, whereas STATIC Academy provides general educational information only.',
+                'risk-not-regulated': '8. Not Regulated as a Financial Advisor',
+                'risk-not-regulated-text': 'STATIC Academy is NOT regulated by the AMF (Autorité des Marchés Financiers) or any other financial regulatory authority. We do not hold a license to provide financial advisory services. Our platform is purely educational. Any regulatory compliance or licensing requirements for financial trading are your responsibility.',
+                'risk-volatility': '9. Market Volatility and Geopolitical Risk',
+                'risk-volatility-text': 'Financial markets are subject to extreme volatility caused by economic data, geopolitical events, central bank decisions, and unforeseen circumstances. Markets can move rapidly and unpredictably, resulting in significant losses. Flash crashes, trading halts, and liquidity problems can occur without warning.',
+                'risk-acknowledgment': '10. Acknowledgment',
+                'risk-acknowledgment-text': 'By using STATIC Academy, you acknowledge that you understand the risks involved in trading and investing, that you have read this disclaimer, and that you assume full responsibility for your trading and investment decisions. You agree that STATIC Academy is not liable for any losses you incur.',
+                'liability-title': 'Limitation of Liability',
+                'liability-subtitle': 'Limitation de Responsabilité',
+                'liability-educational': '1. Educational Content Only',
+                'liability-educational-text': 'STATIC Academy provides educational content for informational purposes only. We make no representations or warranties regarding the accuracy, completeness, or usefulness of any information provided. The content is offered "as is" without any guarantees. You rely on this content at your own risk.',
+                'liability-no-guarantee': '2. No Guarantee of Results',
+                'liability-no-guarantee-text': 'STATIC Academy does NOT guarantee any specific income, profits, or returns from using our courses. No instructor has guaranteed any particular level of success or earnings. Results vary greatly depending on individual skill, market conditions, capital available, and numerous other factors beyond our control. Some users may make no profit or may incur losses.',
+                'liability-responsibility': '3. User Responsibility',
+                'liability-responsibility-text': 'You assume full responsibility for all trading, business, and investment decisions made based on information from STATIC Academy. You agree to hold STATIC Academy, its owners, instructors, employees, and agents harmless from any claims, damages, or losses arising from your use of our platform or implementation of any strategies learned.',
+                'liability-uptime': '4. Platform Availability - Best Effort Basis',
+                'liability-uptime-text': 'STATIC Academy operates the platform on a best-effort basis to maintain availability and functionality. However, we do not provide a Service Level Agreement (SLA) or guarantee specific uptime percentages. The platform may be unavailable due to maintenance, updates, technical issues, or circumstances beyond our control. We are not liable for losses or damages resulting from platform downtime or unavailability.',
+                'liability-technical': '5. Technical Issues',
+                'liability-technical-text': 'While we strive to provide a reliable platform, technical issues, server errors, or connection problems may occur. STATIC Academy is not liable for any damages, lost profits, or lost data resulting from technical problems. It is your responsibility to maintain backups of any important information and to ensure you have reliable internet access.',
+                'liability-third-party': '6. Third-Party Content and Links',
+                'liability-third-party-text': 'STATIC Academy may reference or link to third-party websites, brokers, or services. We are not responsible for the content, accuracy, or reliability of third-party websites. Your use of third-party services is governed by their terms and policies. STATIC Academy is not liable for any losses or damages resulting from third-party services.',
+                'liability-force-majeure': '7. Force Majeure',
+                'liability-force-majeure-text': 'STATIC Academy is not liable for any failure to perform its obligations due to events beyond reasonable control, including but not limited to: natural disasters, wars, terrorism, pandemics, government actions, or extreme market conditions. During such events, we will make reasonable efforts to restore service but cannot guarantee continuous operation.',
+                'liability-limitation-amount': '8. Limitation of Damages',
+                'liability-limitation-amount-text': 'In no event shall STATIC Academy\'s total liability to you exceed the amount you paid for the course or service in question. This limitation applies to all claims, whether based on contract, tort, or any other legal theory. Some jurisdictions do not allow limitation of liability, so this provision may not apply to you.',
+                'ip-title': 'Intellectual Property Rights',
+                'ip-subtitle': 'Propriété Intellectuelle',
+                'ip-ownership': '1. Ownership of Course Content',
+                'ip-ownership-text': 'All course materials, including but not limited to video content, slides, documents, graphics, text, audio, and any other media, are the exclusive intellectual property of STATIC Academy or its content providers. These materials are protected by copyright, trademark, and other intellectual property laws. No license to any intellectual property is granted except the limited right to use the materials for personal, non-commercial educational purposes.',
+                'ip-personal-use': '2. Personal Use License',
+                'ip-personal-use-text': 'Upon purchase, you receive a personal, limited, non-exclusive, non-transferable license to view and study the course materials on your own. This license permits you to:',
+                'ip-personal-use-1': 'Access the materials through your personal account',
+                'ip-personal-use-2': 'Take personal notes for studying',
+                'ip-personal-use-3': 'Review materials multiple times during the access period',
+                'ip-prohibitions': '3. Prohibited Uses',
+                'ip-prohibitions-text': 'You may NOT:',
+                'ip-prohibitions-1': 'Share login credentials or grant others access to your account',
+                'ip-prohibitions-2': 'Record, screenshot, or download course materials without explicit permission',
+                'ip-prohibitions-3': 'Distribute, publish, or upload course materials to any platform (public or private)',
+                'ip-prohibitions-4': 'Create derivative works based on the content',
+                'ip-prohibitions-5': 'Use the content for commercial purposes or resale',
+                'ip-prohibitions-6': 'Transcribe or translate the content without permission',
+                'ip-prohibitions-7': 'Use the content in breach of any applicable laws',
+                'ip-copyright': '4. Copyright Notices',
+                'ip-copyright-text': 'You agree not to remove, obscure, or alter any copyright, trademark, or proprietary notices displayed in the course materials. These notices serve as proof of intellectual property ownership.',
+                'ip-enforcement': '5. Enforcement',
+                'ip-enforcement-text': 'STATIC Academy actively monitors for unauthorized use and distribution of course materials. Violations of intellectual property rights may result in:',
+                'ip-enforcement-1': 'Immediate termination of your account and access to all courses',
+                'ip-enforcement-2': 'Legal action and claims for damages',
+                'ip-enforcement-3': 'Criminal prosecution for serious violations',
+                'cookies-title': 'Cookie Policy',
+                'cookies-subtitle': 'Politique relative aux Cookies',
+                'cookies-definition': '1. What Are Cookies?',
+                'cookies-definition-text': 'Cookies are small text files stored on your device by your web browser. They are used to remember information about your visit and preferences. STATIC Academy uses cookies only when necessary for platform functionality.',
+                'cookies-types': '2. Types of Cookies We Use',
+                'cookies-types-text': 'STATIC Academy uses ONLY essential session cookies:',
+                'cookies-types-1': 'Session Authentication: Maintains your login session so you don\'t have to re-enter credentials on every page',
+                'cookies-types-2': 'Language Preference: Remembers whether you prefer English or French',
+                'cookies-types-3': 'Security: Protects against security threats and unauthorized access',
+                'cookies-no-tracking': '3. No Tracking or Analytics Cookies',
+                'cookies-no-tracking-text': 'STATIC Academy does NOT use:',
+                'cookies-no-tracking-1': 'Google Analytics or other analytics tracking',
+                'cookies-no-tracking-2': 'Advertising or marketing cookies',
+                'cookies-no-tracking-3': 'Third-party tracking pixels (Facebook Pixel, etc.)',
+                'cookies-no-tracking-4': 'Retargeting or behavioral tracking cookies',
+                'cookies-no-tracking-5': 'Any cookies that build profiles of your browsing behavior',
+                'cookies-no-tracking-text-2': 'Your privacy is respected. We do not track your activity across the web or build profiles for advertising purposes.',
+                'cookies-control': '4. Controlling Cookies',
+                'cookies-control-text': 'You can control cookies through your browser settings:',
+                'cookies-control-1': 'Disable all cookies: Most browsers allow you to reject or delete cookies. However, disabling essential cookies may prevent the platform from functioning properly.',
+                'cookies-control-2': 'Clear cookies: You can clear stored cookies at any time through your browser settings.',
+                'cookies-control-3': 'Private browsing: Use your browser\'s private/incognito mode to browse without persistent cookies.',
+                'cookies-control-warning': 'Please note: Disabling essential session cookies may prevent you from logging in and accessing your courses.',
+                'cookies-third-party': '5. Third-Party Cookies',
+                'cookies-third-party-text': 'STATIC Academy does not intentionally allow third-party cookies. However, if you click external links to third-party websites (such as broker sites), those websites may set their own cookies according to their policies. We are not responsible for third-party cookie practices.',
+                'cookies-gdpr': '6. GDPR and Cookie Consent',
+                'cookies-gdpr-text': 'Since STATIC Academy uses only essential cookies necessary for platform functionality, explicit consent is not legally required under GDPR. Essential cookies are exempt from consent requirements as they are necessary to provide the requested service. If we introduce non-essential cookies in the future, we will obtain your consent first.',
+                'cookies-contact': '7. Questions About Cookies',
+                'cookies-contact-text': 'If you have questions about our cookie policy, please contact us at legal@static-academy.fr.'
+            },
+            fr: {
+                'sections': 'Sections',
+                'last-updated': 'Dernière mise à jour : Mars 2026',
+                'tos-title': 'Conditions Générales de Vente',
+                'tos-subtitle': 'Terms of Service',
+                'tos-acceptance': '1. Acceptation des Conditions',
+                'tos-acceptance-text': 'En accédant et en utilisant STATIC Academy, vous acceptez d\'être lié par ces Conditions Générales de Vente. Si vous n\'êtes pas d\'accord avec une partie de ces conditions, vous ne devez pas utiliser notre plateforme. STATIC Academy se réserve le droit de modifier ces conditions à tout moment. L\'utilisation continue de la plateforme après des modifications constitue votre acceptation des conditions mises à jour.',
+                'tos-course': '2. Description des Cours et Droits d\'Accès',
+                'tos-course-text': 'STATIC Academy fournit du contenu éducatif en ligne relatif au commerce électronique et au trading financier. À l\'achat, vous recevez une licence personnelle et non transférable pour accéder aux matériaux du cours à des fins éducatives. L\'accès est fourni par le biais de notre plateforme en ligne et reste valide pour la durée spécifiée au moment de l\'achat. Vous ne pouvez pas partager vos identifiants de connexion avec des tiers, et vous êtes seul responsable de la confidentialité de votre compte.',
+                'tos-payment': '3. Paiement et Achat Unique',
+                'tos-payment-text': 'Tous les cours sont vendus comme des achats uniques. STATIC Academy n\'opère pas sur la base d\'abonnements. Le paiement est traité de manière sécurisée via Stripe, un processeur de paiement tiers. En effectuant un achat, vous autorisez Stripe à débiter votre méthode de paiement. Tous les prix sont indiqués dans la devise sélectionnée au paiement et sont soumis aux taxes applicables.',
+                'tos-refund': '4. Politique de Non-Remboursement',
+                'tos-refund-text': 'Comme le contenu éducatif numérique est livré immédiatement à l\'achat et ne peut pas être « désacheté », STATIC Academy applique une politique stricte de non-remboursement. Ceci s\'applique indépendamment du fait que le client accède aux matériaux du cours. Puisque le contenu numérique est non retournable par nature, aucun remboursement ne sera accordé pour les achats de matériaux de cours. Si vous avez des problèmes techniques pour accéder à votre contenu acheté, notre équipe d\'assistance travaillera à la résolution sans frais supplémentaires.',
+                'tos-ip': '5. Droits de Propriété Intellectuelle',
+                'tos-ip-text': 'Tout le contenu du cours, y compris les vidéos, les diapositives, les documents, les graphiques et le texte, est la propriété intellectuelle exclusive de STATIC Academy. Vous recevez une licence personnelle, non exclusive et non transférable pour accéder et utiliser ce contenu à des fins éducatives personnelles uniquement. Vous ne pouvez pas :',
+                'tos-ip-1': 'Reproduire, distribuer ou transmettre le contenu à des tiers',
+                'tos-ip-2': 'Créer des œuvres dérivées basées sur les matériaux du cours',
+                'tos-ip-3': 'Vendre, louer ou donner en crédit-bail l\'accès au contenu',
+                'tos-ip-4': 'Utiliser le contenu à des fins commerciales sans permission écrite explicite',
+                'tos-ip-5': 'Supprimer ou modifier les notices de droit d\'auteur, de marque ou autres notices propriétaires',
+                'tos-prohibited': '6. Usages Interdits',
+                'tos-prohibited-text': 'Vous acceptez de ne pas utiliser STATIC Academy à des fins illégales ou d\'une manière qui pourrait endommager, désactiver ou nuire à la plateforme. Les activités interdites incluent mais ne se limitent pas à :',
+                'tos-prohibited-1': 'Piratage, accès non autorisé ou violations de sécurité',
+                'tos-prohibited-2': 'Distribution de malwares ou de virus',
+                'tos-prohibited-3': 'Harcèlement, menaces ou comportement abusif envers d\'autres utilisateurs ou le personnel',
+                'tos-prohibited-4': 'Enregistrement ou capture d\'écran non autorisés du contenu du cours',
+                'tos-prohibited-5': 'Revente ou partage des identifiants d\'accès',
+                'tos-prohibited-6': 'Violation de toute loi ou réglementation applicable',
+                'tos-account': '7. Responsabilité du Compte',
+                'tos-account-text': 'Vous êtes responsable du maintien de la confidentialité de vos identifiants de compte et de toutes les activités qui se déroulent sous votre compte. Vous acceptez de notifier STATIC Academy immédiatement de tout accès ou utilisation non autorisé de votre compte. STATIC Academy n\'est pas responsable de toute perte ou dommage résultant de votre défaut de protéger les informations de votre compte.',
+                'tos-law': '8. Droit Applicable et Juridiction',
+                'tos-law-text': 'Ces Conditions Générales de Vente sont régies par les lois de la France, sans égard à ses dispositions sur les conflits de lois. Toute action en justice ou procédure relative à ces conditions sera portée exclusivement devant les tribunaux compétents de France. Vous acceptez la juridiction et la compétence territoriale de ces tribunaux et renoncez à toute objection de juridiction ou de compétence.',
+                'privacy-title': 'Politique de Confidentialité',
+                'privacy-subtitle': 'Privacy Policy',
+                'privacy-controller': '1. Responsable du Traitement des Données',
+                'privacy-controller-text': 'STATIC Academy est le responsable du traitement des données responsable du traitement de vos informations personnelles. Pour les demandes relatives à la confidentialité, veuillez nous contacter à legal@static-academy.fr.',
+                'privacy-collected': '2. Collecte de Données',
+                'privacy-collected-text': 'Nous collectons les informations suivantes lors de la création de votre compte et de votre achat :',
+                'privacy-collected-1': 'Informations de Contact : Nom, adresse e-mail et numéro de téléphone',
+                'privacy-collected-2': 'Informations de Paiement : Les détails de votre méthode de paiement sont traités par Stripe et ne sont PAS stockés sur nos serveurs. STATIC Academy n\'a jamais accès aux numéros de carte de crédit complets.',
+                'privacy-collected-3': 'Informations de Compte : Nom d\'utilisateur, mot de passe (chiffré) et préférences du compte',
+                'privacy-collected-4': 'Données d\'Utilisation : Progression du cours, statut d\'achèvement et journaux d\'accès à des fins d\'assistance',
+                'privacy-purpose': '3. Objectif du Traitement des Données',
+                'privacy-purpose-text': 'Vos données personnelles sont traitées pour les objectifs suivants :',
+                'privacy-purpose-1': 'Fournir et gérer l\'accès aux cours achetés',
+                'privacy-purpose-2': 'Traiter les paiements et gérer les transactions',
+                'privacy-purpose-3': 'Communiquer les mises à jour de cours, les notifications techniques et les informations de compte importantes',
+                'privacy-purpose-4': 'Support client et assistance technique',
+                'privacy-purpose-5': 'Conformité aux obligations légales',
+                'privacy-purpose-6': 'Sécurité de la plateforme et prévention de la fraude',
+                'privacy-retention': '4. Rétention des Données',
+                'privacy-retention-text': 'STATIC Academy conserve vos données personnelles pour la durée de votre compte et pour une période de trois (3) ans suivant la fermeture du compte, conformément à la loi française et aux exigences comptables. Après cette période, vos données seront supprimées de manière sécurisée à moins que nous ne soyons tenus par la loi de les conserver plus longtemps.',
+                'privacy-rights': '5. Vos Droits (RGPD)',
+                'privacy-rights-text': 'Conformément au Règlement Général sur la Protection des Données (RGPD) et aux lois françaises sur la protection des données, vous avez les droits suivants :',
+                'privacy-rights-1': 'Droit d\'Accès : Vous pouvez demander une copie de toutes les données personnelles que nous détenons à votre sujet.',
+                'privacy-rights-2': 'Droit de Rectification : Vous pouvez demander la correction d\'informations inexactes ou incomplètes.',
+                'privacy-rights-3': 'Droit à l\'Oubli : Vous pouvez demander la suppression de vos données, sous réserve des exigences de rétention légale.',
+                'privacy-rights-4': 'Droit de Limiter le Traitement : Vous pouvez demander la limitation de la façon dont vos données sont utilisées.',
+                'privacy-rights-5': 'Droit à la Portabilité des Données : Vous pouvez recevoir vos données dans un format structuré et lisible par machine.',
+                'privacy-rights-6': 'Droit d\'Opposition : Vous pouvez vous opposer à certaines activités de traitement.',
+                'privacy-rights-exercise': 'Pour exercer l\'un de ces droits, veuillez nous contacter à legal@static-academy.fr avec votre demande et une preuve d\'identité. Nous répondrons dans les 30 jours.',
+                'privacy-third-party': '6. Pas de Vente de Données à des Tiers',
+                'privacy-third-party-text': 'STATIC Academy ne vend, ne loue et ne donne pas en crédit-bail vos informations personnelles à des tiers. Nous ne partageons pas vos données avec des sociétés de marketing, des courtiers en données ou d\'autres entités commerciales. Vos informations sont utilisées uniquement pour les objectifs énoncés dans cette politique et pour vous fournir l\'accès à nos cours et services.',
+                'privacy-cookies': '7. Cookies et Suivi',
+                'privacy-cookies-text': 'STATIC Academy utilise uniquement les cookies de session essentiels nécessaires au bon fonctionnement de la plateforme. Ces cookies :',
+                'privacy-cookies-1': 'Maintiennent votre session de connexion',
+                'privacy-cookies-2': 'Mémorisent votre préférence de langue',
+                'privacy-cookies-3': 'Protègent contre les menaces de sécurité',
+                'privacy-cookies-no': 'Nous n\'utilisons PAS de cookies de suivi, de cookies d\'analyse ou de cookies publicitaires. Vous pouvez désactiver les cookies via les paramètres de votre navigateur, bien que cela puisse affecter les fonctionnalités de la plateforme. Nous n\'utilisons pas Google Analytics, Facebook Pixel ou tout autre système de suivi tiers.',
+                'privacy-security': '8. Sécurité des Données',
+                'privacy-security-text': 'STATIC Academy met en œuvre des mesures de sécurité conformes aux normes de l\'industrie pour protéger vos données personnelles, y compris le chiffrement, les serveurs sécurisés et les contrôles d\'accès. Cependant, aucune transmission sur Internet n\'est complètement sécurisée. Bien que nous nous efforcions de protéger vos informations, nous ne pouvons pas garantir une sécurité absolue.',
+                'privacy-contact': '9. Nous Contacter',
+                'privacy-contact-text': 'Pour toute question ou préoccupation relative à la confidentialité, veuillez nous contacter à :',
+                'risk-title': 'Avertissement sur les Risques',
+                'risk-subtitle': 'Risk Disclaimer',
+                'risk-warning-bold': 'AVERTISSEMENT IMPORTANT : Les activités financières et de trading impliquent un risque important de perte. Le contenu éducatif fourni par STATIC Academy est à titre informatif uniquement et ne doit pas être interprété comme des conseils financiers ou une recommandation d\'adopter une stratégie d\'investissement particulière.',
+                'risk-high': '1. Activité à Haut Risque',
+                'risk-high-text': 'Le trading d\'instruments financiers, y compris les actions, le forex, les crypto-monnaies et les produits dérivés, entraîne un risque substantiel de perte de capital. De nombreux traders, en particulier les débutants, perdent de l\'argent. Vous ne devriez trader que avec du capital que vous pouvez vous permettre de perdre complètement. Les performances passées ne garantissent pas les résultats futurs.',
+                'risk-performance': '2. Performances Passées',
+                'risk-performance-text': 'Toutes les données de performances historiques, études de cas ou exemples présentés dans les cours de STATIC Academy sont à titre d\'illustration éducative uniquement. Ils ne représentent pas les résultats typiques et ne doivent pas être utilisés comme indicateur des performances futures. Les conditions du marché changent, et les stratégies qui ont fonctionné dans le passé peuvent ne pas fonctionner à l\'avenir.',
+                'risk-not-advice': '3. Contenu Éducatif - Pas des Conseils Financiers',
+                'risk-not-advice-text': 'STATIC Academy fournit un contenu éducatif sur le commerce électronique et les stratégies de trading. Ce contenu n\'est PAS des conseils financiers, des conseils d\'investissement ou une recommandation d\'acheter, vendre ou détenir un instrument financier particulier. Les instructeurs et STATIC Academy ne sont pas des conseillers financiers agréés. Toute décision de trading ou d\'investissement est votre seule responsabilité, et vous devriez consulter un professionnel financier qualifié avant de faire tout investissement.',
+                'risk-capital': '4. Capital à Risque',
+                'risk-capital-text': 'Lors du trading, votre capital est à risque. Vous pourriez perdre tout ou partie de votre capital investi. N\'investissez pas de l\'argent que vous ne pouvez pas vous permettre de perdre. Le trading avec effet de levier et sur marge amplifie les gains et les pertes, augmentant le risque de perdre plus que votre investissement initial.',
+                'risk-derivatives': '5. Risque des Produits Dérivés et de l\'Effet de Levier',
+                'risk-derivatives-text': 'Les produits dérivés (contrats à terme, options, CFD) et les produits à effet de levier sont des instruments complexes qui comportent un risque substantiellement plus élevé que le trading au comptant. L\'effet de levier peut entraîner des pertes dépassant votre investissement initial. Un petit mouvement de prix défavorable peut anéantir votre position entière. Ces produits conviennent uniquement aux traders expérimentés ayant une tolérance au risque substantielle.',
+                'risk-demo': '6. Comptes de Démonstration pour les Débutants',
+                'risk-demo-text': 'STATIC Academy recommande vivement aux traders débutants de pratiquer extensivement sur des comptes de démonstration avant de trader avec un capital réel. Les comptes de démonstration vous permettent d\'apprendre sans risque financier. Le trading avec de l\'argent réel introduit des facteurs psychologiques et des conséquences réelles absents du trading en démonstration.',
+                'risk-advisor': '7. Consultez un Professionnel Financier',
+                'risk-advisor-text': 'Avant de prendre toute décision d\'investissement ou de trading, consultez un conseiller financier qualifié et agréé ou un professionnel de l\'investissement qui comprend votre situation financière, votre tolérance au risque et vos objectifs d\'investissement. Un professionnel financier peut fournir des conseils personnalisés adaptés à vos circonstances, alors que STATIC Academy fournit uniquement des informations éducatives générales.',
+                'risk-not-regulated': '8. Non Régulé en tant que Conseiller Financier',
+                'risk-not-regulated-text': 'STATIC Academy n\'est PAS réglementé par l\'AMF (Autorité des Marchés Financiers) ou toute autre autorité de régulation financière. Nous ne détenons pas de licence pour fournir des services de conseil financier. Notre plateforme est purement éducative. Tous les exigences de conformité réglementaire ou de délivrance de licences pour le trading financier sont votre responsabilité.',
+                'risk-volatility': '9. Volatilité des Marchés et Risque Géopolitique',
+                'risk-volatility-text': 'Les marchés financiers sont soumis à une extrême volatilité causée par les données économiques, les événements géopolitiques, les décisions des banques centrales et les circonstances imprévues. Les marchés peuvent se déplacer rapidement et de manière imprévisible, entraînant des pertes importantes. Les krachs éclair, les arrêts de trading et les problèmes de liquidité peuvent survenir sans avertissement.',
+                'risk-acknowledgment': '10. Reconnaissance',
+                'risk-acknowledgment-text': 'En utilisant STATIC Academy, vous reconnaissez que vous comprenez les risques impliqués dans le trading et l\'investissement, que vous avez lu cet avertissement, et que vous acceptez l\'entière responsabilité de vos décisions de trading et d\'investissement. Vous acceptez que STATIC Academy ne soit pas responsable de toute perte que vous subiriez.',
+                'liability-title': 'Limitation de Responsabilité',
+                'liability-subtitle': 'Limitation of Liability',
+                'liability-educational': '1. Contenu Éducatif Uniquement',
+                'liability-educational-text': 'STATIC Academy fournit un contenu éducatif à titre informatif uniquement. Nous ne faisons aucune représentation ou garantie concernant l\'exactitude, l\'exhaustivité ou l\'utilité de toute information fournie. Le contenu est offert « tel quel » sans aucune garantie. Vous utilisez ce contenu à vos risques et périls.',
+                'liability-no-guarantee': '2. Pas de Garantie de Résultats',
+                'liability-no-guarantee-text': 'STATIC Academy ne garantit PAS de revenu, profit ou retour spécifique de l\'utilisation de nos cours. Aucun instructeur n\'a garanti un niveau particulier de succès ou de revenus. Les résultats varient considérablement en fonction des compétences individuelles, des conditions du marché, du capital disponible et de nombreux autres facteurs hors de notre contrôle. Certains utilisateurs peuvent ne faire aucun profit ou peuvent subir des pertes.',
+                'liability-responsibility': '3. Responsabilité de l\'Utilisateur',
+                'liability-responsibility-text': 'Vous acceptez l\'entière responsabilité de toutes les décisions de trading, commerciales et d\'investissement prises en fonction des informations de STATIC Academy. Vous acceptez de dégager STATIC Academy, ses propriétaires, instructeurs, employés et agents de toute responsabilité pour toute réclamation, dommage ou perte découlant de votre utilisation de notre plateforme ou de la mise en œuvre de toute stratégie apprise.',
+                'liability-uptime': '4. Disponibilité de la Plateforme - Meilleur Effort',
+                'liability-uptime-text': 'STATIC Academy exploite la plateforme au mieux pour maintenir la disponibilité et les fonctionnalités. Cependant, nous ne fournissons pas d\'Accord de Niveau de Service (SLA) ou de garantie de pourcentages de disponibilité spécifiques. La plateforme peut ne pas être disponible en raison de la maintenance, des mises à jour, des problèmes techniques ou de circonstances hors de notre contrôle. Nous ne sommes pas responsables des pertes ou dommages résultant d\'indisponibilités de la plateforme.',
+                'liability-technical': '5. Problèmes Techniques',
+                'liability-technical-text': 'Bien que nous nous efforcions de fournir une plateforme fiable, des problèmes techniques, des erreurs de serveur ou des problèmes de connexion peuvent survenir. STATIC Academy n\'est pas responsable de tout dommage, perte de profit ou perte de données résultant de problèmes techniques. Il est votre responsabilité de maintenir des sauvegardes de toute information importante et de vous assurer d\'une connexion Internet fiable.',
+                'liability-third-party': '6. Contenu Tiers et Liens',
+                'liability-third-party-text': 'STATIC Academy peut référencer ou créer des liens vers des sites Web tiers, des courtiers ou des services. Nous ne sommes pas responsables du contenu, de l\'exactitude ou de la fiabilité des sites Web tiers. Votre utilisation des services tiers est régie par leurs conditions et politiques. STATIC Academy n\'est pas responsable de toute perte ou dommage résultant des services tiers.',
+                'liability-force-majeure': '7. Force Majeure',
+                'liability-force-majeure-text': 'STATIC Academy n\'est pas responsable de toute défaillance à remplir ses obligations due à des événements hors du contrôle raisonnable, y compris mais ne se limitant pas à : désastres naturels, guerres, terrorisme, pandémies, actions gouvernementales ou conditions de marché extrêmes. Lors de tels événements, nous ferons des efforts raisonnables pour restaurer le service, mais ne pouvons pas garantir un fonctionnement continu.',
+                'liability-limitation-amount': '8. Limitation des Dommages',
+                'liability-limitation-amount-text': 'En aucun cas, la responsabilité totale de STATIC Academy envers vous ne dépassera le montant que vous avez payé pour le cours ou le service en question. Cette limitation s\'applique à tous les réclamations, qu\'elles soient basées sur le contrat, la responsabilité civile ou toute autre théorie juridique. Certaines juridictions ne permettent pas la limitation de la responsabilité, cette disposition peut donc ne pas vous s\'appliquer.',
+                'ip-title': 'Droits de Propriété Intellectuelle',
+                'ip-subtitle': 'Intellectual Property Rights',
+                'ip-ownership': '1. Propriété du Contenu du Cours',
+                'ip-ownership-text': 'Tous les matériaux de cours, y compris mais ne se limitant pas au contenu vidéo, aux diapositives, aux documents, aux graphiques, au texte, à l\'audio et à tout autre média, sont la propriété intellectuelle exclusive de STATIC Academy ou de ses fournisseurs de contenu. Ces matériaux sont protégés par les droits d\'auteur, les marques déposées et d\'autres lois sur la propriété intellectuelle. Aucune licence concernant la propriété intellectuelle n\'est accordée sauf le droit limité d\'utiliser les matériaux à des fins éducatives personnelles et non commerciales.',
+                'ip-personal-use': '2. Licence d\'Utilisation Personnelle',
+                'ip-personal-use-text': 'À l\'achat, vous recevez une licence personnelle, limitée, non exclusive et non transférable pour consulter et étudier les matériaux du cours par vous-même. Cette licence vous permet de :',
+                'ip-personal-use-1': 'Accéder aux matériaux via votre compte personnel',
+                'ip-personal-use-2': 'Prendre des notes personnelles pour étudier',
+                'ip-personal-use-3': 'Examiner les matériaux plusieurs fois pendant la période d\'accès',
+                'ip-prohibitions': '3. Usages Interdits',
+                'ip-prohibitions-text': 'Vous ne POUVEZ PAS :',
+                'ip-prohibitions-1': 'Partager les identifiants de connexion ou accorder à d\'autres l\'accès à votre compte',
+                'ip-prohibitions-2': 'Enregistrer, faire une capture d\'écran ou télécharger les matériaux du cours sans permission explicite',
+                'ip-prohibitions-3': 'Distribuer, publier ou télécharger des matériaux de cours sur une plateforme (publique ou privée)',
+                'ip-prohibitions-4': 'Créer des œuvres dérivées basées sur le contenu',
+                'ip-prohibitions-5': 'Utiliser le contenu à des fins commerciales ou à la revente',
+                'ip-prohibitions-6': 'Transcrire ou traduire le contenu sans permission',
+                'ip-prohibitions-7': 'Utiliser le contenu en violation de toute loi applicable',
+                'ip-copyright': '4. Avis de Droit d\'Auteur',
+                'ip-copyright-text': 'Vous acceptez de ne pas supprimer, obscurcir ou modifier les avis de droit d\'auteur, de marque déposée ou autres avis propriétaires affichés dans les matériaux du cours. Ces avis servent de preuve de propriété intellectuelle.',
+                'ip-enforcement': '5. Mise en Œuvre',
+                'ip-enforcement-text': 'STATIC Academy surveille activement l\'utilisation et la distribution non autorisées des matériaux de cours. Les violations des droits de propriété intellectuelle peuvent entraîner :',
+                'ip-enforcement-1': 'Résiliation immédiate de votre compte et accès à tous les cours',
+                'ip-enforcement-2': 'Actions en justice et réclamations en dommages',
+                'ip-enforcement-3': 'Poursuites pénales pour violations graves',
+                'cookies-title': 'Politique relative aux Cookies',
+                'cookies-subtitle': 'Cookie Policy',
+                'cookies-definition': '1. Qu\'est-ce que les Cookies ?',
+                'cookies-definition-text': 'Les cookies sont de petits fichiers texte stockés sur votre appareil par votre navigateur Web. Ils sont utilisés pour mémoriser les informations sur votre visite et vos préférences. STATIC Academy n\'utilise les cookies que si nécessaire pour les fonctionnalités de la plateforme.',
+                'cookies-types': '2. Types de Cookies que Nous Utilisons',
+                'cookies-types-text': 'STATIC Academy utilise UNIQUEMENT les cookies de session essentiels :',
+                'cookies-types-1': 'Authentification de Session : Maintient votre session de connexion pour que vous n\'ayez pas à ressaisir les identifiants sur chaque page',
+                'cookies-types-2': 'Préférence de Langue : Se souvient si vous préférez l\'anglais ou le français',
+                'cookies-types-3': 'Sécurité : Protège contre les menaces de sécurité et les accès non autorisés',
+                'cookies-no-tracking': '3. Pas de Cookies de Suivi ou d\'Analyse',
+                'cookies-no-tracking-text': 'STATIC Academy n\'utilise PAS :',
+                'cookies-no-tracking-1': 'Google Analytics ou autre suivi d\'analyse',
+                'cookies-no-tracking-2': 'Cookies publicitaires ou marketing',
+                'cookies-no-tracking-3': 'Pixels de suivi tiers (Facebook Pixel, etc.)',
+                'cookies-no-tracking-4': 'Cookies de retargeting ou de suivi comportemental',
+                'cookies-no-tracking-5': 'Tout cookie qui crée un profil de votre comportement de navigation',
+                'cookies-no-tracking-text-2': 'Votre confidentialité est respectée. Nous ne suivons pas votre activité sur le web et ne créons pas de profils à des fins publicitaires.',
+                'cookies-control': '4. Contrôle des Cookies',
+                'cookies-control-text': 'Vous pouvez contrôler les cookies via les paramètres de votre navigateur :',
+                'cookies-control-1': 'Désactiver tous les cookies : La plupart des navigateurs vous permettent de refuser ou de supprimer les cookies. Cependant, la désactivation des cookies essentiels peut empêcher le bon fonctionnement de la plateforme.',
+                'cookies-control-2': 'Effacer les cookies : Vous pouvez effacer les cookies stockés à tout moment via les paramètres de votre navigateur.',
+                'cookies-control-3': 'Navigation privée : Utilisez le mode privé/incognito de votre navigateur pour naviguer sans cookies persistants.',
+                'cookies-control-warning': 'Veuillez noter : La désactivation des cookies de session essentiels peut vous empêcher de vous connecter et d\'accéder à vos cours.',
+                'cookies-third-party': '5. Cookies Tiers',
+                'cookies-third-party-text': 'STATIC Academy n\'autorise pas intentionnellement les cookies tiers. Cependant, si vous cliquez sur des liens externes vers des sites Web tiers (tels que des sites de courtiers), ces sites Web peuvent définir leurs propres cookies conformément à leurs politiques. Nous ne sommes pas responsables des pratiques de cookies tiers.',
+                'cookies-gdpr': '6. RGPD et Consentement aux Cookies',
+                'cookies-gdpr-text': 'Puisque STATIC Academy utilise uniquement les cookies essentiels nécessaires aux fonctionnalités de la plateforme, le consentement explicite n\'est pas légalement requis en vertu du RGPD. Les cookies essentiels sont exemptés des exigences de consentement car ils sont nécessaires pour fournir le service demandé. Si nous introduisons des cookies non essentiels à l\'avenir, nous obtiendrons d\'abord votre consentement.',
+                'cookies-contact': '7. Questions sur les Cookies',
+                'cookies-contact-text': 'Si vous avez des questions sur notre politique relative aux cookies, veuillez nous contacter à legal@static-academy.fr.'
+            }
+        };
+
+        let currentLanguage = 'en';
+
+        // Initialize — use stored language preference
+        function init() {
+            const storedLang = localStorage.getItem('sa_lang') || 'en';
+            updateLanguage(storedLang);
+            setupEventListeners();
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Language toggle buttons
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const lang = this.getAttribute('data-lang');
+                    localStorage.setItem('sa_lang', lang); // sync with site-wide preference
+                    updateLanguage(lang);
+                });
+            });
+
+            // Navigation links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const section = this.getAttribute('data-section');
+                    navigateToSection(section);
+                });
+            });
+        }
+
+        // Update language
+        function updateLanguage(lang) {
+            currentLanguage = lang;
+
+            // Update active language button
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-lang="${lang}"]`).classList.add('active');
+
+            // Update all content
+            document.querySelectorAll('[data-lang-key]').forEach(el => {
+                const key = el.getAttribute('data-lang-key');
+                if (content[lang][key]) {
+                    el.textContent = content[lang][key];
+                }
+            });
+
+            // Update navigation text for sidebar
+            const sidebarItems = {
+                'terms': currentLanguage === 'en' ? 'Terms of Service' : 'Conditions Générales',
+                'privacy': currentLanguage === 'en' ? 'Privacy Policy' : 'Politique de Confidentialité',
+                'risk': currentLanguage === 'en' ? 'Risk Disclaimer' : 'Avertissement sur les Risques',
+                'liability': currentLanguage === 'en' ? 'Liability Limitation' : 'Limitation de Responsabilité',
+                'ip': currentLanguage === 'en' ? 'Intellectual Property' : 'Propriété Intellectuelle',
+                'cookies': currentLanguage === 'en' ? 'Cookie Policy' : 'Politique Cookies'
+            };
+
+            document.querySelectorAll('.nav-link').forEach(link => {
+                const section = link.getAttribute('data-section');
+                link.textContent = sidebarItems[section];
+            });
+        }
+
+        // Navigate to section
+        function navigateToSection(section) {
+            // Hide all sections
+            document.querySelectorAll('.legal-section').forEach(el => {
+                el.classList.remove('active');
+            });
+
+            // Show selected section
+            document.getElementById(section).classList.add('active');
+
+            // Update active nav link
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            document.querySelector(`[data-section="${section}"]`).classList.add('active');
+
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+<script>
+(function() {
+  var isFR = (localStorage.getItem('sa_lang') || 'en') !== 'en';
+  var label = document.getElementById('legalBackLabel');
+  if (!label) return;
+  label.textContent = isFR ? 'Retour' : 'Back';
+})();
+</script>
+</body>
+</html>

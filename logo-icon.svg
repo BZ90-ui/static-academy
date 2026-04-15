@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <defs>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="glow2" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#c0c4f5"/>
+      <stop offset="100%" stop-color="#8085d8"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background circle (subtle) -->
+  <circle cx="50" cy="50" r="48" fill="rgba(10,12,28,0.0)"/>
+
+  <!-- Outer hexagon — pointy top/bottom -->
+  <!-- Vertices: top(50,5), topRight(88,27.5), botRight(88,72.5), bot(50,95), botLeft(12,72.5), topLeft(12,27.5) -->
+  <polygon
+    points="50,5 88,27.5 88,72.5 50,95 12,72.5 12,27.5"
+    stroke="url(#lineGrad)" stroke-width="2.5" stroke-linejoin="round" fill="none"
+    filter="url(#glow)"/>
+
+  <!-- Inner A-shape / cube wireframe: legs from top vertex to lower vertices -->
+  <!-- Left leg: top → bottom-left -->
+  <line x1="50" y1="5" x2="12" y2="72.5"
+    stroke="url(#lineGrad)" stroke-width="2" stroke-linecap="round"
+    filter="url(#glow)"/>
+  <!-- Right leg: top → bottom-right -->
+  <line x1="50" y1="5" x2="88" y2="72.5"
+    stroke="url(#lineGrad)" stroke-width="2" stroke-linecap="round"
+    filter="url(#glow)"/>
+
+  <!-- Diagonal cross: topLeft → bottomRight -->
+  <line x1="12" y1="27.5" x2="88" y2="72.5"
+    stroke="url(#lineGrad)" stroke-width="1.8" stroke-linecap="round" opacity="0.75"
+    filter="url(#glow)"/>
+  <!-- Diagonal cross: topRight → bottomLeft -->
+  <line x1="88" y1="27.5" x2="12" y2="72.5"
+    stroke="url(#lineGrad)" stroke-width="1.8" stroke-linecap="round" opacity="0.75"
+    filter="url(#glow)"/>
+
+  <!-- Crossbar of the A — horizontal connector at mid-height -->
+  <line x1="30.5" y1="58" x2="69.5" y2="58"
+    stroke="url(#lineGrad)" stroke-width="1.8" stroke-linecap="round" opacity="0.65"
+    filter="url(#glow)"/>
+
+  <!-- Glow halo dots at vertices for extra depth -->
+  <circle cx="50" cy="5"  r="2.2" fill="#c0c4f5" filter="url(#glow2)" opacity="0.8"/>
+  <circle cx="88" cy="27.5" r="2"  fill="#a0a5e8" filter="url(#glow2)" opacity="0.7"/>
+  <circle cx="88" cy="72.5" r="2"  fill="#a0a5e8" filter="url(#glow2)" opacity="0.7"/>
+  <circle cx="50" cy="95"   r="2.2" fill="#c0c4f5" filter="url(#glow2)" opacity="0.8"/>
+  <circle cx="12" cy="72.5" r="2"  fill="#a0a5e8" filter="url(#glow2)" opacity="0.7"/>
+  <circle cx="12" cy="27.5" r="2"  fill="#a0a5e8" filter="url(#glow2)" opacity="0.7"/>
+</svg>

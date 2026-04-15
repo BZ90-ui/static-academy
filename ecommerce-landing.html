@@ -1,0 +1,1375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>STATIC Academy — Master E-Commerce</title>
+  <meta name="description" content="The premium e-commerce academy for modern entrepreneurs. 12 modules, real strategies, proven results." />
+  <link rel="icon" href="logo-icon.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#07080f">
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ── Hero stats v2 ── */
+    .hero-stats-v2 {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 40px;
+    }
+    .hsv2-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 14px;
+      padding: 16px 22px;
+      backdrop-filter: blur(10px);
+      flex: 1;
+      min-width: 120px;
+    }
+    .hsv2-val {
+      font-size: 1.75rem;
+      font-weight: 900;
+      font-family: var(--font-display);
+      color: var(--primary-2);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .hsv2-lbl {
+      font-size: 12px;
+      color: var(--text-3);
+      font-weight: 500;
+    }
+
+    /* ── Live notification badge ── */
+    .live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(16,185,129,0.12);
+      border: 1px solid rgba(16,185,129,0.3);
+      color: #10b981;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 50px;
+      margin-bottom: 20px;
+    }
+    .live-dot {
+      width: 7px; height: 7px;
+      background: #10b981;
+      border-radius: 50%;
+      animation: livePulse 1.4s ease-in-out infinite;
+    }
+    @keyframes livePulse {
+      0%,100% { opacity: 1; transform: scale(1); }
+      50%      { opacity: .4; transform: scale(.7); }
+    }
+
+    /* ── Animated marquee for brands ── */
+    .brands-strip {
+      padding: 56px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .brands-label {
+      text-align: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-4);
+      margin-bottom: 32px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+    }
+    .marquee-wrapper {
+      position: relative;
+      overflow: hidden;
+    }
+    .marquee-wrapper::before,
+    .marquee-wrapper::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0;
+      width: 80px;
+      z-index: 2;
+    }
+    .marquee-wrapper::before { left: 0; background: linear-gradient(90deg, var(--bg), transparent); }
+    .marquee-wrapper::after  { right: 0; background: linear-gradient(-90deg, var(--bg), transparent); }
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      animation: marquee 28s linear infinite;
+      gap: 0;
+    }
+    .marquee-track:hover { animation-play-state: paused; }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    .marquee-group {
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+    .brand-item {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text-4);
+      opacity: 0.45;
+      transition: opacity .25s;
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+      padding: 0 40px;
+      border-right: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .brand-item:hover { opacity: 0.85; }
+    .brand-icon { font-size: 20px; }
+
+    /* ── Results / Infographic section ── */
+    .results-section {
+      padding: 100px 0;
+      background: var(--bg-2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .results-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .results-info h2 { font-size: clamp(1.6rem,3vw,2.2rem); margin-bottom: 16px; }
+    .results-info p { color: var(--text-2); line-height: 1.7; margin-bottom: 32px; }
+    .results-metrics { display: flex; gap: 24px; flex-wrap: wrap; }
+    .result-metric { text-align: center; }
+    .result-metric-val { font-size: 2rem; font-weight: 900; font-family: var(--font-display); }
+    .result-metric-lbl { font-size: 12px; color: var(--text-3); margin-top: 2px; }
+    .results-bars h3 { font-size: 1rem; font-weight: 700; margin-bottom: 28px; color: var(--text-2); }
+    .rbar-row { margin-bottom: 22px; }
+    .rbar-top { display: flex; justify-content: space-between; margin-bottom: 8px; }
+    .rbar-label { font-size: 13px; color: var(--text-2); font-weight: 500; }
+    .rbar-pct { font-size: 13px; font-weight: 700; }
+    .rbar-track {
+      height: 8px;
+      background: var(--bg-3);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .rbar-fill {
+      height: 100%;
+      border-radius: 8px;
+      width: 0%;
+      transition: width 1.4s cubic-bezier(.16,1,.3,1);
+    }
+
+    /* ── Floating notification cards ── */
+    @keyframes floatA { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+    @keyframes floatB { 0%,100%{transform:translateY(0)} 50%{transform:translateY(10px)} }
+
+    /* ── Testimonial cards enhancement ── */
+    .testimonial-card {
+      position: relative;
+      transition: transform .25s, box-shadow .25s;
+    }
+    .testimonial-card:hover { transform: translateY(-4px); }
+
+    /* ── Section spacing ── */
+    .section { padding: 100px 0; }
+
+    @media (max-width: 768px) {
+      .results-grid { grid-template-columns: 1fr; gap: 48px; }
+      .hero-stats-v2 { gap: 10px; }
+      .hsv2-card { padding: 14px 16px; }
+      .hsv2-val { font-size: 1.4rem; }
+    }
+    /* ── Path steps ── */
+    .path-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; position: relative; }
+    .path-steps::before {
+      content: '';
+      position: absolute;
+      top: 28px; left: 12.5%; right: 12.5%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary), var(--gold));
+    }
+    .path-step { text-align: center; padding: 0 16px; position: relative; }
+    .path-num {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: var(--bg-3);
+      border: 2px solid var(--border-2);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 800;
+      margin: 0 auto 20px;
+      color: var(--text-3);
+      position: relative;
+      z-index: 1;
+    }
+    .path-step.active .path-num {
+      background: linear-gradient(135deg, var(--primary), #8b5cf6);
+      border-color: var(--primary);
+      color: white;
+      box-shadow: 0 0 30px var(--primary-glow);
+    }
+    .path-step-title { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+    .path-step-desc { font-size: 13px; color: var(--text-3); line-height: 1.5; }
+    /* ── Instructor ── */
+    .instructor-card {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 48px;
+      align-items: center;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 48px;
+      position: relative;
+      overflow: hidden;
+    }
+    .instructor-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--primary), var(--gold));
+    }
+    .instructor-avatar {
+      width: 160px; height: 160px;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(135deg, var(--primary), #8b5cf6);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 64px;
+      flex-shrink: 0;
+    }
+    .instructor-name { font-size: 1.6rem; font-weight: 800; margin-bottom: 6px; }
+    .instructor-role { font-size: 15px; color: var(--primary-2); font-weight: 600; margin-bottom: 14px; }
+    .instructor-bio { font-size: 15px; color: var(--text-2); line-height: 1.7; margin-bottom: 20px; }
+    .instructor-stats { display: flex; gap: 32px; flex-wrap: wrap; }
+    .instructor-stat-val { font-size: 1.4rem; font-weight: 800; font-family: var(--font-display); }
+    .instructor-stat-lbl { font-size: 12px; color: var(--text-3); margin-top: 2px; }
+    @media (max-width: 768px) {
+      .instructor-card { grid-template-columns: 1fr; text-align: center; padding: 32px 24px; gap: 24px; }
+      .instructor-avatar { margin: 0 auto; }
+      .instructor-stats { justify-content: center; }
+      .path-steps { grid-template-columns: 1fr 1fr; }
+      .path-steps::before { display: none; }
+    }
+    @media (max-width: 480px) {
+      .path-steps { grid-template-columns: 1fr; }
+    }
+
+    /* ── Recent wins ticker ── */
+    .wins-ticker-strip {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 14px 0;
+      background: linear-gradient(135deg, rgba(108,99,255,0.08), rgba(139,92,246,0.05));
+      border-top: 1px solid rgba(108,99,255,0.2);
+      border-bottom: 1px solid rgba(108,99,255,0.2);
+      overflow: hidden;
+    }
+    .wins-ticker-label {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--primary-2);
+      white-space: nowrap;
+      padding: 0 0 0 24px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      flex-shrink: 0;
+    }
+    .wins-ticker-wrapper {
+      overflow: hidden;
+      flex: 1;
+      -webkit-mask: linear-gradient(90deg, transparent, black 5%, black 95%, transparent);
+      mask: linear-gradient(90deg, transparent, black 5%, black 95%, transparent);
+    }
+    .wins-ticker-track {
+      display: flex;
+      gap: 0;
+      animation: tickerScroll 40s linear infinite;
+      white-space: nowrap;
+    }
+    .wins-ticker-track:hover { animation-play-state: paused; }
+    @keyframes tickerScroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    .win-item {
+      font-size: 13px;
+      color: var(--text-2);
+      padding: 0 28px;
+    }
+    .win-item strong { color: var(--text); }
+    .win-sep { color: var(--border-2); flex-shrink: 0; }
+
+    /* ── Guarantee banner ── */
+    .guarantee-banner {
+      background: linear-gradient(135deg, rgba(16,185,129,0.06), rgba(5,150,105,0.04));
+      border-top: 1px solid rgba(16,185,129,0.2);
+      border-bottom: 1px solid rgba(16,185,129,0.2);
+      padding: 36px 0;
+    }
+    .guarantee-inner {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+    .guarantee-shield {
+      font-size: 48px;
+      flex-shrink: 0;
+      filter: drop-shadow(0 4px 12px rgba(16,185,129,0.3));
+    }
+    .guarantee-text {
+      flex: 1;
+      min-width: 200px;
+    }
+    .guarantee-text strong {
+      display: block;
+      font-size: 18px;
+      font-weight: 800;
+      color: #10b981;
+      margin-bottom: 6px;
+      font-family: var(--font-display);
+    }
+    .guarantee-text span {
+      font-size: 14px;
+      color: var(--text-2);
+      line-height: 1.6;
+    }
+    .guarantee-badges {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .g-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(16,185,129,0.1);
+      border: 1px solid rgba(16,185,129,0.25);
+      color: #10b981;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 50px;
+      white-space: nowrap;
+    }
+    @media (max-width: 768px) {
+      .wins-ticker-label { display: none; }
+      .guarantee-inner { gap: 20px; }
+      .guarantee-shield { font-size: 36px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Navigation ── -->
+<nav class="nav" id="mainNav">
+  <div class="container">
+    <div class="nav-inner">
+
+      <a href="index.html" class="nav-logo" style="display:flex;align-items:center;gap:.65rem;text-decoration:none;">
+        <img src="logo-icon.svg" alt="STATIC Academy" style="width:38px;height:38px;flex-shrink:0;">
+        <div style="display:flex;flex-direction:column;line-height:1.1;">
+          <span style="font-size:.95rem;font-weight:800;letter-spacing:.06em;color:#e8ecff;">STATIC</span>
+          <span style="font-size:.52rem;font-weight:500;letter-spacing:.22em;color:rgba(232,236,255,.38);text-transform:uppercase;">Academy</span>
+        </div>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html" data-i18n="nav_home">Home</a></li>
+        <li><a href="courses.html" data-i18n="nav_courses">Courses</a></li>
+        <li><a href="learning-paths.html" data-i18n="nav_paths">Learning Paths</a></li>
+    <li><a href="community.html" data-i18n="nav_community">Community</a></li>
+        <li><a href="community.html" data-i18n="nav_community">Community</a></li>
+        <li><a href="pricing.html" data-i18n="nav_pricing">Pricing</a></li>
+        <li><a href="dashboard.html" class="nav-dash-link" data-i18n="nav_dashboard" style="display:none">Dashboard</a></li>
+      </ul>
+
+      <div class="nav-right">
+        <!-- Language Selector -->
+        <div class="lang-select">
+          <button class="lang-btn" aria-label="Language">
+            <span class="lang-current">🇺🇸 EN</span>
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
+          <div class="lang-dropdown">
+            <div class="lang-option" data-lang="en"><span class="lang-flag">🇺🇸</span> English</div>
+            <div class="lang-option" data-lang="fr"><span class="lang-flag">🇫🇷</span> Français</div>
+            <div class="lang-option" data-lang="es"><span class="lang-flag">🇪🇸</span> Español</div>
+            <div class="lang-option" data-lang="de"><span class="lang-flag">🇩🇪</span> Deutsch</div>
+            <div class="lang-option" data-lang="pt"><span class="lang-flag">🇧🇷</span> Português</div>
+          </div>
+        </div>
+
+        <!-- Guest buttons -->
+        <div class="nav-guest d-flex gap-8 align-center">
+          <a href="auth.html" class="btn btn-ghost btn-sm" data-i18n="nav_login">Sign In</a>
+          <a href="auth.html?tab=register" class="btn btn-primary btn-sm" data-i18n="nav_cta">Get Started</a>
+        </div>
+
+        <!-- User menu -->
+        <div class="nav-user d-flex gap-8 align-center" style="display:none!important">
+          <a href="dashboard.html" class="btn btn-ghost btn-sm">Dashboard</a>
+          <div class="user-menu">
+            <div class="user-avatar" data-dropdown-trigger=".user-dropdown">SA</div>
+            <div class="user-dropdown">
+              <div class="user-info">
+                <div class="user-name">Sarah Anderson</div>
+                <div class="user-email">sarah@example.com</div>
+                <span class="user-plan plan-free">Free</span>
+              </div>
+              <a href="dashboard.html">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+                Dashboard
+              </a>
+              <a href="courses.html">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                My Courses
+              </a>
+              <a href="pricing.html">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                Upgrade Plan
+              </a>
+              <div class="divider"></div>
+              <button class="logout-btn" data-i18n="nav_logout">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                Sign Out
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <button class="nav-toggle" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Nav -->
+<div class="mobile-nav" id="mobileNav">
+  <ul class="mobile-nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="courses.html">Courses</a></li>
+    <li><a href="learning-paths.html">Learning Paths</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a href="dashboard.html">Dashboard</a></li>
+  </ul>
+  <div class="mobile-nav-divider"></div>
+  <div class="mobile-nav-ctas">
+    <a href="auth.html" class="btn btn-outline" style="justify-content:center;text-align:center">Sign In</a>
+    <a href="auth.html?tab=register" class="btn btn-primary" style="justify-content:center;text-align:center">Start for Free →</a>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     HERO
+══════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-bg">
+    <div class="hero-grid"></div>
+    <div class="hero-orb hero-orb-1"></div>
+    <div class="hero-orb hero-orb-2"></div>
+    <div class="hero-orb hero-orb-3"></div>
+  </div>
+
+  <div class="container">
+    <div class="hero-inner">
+      <!-- Content -->
+      <div class="hero-content">
+        <div class="hero-eyebrow fade-up" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+          <span class="badge badge-primary">
+            <span>✦</span>
+            <span data-i18n="hero_badge">New — 32 comprehensive modules</span>
+          </span>
+          <span class="live-badge">
+            <span class="live-dot"></span>
+            3 students enrolled today
+          </span>
+        </div>
+
+        <h1 class="hero-title fade-up fade-up-1">
+          <span data-i18n="hero_title_1">Master</span>
+          <br><span class="grad-text" data-i18n="hero_title_2">E-Commerce</span>
+          <br><span data-i18n="hero_title_3">from Zero to Scale</span>
+        </h1>
+
+        <p class="hero-subtitle fade-up fade-up-2" data-i18n="hero_sub">
+          Join thousands of entrepreneurs who launched and scaled profitable online stores with our proven system.
+        </p>
+
+        <div class="hero-actions fade-up fade-up-3">
+          <a href="auth.html?tab=register" class="btn btn-primary btn-xl" data-i18n="hero_cta">Start for Free</a>
+          <a href="courses.html" class="btn btn-outline btn-lg" data-i18n="hero_cta2">Explore Courses</a>
+        </div>
+
+        <div class="hero-stats-v2 fade-up fade-up-4">
+          <div class="hsv2-card">
+            <div class="hsv2-val" data-counter="2847" data-suffix="+">2,847+</div>
+            <div class="hsv2-lbl">🎓 Students Enrolled</div>
+          </div>
+          <div class="hsv2-card">
+            <div class="hsv2-val" style="color:var(--gold)">4.8<span style="font-size:.7em">★</span></div>
+            <div class="hsv2-lbl">⭐ Average Rating</div>
+          </div>
+          <div class="hsv2-card">
+            <div class="hsv2-val" style="color:#10b981" data-counter="4" data-prefix="$" data-suffix="M+">$4M+</div>
+            <div class="hsv2-lbl">💰 Revenue Generated</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Visual -->
+      <div class="hero-visual fade-up fade-up-2">
+        <div class="hero-card-main">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+            <div>
+              <div style="font-size:13px;color:var(--text-3);margin-bottom:4px">Your Progress</div>
+              <div style="font-size:18px;font-weight:800;font-family:var(--font-display)">12 Modules</div>
+            </div>
+            <div style="text-align:right">
+              <div style="font-size:24px;font-weight:900;font-family:var(--font-display);color:var(--primary-2)">67%</div>
+              <div style="font-size:12px;color:var(--text-3)">Complete</div>
+            </div>
+          </div>
+
+          <div class="course-preview-item">
+            <div class="course-preview-icon" style="background:rgba(108,99,255,0.15)">🏪</div>
+            <div style="flex:1">
+              <div class="course-preview-title">Building Your Store</div>
+              <div class="course-preview-meta">Module 3 · 8 lessons</div>
+              <div class="course-preview-progress"><div class="course-preview-bar" style="width:85%"></div></div>
+            </div>
+            <span class="badge badge-green" style="font-size:10px">85%</span>
+          </div>
+
+          <div class="course-preview-item">
+            <div class="course-preview-icon" style="background:rgba(245,166,35,0.15)">📊</div>
+            <div style="flex:1">
+              <div class="course-preview-title">Paid Advertising</div>
+              <div class="course-preview-meta">Module 7 · 10 lessons</div>
+              <div class="course-preview-progress"><div class="course-preview-bar" style="width:45%"></div></div>
+            </div>
+            <span class="badge badge-primary" style="font-size:10px">45%</span>
+          </div>
+
+          <div class="course-preview-item">
+            <div class="course-preview-icon" style="background:rgba(34,197,94,0.15)">📧</div>
+            <div style="flex:1">
+              <div class="course-preview-title">Email Marketing</div>
+              <div class="course-preview-meta">Module 8 · 9 lessons</div>
+              <div class="course-preview-progress"><div class="course-preview-bar" style="width:0%"></div></div>
+            </div>
+            <span class="badge badge-muted" style="font-size:10px">Next</span>
+          </div>
+        </div>
+
+        <!-- Floating cards -->
+        <div class="hero-float-card hero-float-card-1">
+          <div class="hfc-label">New enrollments</div>
+          <div class="hfc-value" style="color:var(--green)">+247</div>
+          <div style="font-size:11px;color:var(--text-4);margin-top:2px">this week</div>
+        </div>
+        <div class="hero-float-card hero-float-card-2">
+          <div class="hfc-label">Avg. monthly revenue</div>
+          <div class="hfc-value" style="color:var(--gold)">$14,280</div>
+          <div style="font-size:11px;color:var(--text-4);margin-top:2px">graduates</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Trusted Brands — infinite marquee ── -->
+<div class="brands-strip">
+  <div class="brands-label">Used by our students to scale their stores</div>
+  <div class="marquee-wrapper">
+    <div class="marquee-track">
+      <!-- Group 1 -->
+      <div class="marquee-group">
+        <span class="brand-item"><span class="brand-icon">🟢</span>SHOPIFY</span>
+        <span class="brand-item"><span class="brand-icon">🔵</span>WooCommerce</span>
+        <span class="brand-item"><span class="brand-icon">💜</span>STRIPE</span>
+        <span class="brand-item"><span class="brand-icon">🔷</span>META ADS</span>
+        <span class="brand-item"><span class="brand-icon">🟠</span>Klaviyo</span>
+        <span class="brand-item"><span class="brand-icon">🟡</span>AMAZON</span>
+        <span class="brand-item"><span class="brand-icon">⚫</span>TikTok Shop</span>
+        <span class="brand-item"><span class="brand-icon">🔴</span>Google Ads</span>
+        <span class="brand-item"><span class="brand-icon">🟤</span>Printful</span>
+        <span class="brand-item"><span class="brand-icon">🔵</span>PayPal</span>
+      </div>
+      <!-- Group 2 (duplicate for seamless loop) -->
+      <div class="marquee-group">
+        <span class="brand-item"><span class="brand-icon">🟢</span>SHOPIFY</span>
+        <span class="brand-item"><span class="brand-icon">🔵</span>WooCommerce</span>
+        <span class="brand-item"><span class="brand-icon">💜</span>STRIPE</span>
+        <span class="brand-item"><span class="brand-icon">🔷</span>META ADS</span>
+        <span class="brand-item"><span class="brand-icon">🟠</span>Klaviyo</span>
+        <span class="brand-item"><span class="brand-icon">🟡</span>AMAZON</span>
+        <span class="brand-item"><span class="brand-icon">⚫</span>TikTok Shop</span>
+        <span class="brand-item"><span class="brand-icon">🔴</span>Google Ads</span>
+        <span class="brand-item"><span class="brand-icon">🟤</span>Printful</span>
+        <span class="brand-item"><span class="brand-icon">🔵</span>PayPal</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     RESULTS INFOGRAPHIC
+══════════════════════════════════ -->
+<section class="results-section">
+  <div class="container">
+    <div class="results-grid">
+
+      <!-- Left: text + big metrics -->
+      <div class="results-info animate-on-scroll">
+        <span class="badge badge-gold" style="margin-bottom:16px;display:inline-block">📊 Student Outcomes</span>
+        <h2>Numbers don't <span class="grad-text">lie</span></h2>
+        <p>Our students aren't just learning — they're launching, scaling, and generating real revenue. Here's what they've achieved after completing STATIC Academy.</p>
+        <div class="results-metrics">
+          <div class="result-metric">
+            <div class="result-metric-val grad-text-primary" data-counter="47" data-suffix=" days">47 days</div>
+            <div class="result-metric-lbl">Avg. days to first sale</div>
+          </div>
+          <div class="result-metric">
+            <div class="result-metric-val" style="color:#10b981" data-counter="73" data-suffix="%">73%</div>
+            <div class="result-metric-lbl">Profitable in year 1</div>
+          </div>
+          <div class="result-metric">
+            <div class="result-metric-val" style="color:var(--gold)" data-counter="4" data-prefix="$" data-suffix="M+">$4M+</div>
+            <div class="result-metric-lbl">Combined revenue</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: animated bar chart -->
+      <div class="results-bars animate-on-scroll">
+        <h3>What students achieve after each track</h3>
+
+        <div class="rbar-row">
+          <div class="rbar-top">
+            <span class="rbar-label">🏗️ Core Curriculum — first sale</span>
+            <span class="rbar-pct" style="color:var(--primary-2)">89%</span>
+          </div>
+          <div class="rbar-track">
+            <div class="rbar-fill" data-width="89" style="background:linear-gradient(90deg,#6c63ff,#8b5cf6)"></div>
+          </div>
+        </div>
+
+        <div class="rbar-row">
+          <div class="rbar-top">
+            <span class="rbar-label">🎯 Specialty — $5K/month</span>
+            <span class="rbar-pct" style="color:#10b981">74%</span>
+          </div>
+          <div class="rbar-track">
+            <div class="rbar-fill" data-width="74" style="background:linear-gradient(90deg,#10b981,#059669)"></div>
+          </div>
+        </div>
+
+        <div class="rbar-row">
+          <div class="rbar-top">
+            <span class="rbar-label">📣 Marketing — 3× ROAS</span>
+            <span class="rbar-pct" style="color:var(--gold)">68%</span>
+          </div>
+          <div class="rbar-track">
+            <div class="rbar-fill" data-width="68" style="background:linear-gradient(90deg,#f59e0b,#d97706)"></div>
+          </div>
+        </div>
+
+        <div class="rbar-row">
+          <div class="rbar-top">
+            <span class="rbar-label">🚀 Advanced — $10K+/month</span>
+            <span class="rbar-pct" style="color:#ef4444">61%</span>
+          </div>
+          <div class="rbar-track">
+            <div class="rbar-fill" data-width="61" style="background:linear-gradient(90deg,#ef4444,#dc2626)"></div>
+          </div>
+        </div>
+
+        <div class="rbar-row">
+          <div class="rbar-top">
+            <span class="rbar-label">⭐ Overall satisfaction</span>
+            <span class="rbar-pct" style="color:var(--primary-2)">96%</span>
+          </div>
+          <div class="rbar-track">
+            <div class="rbar-fill" data-width="96" style="background:linear-gradient(90deg,#6c63ff,#a78bfa)"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     FEATURES
+══════════════════════════════════ -->
+<section class="section">
+  <div class="container">
+    <div class="section-eyebrow">
+      <span class="badge badge-primary">Why Static Academy</span>
+    </div>
+    <h2 class="section-title">Everything you need to <span class="grad-text">win at e-commerce</span></h2>
+    <p class="section-sub">We don't just teach theory. Every module is built from real experience running 7-figure online stores.</p>
+
+    <div class="features-grid">
+      <div class="feature-card card-glow animate-on-scroll">
+        <div class="feature-icon" style="background:rgba(108,99,255,0.15)">🎯</div>
+        <h4 class="feature-title">Proven Frameworks</h4>
+        <p class="feature-desc">Every strategy is tested across real stores. No fluff, no theory — just what actually converts and scales.</p>
+      </div>
+      <div class="feature-card card-glow animate-on-scroll">
+        <div class="feature-icon" style="background:rgba(245,166,35,0.15)">⚡</div>
+        <h4 class="feature-title">Learn at Your Pace</h4>
+        <p class="feature-desc">Pre-recorded HD lessons, downloadable resources, and lifetime access. Learn anywhere, anytime, on any device.</p>
+      </div>
+      <div class="feature-card card-glow animate-on-scroll">
+        <div class="feature-icon" style="background:rgba(34,197,94,0.15)">💬</div>
+        <h4 class="feature-title">Community Access</h4>
+        <p class="feature-desc">Join a appel vocal mensuel (1h) of ambitious entrepreneurs. Share wins, get feedback, and grow together.</p>
+      </div>
+      <div class="feature-card card-glow animate-on-scroll">
+        <div class="feature-icon" style="background:rgba(239,68,68,0.15)">📈</div>
+        <h4 class="feature-title">Live Coaching Calls</h4>
+        <p class="feature-desc">Weekly live Q&A sessions with our expert instructors. Get your specific questions answered in real-time.</p>
+      </div>
+      <div class="feature-card card-glow animate-on-scroll">
+        <div class="feature-icon" style="background:rgba(139,92,246,0.15)">🛠</div>
+        <h4 class="feature-title">Templates & Tools</h4>
+        <p class="feature-desc">Ready-to-use store templates, ad copy frameworks, email sequences, and spreadsheet trackers.</p>
+      </div>
+      <div class="feature-card card-glow animate-on-scroll">
+        <div class="feature-icon" style="background:rgba(20,184,166,0.15)">🏆</div>
+        <h4 class="feature-title">Certificate of Completion</h4>
+        <p class="feature-desc">Earn a verified certificate for each module you complete. Add it to your LinkedIn and portfolio.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     CURRICULUM
+══════════════════════════════════ -->
+<section class="section" style="background:var(--bg-2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <div class="container">
+    <div class="section-eyebrow"><span class="badge badge-gold">12 Modules</span></div>
+    <h2 class="section-title">Complete <span class="grad-text">curriculum</span></h2>
+    <p class="section-sub">From laying the foundation to running a 7-figure operation — everything covered in a logical sequence.</p>
+
+    <div class="modules-grid">
+      <a href="course-player.html?module=1" class="module-card" style="text-decoration:none">
+        <div class="module-number">01</div>
+        <div>
+          <div class="module-title">E-Commerce Foundations</div>
+          <div class="module-meta">
+            <span>✍️ 6 lessons</span>
+            <span>⏱ 2.5h</span>
+            <span class="badge badge-green" style="font-size:10px;padding:2px 8px">Free</span>
+          </div>
+        </div>
+      </a>
+      <a href="course-player.html?module=2" class="module-card" style="text-decoration:none">
+        <div class="module-number">02</div>
+        <div>
+          <div class="module-title">Market Research & Niche Selection</div>
+          <div class="module-meta">
+            <span>✍️ 7 lessons</span>
+            <span>⏱ 3h</span>
+            <span class="badge badge-green" style="font-size:10px;padding:2px 8px">Free</span>
+          </div>
+        </div>
+      </a>
+      <a href="course-player.html?module=3" class="module-card" style="text-decoration:none">
+        <div class="module-number">03</div>
+        <div>
+          <div class="module-title">Building Your Online Store</div>
+          <div class="module-meta">
+            <span>✍️ 8 lessons</span>
+            <span>⏱ 4h</span>
+            <span class="badge badge-primary" style="font-size:10px;padding:2px 8px">Pro</span>
+          </div>
+        </div>
+      </a>
+      <a href="course-player.html?module=4" class="module-card" style="text-decoration:none">
+        <div class="module-number">04</div>
+        <div>
+          <div class="module-title">Product Sourcing & Inventory</div>
+          <div class="module-meta">
+            <span>✍️ 9 lessons</span>
+            <span>⏱ 3.5h</span>
+            <span class="badge badge-primary" style="font-size:10px;padding:2px 8px">Pro</span>
+          </div>
+        </div>
+      </a>
+      <a href="course-player.html?module=5" class="module-card" style="text-decoration:none">
+        <div class="module-number">05</div>
+        <div>
+          <div class="module-title">Payments, Checkout & Conversion</div>
+          <div class="module-meta">
+            <span>✍️ 7 lessons</span>
+            <span>⏱ 2.5h</span>
+            <span class="badge badge-primary" style="font-size:10px;padding:2px 8px">Pro</span>
+          </div>
+        </div>
+      </a>
+      <a href="course-player.html?module=6" class="module-card" style="text-decoration:none">
+        <div class="module-number">06</div>
+        <div>
+          <div class="module-title">SEO for E-Commerce</div>
+          <div class="module-meta">
+            <span>✍️ 8 lessons</span>
+            <span>⏱ 3.5h</span>
+            <span class="badge badge-primary" style="font-size:10px;padding:2px 8px">Pro</span>
+          </div>
+        </div>
+      </a>
+      <a href="course-player.html?module=7" class="module-card" style="text-decoration:none">
+        <div class="module-number">07</div>
+        <div>
+          <div class="module-title">Paid Advertising Mastery</div>
+          <div class="module-meta">
+            <span>✍️ 10 lessons</span>
+            <span>⏱ 5h</span>
+            <span class="badge badge-primary" style="font-size:10px;padding:2px 8px">Pro</span>
+          </div>
+        </div>
+      </a>
+      <a href="course-player.html?module=8" class="module-card" style="text-decoration:none">
+        <div class="module-number">08</div>
+        <div>
+          <div class="module-title">Email Marketing & Retention</div>
+          <div class="module-meta">
+            <span>✍️ 9 lessons</span>
+            <span>⏱ 3.5h</span>
+            <span class="badge badge-primary" style="font-size:10px;padding:2px 8px">Pro</span>
+          </div>
+        </div>
+      </a>
+      <a href="course-player.html?module=9" class="module-card" style="text-decoration:none">
+        <div class="module-number">09</div>
+        <div>
+          <div class="module-title">Social Media & Influencers</div>
+          <div class="module-meta">
+            <span>✍️ 8 lessons</span>
+            <span>⏱ 3h</span>
+            <span class="badge badge-gold" style="font-size:10px;padding:2px 8px">Elite</span>
+          </div>
+        </div>
+      </a>
+      <a href="course-player.html?module=10" class="module-card" style="text-decoration:none">
+        <div class="module-number">10</div>
+        <div>
+          <div class="module-title">Analytics & Data-Driven Decisions</div>
+          <div class="module-meta">
+            <span>✍️ 7 lessons</span>
+            <span>⏱ 3h</span>
+            <span class="badge badge-gold" style="font-size:10px;padding:2px 8px">Elite</span>
+          </div>
+        </div>
+      </a>
+      <a href="course-player.html?module=11" class="module-card" style="text-decoration:none">
+        <div class="module-number">11</div>
+        <div>
+          <div class="module-title">Scaling & Automation</div>
+          <div class="module-meta">
+            <span>✍️ 9 lessons</span>
+            <span>⏱ 4h</span>
+            <span class="badge badge-gold" style="font-size:10px;padding:2px 8px">Elite</span>
+          </div>
+        </div>
+      </a>
+      <a href="course-player.html?module=12" class="module-card" style="text-decoration:none">
+        <div class="module-number">12</div>
+        <div>
+          <div class="module-title">Advanced Strategies & Exit</div>
+          <div class="module-meta">
+            <span>✍️ 8 lessons</span>
+            <span>⏱ 4h</span>
+            <span class="badge badge-gold" style="font-size:10px;padding:2px 8px">Elite</span>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <div class="text-center mt-48">
+      <a href="courses.html" class="btn btn-primary btn-lg">View All Courses →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     HOW IT WORKS
+══════════════════════════════════ -->
+<section class="section">
+  <div class="container">
+    <div class="section-eyebrow"><span class="badge badge-primary">How it works</span></div>
+    <h2 class="section-title">Your path to <span class="grad-text">e-commerce success</span></h2>
+    <p class="section-sub">A proven 4-step journey from beginner to profitable store owner.</p>
+
+    <div class="path-steps animate-on-scroll">
+      <div class="path-step active">
+        <div class="path-num">1</div>
+        <h4 class="path-step-title">Sign Up Free</h4>
+        <p class="path-step-desc">Create your free account and get instant access to the first 2 modules.</p>
+      </div>
+      <div class="path-step active">
+        <div class="path-num">2</div>
+        <h4 class="path-step-title">Learn & Apply</h4>
+        <p class="path-step-desc">Read in-depth written lessons, complete projects, and build your store step by step.</p>
+      </div>
+      <div class="path-step active">
+        <div class="path-num">3</div>
+        <h4 class="path-step-title">Get Feedback</h4>
+        <p class="path-step-desc">Share your work in our community, join coaching calls, and refine your strategy.</p>
+      </div>
+      <div class="path-step">
+        <div class="path-num">4</div>
+        <h4 class="path-step-title">Scale & Profit</h4>
+        <p class="path-step-desc">Implement advanced strategies to grow your revenue month over month.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     INSTRUCTOR
+══════════════════════════════════ -->
+<section class="section" style="background:var(--bg-2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <div class="container-sm">
+    <div class="section-eyebrow"><span class="badge badge-gold">Your Instructor</span></div>
+    <h2 class="section-title" style="margin-bottom:40px">Learn from someone who <span class="grad-text">actually did it</span></h2>
+
+    <div class="instructor-card">
+      <div class="instructor-avatar">👨‍💼</div>
+      <div>
+        <h3 class="instructor-name">Alex Morgan</h3>
+        <div class="instructor-role">Founder & Lead Instructor — 3× E-Commerce Entrepreneur</div>
+        <p class="instructor-bio">Alex built and sold three 7-figure e-commerce brands over the past decade. He's been featured in Forbes, Entrepreneur, and has helped thousands of students build profitable online businesses. His no-nonsense, practical teaching style cuts through the noise and delivers what actually works in 2025 and beyond.</p>
+        <div class="instructor-stats">
+          <div>
+            <div class="instructor-stat-val grad-text-primary" data-counter="2847" data-suffix="+">2,847+</div>
+            <div class="instructor-stat-lbl">Students Taught</div>
+          </div>
+          <div>
+            <div class="instructor-stat-val" style="color:var(--gold)" data-counter="4" data-prefix="$" data-suffix="M+">$4M+</div>
+            <div class="instructor-stat-lbl">Student Revenue</div>
+          </div>
+          <div>
+            <div class="instructor-stat-val" data-counter="10" data-suffix=" yrs">10 yrs</div>
+            <div class="instructor-stat-lbl">Experience</div>
+          </div>
+          <div>
+            <div class="instructor-stat-val" style="color:var(--green)">4.8★</div>
+            <div class="instructor-stat-lbl">Avg. Rating</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     TESTIMONIALS
+══════════════════════════════════ -->
+<section class="section">
+  <div class="container">
+    <div class="section-eyebrow"><span class="badge badge-gold">Student results</span></div>
+    <h2 class="section-title">Real students, <span class="grad-text">real results</span></h2>
+    <p class="section-sub">Don't take our word for it. Hear from entrepreneurs who transformed their lives with Static Academy.</p>
+
+    <div class="testimonials-grid">
+      <div class="testimonial-card animate-on-scroll">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"I went from complete beginner to generating $23,000 in my first 4 months. The modules are incredibly clear and the strategies are actionable. Best investment I've ever made."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar" style="background:linear-gradient(135deg,#6366f1,#8b5cf6)">JL</div>
+          <div>
+            <div class="testimonial-name">Jordan Lee</div>
+            <div class="testimonial-role">Shopify Store Owner</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card animate-on-scroll">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"The SEO module alone was worth the Pro plan. I went from 0 organic traffic to 15,000 monthly visitors in 6 months. My store is now running profitably on autopilot."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar" style="background:linear-gradient(135deg,#f59e0b,#e8900d)">MP</div>
+          <div>
+            <div class="testimonial-name">Maria Perez</div>
+            <div class="testimonial-role">Fashion Boutique Owner</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card animate-on-scroll">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"I was skeptical at first, but the community alone made it worth it. Alex answers questions personally and the weekly coaching calls are gold. I'm now at $85k/month."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar" style="background:linear-gradient(135deg,#22c55e,#16a34a)">DK</div>
+          <div>
+            <div class="testimonial-name">David Kim</div>
+            <div class="testimonial-role">Tech Accessories Brand</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card animate-on-scroll">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Module 7 on paid advertising changed everything for me. I went from $200 ROAS to $680 ROAS in 3 weeks by just following Alex's framework. Absolute game-changer."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar" style="background:linear-gradient(135deg,#ef4444,#dc2626)">SR</div>
+          <div>
+            <div class="testimonial-name">Sophie Raines</div>
+            <div class="testimonial-role">Beauty Brand Founder</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card animate-on-scroll">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"The Elite plan is 100% worth it. The business audit they did with me saved me months of trial and error. My revenue doubled in the first month after implementation."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar" style="background:linear-gradient(135deg,#14b8a6,#0d9488)">TC</div>
+          <div>
+            <div class="testimonial-name">Tyler Chen</div>
+            <div class="testimonial-role">Dropshipping to Private Label</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card animate-on-scroll">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"I tried 3 other courses before Static Academy. Nothing compared. The depth of knowledge, the community support, and Alex's teaching style is unmatched. Reached $10k/month in 90 days."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar" style="background:linear-gradient(135deg,#a855f7,#9333ea)">AN</div>
+          <div>
+            <div class="testimonial-name">Aisha Ndiaye</div>
+            <div class="testimonial-role">Home Decor Store</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     RECENT WINS TICKER
+══════════════════════════════════ -->
+<div class="wins-ticker-strip">
+  <div class="wins-ticker-label">🔥 Recent wins</div>
+  <div class="wins-ticker-wrapper">
+    <div class="wins-ticker-track" id="winsTicker">
+      <span class="win-item">💰 Jordan L. made his <strong>first $1,847</strong> in 31 days</span>
+      <span class="win-sep">·</span>
+      <span class="win-item">📈 Maria P. hit <strong>$5,200/month</strong> after Module 7</span>
+      <span class="win-sep">·</span>
+      <span class="win-item">🚀 David K. scaled to <strong>$85k/month</strong> in 8 months</span>
+      <span class="win-sep">·</span>
+      <span class="win-item">🏆 Sophie R. achieved <strong>3.4× ROAS</strong> with Meta Ads</span>
+      <span class="win-sep">·</span>
+      <span class="win-item">💸 Tyler C. went from dropship to <strong>$43k private label</strong></span>
+      <span class="win-sep">·</span>
+      <span class="win-item">⭐ Aisha N. reached <strong>$10k/month in 90 days</strong></span>
+      <span class="win-sep">·</span>
+      <span class="win-item">📦 Lena M. built a <strong>$22k/month Shopify store</strong></span>
+      <span class="win-sep">·</span>
+      <span class="win-item">🎯 Romain D. got his <strong>first 100 orders</strong> in week 3</span>
+      <span class="win-sep">·</span>
+      <!-- duplicate for seamless loop -->
+      <span class="win-item">💰 Jordan L. made his <strong>first $1,847</strong> in 31 days</span>
+      <span class="win-sep">·</span>
+      <span class="win-item">📈 Maria P. hit <strong>$5,200/month</strong> after Module 7</span>
+      <span class="win-sep">·</span>
+      <span class="win-item">🚀 David K. scaled to <strong>$85k/month</strong> in 8 months</span>
+      <span class="win-sep">·</span>
+      <span class="win-item">🏆 Sophie R. achieved <strong>3.4× ROAS</strong> with Meta Ads</span>
+      <span class="win-sep">·</span>
+      <span class="win-item">💸 Tyler C. went from dropship to <strong>$43k private label</strong></span>
+      <span class="win-sep">·</span>
+      <span class="win-item">⭐ Aisha N. reached <strong>$10k/month in 90 days</strong></span>
+      <span class="win-sep">·</span>
+      <span class="win-item">📦 Lena M. built a <strong>$22k/month Shopify store</strong></span>
+      <span class="win-sep">·</span>
+      <span class="win-item">🎯 Romain D. got his <strong>first 100 orders</strong> in week 3</span>
+      <span class="win-sep">·</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     PRICING TEASER
+══════════════════════════════════ -->
+<section class="section" style="background:var(--bg-2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <div class="container">
+    <div class="section-eyebrow"><span class="badge badge-primary">Simple pricing</span></div>
+    <h2 class="section-title">Choose your <span class="grad-text">plan</span></h2>
+    <p class="section-sub">Start free. Upgrade with a single one-time payment — lifetime access, no subscriptions.</p>
+
+    <div class="pricing-grid">
+      <!-- Free -->
+      <div class="pricing-card">
+        <div class="pricing-plan">Starter</div>
+        <div class="pricing-price" style="color:var(--text)"><sup>$</sup>0</div>
+        <div class="pricing-period">Forever free</div>
+        <p class="pricing-desc">Perfect for beginners exploring e-commerce and testing the waters.</p>
+        <ul class="pricing-features">
+          <li><span class="check">✓</span> 2 Free modules (Foundations + Research)</li>
+          <li><span class="check">✓</span> Community access</li>
+          <li><span class="check">✓</span> Basic resources library</li>
+          <li><span class="cross">✗</span> Live coaching calls</li>
+          <li><span class="cross">✗</span> Templates & tools</li>
+          <li><span class="cross">✗</span> Certificate of completion</li>
+        </ul>
+        <a href="auth.html?tab=register" class="btn btn-outline pricing-cta">Get Started Free</a>
+      </div>
+
+      <!-- Pro -->
+      <div class="pricing-card featured">
+        <span class="pricing-popular badge badge-primary">Most Popular</span>
+        <div class="pricing-plan">Pro</div>
+        <div class="pricing-price grad-text-primary"><sup>$</sup>247</div>
+        <div class="pricing-period">one-time payment</div>
+        <p class="pricing-desc">Everything you need to build and grow a profitable online store. Pay once, access forever.</p>
+        <ul class="pricing-features">
+          <li><span class="check">✓</span> All 12 modules (lifetime access)</li>
+          <li><span class="check">✓</span> Community & forums</li>
+          <li><span class="check">✓</span> Full templates & tools library</li>
+          <li><span class="check">✓</span> 1-on-1 coaching call included</li>
+          <li><span class="check">✓</span> Certificate of completion</li>
+          <li><span class="cross">✗</span> VIP community & direct access</li>
+        </ul>
+        <a href="checkout.html?plan=pro" class="btn btn-primary pricing-cta">Get Instant Access — $247</a>
+      </div>
+
+      <!-- Elite -->
+      <div class="pricing-card elite">
+        <div class="pricing-plan" style="color:var(--gold)">Elite</div>
+        <div class="pricing-price" style="color:var(--gold)"><sup>$</sup>497</div>
+        <div class="pricing-period">one-time payment</div>
+        <p class="pricing-desc">For serious entrepreneurs committed to building a 7-figure operation. The complete system.</p>
+        <ul class="pricing-features">
+          <li><span class="check">✓</span> Everything in Pro</li>
+          <li><span class="check">✓</span> Appel vocal VIP mensuel (1h)</li>
+          <li><span class="check">✓</span> Weekly group coaching calls</li>
+          <li><span class="check">✓</span> Business audit & review</li>
+          <li><span class="check">✓</span> Priority support (24h response)</li>
+          <li><span class="check">✓</span> Exclusive bonus modules (4 extra)</li>
+        </ul>
+        <a href="checkout.html?plan=elite" class="btn btn-gold pricing-cta">Get Instant Access — $497</a>
+      </div>
+    </div>
+
+    <div class="text-center mt-32">
+      <a href="pricing.html" style="font-size:14px;color:var(--text-3);border-bottom:1px dashed var(--border-2);padding-bottom:2px">View full pricing comparison →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     GUARANTEE BANNER
+══════════════════════════════════ -->
+<div class="guarantee-banner">
+  <div class="container">
+    <div class="guarantee-inner">
+      <div class="guarantee-shield">🛡️</div>
+      <div class="guarantee-text">
+        <strong>Accès à Vie & Support Prioritaire</strong>
+        <span>STATIC Academy vous donne un accès permanent à toutes les formations et mises à jour, avec support dédié inclus.</span>
+      </div>
+      <div class="guarantee-badges">
+        <div class="g-badge"><span>✓</span> One-time payment</div>
+        <div class="g-badge"><span>✓</span> Lifetime access</div>
+        <div class="g-badge"><span>✓</span> No subscriptions</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     FAQ
+══════════════════════════════════ -->
+<section class="section">
+  <div class="container">
+    <div class="section-eyebrow"><span class="badge badge-primary">FAQ</span></div>
+    <h2 class="section-title">Frequently asked <span class="grad-text">questions</span></h2>
+    <p class="section-sub">Everything you need to know about Static Academy.</p>
+
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-question">
+          Do I need any experience to start?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Absolutely not. Module 1 starts from scratch and assumes zero e-commerce knowledge. We take you from complete beginner to a fully operational store step by step. Many of our top students had never sold anything online before joining.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">
+          How long do I have access to the content?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">You get lifetime access — forever. This is a one-time payment, not a subscription. Free users keep access to Modules 1–2 forever. Pro and Elite members unlock their content permanently with a single purchase. No renewals, no expiry, no surprises.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">
+          What platforms do you cover?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">We cover Shopify (primary), WooCommerce, Amazon FBA, and TikTok Shop. The strategies taught are platform-agnostic where possible, so you can apply them anywhere. Module 3 has a dedicated section comparing all major platforms to help you choose the right one.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">
+          What is the purchase policy?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">All sales are final. As digital content is delivered immediately upon purchase, we do not offer refunds. If you experience any technical issue accessing your content, our support team will resolve it at no charge.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">
+          What's the difference between Pro and Elite?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Pro ($247 one-time) gives you lifetime access to all 12 core modules, templates, tools, and a 1-on-1 coaching call. Elite ($497 one-time) adds 4 bonus modules, Appel vocal VIP mensuel (1h), weekly group coaching calls, a full business audit with Alex, and priority support. Both are one-time payments — no subscriptions.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">
+          How are the coaching calls structured?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Pro members get one monthly 45-minute 1-on-1 call with a certified STATIC coach. Elite members get weekly group coaching calls (up to 90 min) plus their own monthly call with Alex directly. All calls are recorded and available in your dashboard.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     CTA
+══════════════════════════════════ -->
+<section class="cta-section">
+  <div class="cta-bg"></div>
+  <div class="container">
+    <div class="cta-inner">
+      <div class="badge badge-primary" style="margin-bottom:20px;display:inline-flex">🚀 Join 2,847+ entrepreneurs already inside</div>
+      <h2 class="cta-title">Ready to build your <span class="grad-text">dream business?</span></h2>
+      <p class="cta-sub">Start with 2 free modules today. One-time payment — lifetime access. No subscriptions, ever.</p>
+      <div class="cta-actions">
+        <a href="auth.html?tab=register" class="btn btn-primary btn-xl">Start for Free →</a>
+        <a href="pricing.html" class="btn btn-outline btn-lg">See Pricing</a>
+      </div>
+      <p style="margin-top:20px;font-size:13px;color:var(--text-4)">✓ Free plan forever &nbsp; ✓ No credit card &nbsp; ✓ One-time payment · Lifetime access</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     FOOTER
+══════════════════════════════════ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo">
+          <img src="logo-icon.svg" alt="STATIC Academy" style="width:38px;height:38px;flex-shrink:0;">
+          <span class="nav-logo-text">STATIC <span>Academy</span></span>
+        </a>
+        <p data-i18n="footer_tagline">The premium e-commerce academy for modern entrepreneurs.</p>
+        <div class="footer-socials" style="margin-top:16px">
+          <a href="#" class="footer-social">𝕏</a>
+          <a href="#" class="footer-social">in</a>
+          <a href="#" class="footer-social">▶</a>
+          <a href="#" class="footer-social">📸</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Learn</div>
+        <ul class="footer-links">
+          <li><a href="courses.html">All Courses</a></li>
+          <li><a href="courses.html?filter=free">Free Modules</a></li>
+          <li><a href="course-player.html?module=1">E-Commerce Foundations</a></li>
+          <li><a href="course-player.html?module=7">Paid Advertising</a></li>
+          <li><a href="course-player.html?module=12">Advanced Strategies</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <ul class="footer-links">
+          <li><a href="pricing.html">Pricing</a></li>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Affiliates</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Support</div>
+        <ul class="footer-links">
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="legal.html">Legal Notice</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 STATIC Academy. All rights reserved.</span>
+      <span class="footer-copy">Made with ❤️ for entrepreneurs worldwide</span>
+    </div>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+<script src="ai-chat.js"></script>
+<script>
+// ── Animate result bars on scroll ──
+(function() {
+  const rows = document.querySelectorAll('.rbar-fill[data-width]');
+  if (!rows.length) return;
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.width = e.target.dataset.width + '%';
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  rows.forEach(r => obs.observe(r));
+})();
+
+// ── Live enrollment counter (rotates through realistic numbers) ──
+(function() {
+  const badge = document.querySelector('.live-badge');
+  if (!badge) return;
+  const msgs = [
+    '3 students enrolled today',
+    'Jordan just started Module 3',
+    '2 new students this hour',
+    'Maria completed Module 7',
+    '5 students enrolled today',
+  ];
+  let i = 0;
+  setInterval(() => {
+    i = (i + 1) % msgs.length;
+    badge.innerHTML = `<span class="live-dot"></span>${msgs[i]}`;
+  }, 5000);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Signaler un problème — STATIC Academy</title>
+    <meta name="description" content="Signalez un bug, un problème de paiement ou de contenu à l'équipe STATIC Academy.">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#07080f;--bg2:#0c0e1d;--bg3:#131628;
+  --primary:#5b6cf5;--primary2:#8b5cf6;
+  --success:#10b981;--danger:#ef4444;--orange:#f97316;
+  --border:rgba(91,108,245,.14);--border2:rgba(255,255,255,.07);
+  --text:#e8ecff;--text2:#9ca3af;--text3:#6b7280;
+  --font:'Inter','Segoe UI',system-ui,sans-serif;
+}
+body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh;line-height:1.6;}
+
+/* NAV */
+nav{
+  background:rgba(7,8,15,.97);border-bottom:1px solid var(--border);
+  padding:.9rem 2rem;display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:100;backdrop-filter:blur(12px);
+}
+.nav-logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;color:var(--text);}
+.nav-logo img{width:32px;height:32px;}
+.nav-logo .lm{font-size:.9rem;font-weight:800;letter-spacing:.06em;}
+.nav-logo .ls{font-size:.48rem;font-weight:500;letter-spacing:.2em;color:var(--text3);text-transform:uppercase;display:block;}
+.nav-back{font-size:.82rem;color:var(--text3);text-decoration:none;display:flex;align-items:center;gap:.3rem;transition:color .2s;}
+.nav-back:hover{color:var(--text);}
+
+/* WRAP */
+.wrap{max-width:680px;margin:0 auto;padding:3rem 1.5rem 5rem;}
+
+/* Header */
+.page-tag{
+  display:inline-flex;align-items:center;gap:.4rem;padding:.28rem .8rem;
+  border-radius:100px;font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  background:rgba(249,115,22,.09);border:1px solid rgba(249,115,22,.25);color:rgba(255,180,120,.85);
+  margin-bottom:1.25rem;
+}
+h1{font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:800;letter-spacing:-.02em;margin-bottom:.5rem;
+  background:linear-gradient(135deg,#e8ecff 0%,#9ba5f7 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.subtitle{font-size:.92rem;color:var(--text2);margin-bottom:2.5rem;}
+
+/* Type selector */
+.type-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.75rem;margin-bottom:2rem;}
+.type-card{
+  background:var(--bg2);border:1.5px solid var(--border2);border-radius:14px;padding:1rem 1.1rem;
+  cursor:pointer;transition:all .2s;text-align:left;
+}
+.type-card:hover{border-color:var(--primary);}
+.type-card.active{border-color:var(--primary);background:rgba(91,108,245,.08);}
+.type-card .tc-icon{font-size:1.4rem;margin-bottom:.35rem;}
+.type-card .tc-title{font-size:.88rem;font-weight:700;color:var(--text);}
+.type-card .tc-sub{font-size:.75rem;color:var(--text3);margin-top:.1rem;}
+
+/* Form */
+.report-card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:1.75rem;}
+.section-title{font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:1.25rem;padding-bottom:.75rem;border-bottom:1px solid var(--border2);}
+.form-group{margin-bottom:1.2rem;}
+.form-group label{display:block;font-size:.82rem;font-weight:600;color:var(--text2);margin-bottom:.4rem;letter-spacing:.02em;}
+.form-group label span{color:var(--danger);}
+.form-group input,
+.form-group select,
+.form-group textarea{
+  width:100%;padding:.75rem 1rem;
+  background:rgba(7,8,15,.9);border:1.5px solid var(--border2);
+  border-radius:10px;color:var(--text);font-size:.9rem;
+  transition:all .2s;outline:none;font-family:var(--font);
+}
+.form-group input::placeholder,
+.form-group textarea::placeholder{color:var(--text3);}
+.form-group textarea{min-height:130px;resize:vertical;line-height:1.6;}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{border-color:var(--primary);background:rgba(91,108,245,.05);box-shadow:0 0 0 3px rgba(91,108,245,.08);}
+.form-group select option{background:#0c0e1d;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;}
+
+/* Priority */
+.prio-row{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin-bottom:1.2rem;}
+.prio-opt{
+  background:var(--bg3);border:1.5px solid var(--border2);border-radius:10px;padding:.6rem .5rem;
+  text-align:center;cursor:pointer;transition:all .2s;font-size:.8rem;font-weight:600;
+}
+.prio-opt:hover{border-color:var(--primary);}
+.prio-opt.low.active{border-color:var(--success);background:rgba(16,185,129,.08);color:var(--success);}
+.prio-opt.med.active{border-color:var(--orange);background:rgba(249,115,22,.08);color:var(--orange);}
+.prio-opt.high.active{border-color:var(--danger);background:rgba(239,68,68,.08);color:var(--danger);}
+.prio-icon{font-size:1.1rem;margin-bottom:.2rem;}
+
+/* Submit */
+.btn-submit{
+  width:100%;padding:.9rem 1.5rem;
+  background:linear-gradient(135deg,var(--primary),var(--primary2));
+  color:#fff;border:none;border-radius:12px;font-size:.95rem;font-weight:700;
+  cursor:pointer;transition:all .25s;font-family:var(--font);letter-spacing:.02em;
+}
+.btn-submit:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(91,108,245,.3);}
+
+/* Success state */
+.success-state{display:none;text-align:center;padding:2.5rem 1rem;}
+.success-state .s-icon{font-size:3rem;margin-bottom:1rem;}
+.success-state h2{font-size:1.4rem;font-weight:800;margin-bottom:.5rem;}
+.success-state p{color:var(--text2);font-size:.9rem;margin-bottom:1.5rem;}
+.ticket-id{
+  display:inline-block;padding:.4rem 1rem;background:rgba(91,108,245,.1);
+  border:1px solid rgba(91,108,245,.25);border-radius:8px;
+  font-size:.82rem;font-weight:600;color:var(--primary);font-family:monospace;letter-spacing:.05em;
+  margin-bottom:1.5rem;
+}
+.btn-back-home{
+  display:inline-flex;align-items:center;gap:.5rem;padding:.7rem 1.4rem;
+  background:var(--bg3);border:1px solid var(--border2);border-radius:10px;
+  color:var(--text2);text-decoration:none;font-size:.85rem;font-weight:600;
+  transition:all .2s;
+}
+.btn-back-home:hover{border-color:var(--primary);color:var(--primary);}
+
+/* Info box */
+.info-box{background:rgba(91,108,245,.07);border:1px solid rgba(91,108,245,.2);border-radius:10px;padding:1rem 1.1rem;margin-top:1.5rem;font-size:.8rem;color:var(--text2);line-height:1.6;}
+.info-box strong{color:var(--text);display:block;margin-bottom:.2rem;}
+
+@media(max-width:540px){
+  .type-grid{grid-template-columns:1fr;}
+  .form-row{grid-template-columns:1fr;}
+  .prio-row{grid-template-columns:repeat(3,1fr);}
+  .wrap{padding:2rem 1rem 4rem;}
+}
+</style>
+    <link rel="icon" href="logo-icon.svg" type="image/svg+xml">
+    <meta name="theme-color" content="#07080f">
+</head>
+<body>
+
+<nav>
+  <a href="index.html" style="display:flex;align-items:center;gap:.65rem;text-decoration:none;">
+    <img src="logo-icon.svg" alt="STATIC Academy" style="width:38px;height:38px;flex-shrink:0;">
+    <div style="display:flex;flex-direction:column;line-height:1.1;">
+      <span style="font-size:.95rem;font-weight:800;letter-spacing:.06em;color:#e8ecff;">STATIC</span>
+      <span style="font-size:.52rem;font-weight:500;letter-spacing:.22em;color:rgba(232,236,255,.38);text-transform:uppercase;">Academy</span>
+    </div>
+  </a>
+  <button onclick="window.history.length>1?window.history.back():window.location.href='dashboard.html'" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:.4rem .9rem;color:rgba(232,236,255,.55);font-size:.8rem;cursor:pointer;display:flex;align-items:center;gap:.35rem;font-family:inherit;transition:all .2s;" onmouseover="this.style.color='#e8ecff';this.style.borderColor='rgba(91,108,245,.5)'" onmouseout="this.style.color='rgba(232,236,255,.55)';this.style.borderColor='rgba(255,255,255,.1)'">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+    <span id="backBtnLabel">Retour</span>
+  </button>
+</nav>
+
+<div class="wrap">
+  <div class="page-tag">🐛 Support & Signalement</div>
+  <h1 data-i18n="rpt_title">Signaler un problème</h1>
+  <p class="subtitle">Décrivez votre problème et notre équipe vous répond sous 24h (jours ouvrés). Chaque signalement améliore la plateforme pour tous.</p>
+
+  <!-- Type selector -->
+  <div class="type-grid" id="typeGrid">
+    <div class="type-card active" data-type="payment" onclick="selectType('payment',this)">
+      <div class="tc-icon">💳</div>
+      <div class="tc-title" data-i18n="rpt_t_pay">Problème de paiement</div>
+      <div class="tc-sub">Paiement refusé, double débit, accès non activé</div>
+    </div>
+    <div class="type-card" data-type="access" onclick="selectType('access',this)">
+      <div class="tc-icon">🔐</div>
+      <div class="tc-title" data-i18n="rpt_t_acc">Problème d'accès</div>
+      <div class="tc-sub">Connexion impossible, vidéo bloquée, contenu manquant</div>
+    </div>
+    <div class="type-card" data-type="bug" onclick="selectType('bug',this)">
+      <div class="tc-icon">🐛</div>
+      <div class="tc-title" data-i18n="rpt_t_bug">Bug / Erreur technique</div>
+      <div class="tc-sub">Page bloquée, erreur affiché, comportement inattendu</div>
+    </div>
+    <div class="type-card" data-type="content" onclick="selectType('content',this)">
+      <div class="tc-icon">📚</div>
+      <div class="tc-title" data-i18n="rpt_t_content">Contenu / Formation</div>
+      <div class="tc-sub">Erreur dans le cours, vidéo cassée, contenu inexact</div>
+    </div>
+    <div class="type-card" data-type="sub" onclick="selectType('sub',this)">
+      <div class="tc-icon">🔄</div>
+      <div class="tc-title" data-i18n="rpt_t_sub">Abonnement / Accès</div>
+      <div class="tc-sub">Annulation, changement de plan, accès au contenu</div>
+    </div>
+    <div class="type-card" data-type="other" onclick="selectType('other',this)">
+      <div class="tc-icon">💬</div>
+      <div class="tc-title" data-i18n="rpt_t_other">Autre</div>
+      <div class="tc-sub">Suggestion, question générale, partenariat</div>
+    </div>
+  </div>
+
+  <!-- Form card -->
+  <div class="report-card" id="reportCard">
+    <div class="section-title" id="formTitle">💳 Problème de paiement</div>
+
+    <div id="reportForm">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Votre nom <span>*</span></label>
+          <input type="text" id="rptName" placeholder="Jean Dupont" autocomplete="name">
+        </div>
+        <div class="form-group">
+          <label>Votre email <span>*</span></label>
+          <input type="email" id="rptEmail" placeholder="jean@exemple.com" autocomplete="email">
+        </div>
+      </div>
+
+      <div class="form-group" id="orderIdGroup">
+        <label>Référence / Numéro de commande</label>
+        <input type="text" id="rptOrderId" placeholder="STX-XXXXX (si disponible)">
+      </div>
+
+      <div class="form-group">
+        <label>Formation concernée</label>
+        <select id="rptCourse">
+          <option value="">Non spécifié</option>
+          <option value="ec">E-Commerce Mastery</option>
+          <option value="tr">Forex & Crypto Trading</option>
+          <option value="bundle">Elite Bundle</option>
+          <option value="other">Autre / Général</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Titre du problème <span>*</span></label>
+        <input type="text" id="rptSubject" placeholder="Résumé en une phrase de votre problème">
+      </div>
+
+      <div class="form-group">
+        <label>Description détaillée <span>*</span></label>
+        <textarea id="rptDescription" placeholder="Décrivez précisément le problème : ce qui s'est passé, à quelle étape, message d'erreur éventuel, navigateur/appareil utilisé..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Priorité estimée</label>
+        <div class="prio-row">
+          <div class="prio-opt low active" onclick="selectPrio('low',this)">
+            <div class="prio-icon">🟢</div>Faible
+          </div>
+          <div class="prio-opt med" onclick="selectPrio('med',this)">
+            <div class="prio-icon">🟡</div>Moyenne
+          </div>
+          <div class="prio-opt high" onclick="selectPrio('high',this)">
+            <div class="prio-icon">🔴</div>Urgente
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-submit" onclick="submitReport()">
+        📨 Envoyer le signalement
+      </button>
+
+      <div class="info-box">
+        <strong>⏱️ Délai de réponse</strong>
+        Problèmes de paiement : réponse sous 4h en jours ouvrés · Bugs techniques : 24h · Contenu/accès : 48h. Pour les urgences, précisez "URGENT" dans le titre.
+      </div>
+    </div>
+
+    <!-- Success state -->
+    <div class="success-state" id="successState">
+      <div class="s-icon">✅</div>
+      <h2>Signalement envoyé !</h2>
+      <p>Votre problème a bien été enregistré. Notre équipe vous contactera à l'adresse email fournie.</p>
+      <div class="ticket-id" id="ticketIdEl">STX-000000</div>
+      <p style="margin-bottom:1.5rem;">Conservez cette référence pour le suivi de votre signalement.</p>
+      <a href="dashboard.html" class="btn-back-home">← Retour au dashboard</a>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+// Pre-fill from URL params
+const params = new URLSearchParams(window.location.search);
+const preType = params.get('type');
+if(preType){
+  const card = document.querySelector('[data-type="'+preType+'"]');
+  if(card){ document.querySelectorAll('.type-card').forEach(c=>c.classList.remove('active')); card.classList.add('active'); updateFormTitle(preType); }
+}
+
+// Pre-fill user info
+const user = JSON.parse(localStorage.getItem('static_user')||'{}');
+if(user.name) document.getElementById('rptName').value = user.name;
+if(user.email) document.getElementById('rptEmail').value = user.email;
+
+const _rptLang = localStorage.getItem('sa_lang') || 'en';
+const _rptEN = _rptLang === 'en';
+
+const TYPE_TITLES = _rptEN ? {
+  payment: '💳 Payment Issue',
+  access:  '🔐 Access Issue',
+  bug:     '🐛 Bug / Technical Error',
+  content: '📚 Content / Course',
+  sub:     '🔄 Subscription / Access',
+  other:   '💬 Other Request'
+} : {
+  payment: '💳 Problème de paiement',
+  access:  '🔐 Problème d\'accès',
+  bug:     '🐛 Bug / Erreur technique',
+  content: '📚 Contenu / Formation',
+  sub:     '🔄 Abonnement / Accès',
+  other:   '💬 Autre demande'
+};
+
+let currentType = preType || 'payment';
+let currentPrio = 'low';
+
+function selectType(type, el){
+  currentType = type;
+  document.querySelectorAll('.type-card').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  updateFormTitle(type);
+  document.getElementById('orderIdGroup').style.display = (type==='payment'||type==='sub') ? 'block' : 'none';
+}
+
+function updateFormTitle(type){
+  document.getElementById('formTitle').textContent = TYPE_TITLES[type] || '💬 Signalement';
+}
+
+function selectPrio(level, el){
+  currentPrio = level;
+  document.querySelectorAll('.prio-opt').forEach(p=>p.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function submitReport(){
+  const name  = document.getElementById('rptName').value.trim();
+  const email = document.getElementById('rptEmail').value.trim();
+  const subj  = document.getElementById('rptSubject').value.trim();
+  const desc  = document.getElementById('rptDescription').value.trim();
+
+  if(!name||!email||!subj||!desc){
+    alert(_rptEN ? 'Please fill in all required fields (*).' : 'Veuillez remplir tous les champs obligatoires (*).');
+    return;
+  }
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+    alert(_rptEN ? 'Invalid email address.' : 'Adresse email invalide.');
+    return;
+  }
+
+  // Generate ticket ID
+  const ticketId = 'STX-' + Date.now().toString().slice(-6);
+
+  // Save to localStorage (in a real app this would be an API call)
+  const reports = JSON.parse(localStorage.getItem('static_reports')||'[]');
+  reports.push({
+    id: ticketId,
+    type: currentType,
+    priority: currentPrio,
+    name, email,
+    course: document.getElementById('rptCourse').value,
+    orderId: document.getElementById('rptOrderId').value,
+    subject: subj,
+    description: desc,
+    createdAt: new Date().toISOString(),
+    status: 'open'
+  });
+  localStorage.setItem('static_reports', JSON.stringify(reports));
+
+  // Show success
+  document.getElementById('reportForm').style.display = 'none';
+  document.getElementById('ticketIdEl').textContent = ticketId;
+  document.getElementById('successState').style.display = 'block';
+}
+
+// Init
+document.getElementById('orderIdGroup').style.display = (currentType==='payment'||currentType==='sub') ? 'block' : 'none';
+updateFormTitle(currentType);
+</script>
+<script src="session-sync.js"></script>
+<script>
+(function(){
+  var ref = document.referrer;
+  var label = document.getElementById('backBtnLabel');
+  if(!label) return;
+  var isFR = (localStorage.getItem('sa_lang') || 'en') !== 'en';
+  var back = isFR ? 'Retour' : 'Back';
+  if(ref.includes('dashboard')) label.textContent = isFR ? 'Dashboard' : 'Dashboard';
+  else if(ref.includes('payment')) label.textContent = isFR ? 'Paiement' : 'Payment';
+  else if(ref.includes('course-player')) label.textContent = isFR ? 'Formation E-Commerce' : 'E-Commerce Course';
+  else if(ref.includes('trading-player')) label.textContent = isFR ? 'Formation Trading' : 'Trading Course';
+  else label.textContent = back;
+})();
+</script>
+<script>
+/* ── Full bilingual translation for report.html ── */
+(function(){
+  var isEN = (localStorage.getItem('sa_lang') || 'en') === 'en';
+
+  function qs(sel, t) { var el = document.querySelector(sel); if (el) el.textContent = t; }
+  function qsPh(sel, t) { var el = document.querySelector(sel); if (el) el.placeholder = t; }
+  function qsHtml(sel, t) { var el = document.querySelector(sel); if (el) el.innerHTML = t; }
+
+  function applyEN() {
+    if (!isEN) return;
+
+    // Page header
+    qs('.page-tag', '🐛 Support & Reporting');
+    qs('h1[data-i18n="rpt_title"]', 'Report an Issue');
+    qs('.subtitle', 'Describe your issue and our team will respond within 24h (business days). Every report helps improve the platform for everyone.');
+
+    // Type card subtitles
+    var subs = document.querySelectorAll('.tc-sub');
+    if (subs[0]) subs[0].textContent = 'Declined payment, double charge, access not activated';
+    if (subs[1]) subs[1].textContent = 'Cannot log in, video blocked, missing content';
+    if (subs[2]) subs[2].textContent = 'Page stuck, error displayed, unexpected behavior';
+    if (subs[3]) subs[3].textContent = 'Error in course, broken video, inaccurate content';
+    if (subs[4]) subs[4].textContent = 'Cancellation, plan change, content access';
+    if (subs[5]) subs[5].textContent = 'Suggestion, general question, partnership';
+
+    // Form labels
+    var labels = document.querySelectorAll('#reportForm label');
+    if (labels[0]) labels[0].innerHTML = 'Your name <span>*</span>';
+    if (labels[1]) labels[1].innerHTML = 'Your email <span>*</span>';
+    if (labels[2]) labels[2].textContent = 'Reference / Order number';
+    if (labels[3]) labels[3].textContent = 'Course concerned';
+    if (labels[4]) labels[4].innerHTML = 'Issue title <span>*</span>';
+    if (labels[5]) labels[5].innerHTML = 'Detailed description <span>*</span>';
+    if (labels[6]) labels[6].textContent = 'Estimated priority';
+
+    // Placeholders
+    qsPh('#rptName', 'John Doe');
+    qsPh('#rptEmail', 'john@example.com');
+    qsPh('#rptOrderId', 'STX-XXXXX (if available)');
+    qsPh('#rptSubject', 'One-sentence summary of your issue');
+    qsPh('#rptDescription', 'Describe the issue precisely: what happened, at which step, any error message, browser/device used...');
+
+    // Select options
+    var sel = document.getElementById('rptCourse');
+    if (sel) sel.innerHTML =
+      '<option value="">Not specified</option>' +
+      '<option value="ec">E-Commerce Mastery</option>' +
+      '<option value="tr">Forex & Crypto Trading</option>' +
+      '<option value="bundle">Elite Bundle</option>' +
+      '<option value="other">Other / General</option>';
+
+    // Priority options
+    var prios = document.querySelectorAll('.prio-opt');
+    if (prios[0]) prios[0].lastChild.textContent = 'Low';
+    if (prios[1]) prios[1].lastChild.textContent = 'Medium';
+    if (prios[2]) prios[2].lastChild.textContent = 'Urgent';
+
+    // Submit button
+    qs('.btn-submit', '📨 Send Report');
+
+    // Info box
+    qsHtml('.info-box', '<strong>⏱️ Response time</strong> Payment issues: reply within 4h on business days · Technical bugs: 24h · Content/access: 48h. For urgent issues, add "URGENT" in the title.');
+
+    // Success state
+    qs('#successState h2', 'Report sent!');
+    var successPs = document.querySelectorAll('#successState p');
+    if (successPs[0]) successPs[0].textContent = 'Your issue has been recorded. Our team will contact you at the email address provided.';
+    if (successPs[1]) successPs[1].textContent = 'Keep this reference to track your report.';
+    qs('#successState a.btn-back-home', '← Back to dashboard');
+
+    // data-i18n keys (matching keys already in HTML)
+    var T = {
+      rpt_title: 'Report an Issue',
+      rpt_t_pay: 'Payment Issue', rpt_t_acc: 'Access Issue',
+      rpt_t_bug: 'Bug / Technical Error', rpt_t_content: 'Content / Course',
+      rpt_t_sub: 'Subscription / Access', rpt_t_other: 'Other'
+    };
+    document.querySelectorAll('[data-i18n]').forEach(function(el) {
+      var k = el.getAttribute('data-i18n');
+      if (T[k]) el.textContent = T[k];
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', applyEN);
+  } else {
+    applyEN();
+  }
+})();
+</script>
+</body>
+</html>

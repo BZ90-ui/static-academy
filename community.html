@@ -1,0 +1,1542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Community — STATIC Academy</title>
+    <meta name="description" content="Rejoignez la communauté STATIC Academy. Partagez vos victoires, posez vos questions, progressez ensemble.">
+      <link rel="icon" href="logo-icon.svg" type="image/svg+xml">
+    <meta name="theme-color" content="#07080f">
+    <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ─── Community Layout ─── */
+    .community-hero {
+      background: linear-gradient(135deg, #0f0a1e 0%, #1a0a2e 50%, #0a1628 100%);
+      padding: 80px 0 50px;
+      text-align: center;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .community-hero h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 900;
+      font-family: var(--font-display);
+      background: linear-gradient(135deg, #fff 30%, #a78bfa);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      margin-bottom: 12px;
+    }
+    .community-hero p { color: var(--text-3); font-size: 1.05rem; max-width: 560px; margin: 0 auto 28px; }
+    .community-stats-row {
+      display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-top: 28px;
+    }
+    .c-stat {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 14px 22px;
+      text-align: center;
+    }
+    .c-stat-n { font-size: 1.6rem; font-weight: 900; color: #a78bfa; font-family: var(--font-display); }
+    .c-stat-l { font-size: 11px; color: var(--text-3); margin-top: 3px; }
+
+    /* ─── Main Layout ─── */
+    .community-body {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 32px;
+    }
+    @media(max-width: 900px) {
+      .community-body { grid-template-columns: 1fr; }
+      .community-sidebar { order: -1; }
+    }
+
+    /* ─── Tabs ─── */
+    .comm-tabs {
+      display: flex; gap: 6px; margin-bottom: 28px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 5px;
+    }
+    .comm-tab {
+      flex: 1; padding: 9px 14px; border-radius: 9px;
+      background: none; border: none; color: var(--text-3);
+      font-size: 13px; font-weight: 600; cursor: pointer;
+      transition: all 0.2s;
+    }
+    .comm-tab.active {
+      background: rgba(167,139,250,0.15);
+      color: #a78bfa;
+    }
+    .comm-tab:hover:not(.active) { background: rgba(255,255,255,0.05); color: var(--text-2); }
+
+    /* ─── Forum Categories ─── */
+    .forum-section { display: none; }
+    .forum-section.visible { display: block; }
+
+    .forum-category-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 12px; margin-top: 28px;
+    }
+    .forum-category-header:first-child { margin-top: 0; }
+    .forum-cat-title {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--text-3);
+    }
+    .forum-cat-count {
+      font-size: 11px; color: var(--text-4); background: rgba(255,255,255,0.06);
+      padding: 2px 8px; border-radius: 50px;
+    }
+
+    .forum-thread {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 14px;
+      padding: 16px 20px;
+      margin-bottom: 8px;
+      display: flex; align-items: flex-start; gap: 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .forum-thread:hover {
+      background: rgba(167,139,250,0.06);
+      border-color: rgba(167,139,250,0.25);
+    }
+    .forum-thread.pinned { border-color: rgba(245,158,11,0.3); }
+    .forum-thread-avatar {
+      width: 38px; height: 38px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 14px; flex-shrink: 0;
+      color: #fff;
+    }
+    .forum-thread-main { flex: 1; min-width: 0; }
+    .forum-thread-title {
+      font-size: 14px; font-weight: 600; color: var(--text-1);
+      margin-bottom: 5px;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .forum-thread-meta {
+      font-size: 12px; color: var(--text-3);
+      display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+    }
+    .forum-tag {
+      padding: 2px 8px; border-radius: 50px; font-size: 10px; font-weight: 700;
+    }
+    .tag-question { background: rgba(59,130,246,0.15); color: #60a5fa; }
+    .tag-success { background: rgba(16,185,129,0.15); color: #10b981; }
+    .tag-resource { background: rgba(245,158,11,0.15); color: #f59e0b; }
+    .tag-pinned { background: rgba(245,158,11,0.2); color: #f59e0b; }
+    .tag-coaching { background: rgba(167,139,250,0.15); color: #a78bfa; }
+    .tag-discussion { background: rgba(236,72,153,0.15); color: #f472b6; }
+    .forum-thread-stats {
+      display: flex; flex-direction: column; align-items: flex-end; gap: 4px;
+      flex-shrink: 0; font-size: 12px; color: var(--text-3);
+    }
+    .thread-replies { font-weight: 600; color: var(--text-2); }
+    .thread-hot { color: #f59e0b; font-size: 11px; }
+
+    /* ─── Pinned announcement ─── */
+    .forum-announce {
+      background: linear-gradient(135deg, rgba(167,139,250,0.08), rgba(124,58,237,0.08));
+      border: 1px solid rgba(167,139,250,0.25);
+      border-radius: 14px;
+      padding: 18px 20px;
+      margin-bottom: 20px;
+      display: flex; gap: 14px; align-items: flex-start;
+    }
+    .forum-announce-icon { font-size: 1.5rem; }
+    .forum-announce-title { font-size: 14px; font-weight: 700; color: #c4b5fd; margin-bottom: 5px; }
+    .forum-announce-desc { font-size: 13px; color: var(--text-3); line-height: 1.5; }
+
+    /* ─── Coaching Section ─── */
+    .coaching-section { display: none; }
+    .coaching-section.visible { display: block; }
+
+    .coaching-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+    .coaching-card-top {
+      padding: 20px 22px 16px;
+      display: flex; gap: 16px; align-items: flex-start;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .coaching-live-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.3);
+      color: #f87171; font-size: 11px; font-weight: 700;
+      padding: 3px 10px; border-radius: 50px; white-space: nowrap;
+    }
+    .coaching-live-dot {
+      width: 6px; height: 6px; background: #f87171; border-radius: 50%;
+      animation: livePulse 1.4s ease-in-out infinite;
+    }
+    @keyframes livePulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.8)} }
+    .coaching-upcoming-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.25);
+      color: #34d399; font-size: 11px; font-weight: 700;
+      padding: 3px 10px; border-radius: 50px;
+    }
+    .coaching-card-info { flex: 1; }
+    .coaching-card-title { font-size: 16px; font-weight: 700; color: var(--text-1); margin-bottom: 5px; }
+    .coaching-card-host {
+      font-size: 13px; color: var(--text-3); display: flex; align-items: center; gap: 8px;
+    }
+    .coaching-host-avatar {
+      width: 26px; height: 26px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 800; color: #fff;
+    }
+    .coaching-card-bottom {
+      padding: 14px 22px;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;
+    }
+    .coaching-meta { display: flex; gap: 16px; flex-wrap: wrap; }
+    .coaching-meta-item { font-size: 12px; color: var(--text-3); display: flex; align-items: center; gap: 5px; }
+    .coaching-topics {
+      display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; padding: 0 22px 14px;
+    }
+    .coaching-topic-tag {
+      padding: 4px 10px; border-radius: 50px; font-size: 11px; font-weight: 600;
+      background: rgba(255,255,255,0.06); color: var(--text-3);
+    }
+    .coaching-register-btn {
+      padding: 9px 20px; border-radius: 10px; border: none; cursor: pointer;
+      font-size: 13px; font-weight: 700;
+      background: linear-gradient(135deg, #7c3aed, #a78bfa);
+      color: #fff; transition: all 0.2s;
+    }
+    .coaching-register-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 15px rgba(124,58,237,0.4); }
+    .coaching-register-btn.disabled {
+      background: rgba(255,255,255,0.08); color: var(--text-3); cursor: not-allowed;
+    }
+    .coaching-register-btn.disabled:hover { transform: none; box-shadow: none; }
+
+    .coaching-replay-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; margin-top: 20px;
+    }
+    .replay-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 14px; overflow: hidden; cursor: pointer;
+      transition: all 0.2s;
+    }
+    .replay-card:hover { border-color: rgba(167,139,250,0.3); transform: translateY(-2px); }
+    .replay-thumb {
+      width: 100%; aspect-ratio: 16/9;
+      background: linear-gradient(135deg, #1a0a2e, #0a1628);
+      display: flex; align-items: center; justify-content: center;
+      position: relative; font-size: 2.5rem;
+    }
+    .replay-play-btn {
+      position: absolute;
+      width: 44px; height: 44px;
+      background: rgba(124,58,237,0.9);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; padding-left: 3px;
+    }
+    .replay-info { padding: 12px 14px; }
+    .replay-title { font-size: 13px; font-weight: 600; color: var(--text-1); margin-bottom: 5px; }
+    .replay-meta { font-size: 11px; color: var(--text-3); display: flex; gap: 8px; }
+
+    /* ─── Leaderboard ─── */
+    .leaderboard-section { display: none; }
+    .leaderboard-section.visible { display: block; }
+
+    .lb-period-tabs {
+      display: flex; gap: 6px; margin-bottom: 24px;
+    }
+    .lb-period-tab {
+      padding: 7px 16px; border-radius: 8px;
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+      color: var(--text-3); font-size: 12px; font-weight: 600; cursor: pointer;
+      transition: all 0.2s;
+    }
+    .lb-period-tab.active {
+      background: rgba(167,139,250,0.15); border-color: rgba(167,139,250,0.3);
+      color: #a78bfa;
+    }
+
+    .lb-podium {
+      display: flex; align-items: flex-end; justify-content: center; gap: 12px;
+      margin-bottom: 32px;
+    }
+    .lb-podium-item {
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+    }
+    .lb-podium-avatar {
+      width: 52px; height: 52px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 18px; color: #fff;
+      border: 3px solid transparent;
+    }
+    .lb-podium-avatar.gold { border-color: #fbbf24; box-shadow: 0 0 20px rgba(251,191,36,0.3); }
+    .lb-podium-avatar.silver { border-color: #94a3b8; }
+    .lb-podium-avatar.bronze { border-color: #d97706; }
+    .lb-podium-name { font-size: 13px; font-weight: 700; color: var(--text-1); text-align: center; }
+    .lb-podium-pts { font-size: 12px; color: var(--text-3); text-align: center; }
+    .lb-podium-base {
+      width: 90px; border-radius: 10px 10px 0 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; font-weight: 900;
+    }
+    .lb-podium-base.gold { height: 80px; background: linear-gradient(180deg, rgba(251,191,36,0.2), rgba(251,191,36,0.05)); border: 1px solid rgba(251,191,36,0.3); }
+    .lb-podium-base.silver { height: 60px; background: linear-gradient(180deg, rgba(148,163,184,0.2), rgba(148,163,184,0.05)); border: 1px solid rgba(148,163,184,0.2); }
+    .lb-podium-base.bronze { height: 45px; background: linear-gradient(180deg, rgba(217,119,6,0.2), rgba(217,119,6,0.05)); border: 1px solid rgba(217,119,6,0.25); }
+
+    .lb-row {
+      display: flex; align-items: center; gap: 12px;
+      padding: 12px 16px; border-radius: 12px;
+      background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06);
+      margin-bottom: 6px; transition: all 0.2s;
+    }
+    .lb-row:hover { background: rgba(167,139,250,0.05); border-color: rgba(167,139,250,0.2); }
+    .lb-row.you {
+      background: rgba(167,139,250,0.08); border-color: rgba(167,139,250,0.3);
+    }
+    .lb-rank { width: 28px; text-align: center; font-size: 13px; font-weight: 800; color: var(--text-3); }
+    .lb-avatar {
+      width: 36px; height: 36px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 13px; color: #fff; flex-shrink: 0;
+    }
+    .lb-info { flex: 1; min-width: 0; }
+    .lb-name { font-size: 13px; font-weight: 600; color: var(--text-1); }
+    .lb-progress { font-size: 11px; color: var(--text-3); margin-top: 2px; }
+    .lb-badge-list { display: flex; gap: 4px; }
+    .lb-badge { font-size: 14px; }
+    .lb-pts { font-size: 14px; font-weight: 800; color: #a78bfa; min-width: 60px; text-align: right; }
+    .lb-pts-lbl { font-size: 10px; color: var(--text-4); }
+    .lb-delta-up { font-size: 11px; color: #10b981; }
+    .lb-delta-down { font-size: 11px; color: #f87171; }
+
+    .lb-legend {
+      display: flex; gap: 16px; flex-wrap: wrap; margin-top: 20px;
+      padding: 14px 16px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px; font-size: 12px; color: var(--text-3);
+    }
+    .lb-legend-item { display: flex; align-items: center; gap: 6px; }
+
+    /* ─── New post button ─── */
+    .new-post-btn {
+      width: 100%; padding: 12px;
+      background: linear-gradient(135deg, #7c3aed, #a78bfa);
+      border: none; border-radius: 12px; color: #fff;
+      font-size: 14px; font-weight: 700; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      margin-bottom: 24px; transition: all 0.2s;
+    }
+    .new-post-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(124,58,237,0.4); }
+
+    /* ─── Sidebar ─── */
+    .community-sidebar {}
+    .sidebar-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .sidebar-card h3 {
+      font-size: 13px; font-weight: 700; color: var(--text-2);
+      margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.06em;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .sidebar-card h3 span { font-size: 14px; }
+
+    .online-user {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 10px;
+    }
+    .online-avatar {
+      width: 32px; height: 32px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 11px; color: #fff;
+      position: relative;
+    }
+    .online-dot {
+      position: absolute; bottom: 1px; right: 1px;
+      width: 9px; height: 9px; background: #10b981;
+      border-radius: 50%; border: 2px solid #0f0a1e;
+    }
+    .online-name { font-size: 13px; color: var(--text-2); }
+    .online-status { font-size: 11px; color: var(--text-3); }
+
+    .next-call-timer {
+      background: linear-gradient(135deg, rgba(167,139,250,0.1), rgba(124,58,237,0.1));
+      border: 1px solid rgba(167,139,250,0.25);
+      border-radius: 12px; padding: 14px; text-align: center; margin-top: 12px;
+    }
+    .timer-label { font-size: 11px; color: #a78bfa; font-weight: 700; margin-bottom: 8px; }
+    .timer-display { display: flex; gap: 8px; justify-content: center; }
+    .timer-unit { text-align: center; }
+    .timer-num {
+      background: rgba(167,139,250,0.15); border: 1px solid rgba(167,139,250,0.25);
+      border-radius: 8px; padding: 6px 10px;
+      font-size: 1.4rem; font-weight: 900; font-family: var(--font-display);
+      color: #c4b5fd; min-width: 42px; display: block;
+    }
+    .timer-sep { font-size: 1.4rem; font-weight: 900; color: #7c3aed; align-self: center; margin-top: -8px; }
+    .timer-lbl { font-size: 9px; color: var(--text-4); margin-top: 3px; text-transform: uppercase; }
+
+    .quick-link {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 12px; border-radius: 10px;
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+      margin-bottom: 6px; text-decoration: none; color: var(--text-2);
+      font-size: 13px; font-weight: 500; transition: all 0.2s;
+    }
+    .quick-link:hover { background: rgba(167,139,250,0.08); border-color: rgba(167,139,250,0.2); color: var(--text-1); }
+    .quick-link-icon { font-size: 15px; width: 24px; text-align: center; }
+    .quick-link-arrow { margin-left: auto; color: var(--text-4); font-size: 11px; }
+
+    .resource-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .resource-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .resource-icon {
+      width: 32px; height: 32px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; flex-shrink: 0;
+    }
+    .resource-info { flex: 1; min-width: 0; }
+    .resource-title { font-size: 12px; font-weight: 600; color: var(--text-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .resource-type { font-size: 10px; color: var(--text-4); margin-top: 2px; }
+    .resource-download { font-size: 16px; cursor: pointer; color: var(--text-3); transition: color 0.2s; }
+    .resource-download:hover { color: #a78bfa; }
+
+    /* ─── Achievements section (in leaderboard) ─── */
+    .achievements-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px;
+      margin-top: 24px;
+    }
+    .achievement-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 12px; padding: 14px 10px;
+      text-align: center; transition: all 0.2s; cursor: default;
+    }
+    .achievement-card:hover { border-color: rgba(167,139,250,0.25); }
+    .achievement-card.locked { opacity: 0.4; }
+    .achievement-icon { font-size: 2rem; margin-bottom: 6px; display: block; }
+    .achievement-name { font-size: 11px; font-weight: 700; color: var(--text-2); }
+    .achievement-desc { font-size: 10px; color: var(--text-4); margin-top: 3px; }
+    .achievement-pts { font-size: 10px; color: #a78bfa; margin-top: 4px; font-weight: 700; }
+
+    /* ─── Section headings ─── */
+    .section-heading {
+      font-size: 16px; font-weight: 700; color: var(--text-1);
+      margin: 28px 0 14px; display: flex; align-items: center; gap: 8px;
+    }
+    .section-heading::after {
+      content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.07);
+    }
+
+    /* ─── Forum search ─── */
+    .forum-search {
+      display: flex; gap: 8px; margin-bottom: 20px;
+    }
+    .forum-search input {
+      flex: 1; padding: 10px 14px; border-radius: 10px;
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+      color: var(--text-1); font-size: 13px; outline: none;
+    }
+    .forum-search input:focus { border-color: rgba(167,139,250,0.4); }
+    .forum-search input::placeholder { color: var(--text-4); }
+    .forum-search-btn {
+      padding: 10px 16px; border-radius: 10px;
+      background: rgba(167,139,250,0.15); border: 1px solid rgba(167,139,250,0.25);
+      color: #a78bfa; font-size: 13px; font-weight: 600; cursor: pointer;
+      transition: all 0.2s;
+    }
+    .forum-search-btn:hover { background: rgba(167,139,250,0.25); }
+
+    /* ─── Empty/locked state ─── */
+    .locked-state {
+      text-align: center; padding: 40px 20px;
+      background: rgba(255,255,255,0.02);
+      border: 1px dashed rgba(255,255,255,0.1);
+      border-radius: 16px; margin-top: 20px;
+    }
+    .locked-icon { font-size: 2.5rem; margin-bottom: 12px; }
+    .locked-title { font-size: 16px; font-weight: 700; color: var(--text-2); margin-bottom: 8px; }
+    .locked-desc { font-size: 13px; color: var(--text-3); max-width: 340px; margin: 0 auto 16px; line-height: 1.5; }
+    .locked-btn {
+      display: inline-block; padding: 10px 22px; border-radius: 10px;
+      background: linear-gradient(135deg, #7c3aed, #a78bfa);
+      color: #fff; font-size: 13px; font-weight: 700;
+      text-decoration: none; transition: all 0.2s;
+    }
+    .locked-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 15px rgba(124,58,237,0.4); }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="mainNav">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" style="display:flex;align-items:center;gap:.65rem;text-decoration:none;">
+        <img src="logo-icon.svg" alt="STATIC Academy" style="width:38px;height:38px;flex-shrink:0;" />
+        <div style="display:flex;flex-direction:column;line-height:1.1;">
+          <span style="font-size:.95rem;font-weight:800;letter-spacing:.06em;color:#e8ecff;">STATIC</span>
+          <span style="font-size:.52rem;font-weight:500;letter-spacing:.22em;color:rgba(232,236,255,.38);text-transform:uppercase;">Academy</span>
+        </div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html" data-i18n="nav_home">Home</a></li>
+        <li><a href="courses.html" data-i18n="nav_courses">Courses</a></li>
+        <li><a href="learning-paths.html" data-i18n="nav_paths">Learning Paths</a></li>
+        <li><a href="community.html" data-i18n="nav_community">Community</a></li>
+        <li><a href="pricing.html" data-i18n="nav_pricing">Pricing</a></li>
+        <li><a href="dashboard.html" class="nav-dash-link" data-i18n="nav_dashboard" style="display:none">Dashboard</a></li>
+      </ul>
+      <div class="nav-right" id="navRight">
+        <select class="lang-select" id="langSelect">
+          <option value="en">🇬🇧 EN</option>
+          <option value="fr">🇫🇷 FR</option>
+          <option value="es">🇪🇸 ES</option>
+          <option value="de">🇩🇪 DE</option>
+          <option value="pt">🇧🇷 PT</option>
+        </select>
+        <div class="nav-guest">
+          <a href="auth.html" class="btn btn-ghost btn-sm" data-i18n="nav_login">Sign In</a>
+          <a href="auth.html" class="btn btn-primary btn-sm" data-i18n="nav_cta">Get Started</a>
+        </div>
+        <div class="nav-user" style="display:none">
+          <div class="nav-avatar" id="navAvatar">SA</div>
+          <span class="nav-username" id="navUsername">Student</span>
+          <button class="btn btn-ghost btn-sm" id="logoutBtn" onclick="window.App&&window.App.logout()" data-i18n="nav_logout">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            Sign Out
+          </button>
+        </div>
+        <button class="nav-toggle" id="navToggle" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="mobile-nav" id="mobileNav">
+  <ul class="mobile-nav-links">
+    <li><a href="index.html" data-i18n="nav_home">Home</a></li>
+    <li><a href="courses.html" data-i18n="nav_courses">Courses</a></li>
+    <li><a href="learning-paths.html" data-i18n="nav_paths">Learning Paths</a></li>
+    <li><a href="community.html" data-i18n="nav_community">Community</a></li>
+    <li><a href="pricing.html" data-i18n="nav_pricing">Pricing</a></li>
+    <li><a href="auth.html" data-i18n="nav_login">Sign In</a></li>
+    <li><a href="auth.html" class="btn btn-primary" data-i18n="nav_cta">Get Started</a></li>
+  </ul>
+</div>
+
+<!-- HERO -->
+<section class="community-hero">
+  <div class="container">
+    <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(167,139,250,0.1);border:1px solid rgba(167,139,250,0.25);color:#a78bfa;font-size:12px;font-weight:700;padding:5px 14px;border-radius:50px;margin-bottom:20px;">
+      <span style="width:7px;height:7px;background:#a78bfa;border-radius:50%;animation:livePulse 1.4s ease-in-out infinite;display:block"></span>
+      4,238 members online now
+    </div>
+    <h1 data-i18n="community_hero_title">Your E-Commerce Community</h1>
+    <p>Ask questions, share wins, get coached, and climb the leaderboard with 42,000+ entrepreneurs on the same journey.</p>
+    <div class="community-stats-row">
+      <div class="c-stat"><div class="c-stat-n">42,318</div><div class="c-stat-l">Members</div></div>
+      <div class="c-stat"><div class="c-stat-n">127,409</div><div class="c-stat-l">Forum Posts</div></div>
+      <div class="c-stat"><div class="c-stat-n">316</div><div class="c-stat-l">Coaching Replays</div></div>
+      <div class="c-stat"><div class="c-stat-n">$2.4M</div><div class="c-stat-l">Revenue Generated by Members</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- BODY -->
+<div class="community-body">
+
+  <!-- LEFT: Main content -->
+  <div class="community-main">
+
+    <!-- Tabs -->
+    <div class="comm-tabs">
+      <button class="comm-tab active" onclick="switchTab('forum', this)">💬 Forum</button>
+      <button class="comm-tab" onclick="switchTab('coaching', this)">🎙️ Coaching Calls</button>
+      <button class="comm-tab" onclick="switchTab('leaderboard', this)">🏆 Leaderboard</button>
+    </div>
+
+    <!-- ═══ FORUM ═══ -->
+    <div class="forum-section visible" id="tab-forum">
+
+      <div class="forum-search">
+        <input type="text" placeholder="Search discussions, topics, answers..." id="forumSearch" />
+        <button class="forum-search-btn" onclick="searchForum()">🔍 Search</button>
+      </div>
+
+      <button class="new-post-btn" onclick="openNewPost()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        New Discussion
+      </button>
+
+      <!-- Pinned announcement -->
+      <div class="forum-announce">
+        <div class="forum-announce-icon">📌</div>
+        <div>
+          <div class="forum-announce-title">🎉 Weekly Wins Thread — Share Your Revenue Milestones!</div>
+          <div class="forum-announce-desc">Every week, we celebrate member wins here. First $100? First $1,000? Post your screenshot, tell your story, and inspire the community. This week's thread is live.</div>
+        </div>
+      </div>
+
+      <!-- ── GETTING STARTED ── -->
+      <div class="forum-category-header">
+        <div class="forum-cat-title">🚀 Getting Started</div>
+        <div class="forum-cat-count">1,247 threads</div>
+      </div>
+
+      <div class="forum-thread pinned" onclick="openThread(this)">
+        <div class="forum-thread-avatar" style="background:linear-gradient(135deg,#7c3aed,#a78bfa)">SA</div>
+        <div class="forum-thread-main">
+          <div class="forum-thread-title">📌 READ FIRST: How to get the most out of STATIC Academy (complete onboarding guide)</div>
+          <div class="forum-thread-meta">
+            <span class="forum-tag tag-pinned">📌 Pinned</span>
+            <span>by <strong>STATIC Team</strong></span>
+            <span>Updated 3 days ago</span>
+          </div>
+        </div>
+        <div class="forum-thread-stats">
+          <span class="thread-replies">4,231 views</span>
+          <span>89 replies</span>
+        </div>
+      </div>
+
+      <div class="forum-thread" onclick="openThread(this)">
+        <div class="forum-thread-avatar" style="background:linear-gradient(135deg,#059669,#10b981)">ML</div>
+        <div class="forum-thread-main">
+          <div class="forum-thread-title">Just finished Module 1 — choosing between dropshipping and private label, need advice</div>
+          <div class="forum-thread-meta">
+            <span class="forum-tag tag-question">❓ Question</span>
+            <span>by <strong>Marie L.</strong></span>
+            <span>2 hours ago</span>
+          </div>
+        </div>
+        <div class="forum-thread-stats">
+          <span class="thread-replies">23 replies</span>
+          <span class="thread-hot">🔥 Hot</span>
+        </div>
+      </div>
+
+      <div class="forum-thread" onclick="openThread(this)">
+        <div class="forum-thread-avatar" style="background:linear-gradient(135deg,#dc2626,#f87171)">AK</div>
+        <div class="forum-thread-main">
+          <div class="forum-thread-title">What are realistic revenue expectations in the first 90 days? Sharing my results</div>
+          <div class="forum-thread-meta">
+            <span class="forum-tag tag-success">✅ Success Story</span>
+            <span>by <strong>Alex K.</strong></span>
+            <span>5 hours ago</span>
+          </div>
+        </div>
+        <div class="forum-thread-stats">
+          <span class="thread-replies">67 replies</span>
+          <span class="thread-hot">🔥 Hot</span>
+        </div>
+      </div>
+
+      <div class="forum-thread" onclick="openThread(this)">
+        <div class="forum-thread-avatar" style="background:linear-gradient(135deg,#0284c7,#38bdf8)">JP</div>
+        <div class="forum-thread-main">
+          <div class="forum-thread-title">LLC vs Sole Proprietor: what did you choose and why?</div>
+          <div class="forum-thread-meta">
+            <span class="forum-tag tag-discussion">💬 Discussion</span>
+            <span>by <strong>James P.</strong></span>
+            <span>Yesterday</span>
+          </div>
+        </div>
+        <div class="forum-thread-stats">
+          <span class="thread-replies">41 replies</span>
+        </div>
+      </div>
+
+      <!-- ── PRODUCT RESEARCH ── -->
+      <div class="forum-category-header">
+        <div class="forum-cat-title">🔎 Product Research</div>
+        <div class="forum-cat-count">3,892 threads</div>
+      </div>
+
+      <div class="forum-thread" onclick="openThread(this)">
+        <div class="forum-thread-avatar" style="background:linear-gradient(135deg,#7c3aed,#c4b5fd)">SR</div>
+        <div class="forum-thread-main">
+          <div class="forum-thread-title">Found a product with BSR 12,000 but only 4 competitors — is this a good sign?</div>
+          <div class="forum-thread-meta">
+            <span class="forum-tag tag-question">❓ Question</span>
+            <span>by <strong>Sophie R.</strong></span>
+            <span>1 hour ago</span>
+          </div>
+        </div>
+        <div class="forum-thread-stats">
+          <span class="thread-replies">18 replies</span>
+        </div>
+      </div>
+
+      <div class="forum-thread" onclick="openThread(this)">
+        <div class="forum-thread-avatar" style="background:linear-gradient(135deg,#0f766e,#2dd4bf)">TM</div>
+        <div class="forum-thread-main">
+          <div class="forum-thread-title">📊 My exact product research spreadsheet — 6 months of data [FREE DOWNLOAD]</div>
+          <div class="forum-thread-meta">
+            <span class="forum-tag tag-resource">📦 Resource</span>
+            <span>by <strong>Thomas M.</strong></span>
+            <span>3 days ago</span>
+          </div>
+        </div>
+        <div class="forum-thread-stats">
+          <span class="thread-replies">203 replies</span>
+          <span class="thread-hot">🔥 Hot</span>
+        </div>
+      </div>
+
+      <div class="forum-thread" onclick="openThread(this)">
+        <div class="forum-thread-avatar" style="background:linear-gradient(135deg,#c2410c,#fb923c)">NB</div>
+        <div class="forum-thread-main">
+          <div class="forum-thread-title">Using ChatGPT to generate 50 product ideas in 10 minutes — my prompt template</div>
+          <div class="forum-thread-meta">
+            <span class="forum-tag tag-resource">📦 Resource</span>
+            <span>by <strong>Nicolas B.</strong></span>
+            <span>2 days ago</span>
+          </div>
+        </div>
+        <div class="forum-thread-stats">
+          <span class="thread-replies">156 replies</span>
+          <span class="thread-hot">🔥 Hot</span>
+        </div>
+      </div>
+
+      <!-- ── SHOPIFY & TECH ── -->
+      <div class="forum-category-header">
+        <div class="forum-cat-title">🏪 Store Building & Tech</div>
+        <div class="forum-cat-count">2,104 threads</div>
+      </div>
+
+      <div class="forum-thread" onclick="openThread(this)">
+        <div class="forum-thread-avatar" style="background:linear-gradient(135deg,#047857,#34d399)">EA</div>
+        <div class="forum-thread-main">
+          <div class="forum-thread-title">Dawn vs Sense theme — which converts better? I ran an A/B test for 3 weeks</div>
+          <div class="forum-thread-meta">
+            <span class="forum-tag tag-resource">📦 Resource</span>
+            <span>by <strong>Emma A.</strong></span>
+            <span>4 days ago</span>
+          </div>
+        </div>
+        <div class="forum-thread-stats">
+          <span class="thread-replies">94 replies</span>
+        </div>
+      </div>
+
+      <div class="forum-thread" onclick="openThread(this)">
+        <div class="forum-thread-avatar" style="background:linear-gradient(135deg,#1d4ed8,#60a5fa)">RD</div>
+        <div class="forum-thread-main">
+          <div class="forum-thread-title">My checkout went from 52% to 74% completion after these 3 changes</div>
+          <div class="forum-thread-meta">
+            <span class="forum-tag tag-success">✅ Success Story</span>
+            <span>by <strong>Romain D.</strong></span>
+            <span>1 week ago</span>
+          </div>
+        </div>
+        <div class="forum-thread-stats">
+          <span class="thread-replies">131 replies</span>
+          <span class="thread-hot">🔥 Hot</span>
+        </div>
+      </div>
+
+      <!-- ── PAID ADS ── -->
+      <div class="forum-category-header">
+        <div class="forum-cat-title">🎯 Paid Advertising</div>
+        <div class="forum-cat-count">5,671 threads</div>
+      </div>
+
+      <div class="forum-thread" onclick="openThread(this)">
+        <div class="forum-thread-avatar" style="background:linear-gradient(135deg,#7c3aed,#ec4899)">LF</div>
+        <div class="forum-thread-main">
+          <div class="forum-thread-title">Meta Advantage+ is outperforming my manual campaigns by 40% — should everyone switch?</div>
+          <div class="forum-thread-meta">
+            <span class="forum-tag tag-discussion">💬 Discussion</span>
+            <span>by <strong>Lucas F.</strong></span>
+            <span>6 hours ago</span>
+          </div>
+        </div>
+        <div class="forum-thread-stats">
+          <span class="thread-replies">88 replies</span>
+          <span class="thread-hot">🔥 Hot</span>
+        </div>
+      </div>
+
+      <div class="forum-thread" onclick="openThread(this)">
+        <div class="forum-thread-avatar" style="background:linear-gradient(135deg,#be185d,#f472b6)">CM</div>
+        <div class="forum-thread-main">
+          <div class="forum-thread-title">$12 CPM on TikTok vs $28 on Meta for the same product — my full comparison</div>
+          <div class="forum-thread-meta">
+            <span class="forum-tag tag-resource">📦 Resource</span>
+            <span>by <strong>Clara M.</strong></span>
+            <span>2 days ago</span>
+          </div>
+        </div>
+        <div class="forum-thread-stats">
+          <span class="thread-replies">176 replies</span>
+          <span class="thread-hot">🔥 Hot</span>
+        </div>
+      </div>
+
+      <div class="forum-thread" onclick="openThread(this)">
+        <div class="forum-thread-avatar" style="background:linear-gradient(135deg,#92400e,#fbbf24)">PL</div>
+        <div class="forum-thread-main">
+          <div class="forum-thread-title">How I finally cracked profitable Google Shopping after 3 months of losses</div>
+          <div class="forum-thread-meta">
+            <span class="forum-tag tag-success">✅ Success Story</span>
+            <span>by <strong>Pierre L.</strong></span>
+            <span>5 days ago</span>
+          </div>
+        </div>
+        <div class="forum-thread-stats">
+          <span class="thread-replies">245 replies</span>
+          <span class="thread-hot">🔥 Hot</span>
+        </div>
+      </div>
+
+      <!-- ── SUCCESS STORIES ── -->
+      <div class="forum-category-header">
+        <div class="forum-cat-title">🎉 Wins & Success Stories</div>
+        <div class="forum-cat-count">892 threads</div>
+      </div>
+
+      <div class="forum-thread" onclick="openThread(this)">
+        <div class="forum-thread-avatar" style="background:linear-gradient(135deg,#15803d,#4ade80)">YD</div>
+        <div class="forum-thread-main">
+          <div class="forum-thread-title">🎉 $0 to $47,320 in 6 months — my full journey (Module 1 to 7 applied)</div>
+          <div class="forum-thread-meta">
+            <span class="forum-tag tag-success">✅ Success Story</span>
+            <span>by <strong>Yannick D.</strong></span>
+            <span>3 days ago</span>
+          </div>
+        </div>
+        <div class="forum-thread-stats">
+          <span class="thread-replies">412 replies</span>
+          <span class="thread-hot">🔥 Top Post</span>
+        </div>
+      </div>
+
+      <div class="forum-thread" onclick="openThread(this)">
+        <div class="forum-thread-avatar" style="background:linear-gradient(135deg,#4f46e5,#818cf8)">AS</div>
+        <div class="forum-thread-main">
+          <div class="forum-thread-title">First $1,000 day! Screenshot + breakdown of what changed</div>
+          <div class="forum-thread-meta">
+            <span class="forum-tag tag-success">✅ Success Story</span>
+            <span>by <strong>Amara S.</strong></span>
+            <span>Yesterday</span>
+          </div>
+        </div>
+        <div class="forum-thread-stats">
+          <span class="thread-replies">198 replies</span>
+          <span class="thread-hot">🔥 Hot</span>
+        </div>
+      </div>
+
+    </div>
+    <!-- END FORUM -->
+
+    <!-- ═══ COACHING CALLS ═══ -->
+    <div class="coaching-section" id="tab-coaching">
+
+      <div class="forum-announce" style="margin-bottom:24px;">
+        <div class="forum-announce-icon">🎙️</div>
+        <div>
+          <div class="forum-announce-title">Live Coaching — Every Tuesday & Thursday at 7PM Paris Time</div>
+          <div class="forum-announce-desc">Pro & Premium members get live access with Q&A. All plans get replay access 24h after the call. Submit your questions in advance using the form below each session.</div>
+        </div>
+      </div>
+
+      <!-- UPCOMING -->
+      <div class="section-heading">📅 Upcoming Sessions</div>
+
+      <!-- Live right now -->
+      <div class="coaching-card" style="border-color:rgba(239,68,68,0.3);">
+        <div class="coaching-card-top">
+          <div>
+            <div class="coaching-live-badge"><span class="coaching-live-dot"></span> LIVE NOW</div>
+            <div class="coaching-card-title" style="margin-top:8px;">Meta Ads: Diagnosing Campaigns That Stop Working</div>
+            <div class="coaching-card-host" style="margin-top:8px;">
+              <div class="coaching-host-avatar" style="background:linear-gradient(135deg,#7c3aed,#a78bfa)">SA</div>
+              <span>with <strong>Marc Dupont</strong>, Lead Ads Coach</span>
+            </div>
+          </div>
+        </div>
+        <div class="coaching-topics">
+          <span class="coaching-topic-tag">CPM Diagnosis</span>
+          <span class="coaching-topic-tag">Creative Fatigue</span>
+          <span class="coaching-topic-tag">Scaling Issues</span>
+          <span class="coaching-topic-tag">Live Q&A</span>
+        </div>
+        <div class="coaching-card-bottom">
+          <div class="coaching-meta">
+            <div class="coaching-meta-item">👥 <strong>847 watching</strong></div>
+            <div class="coaching-meta-item">⏱️ Started 34 min ago</div>
+          </div>
+          <button class="coaching-register-btn" onclick="joinLiveCall()">
+            📺 Join Live →
+          </button>
+        </div>
+      </div>
+
+      <!-- Next call -->
+      <div class="coaching-card">
+        <div class="coaching-card-top">
+          <div style="flex:1">
+            <div class="coaching-upcoming-badge">📅 Thursday, 20:00 Paris</div>
+            <div class="coaching-card-title" style="margin-top:8px;">Product Research Deep-Dive: Finding Untapped Niches in 2025</div>
+            <div class="coaching-card-host" style="margin-top:8px;">
+              <div class="coaching-host-avatar" style="background:linear-gradient(135deg,#0891b2,#38bdf8)">SL</div>
+              <span>with <strong>Sarah Laurent</strong>, Research Specialist</span>
+            </div>
+          </div>
+        </div>
+        <div class="coaching-topics">
+          <span class="coaching-topic-tag">Niche Research</span>
+          <span class="coaching-topic-tag">AI Tools</span>
+          <span class="coaching-topic-tag">Competitor Analysis</span>
+          <span class="coaching-topic-tag">Validation Sprint</span>
+        </div>
+        <div class="coaching-card-bottom">
+          <div class="coaching-meta">
+            <div class="coaching-meta-item">👥 312 registered</div>
+            <div class="coaching-meta-item">⏱️ 90 minutes</div>
+            <div class="coaching-meta-item">🎯 Pro & Premium</div>
+          </div>
+          <button class="coaching-register-btn" onclick="registerCall(this)">
+            ✅ Register Free Spot
+          </button>
+        </div>
+      </div>
+
+      <!-- Call after -->
+      <div class="coaching-card">
+        <div class="coaching-card-top">
+          <div style="flex:1">
+            <div class="coaching-upcoming-badge">📅 Tuesday March 25, 19:00 Paris</div>
+            <div class="coaching-card-title" style="margin-top:8px;">Email Marketing Automation: Building Your First 5 Flows</div>
+            <div class="coaching-card-host" style="margin-top:8px;">
+              <div class="coaching-host-avatar" style="background:linear-gradient(135deg,#15803d,#4ade80)">KC</div>
+              <span>with <strong>Kevin Chen</strong>, Email Marketing Expert</span>
+            </div>
+          </div>
+        </div>
+        <div class="coaching-topics">
+          <span class="coaching-topic-tag">Klaviyo Setup</span>
+          <span class="coaching-topic-tag">Welcome Series</span>
+          <span class="coaching-topic-tag">Abandoned Cart</span>
+          <span class="coaching-topic-tag">Post-Purchase</span>
+          <span class="coaching-topic-tag">Win-Back</span>
+        </div>
+        <div class="coaching-card-bottom">
+          <div class="coaching-meta">
+            <div class="coaching-meta-item">👥 189 registered</div>
+            <div class="coaching-meta-item">⏱️ 75 minutes</div>
+          </div>
+          <button class="coaching-register-btn" onclick="registerCall(this)">
+            ✅ Register Free Spot
+          </button>
+        </div>
+      </div>
+
+      <!-- PAST REPLAYS -->
+      <div class="section-heading">🎬 Recent Replays</div>
+
+      <div class="coaching-replay-grid">
+        <div class="replay-card" onclick="openReplay('tiktok-ads')">
+          <div class="replay-thumb" style="background:linear-gradient(135deg,#1a0033,#4a0080);">
+            🎯
+            <div class="replay-play-btn">▶</div>
+          </div>
+          <div class="replay-info">
+            <div class="replay-title">TikTok Ads from Zero: First Profitable Campaign</div>
+            <div class="replay-meta"><span>🕐 1h 23min</span><span>👁️ 3,241 views</span></div>
+          </div>
+        </div>
+        <div class="replay-card" onclick="openReplay('shopify-cro')">
+          <div class="replay-thumb" style="background:linear-gradient(135deg,#001a33,#004080);">
+            🛍️
+            <div class="replay-play-btn">▶</div>
+          </div>
+          <div class="replay-info">
+            <div class="replay-title">Shopify CRO: Doubling Conversion Rate Live</div>
+            <div class="replay-meta"><span>🕐 58min</span><span>👁️ 2,876 views</span></div>
+          </div>
+        </div>
+        <div class="replay-card" onclick="openReplay('supplier-nego')">
+          <div class="replay-thumb" style="background:linear-gradient(135deg,#1a1500,#403800);">
+            🤝
+            <div class="replay-play-btn">▶</div>
+          </div>
+          <div class="replay-info">
+            <div class="replay-title">Supplier Negotiation: Getting 40% Lower MOQs</div>
+            <div class="replay-meta"><span>🕐 1h 05min</span><span>👁️ 1,934 views</span></div>
+          </div>
+        </div>
+        <div class="replay-card" onclick="openReplay('email-flows')">
+          <div class="replay-thumb" style="background:linear-gradient(135deg,#001a0a,#003318);">
+            📧
+            <div class="replay-play-btn">▶</div>
+          </div>
+          <div class="replay-info">
+            <div class="replay-title">Email Flows Deep-Dive: $0 to $8K/month Passively</div>
+            <div class="replay-meta"><span>🕐 1h 41min</span><span>👁️ 4,102 views</span></div>
+          </div>
+        </div>
+        <div class="replay-card" onclick="openReplay('google-shopping')">
+          <div class="replay-thumb" style="background:linear-gradient(135deg,#001530,#002860);">
+            🛒
+            <div class="replay-play-btn">▶</div>
+          </div>
+          <div class="replay-info">
+            <div class="replay-title">Google Shopping: Setup to $50K/Month</div>
+            <div class="replay-meta"><span>🕐 2h 08min</span><span>👁️ 5,671 views</span></div>
+          </div>
+        </div>
+        <div class="replay-card" onclick="openReplay('private-label')">
+          <div class="replay-thumb" style="background:linear-gradient(135deg,#1a0010,#400025);">
+            📦
+            <div class="replay-play-btn">▶</div>
+          </div>
+          <div class="replay-info">
+            <div class="replay-title">Private Label Masterclass: Alibaba to Amazon</div>
+            <div class="replay-meta"><span>🕐 1h 52min</span><span>👁️ 3,890 views</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- YouTube resources -->
+      <div class="section-heading" style="margin-top:36px;">📺 Recommended YouTube Resources</div>
+      <p style="font-size:13px;color:var(--text-3);margin-bottom:16px;">Our coaches' handpicked YouTube tutorials that complement each module perfectly.</p>
+
+      <div id="youtube-resources">
+        <!-- Rendered by JS -->
+      </div>
+
+    </div>
+    <!-- END COACHING -->
+
+    <!-- ═══ LEADERBOARD ═══ -->
+    <div class="leaderboard-section" id="tab-leaderboard">
+
+      <div class="lb-period-tabs">
+        <button class="lb-period-tab active" onclick="switchLbPeriod('week', this)">This Week</button>
+        <button class="lb-period-tab" onclick="switchLbPeriod('month', this)">This Month</button>
+        <button class="lb-period-tab" onclick="switchLbPeriod('alltime', this)">All Time</button>
+      </div>
+
+      <!-- Podium -->
+      <div class="lb-podium" id="lbPodium"></div>
+
+      <!-- Full list -->
+      <div id="lbList"></div>
+
+      <!-- You position -->
+      <div style="text-align:center;padding:16px 0;color:var(--text-3);font-size:13px;" id="yourPosition">
+        <a href="auth.html" style="color:#a78bfa;font-weight:700;text-decoration:none;">Sign in to see your rank →</a>
+      </div>
+
+      <!-- How points work -->
+      <div class="lb-legend">
+        <div style="font-size:12px;font-weight:700;color:var(--text-2);margin-bottom:6px;width:100%;">How to Earn Points</div>
+        <div class="lb-legend-item">📚 Lesson completed — <strong style="color:#a78bfa">+10 pts</strong></div>
+        <div class="lb-legend-item">🏆 Module completed — <strong style="color:#a78bfa">+100 pts</strong></div>
+        <div class="lb-legend-item">💬 Forum reply — <strong style="color:#a78bfa">+5 pts</strong></div>
+        <div class="lb-legend-item">✅ Marked as best answer — <strong style="color:#a78bfa">+25 pts</strong></div>
+        <div class="lb-legend-item">🎙️ Coaching call attended — <strong style="color:#a78bfa">+30 pts</strong></div>
+        <div class="lb-legend-item">🎉 Revenue milestone shared — <strong style="color:#a78bfa">+50 pts</strong></div>
+        <div class="lb-legend-item">📅 7-day streak — <strong style="color:#a78bfa">+75 pts</strong></div>
+        <div class="lb-legend-item">⭐ Module rated — <strong style="color:#a78bfa">+10 pts</strong></div>
+      </div>
+
+      <!-- Achievements -->
+      <div class="section-heading" style="margin-top:32px;">🏅 Achievement Badges</div>
+      <p style="font-size:13px;color:var(--text-3);margin-bottom:14px;">Collect badges by completing milestones. Badges are displayed on your profile and leaderboard entry.</p>
+      <div class="achievements-grid" id="achievementsGrid"></div>
+
+    </div>
+    <!-- END LEADERBOARD -->
+
+  </div>
+  <!-- END MAIN -->
+
+  <!-- RIGHT: Sidebar -->
+  <div class="community-sidebar">
+
+    <!-- Next coaching call -->
+    <div class="sidebar-card">
+      <h3><span>🎙️</span> Next Live Call</h3>
+      <div style="font-size:14px;font-weight:700;color:var(--text-1);margin-bottom:4px;">Product Research Deep-Dive</div>
+      <div style="font-size:12px;color:var(--text-3);margin-bottom:10px;">Thursday, 20:00 Paris Time</div>
+      <div class="next-call-timer">
+        <div class="timer-label">STARTS IN</div>
+        <div class="timer-display">
+          <div class="timer-unit">
+            <span class="timer-num" id="t-hours">14</span>
+            <div class="timer-lbl">HRS</div>
+          </div>
+          <span class="timer-sep">:</span>
+          <div class="timer-unit">
+            <span class="timer-num" id="t-mins">32</span>
+            <div class="timer-lbl">MIN</div>
+          </div>
+          <span class="timer-sep">:</span>
+          <div class="timer-unit">
+            <span class="timer-num" id="t-secs">07</span>
+            <div class="timer-lbl">SEC</div>
+          </div>
+        </div>
+      </div>
+      <button style="width:100%;padding:10px;background:linear-gradient(135deg,#7c3aed,#a78bfa);border:none;border-radius:10px;color:#fff;font-size:13px;font-weight:700;cursor:pointer;margin-top:12px;" onclick="registerCall(this)">
+        Register Now →
+      </button>
+    </div>
+
+    <!-- Online members -->
+    <div class="sidebar-card">
+      <h3><span>🟢</span> Online Now <span style="font-weight:400;color:#10b981;font-size:11px;font-family:inherit;text-transform:none;letter-spacing:0;">(4,238)</span></h3>
+      <div id="onlineMembers"></div>
+      <div style="text-align:center;margin-top:8px;">
+        <a href="#" style="font-size:12px;color:#a78bfa;text-decoration:none;">View all members →</a>
+      </div>
+    </div>
+
+    <!-- Quick links -->
+    <div class="sidebar-card">
+      <h3><span>🔗</span> Quick Links</h3>
+      <a href="course-player.html" class="quick-link"><span class="quick-link-icon">📚</span> Continue Learning <span class="quick-link-arrow">→</span></a>
+      <a href="dashboard.html" class="quick-link"><span class="quick-link-icon">📊</span> My Dashboard <span class="quick-link-arrow">→</span></a>
+      <a href="learning-paths.html" class="quick-link"><span class="quick-link-icon">🗺️</span> Learning Paths <span class="quick-link-arrow">→</span></a>
+      <a href="#" class="quick-link" onclick="switchTab('coaching', document.querySelectorAll('.comm-tab')[1]);return false;"><span class="quick-link-icon">🎙️</span> Coaching Calls <span class="quick-link-arrow">→</span></a>
+      <a href="pricing.html" class="quick-link"><span class="quick-link-icon">⬆️</span> Upgrade Plan <span class="quick-link-arrow">→</span></a>
+    </div>
+
+    <!-- Resources -->
+    <div class="sidebar-card">
+      <h3><span>📦</span> Member Resources</h3>
+      <div class="resource-item">
+        <div class="resource-icon" style="background:rgba(239,68,68,0.1);">📋</div>
+        <div class="resource-info">
+          <div class="resource-title">Product Research Spreadsheet</div>
+          <div class="resource-type">Excel Template · 847 downloads</div>
+        </div>
+        <span class="resource-download" title="Download">⬇️</span>
+      </div>
+      <div class="resource-item">
+        <div class="resource-icon" style="background:rgba(16,185,129,0.1);">💌</div>
+        <div class="resource-info">
+          <div class="resource-title">Email Flow Templates (Klaviyo)</div>
+          <div class="resource-type">JSON Export · 612 downloads</div>
+        </div>
+        <span class="resource-download" title="Download">⬇️</span>
+      </div>
+      <div class="resource-item">
+        <div class="resource-icon" style="background:rgba(245,158,11,0.1);">📊</div>
+        <div class="resource-info">
+          <div class="resource-title">Facebook Ads KPI Dashboard</div>
+          <div class="resource-type">Google Sheets · 1,204 downloads</div>
+        </div>
+        <span class="resource-download" title="Download">⬇️</span>
+      </div>
+      <div class="resource-item">
+        <div class="resource-icon" style="background:rgba(167,139,250,0.1);">📝</div>
+        <div class="resource-info">
+          <div class="resource-title">Supplier Negotiation Scripts</div>
+          <div class="resource-type">PDF · 934 downloads</div>
+        </div>
+        <span class="resource-download" title="Download">⬇️</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="index.html" style="display:flex;align-items:center;gap:.65rem;text-decoration:none;margin-bottom:.75rem;">
+          <img src="logo-icon.svg" alt="STATIC Academy" style="width:38px;height:38px;flex-shrink:0;" />
+          <div style="display:flex;flex-direction:column;line-height:1.1;">
+            <span style="font-size:.95rem;font-weight:800;letter-spacing:.06em;color:#e8ecff;">STATIC</span>
+            <span style="font-size:.52rem;font-weight:500;letter-spacing:.22em;color:rgba(232,236,255,.38);text-transform:uppercase;">Academy</span>
+          </div>
+        </a>
+        <p class="footer-tagline" data-i18n="footer_tagline">The premium e-commerce academy for modern entrepreneurs.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>Platform</h4>
+          <ul>
+            <li><a href="courses.html">Courses</a></li>
+            <li><a href="learning-paths.html">Learning Paths</a></li>
+            <li><a href="community.html">Community</a></li>
+            <li><a href="pricing.html">Pricing</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="report.html">Signaler un problème</a></li>
+            <li><a href="subscription.html">Mon abonnement</a></li>
+            <li><a href="legal.html">Mentions légales</a></li>
+            <li><a href="confidentialite.html">Confidentialité</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 STATIC Academy. Tous droits réservés. &nbsp;·&nbsp; <a href="risques.html" style="color:inherit;opacity:.7;text-decoration:none;">Avertissement risques</a></p>
+    </div>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+<script>
+// ── Tab switching ──
+function switchTab(name, btn) {
+  document.querySelectorAll('.forum-section,.coaching-section,.leaderboard-section').forEach(s => s.classList.remove('visible'));
+  document.querySelectorAll('.comm-tab').forEach(t => t.classList.remove('active'));
+  const el = document.getElementById('tab-' + name);
+  if (el) el.classList.add('visible');
+  if (btn) btn.classList.add('active');
+}
+
+// ── Leaderboard period ──
+function switchLbPeriod(period, btn) {
+  document.querySelectorAll('.lb-period-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  renderLeaderboard(period);
+}
+
+// ── Leaderboard data ──
+const LB_DATA = {
+  week: [
+    { name:'Yannick D.', pts:2840, delta:'+340', modules:7, badges:['🔥','⭐','💪'], color:'#7c3aed' },
+    { name:'Clara M.', pts:2610, delta:'+210', modules:6, badges:['🎯','📈'], color:'#be185d' },
+    { name:'Thomas M.', pts:2380, delta:'+180', modules:7, badges:['🔥','🏆'], color:'#0f766e' },
+    { name:'Amara S.', pts:2140, delta:'+520', modules:5, badges:['⭐','🚀'], color:'#4f46e5' },
+    { name:'Lucas F.', pts:1970, delta:'+90', modules:6, badges:['🎯'], color:'#7c3aed' },
+    { name:'Sophie R.', pts:1840, delta:'+160', modules:4, badges:['📚'], color:'#7c3aed' },
+    { name:'James P.', pts:1720, delta:'-30', modules:5, badges:['💬'], color:'#0284c7' },
+    { name:'Emma A.', pts:1650, delta:'+70', modules:4, badges:['🛍️'], color:'#047857' },
+    { name:'Nicolas B.', pts:1510, delta:'+200', modules:3, badges:['🤖'], color:'#c2410c' },
+    { name:'Pierre L.', pts:1430, delta:'+110', modules:5, badges:['🎯','📊'], color:'#92400e' },
+  ],
+  month: [
+    { name:'Romain D.', pts:14200, delta:'+1200', modules:7, badges:['🔥','🏆','⭐','💰'], color:'#1d4ed8' },
+    { name:'Yannick D.', pts:12800, delta:'+800', modules:7, badges:['🔥','⭐','💪'], color:'#7c3aed' },
+    { name:'Clara M.', pts:11400, delta:'+600', modules:7, badges:['🎯','📈','💰'], color:'#be185d' },
+    { name:'Amara S.', pts:9800, delta:'+1800', modules:5, badges:['⭐','🚀'], color:'#4f46e5' },
+    { name:'Thomas M.', pts:9200, delta:'+400', modules:7, badges:['🔥','🏆'], color:'#0f766e' },
+    { name:'Lucas F.', pts:8400, delta:'+300', modules:6, badges:['🎯'], color:'#7c3aed' },
+    { name:'Pierre L.', pts:7600, delta:'+500', modules:5, badges:['🎯','📊'], color:'#92400e' },
+    { name:'Emma A.', pts:7100, delta:'+200', modules:4, badges:['🛍️','📐'], color:'#047857' },
+    { name:'Sophie R.', pts:6800, delta:'+400', modules:4, badges:['📚'], color:'#7c3aed' },
+    { name:'Nicolas B.', pts:6200, delta:'+700', modules:3, badges:['🤖'], color:'#c2410c' },
+  ],
+  alltime: [
+    { name:'Marie L.', pts:48200, delta:'', modules:12, badges:['🔥','🏆','⭐','💰','👑'], color:'#059669' },
+    { name:'Romain D.', pts:41800, delta:'', modules:12, badges:['🔥','🏆','⭐','💰'], color:'#1d4ed8' },
+    { name:'Yannick D.', pts:38400, delta:'', modules:9, badges:['🔥','⭐','💪','🎯'], color:'#7c3aed' },
+    { name:'Thomas M.', pts:34100, delta:'', modules:11, badges:['🔥','🏆','📦'], color:'#0f766e' },
+    { name:'Clara M.', pts:30700, delta:'', modules:10, badges:['🎯','📈','💰'], color:'#be185d' },
+    { name:'Pierre L.', pts:27900, delta:'', modules:9, badges:['🎯','📊','📈'], color:'#92400e' },
+    { name:'Amara S.', pts:23400, delta:'', modules:7, badges:['⭐','🚀','🎙️'], color:'#4f46e5' },
+    { name:'Lucas F.', pts:21800, delta:'', modules:8, badges:['🎯','📺'], color:'#7c3aed' },
+    { name:'Emma A.', pts:19200, delta:'', modules:7, badges:['🛍️','📐','💬'], color:'#047857' },
+    { name:'James P.', pts:17600, delta:'', modules:6, badges:['💬','📚'], color:'#0284c7' },
+  ]
+};
+
+function renderLeaderboard(period = 'week') {
+  const data = LB_DATA[period];
+  // Podium
+  const podium = document.getElementById('lbPodium');
+  if (!podium) return;
+  const [first, second, third] = data;
+  podium.innerHTML = `
+    <div class="lb-podium-item">
+      <div class="lb-podium-avatar silver" style="background:linear-gradient(135deg,${second.color},${second.color}88);">${second.name.split(' ').map(w=>w[0]).join('')}</div>
+      <div class="lb-podium-name">${second.name}</div>
+      <div class="lb-podium-pts">${second.pts.toLocaleString()} pts</div>
+      <div class="lb-podium-base silver">2</div>
+    </div>
+    <div class="lb-podium-item">
+      <div class="lb-podium-avatar gold" style="background:linear-gradient(135deg,${first.color},${first.color}88);">${first.name.split(' ').map(w=>w[0]).join('')}</div>
+      <div class="lb-podium-name">${first.name}</div>
+      <div class="lb-podium-pts">${first.pts.toLocaleString()} pts</div>
+      <div class="lb-podium-base gold">🥇</div>
+    </div>
+    <div class="lb-podium-item">
+      <div class="lb-podium-avatar bronze" style="background:linear-gradient(135deg,${third.color},${third.color}88);">${third.name.split(' ').map(w=>w[0]).join('')}</div>
+      <div class="lb-podium-name">${third.name}</div>
+      <div class="lb-podium-pts">${third.pts.toLocaleString()} pts</div>
+      <div class="lb-podium-base bronze">3</div>
+    </div>`;
+
+  // List (4 onwards)
+  const list = document.getElementById('lbList');
+  list.innerHTML = data.slice(3).map((m, i) => {
+    const rank = i + 4;
+    const initials = m.name.split(' ').map(w=>w[0]).join('');
+    const deltaHtml = m.delta ? (m.delta.startsWith('+') ?
+      `<span class="lb-delta-up">▲ ${m.delta}</span>` :
+      `<span class="lb-delta-down">▼ ${m.delta}</span>`) : '';
+    return `
+      <div class="lb-row">
+        <span class="lb-rank">${rank}</span>
+        <div class="lb-avatar" style="background:linear-gradient(135deg,${m.color},${m.color}88);">${initials}</div>
+        <div class="lb-info">
+          <div class="lb-name">${m.name}</div>
+          <div class="lb-progress">${m.modules} modules completed · ${m.badges.join(' ')}</div>
+        </div>
+        <div style="text-align:right">
+          <div class="lb-pts">${m.pts.toLocaleString()}</div>
+          <div class="lb-pts-lbl">${deltaHtml}</div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+// ── Achievements ──
+const ACHIEVEMENTS = [
+  { icon:'🚀', name:'First Steps', desc:'Complete Module 1', pts:'+100', locked:false },
+  { icon:'🔍', name:'Researcher', desc:'Complete Module 2', pts:'+100', locked:false },
+  { icon:'🏪', name:'Store Builder', desc:'Launch your store', pts:'+150', locked:true },
+  { icon:'🎯', name:'Ad Rookie', desc:'Run first ad', pts:'+150', locked:true },
+  { icon:'💰', name:'First Dollar', desc:'Make first sale', pts:'+200', locked:true },
+  { icon:'🔥', name:'On Fire', desc:'7-day streak', pts:'+75', locked:false },
+  { icon:'🏆', name:'Champion', desc:'Complete all 12 modules', pts:'+500', locked:true },
+  { icon:'💬', name:'Helper', desc:'10 helpful answers', pts:'+50', locked:false },
+  { icon:'📈', name:'Scaler', desc:'$10K revenue milestone', pts:'+300', locked:true },
+  { icon:'👑', name:'Elite', desc:'$100K revenue', pts:'+1000', locked:true },
+  { icon:'🎙️', name:'Regular', desc:'Attend 5 coaching calls', pts:'+100', locked:false },
+  { icon:'⭐', name:'Reviewer', desc:'Rate 5 modules', pts:'+50', locked:false },
+];
+
+function renderAchievements() {
+  const grid = document.getElementById('achievementsGrid');
+  if (!grid) return;
+  grid.innerHTML = ACHIEVEMENTS.map(a => `
+    <div class="achievement-card ${a.locked ? 'locked' : ''}">
+      <span class="achievement-icon">${a.icon}</span>
+      <div class="achievement-name">${a.name}</div>
+      <div class="achievement-desc">${a.desc}</div>
+      <div class="achievement-pts">${a.pts}</div>
+    </div>`).join('');
+}
+
+// ── Online members ──
+const ONLINE_USERS = [
+  { name:'Marie L.', status:'Watching: Module 3', color:'#059669' },
+  { name:'Lucas F.', status:'In the forum', color:'#7c3aed' },
+  { name:'Amara S.', status:'On the live call', color:'#4f46e5' },
+  { name:'Thomas M.', status:'Completing Module 7', color:'#0f766e' },
+  { name:'Sophie R.', status:'Reading resources', color:'#7c3aed' },
+];
+function renderOnline() {
+  const el = document.getElementById('onlineMembers');
+  if (!el) return;
+  el.innerHTML = ONLINE_USERS.map(u => {
+    const initials = u.name.split(' ').map(w=>w[0]).join('');
+    return `
+      <div class="online-user">
+        <div class="online-avatar" style="background:linear-gradient(135deg,${u.color},${u.color}88);">
+          ${initials}<div class="online-dot"></div>
+        </div>
+        <div>
+          <div class="online-name">${u.name}</div>
+          <div class="online-status">${u.status}</div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+// ── YouTube Resources ──
+const YT_RESOURCES = [
+  {
+    title: 'How to Start Dropshipping in 2025 (Full Tutorial)',
+    channel: 'Verum Ecom',
+    duration: '42 min',
+    module: 'Module 1',
+    thumb: '🎬',
+    url: 'https://www.youtube.com/results?search_query=dropshipping+beginners+2025',
+    color: '#dc2626'
+  },
+  {
+    title: 'Finding Winning Products: The Complete Research System',
+    channel: 'AC Hampton',
+    duration: '38 min',
+    module: 'Module 2',
+    thumb: '🔍',
+    url: 'https://www.youtube.com/results?search_query=winning+product+research+ecommerce+2025',
+    color: '#0891b2'
+  },
+  {
+    title: 'Shopify Store Setup Checklist — Full Walkthrough',
+    channel: 'Shopify',
+    duration: '55 min',
+    module: 'Module 3',
+    thumb: '🛍️',
+    url: 'https://www.youtube.com/results?search_query=shopify+store+setup+2025+complete',
+    color: '#059669'
+  },
+  {
+    title: 'Klaviyo Email Flows: Welcome, Abandon Cart & Post-Purchase',
+    channel: 'Chase Chappell',
+    duration: '1h 10min',
+    module: 'Module 8',
+    thumb: '📧',
+    url: 'https://www.youtube.com/results?search_query=klaviyo+email+flows+ecommerce+2025',
+    color: '#f59e0b'
+  },
+  {
+    title: 'Meta Ads Full Course 2025 — Advantage+ Campaigns',
+    channel: 'Ben Heath',
+    duration: '2h 15min',
+    module: 'Module 7',
+    thumb: '🎯',
+    url: 'https://www.youtube.com/results?search_query=meta+facebook+ads+advantage+plus+ecommerce+2025',
+    color: '#7c3aed'
+  },
+  {
+    title: 'TikTok Ads for Beginners: First $10K Campaign Walkthrough',
+    channel: 'Davie Fogarty',
+    duration: '58 min',
+    module: 'Module 7',
+    thumb: '📱',
+    url: 'https://www.youtube.com/results?search_query=tiktok+ads+ecommerce+beginners+2025',
+    color: '#be185d'
+  },
+  {
+    title: 'Google Shopping Ads: Complete Setup & Optimization',
+    channel: 'Mike Rhodes',
+    duration: '1h 30min',
+    module: 'Module 7',
+    thumb: '🛒',
+    url: 'https://www.youtube.com/results?search_query=google+shopping+ads+ecommerce+2025',
+    color: '#1d4ed8'
+  },
+  {
+    title: 'How to Find a Private Label Product on Alibaba',
+    channel: 'Jungle Scout',
+    duration: '45 min',
+    module: 'Module 4',
+    thumb: '📦',
+    url: 'https://www.youtube.com/results?search_query=alibaba+private+label+product+sourcing+2025',
+    color: '#92400e'
+  },
+];
+
+function renderYouTube() {
+  const el = document.getElementById('youtube-resources');
+  if (!el) return;
+  el.innerHTML = `
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;">
+      ${YT_RESOURCES.map(v => `
+        <a href="${v.url}" target="_blank" rel="noopener" style="text-decoration:none;">
+          <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:14px;overflow:hidden;transition:all 0.2s;cursor:pointer;" onmouseover="this.style.borderColor='rgba(167,139,250,0.3)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.07)';this.style.transform='none'">
+            <div style="background:linear-gradient(135deg,${v.color}22,${v.color}11);aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;font-size:2.5rem;position:relative;">
+              ${v.thumb}
+              <div style="position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,0.7);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;">▶ ${v.duration}</div>
+              <div style="position:absolute;top:8px;left:8px;background:rgba(167,139,250,0.2);border:1px solid rgba(167,139,250,0.3);color:#c4b5fd;font-size:10px;font-weight:700;padding:2px 8px;border-radius:50px;">${v.module}</div>
+            </div>
+            <div style="padding:12px 14px;">
+              <div style="font-size:13px;font-weight:600;color:#e2e8f0;margin-bottom:5px;line-height:1.4;">${v.title}</div>
+              <div style="font-size:11px;color:#64748b;">📺 ${v.channel}</div>
+            </div>
+          </div>
+        </a>`).join('')}
+    </div>`;
+}
+
+// ── Countdown timer ──
+function startCountdown() {
+  const now = new Date();
+  const nextThursday = new Date(now);
+  const day = now.getDay();
+  const daysUntilThursday = (4 - day + 7) % 7 || 7;
+  nextThursday.setDate(now.getDate() + daysUntilThursday);
+  nextThursday.setHours(20, 0, 0, 0);
+
+  function update() {
+    const diff = nextThursday - new Date();
+    if (diff <= 0) return;
+    const h = Math.floor(diff / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+    const fmtH = document.getElementById('t-hours');
+    const fmtM = document.getElementById('t-mins');
+    const fmtS = document.getElementById('t-secs');
+    if (fmtH) fmtH.textContent = String(h).padStart(2, '0');
+    if (fmtM) fmtM.textContent = String(m).padStart(2, '0');
+    if (fmtS) fmtS.textContent = String(s).padStart(2, '0');
+  }
+  update();
+  setInterval(update, 1000);
+}
+
+// ── Forum interactions ──
+function openThread(el) {
+  const title = el.querySelector('.forum-thread-title')?.textContent;
+  showToast('💬 Thread: "' + title.slice(0, 50) + '..."');
+}
+function openNewPost() {
+  const user = window.App?._user || JSON.parse(localStorage.getItem('sa_user') || 'null');
+  if (!user) {
+    window.location.href = 'auth.html';
+    return;
+  }
+  showToast('✏️ New post editor coming soon!');
+}
+function searchForum() {
+  const q = document.getElementById('forumSearch').value;
+  if (q.trim()) showToast('🔍 Searching for: ' + q);
+}
+function joinLiveCall() {
+  showToast('📺 Joining live call... Opening Zoom link');
+}
+function registerCall(btn) {
+  btn.textContent = '✅ Registered!';
+  btn.classList.add('disabled');
+  showToast('✅ You\'re registered! Reminder email sent.');
+}
+function openReplay(id) {
+  showToast('▶ Loading replay...');
+}
+
+function showToast(msg) {
+  const t = document.createElement('div');
+  t.style.cssText = 'position:fixed;bottom:24px;right:24px;background:#1e1b4b;border:1px solid rgba(167,139,250,0.3);color:#c4b5fd;padding:12px 20px;border-radius:12px;font-size:13px;font-weight:600;z-index:9999;animation:toastIn 0.3s ease;max-width:320px;box-shadow:0 8px 32px rgba(0,0,0,0.4)';
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 3000);
+}
+
+// ── Init ──
+document.addEventListener('DOMContentLoaded', () => {
+  renderLeaderboard('week');
+  renderAchievements();
+  renderOnline();
+  renderYouTube();
+  startCountdown();
+});
+</script>
+<style>
+@keyframes toastIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+</style>
+<script src="session-sync.js"></script>
+</body>
+</html>

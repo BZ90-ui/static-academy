@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>E-Commerce Formation — STATIC Academy</title>
+    <meta name="description" content="La formation e-commerce la plus complète : dropshipping, Amazon FBA, Shopify, publicité Meta et TikTok.">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:#04050d;color:#EEF0FF;font-family:'Segoe UI',system-ui,sans-serif;overflow-x:hidden}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:64px;background:rgba(4,5,13,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.07)}
+.nav-left{display:flex;align-items:center;gap:0}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:#EEF0FF;}
+.nav-logo-text{display:flex;flex-direction:column;line-height:1.1;}
+.nav-logo-main{font-size:.98rem;font-weight:800;letter-spacing:.06em;color:#EEF0FF;}
+.nav-logo-sub{font-size:.55rem;font-weight:500;letter-spacing:.22em;color:rgba(238,240,255,.38);text-transform:uppercase;}
+.nav-back{color:rgba(238,240,255,.55);text-decoration:none;font-size:.85rem;margin-left:32px}
+.nav-back:hover{color:#EEF0FF}
+.nav-right{display:flex;align-items:center;gap:16px}
+.nav-lang{background:#0a0b1c;border:1px solid rgba(238,240,255,.2);color:rgba(238,240,255,.75);padding:6px 28px 6px 10px;border-radius:6px;font-family:inherit;cursor:pointer;font-size:.8rem;transition:all .2s;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23a0a8c8' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center;}
+.nav-lang option{background:#0a0b1c;color:#EEF0FF;}
+.nav-lang:hover,.nav-lang:focus{border-color:rgba(238,240,255,.5);color:#EEF0FF;outline:none;}
+.nav-cta{background:linear-gradient(135deg,#7b2fff,#00e5ff);color:#fff;padding:9px 22px;border-radius:50px;font-weight:700;font-size:.85rem;text-decoration:none;border:none;cursor:pointer}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 40px 60px;position:relative;overflow:hidden}
+.hero-glow{position:absolute;width:800px;height:600px;background:radial-gradient(ellipse,rgba(123,47,255,.18),transparent 70%);top:-100px;left:50%;transform:translateX(-50%);pointer-events:none}
+.hero-glow2{position:absolute;width:500px;height:400px;background:radial-gradient(ellipse,rgba(0,229,255,.1),transparent 70%);bottom:0;right:0;pointer-events:none}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(0,229,255,.1);border:1px solid rgba(0,229,255,.25);border-radius:50px;padding:6px 18px;font-size:.78rem;font-weight:700;color:#00e5ff;letter-spacing:.1em;text-transform:uppercase;margin-bottom:32px}
+.hero h1{font-size:clamp(2.2rem,5.5vw,4.2rem);font-weight:900;line-height:1.1;margin-bottom:20px;letter-spacing:-.02em}
+.hero h1 em{font-style:normal;background:linear-gradient(135deg,#00e5ff,#7b2fff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-desc{font-size:1.1rem;color:rgba(238,240,255,.65);line-height:1.7;max-width:620px;margin-bottom:44px}
+.hero-nums{display:flex;gap:48px;justify-content:center;flex-wrap:wrap;margin-bottom:48px}
+.hn{text-align:center}
+.hn-val{font-size:1.8rem;font-weight:900;color:#00e5ff}
+.hn-lbl{font-size:.72rem;color:rgba(238,240,255,.45);text-transform:uppercase;letter-spacing:.1em;margin-top:4px}
+.hero-btns{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-top:8px}
+.btn-main{
+  background:linear-gradient(135deg,#7b2fff 0%,#00c8ff 100%);
+  color:#fff;
+  padding:18px 44px;
+  border-radius:14px;
+  font-weight:800;
+  font-size:1.05rem;
+  letter-spacing:.01em;
+  text-decoration:none;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  transition:transform .22s cubic-bezier(.34,1.56,.64,1),box-shadow .22s ease;
+  border:none;
+  cursor:pointer;
+  box-shadow:0 8px 32px rgba(123,47,255,.35),0 1px 0 rgba(255,255,255,.12) inset;
+  position:relative;
+  overflow:hidden;
+}
+.btn-main::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to bottom,rgba(255,255,255,.08),transparent);
+  pointer-events:none;
+}
+.btn-main:hover{transform:translateY(-4px) scale(1.03);box-shadow:0 16px 48px rgba(123,47,255,.5),0 1px 0 rgba(255,255,255,.15) inset}
+.btn-outline{
+  background:rgba(255,255,255,.04);
+  color:#EEF0FF;
+  border:1px solid rgba(238,240,255,.18);
+  padding:18px 40px;
+  border-radius:14px;
+  font-weight:700;
+  font-size:1.05rem;
+  text-decoration:none;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  transition:all .22s ease;
+  cursor:pointer;
+  backdrop-filter:blur(8px);
+}
+.btn-outline:hover{border-color:rgba(0,229,255,.5);color:#00e5ff;background:rgba(0,229,255,.06);transform:translateY(-3px)}
+.scroll-down{margin-top:48px;display:flex;flex-direction:column;align-items:center;gap:8px;color:rgba(238,240,255,.25);font-size:.75rem}
+.scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,rgba(238,240,255,.15),transparent)}
+
+/* PROGRESS BAR */
+.progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,#7b2fff,#00e5ff);z-index:300;width:0;transition:width .1s}
+
+/* SECTIONS */
+.section{padding:96px 40px;max-width:1100px;margin:0 auto}
+.section-alt{padding:80px 40px;background:rgba(255,255,255,.02);border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06)}
+.section-alt-in{max-width:1100px;margin:0 auto;padding:0 40px}
+.label{font-size:.72rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#00e5ff;margin-bottom:14px}
+.title{font-size:clamp(1.7rem,3.5vw,2.6rem);font-weight:900;line-height:1.15;margin-bottom:16px}
+.subtitle{font-size:.97rem;color:rgba(238,240,255,.6);line-height:1.65;max-width:560px}
+
+/* MODULES */
+.grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;margin-top:44px}
+.card{background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:26px;transition:transform .25s,border-color .25s}
+.card:hover{transform:translateY(-4px);border-color:rgba(0,229,255,.2)}
+.card-ico{font-size:1.8rem;margin-bottom:14px}
+.card-tag{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:7px}
+.card-tag.free{color:#00e5ff}
+.card-tag.pro{color:#ff6b35}
+.card-tag.elite{color:#a78bfa}
+.card-name{font-size:1rem;font-weight:800;margin-bottom:8px}
+.card-desc{font-size:.85rem;color:rgba(238,240,255,.55);line-height:1.5}
+.card-meta{margin-top:14px;font-size:.75rem;color:rgba(238,240,255,.35)}
+
+/* TWO COLS */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.two-col-rev{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.stat-row{display:flex;gap:28px;margin-top:28px;flex-wrap:wrap}
+.stat{text-align:center}
+.stat-val{font-size:1.8rem;font-weight:900;color:#00e5ff}
+.stat-lbl{font-size:.72rem;color:rgba(238,240,255,.4);text-transform:uppercase;letter-spacing:.08em}
+
+/* CHECKLIST */
+.checklist{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:36px}
+.check-item{display:flex;gap:12px;align-items:flex-start;padding:18px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:12px}
+.check-icon{width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#7b2fff,#00e5ff);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.7rem;margin-top:1px}
+.check-text{font-size:.88rem;color:rgba(238,240,255,.75);line-height:1.5}
+.check-text strong{display:block;color:#EEF0FF;font-size:.9rem;margin-bottom:3px}
+
+/* TIMELINE */
+.timeline{margin-top:44px}
+.tl{display:flex;gap:20px;margin-bottom:28px;position:relative;padding-left:4px}
+.tl::before{content:'';position:absolute;left:24px;top:50px;width:2px;height:calc(100% + 28px);background:linear-gradient(to bottom,rgba(0,229,255,.3),rgba(123,47,255,.1));z-index:0}
+.tl:last-child::before{display:none}
+.tl-dot{width:48px;height:48px;border-radius:50%;background:rgba(0,229,255,.08);border:2px solid rgba(0,229,255,.25);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;position:relative;z-index:1}
+.tl-body{padding-top:6px}
+.tl-week{font-size:.7rem;font-weight:700;color:#00e5ff;letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px}
+.tl-name{font-size:1rem;font-weight:800;margin-bottom:6px}
+.tl-text{font-size:.85rem;color:rgba(238,240,255,.55);line-height:1.5}
+
+/* TOOLS */
+.tools{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.tool{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:50px;padding:7px 16px;font-size:.82rem;font-weight:600;color:rgba(238,240,255,.75);transition:all .2s}
+.tool:hover{border-color:#00e5ff;color:#00e5ff}
+
+/* INSTRUCTOR */
+.instructor{display:flex;gap:36px;align-items:center;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:20px;padding:40px;margin-top:40px}
+.inst-ava{width:100px;height:100px;border-radius:50%;background:linear-gradient(135deg,#7b2fff,#00e5ff);display:flex;align-items:center;justify-content:center;font-size:2.5rem;flex-shrink:0}
+.inst-name{font-size:1.4rem;font-weight:900;margin-bottom:6px}
+.inst-title{font-size:.82rem;color:#00e5ff;font-weight:600;margin-bottom:12px}
+.inst-bio{font-size:.88rem;color:rgba(238,240,255,.65);line-height:1.6}
+.inst-nums{display:flex;gap:24px;margin-top:18px;flex-wrap:wrap}
+.in{text-align:center}
+.in-val{font-size:1.3rem;font-weight:900;color:#00e5ff}
+.in-lbl{font-size:.7rem;color:rgba(238,240,255,.4)}
+
+/* PRICING */
+.pricing-box{background:linear-gradient(145deg,rgba(123,47,255,.1),rgba(0,229,255,.05));border:1px solid rgba(0,229,255,.12);border-radius:24px;padding:56px 40px;text-align:center;margin-top:36px}
+.plans{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin:44px 0 0}
+.plan{
+  background:rgba(4,5,18,.85);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:20px;
+  padding:32px 28px;
+  text-align:left;
+  flex:1;
+  min-width:220px;
+  max-width:280px;
+  transition:transform .3s cubic-bezier(.34,1.56,.64,1),border-color .3s,box-shadow .3s;
+  display:flex;
+  flex-direction:column;
+  position:relative;
+  overflow:hidden;
+}
+.plan::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;border-radius:20px 20px 0 0;opacity:0;transition:opacity .3s}
+.plan:hover{transform:translateY(-8px)}
+.plan:hover::before{opacity:1}
+.plan:nth-child(1)::before{background:linear-gradient(90deg,#00e5ff,#7b2fff)}
+.plan:nth-child(2)::before{background:linear-gradient(90deg,#ff6b35,#f5a623)}
+.plan:nth-child(3)::before{background:linear-gradient(90deg,#a78bfa,#7b2fff)}
+.plan.best{border-color:rgba(255,107,53,.3);box-shadow:0 0 40px rgba(255,107,53,.1)}
+.plan.best::before{opacity:1}
+.plan-badge{
+  display:inline-block;
+  font-size:.62rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  padding:3px 10px;border-radius:6px;margin-bottom:14px;
+  background:linear-gradient(90deg,#ff6b35,#f5a623);color:#fff;
+}
+.plan-name{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+.plan-price{font-size:2.8rem;font-weight:900;margin-bottom:3px;line-height:1;letter-spacing:-.02em}
+.plan-price sub{font-size:1rem;font-weight:400;color:rgba(238,240,255,.45);vertical-align:baseline}
+.plan-period{font-size:.73rem;color:rgba(238,240,255,.4);margin-bottom:20px}
+.plan-feats{list-style:none;flex:1;display:flex;flex-direction:column;gap:9px;margin-bottom:20px}
+.plan-feats li{font-size:.84rem;color:rgba(238,240,255,.7);display:flex;align-items:flex-start;gap:9px;line-height:1.45}
+.plan-feats li::before{content:'✓';font-weight:800;font-size:.78rem;flex-shrink:0;margin-top:2px}
+.plan:nth-child(1) .plan-feats li::before{color:#00e5ff}
+.plan:nth-child(2) .plan-feats li::before{color:#ff6b35}
+.plan:nth-child(3) .plan-feats li::before{color:#a78bfa}
+.plan-cta{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  width:100%;padding:14px 0;border-radius:12px;
+  font-weight:800;font-size:.92rem;
+  text-decoration:none;text-align:center;
+  transition:all .22s ease;
+  margin-top:auto;
+}
+.plan:nth-child(1) .plan-cta{background:rgba(0,229,255,.08);color:#00e5ff;border:1px solid rgba(0,229,255,.2)}
+.plan:nth-child(1) .plan-cta:hover{background:rgba(0,229,255,.14);transform:translateY(-2px)}
+.plan:nth-child(2) .plan-cta{background:linear-gradient(135deg,#ff6b35,#f5a623);color:#fff;box-shadow:0 8px 24px rgba(255,107,53,.3)}
+.plan:nth-child(2) .plan-cta:hover{box-shadow:0 12px 32px rgba(255,107,53,.45);transform:translateY(-3px)}
+.plan:nth-child(3) .plan-cta{background:linear-gradient(135deg,#7b2fff,#a78bfa);color:#fff;box-shadow:0 8px 24px rgba(123,47,255,.3)}
+.plan:nth-child(3) .plan-cta:hover{box-shadow:0 12px 32px rgba(123,47,255,.45);transform:translateY(-3px)}
+/* plan-feats styles consolidated above */
+
+/* CTA FINAL */
+.cta-final{text-align:center;padding:100px 40px;background:radial-gradient(ellipse 50% 50% at 50% 50%,rgba(123,47,255,.12),transparent 70%)}
+.cta-final h2{font-size:clamp(1.8rem,4vw,3rem);font-weight:900;margin-bottom:16px}
+.cta-final h2 em{font-style:normal;background:linear-gradient(135deg,#00e5ff,#7b2fff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.cta-final p{font-size:1rem;color:rgba(238,240,255,.55);margin-bottom:36px}
+
+/* FOOTER */
+footer{border-top:1px solid rgba(255,255,255,.06);padding:32px 40px;text-align:center;color:rgba(238,240,255,.3);font-size:.82rem}
+footer a{color:rgba(238,240,255,.45);text-decoration:none;margin:0 14px}
+footer a:hover{color:#EEF0FF}
+
+@media(max-width:768px){
+  .nav{padding:0 20px}
+  .nav-right{gap:8px}
+  .nav-back{margin-left:16px}
+  .hero{padding:80px 20px 40px}
+  .section{padding:60px 20px}
+  .section-alt-in{padding:0 20px}
+  .two-col,.two-col-rev{grid-template-columns:1fr;gap:32px}
+  .checklist{grid-template-columns:1fr}
+  .instructor{flex-direction:column;text-align:center}
+  .hero-nums{gap:28px}
+  .nav-lang{font-size:.7rem;padding:4px 10px}
+  .ec-ticker{display:none}
+}
+/* LIVE MARKET TICKER */
+.ec-ticker{position:fixed;top:64px;left:0;right:0;z-index:199;height:32px;background:rgba(4,5,13,.97);border-bottom:1px solid rgba(0,229,255,.12);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center}
+.ec-t-inner{display:flex;align-items:center;max-width:1200px;width:100%;padding:0 40px}
+.ec-t-live{display:inline-flex;align-items:center;gap:4px;font-size:.6rem;font-weight:800;letter-spacing:.18em;color:#ef4444;text-transform:uppercase;margin-right:20px;flex-shrink:0}
+.ec-t-dot{width:5px;height:5px;border-radius:50%;background:#ef4444;animation:ec-pulse 1.4s ease infinite}
+@keyframes ec-pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.ec-t-items{display:flex;align-items:center;flex:1;overflow:hidden}
+.ec-t-item{display:flex;align-items:center;gap:7px;padding:0 18px;border-right:1px solid rgba(255,255,255,.06);font-size:.73rem;font-family:monospace;white-space:nowrap}
+.ec-t-item:last-child{border-right:none}
+.ec-t-sym{color:rgba(238,240,255,.45);font-size:.65rem}
+.ec-t-price{color:#EEF0FF;font-weight:700}
+.ec-t-up{color:#4ade80;font-size:.65rem}
+.ec-t-dn{color:#f87171;font-size:.65rem}
+.ec-t-time{margin-left:auto;font-size:.58rem;color:rgba(238,240,255,.25);flex-shrink:0}
+</style>
+    <link rel="icon" href="logo-icon.svg" type="image/svg+xml">
+    <meta name="theme-color" content="#07080f">
+</head>
+<body>
+
+<div class="progress" id="prog"></div>
+
+<nav class="nav">
+  <div class="nav-left">
+    <a href="index.html#top" class="nav-logo">
+      <img src="logo-icon.svg" alt="STATIC Academy" style="width:38px;height:38px;flex-shrink:0;">
+      <div class="nav-logo-text">
+        <span class="nav-logo-main">STATIC</span>
+        <span class="nav-logo-sub">Academy</span>
+      </div>
+    </a>
+    <a href="index.html#top" class="nav-back" data-t="nav_back">← Back to home</a>
+  </div>
+  <div class="nav-right" id="navRight">
+    <select class="nav-lang" id="lang-select">
+      <option value="en">EN</option>
+      <option value="fr">FR</option>
+    </select>
+    <a href="subscription.html" style="font-size:.82rem;color:rgba(238,240,255,.6);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#EEF0FF'" onmouseout="this.style.color='rgba(238,240,255,.6)'">Mon compte</a>
+    <a href="auth.html?mode=signup" class="nav-cta" data-t="nav_cta">Get Started</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-badge" data-t="hero_badge">🛒 E-Commerce Mastery</div>
+  <h1 data-t="hero_title">Build a <em>Profitable</em> Online Business</h1>
+  <p class="hero-desc" data-t="hero_desc">The complete formation to build a successful e-commerce business — from store creation to €100k/month. Shopify, Facebook Ads, TikTok Shop, Klaviyo, branding and exit strategy.</p>
+  <div class="hero-nums">
+    <div class="hn"><div class="hn-val" data-t="stat_modules">12</div><div class="hn-lbl">Modules</div></div>
+    <div class="hn"><div class="hn-val" data-t="stat_hours">40+</div><div class="hn-lbl">Hours</div></div>
+    <div class="hn"><div class="hn-val" data-t="stat_satisfaction">97%</div><div class="hn-lbl">Satisfaction</div></div>
+    <div class="hn"><div class="hn-val" data-t="stat_revenue">€2.4M</div><div class="hn-lbl">Revenue generated</div></div>
+  </div>
+  <div class="hero-btns">
+    <a href="auth.html?mode=signup" class="btn-main">🚀 Begin the Formation</a>
+    <a href="#pricing" class="btn-outline" onclick="event.preventDefault();document.getElementById('pricing')?.scrollIntoView({behavior:'smooth'}) || document.querySelector('.pricing-box')?.scrollIntoView({behavior:'smooth'})">See Pricing ↓</a>
+  </div>
+  <div class="scroll-down">
+    <div class="scroll-line"></div>
+    Scroll
+  </div>
+</section>
+
+<!-- WHAT YOU'LL LEARN -->
+<div class="section-alt">
+  <div class="section-alt-in">
+    <div class="two-col">
+      <div>
+        <div class="label" data-t="what_learn_label">Skills</div>
+        <h2 class="title" data-t="what_learn_title">What you master by the end</h2>
+        <p class="subtitle">From zero to profitable store — a complete roadmap to €100k/month.</p>
+        <div class="stat-row">
+          <div class="stat"><div class="stat-val">12</div><div class="stat-lbl">Complete Modules</div></div>
+          <div class="stat"><div class="stat-val">40+h</div><div class="stat-lbl">Video Content</div></div>
+          <div class="stat"><div class="stat-val">€2.4M</div><div class="stat-lbl">Revenue by students</div></div>
+        </div>
+      </div>
+      <div>
+        <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:18px;padding:28px">
+          <div style="font-size:.7rem;font-weight:700;color:#00e5ff;letter-spacing:.1em;text-transform:uppercase;margin-bottom:18px">📚 Course Content</div>
+          <div style="display:flex;flex-direction:column;gap:0">
+            <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.05)">
+              <div style="width:34px;height:34px;border-radius:8px;background:rgba(0,229,255,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0">🔍</div>
+              <div style="flex:1"><div style="font-size:.85rem;font-weight:600">M1 — Product Research</div><div style="font-size:.72rem;color:rgba(238,240,255,.4)">Lesson 1</div></div>
+              <span style="background:rgba(0,229,255,.12);color:#00e5ff;padding:2px 9px;border-radius:50px;font-size:.65rem;font-weight:700">FREE</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.05)">
+              <div style="width:34px;height:34px;border-radius:8px;background:rgba(0,229,255,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0">🏗️</div>
+              <div style="flex:1"><div style="font-size:.85rem;font-weight:600">M2 — Store Creation</div><div style="font-size:.72rem;color:rgba(238,240,255,.4)">Lesson 2</div></div>
+              <span style="background:rgba(0,229,255,.12);color:#00e5ff;padding:2px 9px;border-radius:50px;font-size:.65rem;font-weight:700">FREE</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.05)">
+              <div style="width:34px;height:34px;border-radius:8px;background:rgba(255,107,53,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0">📱</div>
+              <div style="flex:1"><div style="font-size:.85rem;font-weight:600">M3-5 — Facebook & TikTok Ads</div><div style="font-size:.72rem;color:rgba(238,240,255,.4)">Lessons 3–5</div></div>
+              <span style="background:rgba(255,107,53,.12);color:#ff6b35;padding:2px 9px;border-radius:50px;font-size:.65rem;font-weight:700">PRO</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;padding:11px 0">
+              <div style="width:34px;height:34px;border-radius:8px;background:rgba(123,47,255,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0">🚀</div>
+              <div style="flex:1"><div style="font-size:.85rem;font-weight:600">+ Scaling, Branding, Exit…</div><div style="font-size:.72rem;color:rgba(238,240,255,.4)">Lessons 6–12</div></div>
+              <span style="background:rgba(123,47,255,.15);color:#a78bfa;padding:2px 9px;border-radius:50px;font-size:.65rem;font-weight:700">ELITE</span>
+            </div>
+          </div>
+          <a href="course-player.html" style="display:block;margin-top:18px;background:linear-gradient(135deg,#7b2fff,#00e5ff);color:#fff;text-decoration:none;text-align:center;padding:12px;border-radius:10px;font-weight:700;font-size:.88rem;border:none;cursor:pointer">Start Free Course →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODULES -->
+<div class="section">
+  <div class="label" data-t="modules_label">Program</div>
+  <h2 class="title" data-t="modules_title">12 Modules. 40+ Hours. Real Results.</h2>
+  <p class="subtitle" data-t="modules_subtitle">From product research to 6-figure exits — a complete roadmap.</p>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-ico">🔍</div>
+      <div class="card-tag free">Module 01 · Free</div>
+      <div class="card-name">Product Research</div>
+      <div class="card-desc">Winning product criteria, trend analysis with Google Trends, AliExpress, TikTok and Amazon.</div>
+    </div>
+    <div class="card">
+      <div class="card-ico">🏗️</div>
+      <div class="card-tag free">Module 02 · Free</div>
+      <div class="card-name">Store Creation</div>
+      <div class="card-desc">Shopify setup, premium theme, brand identity, payment methods and essential apps.</div>
+    </div>
+    <div class="card">
+      <div class="card-ico">📱</div>
+      <div class="card-tag pro">Module 03 · Pro</div>
+      <div class="card-name">Facebook & Instagram Ads</div>
+      <div class="card-desc">Campaign structure, creative strategy, targeting, retargeting and ROAS optimization.</div>
+    </div>
+    <div class="card">
+      <div class="card-ico">🎵</div>
+      <div class="card-tag pro">Module 04 · Pro</div>
+      <div class="card-name">TikTok Shop & Organic</div>
+      <div class="card-desc">Viral content creation, TikTok Shop setup, influencer collaboration and UGC.</div>
+    </div>
+    <div class="card">
+      <div class="card-ico">📧</div>
+      <div class="card-tag pro">Module 05 · Pro</div>
+      <div class="card-name">Email & SMS Marketing</div>
+      <div class="card-desc">Klaviyo flows: welcome, abandoned cart, post-purchase. Segmentation and automation.</div>
+    </div>
+    <div class="card">
+      <div class="card-ico">🤝</div>
+      <div class="card-tag pro">Module 06 · Pro</div>
+      <div class="card-name">Suppliers & Logistics</div>
+      <div class="card-desc">Finding reliable suppliers, negotiation, private label, warehousing and fulfillment.</div>
+    </div>
+    <div class="card">
+      <div class="card-ico">📊</div>
+      <div class="card-tag elite">Module 07 · Elite</div>
+      <div class="card-name">Analytics & Data</div>
+      <div class="card-desc">GA4, pixel tracking, cohort analysis, LTV optimization and business intelligence.</div>
+    </div>
+    <div class="card">
+      <div class="card-ico">🏆</div>
+      <div class="card-tag elite">Module 08 · Elite</div>
+      <div class="card-name">Branding & Positioning</div>
+      <div class="card-desc">Creating a brand that sells itself: identity, storytelling, social proof and premium positioning.</div>
+    </div>
+    <div class="card">
+      <div class="card-ico">🌍</div>
+      <div class="card-tag elite">Module 09 · Elite</div>
+      <div class="card-name">International Scaling</div>
+      <div class="card-desc">Expansion to UK/US/Germany, localization, cross-border logistics and multi-currency.</div>
+    </div>
+    <div class="card">
+      <div class="card-ico">🤖</div>
+      <div class="card-tag elite">Module 10 · Elite</div>
+      <div class="card-name">Automation & AI</div>
+      <div class="card-desc">Automating customer service, inventory, ads and content with AI tools.</div>
+    </div>
+    <div class="card">
+      <div class="card-ico">👥</div>
+      <div class="card-tag elite">Module 11 · Elite</div>
+      <div class="card-name">Team Building</div>
+      <div class="card-desc">Hiring VAs, building your remote team, SOPs and processes for growth.</div>
+    </div>
+    <div class="card">
+      <div class="card-ico">💰</div>
+      <div class="card-tag elite">Module 12 · Elite</div>
+      <div class="card-name">Exit Strategy</div>
+      <div class="card-desc">Business valuation, finding buyers, due diligence and selling for 3-5x revenue.</div>
+    </div>
+  </div>
+</div>
+
+<!-- CHECKLIST -->
+<div class="section-alt">
+  <div class="section-alt-in">
+    <div class="label">Skills</div>
+    <h2 class="title">What you master by the end</h2>
+    <div class="checklist">
+      <div class="check-item"><div class="check-icon">✓</div><div class="check-text"><strong>Shopify A to Z</strong>Optimized store for conversion, configured apps, pro design without coding.</div></div>
+      <div class="check-item"><div class="check-icon">✓</div><div class="check-text"><strong>Facebook & TikTok Ads</strong>Profitable campaigns, stable ROAS, scaling without exploding budget.</div></div>
+      <div class="check-item"><div class="check-icon">✓</div><div class="check-text"><strong>Advanced Product Research</strong>Find winners before competition with Minea, AdSpy and TikTok.</div></div>
+      <div class="check-item"><div class="check-icon">✓</div><div class="check-text"><strong>Klaviyo Email Automation</strong>Flows that generate 25-30% revenue automatically, 24/7.</div></div>
+      <div class="check-item"><div class="check-icon">✓</div><div class="check-text"><strong>International Scaling</strong>Expansion EU/US, localization, 3PL logistics and multi-currency.</div></div>
+      <div class="check-item"><div class="check-icon">✓</div><div class="check-text"><strong>Brand Building & UGC</strong>Recognizable brand, UGC creators, engaged community.</div></div>
+      <div class="check-item"><div class="check-icon">✓</div><div class="check-text"><strong>KPI Mastery</strong>Master CAC, LTV, ROAS, CM — run business like CEO.</div></div>
+      <div class="check-item"><div class="check-icon">✓</div><div class="check-text"><strong>Exit at 6-7 Figures</strong>Valuate and sell your business for 3-5x annual profits.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- TIMELINE -->
+<div class="section">
+  <div class="label" data-t="timeline_label">Roadmap</div>
+  <h2 class="title" data-t="timeline_title">From Zero to €10k/Month in 90 Days</h2>
+  <p class="subtitle" data-t="timeline_subtitle">Week-by-week action plan from idea to cash-flow.</p>
+  <div class="timeline">
+    <div class="tl"><div class="tl-dot">🎯</div><div class="tl-body"><div class="tl-week">Weeks 1–2</div><div class="tl-name">Foundation & Mindset</div><div class="tl-text">Store live, niche validated, supplier found.</div></div></div>
+    <div class="tl"><div class="tl-dot">🔍</div><div class="tl-body"><div class="tl-week">Weeks 3–4</div><div class="tl-name">Product Research & First Sale</div><div class="tl-text">3 products validated, ads tested at €5/day. Goal: first sale within 30 days.</div></div></div>
+    <div class="tl"><div class="tl-dot">📢</div><div class="tl-body"><div class="tl-week">Weeks 5–8</div><div class="tl-name">Scaling to €3k/month</div><div class="tl-text">Winning ads scaled, email flows automated, logistics optimized.</div></div></div>
+    <div class="tl"><div class="tl-dot">📧</div><div class="tl-body"><div class="tl-week">Weeks 9–10</div><div class="tl-name">€5k/month Milestone</div><div class="tl-text">Multi-product testing, retargeting active, customer lifetime value growing.</div></div></div>
+    <div class="tl"><div class="tl-dot">🚀</div><div class="tl-body"><div class="tl-week">Weeks 11–12</div><div class="tl-name">Scaling to €10k/month</div><div class="tl-text">High-performing ad sets scaled, first VA hired for customer service.</div></div></div>
+    <div class="tl" style="margin-bottom:0"><div class="tl-dot">🏆</div><div class="tl-body"><div class="tl-week">Month 4–6</div><div class="tl-name">Brand & €100k/month</div><div class="tl-text">TikTok Shop active, international expansion, brand built.</div></div></div>
+  </div>
+</div>
+
+<!-- TOOLS -->
+<div class="section-alt">
+  <div class="section-alt-in">
+    <div class="label" data-t="tools_label">Platforms & Tools</div>
+    <h2 class="title" data-t="tools_title">Platforms & Tools Covered</h2>
+    <p class="subtitle" data-t="tools_subtitle">You&apos;ll learn to use the same tools as 7-figure entrepreneurs.</p>
+    <div class="tools">
+      <span class="tool">🛍️ Shopify</span>
+      <span class="tool">📘 Facebook Ads</span>
+      <span class="tool">🎵 TikTok Shop</span>
+      <span class="tool">📧 Klaviyo</span>
+      <span class="tool">📊 Google Analytics</span>
+      <span class="tool">🎨 Canva</span>
+      <span class="tool">🤖 ChatGPT</span>
+      <span class="tool">📦 Dropshipping Suppliers</span>
+      <span class="tool">🔍 Jungle Scout</span>
+      <span class="tool">📝 Notion</span>
+    </div>
+  </div>
+</div>
+
+<!-- INSTRUCTOR -->
+<div class="section">
+  <div class="label">Instructor</div>
+  <h2 class="title">Learn from a Practitioner, Not an Influencer</h2>
+  <div class="instructor">
+    <div class="inst-ava">👨‍💼</div>
+    <div>
+      <div class="inst-name">Alexandre Martin</div>
+      <div class="inst-title">E-COMMERCE ENTREPRENEUR · 5 YEARS · €2.4M REVENUE</div>
+      <p class="inst-bio">Former engineer who pivoted to e-commerce in 2020, Alexandre has generated over €2.4M in revenue on Shopify in 5 years. He launched 3 private label brands in Europe with exits ranging from €400k to €1.2M. He teaches only methods he uses himself — no hype, no fake results.</p>
+      <div class="inst-nums">
+        <div class="in"><div class="in-val">€2.4M</div><div class="in-lbl">Revenue</div></div>
+        <div class="in"><div class="in-val">3</div><div class="in-lbl">Brands</div></div>
+        <div class="in"><div class="in-val">1200+</div><div class="in-lbl">Students</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PRICING -->
+<div class="section">
+  <div class="pricing-box">
+    <div class="label" style="text-align:center">Access</div>
+    <h2 class="title" style="text-align:center">Choose Your Plan</h2>
+    <p class="subtitle" style="text-align:center;margin:0 auto">Start free. Upgrade to Elite to unlock everything.</p>
+    <div class="plans">
+
+      <!-- FREE -->
+      <div class="plan">
+        <div class="plan-name" style="color:#00e5ff">🎁 Free</div>
+        <div class="plan-price">€<span>0</span></div>
+        <div class="plan-period">Always free · No credit card</div>
+        <ul class="plan-feats">
+          <li>Modules 1 &amp; 2 complete</li>
+          <li>Store creation basics</li>
+          <li>Product research intro</li>
+          <li>Community access</li>
+        </ul>
+        <a href="auth.html?mode=signup" class="plan-cta">Get Started Free →</a>
+      </div>
+
+      <!-- PRO -->
+      <div class="plan best">
+        <div class="plan-badge">⭐ Most Popular</div>
+        <div class="plan-name" style="color:#ff6b35">🚀 Pro</div>
+        <div class="plan-price">€<span>79</span></div>
+        <div class="plan-period">One-time · Lifetime access</div>
+        <ul class="plan-feats">
+          <li>All 8 modules unlocked</li>
+          <li>Facebook &amp; TikTok Ads mastery</li>
+          <li>Winning product research system</li>
+          <li>Email automation (Klaviyo)</li>
+          <li>📥 Downloadable PDF cheat sheets</li>
+          <li>📥 Strategy templates pack</li>
+          <li>Lifetime updates included</li>
+        </ul>
+        <a href="payment.html?course=ec&plan=pro" class="plan-cta">Start Pro Access →</a>
+      </div>
+
+      <!-- ELITE -->
+      <div class="plan">
+        <div class="plan-name" style="color:#a78bfa">💎 Elite</div>
+        <div class="plan-price">€<span>139</span></div>
+        <div class="plan-period">One-time · Lifetime access</div>
+        <ul class="plan-feats">
+          <li>All 12 modules unlocked</li>
+          <li>Scaling strategy to €100k/month</li>
+          <li>Supplier negotiation scripts</li>
+          <li>Personal branding &amp; exit strategy</li>
+          <li>📥 Full resource library (20+ PDFs)</li>
+          <li>📥 Store audit checklist</li>
+          <li>Early access to new modules</li>
+        </ul>
+        <a href="payment.html?course=ec&plan=elite" class="plan-cta">Get Elite Access →</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- FINAL CTA -->
+<div class="cta-final">
+  <h2>Ready to build your<br><em>e-commerce empire?</em></h2>
+  <p>1,200+ entrepreneurs have already transformed their results with this formation.</p>
+  <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
+    <a href="auth.html?mode=signup" class="btn-main">🚀 Join Now — It's Free</a>
+    <a href="payment.html?course=ec&plan=elite" class="btn-outline">💎 Get Elite Access →</a>
+  </div>
+</div>
+
+<footer>
+  <a href="index.html" data-t="footer_home">Home</a>
+  <a href="trading-home.html" data-t="footer_trading">Trading Formation</a>
+  <a href="dashboard.html" data-t="footer_dashboard">Dashboard</a>
+  <a href="auth.html" data-t="footer_signin">Sign In</a>
+  <a href="legal.html" data-t="footer_legal">Legal</a>
+  <a href="subscription.html">Mon abonnement</a>
+  <a href="report.html">Signaler un problème</a>
+  <br><br><span data-t="footer_copy">© 2025 STATIC Academy · All rights reserved</span>
+</footer>
+
+<script>
+// Translations object
+const translations = {
+  en: {
+    nav_back: '← Back to home',
+    nav_cta: 'Start Free',
+    hero_badge: '🛒 E-Commerce Mastery',
+    hero_title: 'Build a Profitable Online Business',
+    hero_desc: 'The complete formation to build a successful e-commerce business — from store creation to €100k/month. Shopify, Facebook Ads, TikTok Shop, Klaviyo, branding and exit strategy.',
+    stat_modules: '12',
+    stat_hours: '40+',
+    stat_satisfaction: '97%',
+    stat_revenue: '€2.4M',
+    what_learn_label: 'Skills',
+    what_learn_title: 'What you master by the end',
+    modules_label: 'Program',
+    modules_title: '12 Modules. 40+ Hours. Real Results.',
+    modules_subtitle: 'From product research to 6-figure exits — a complete roadmap.',
+    timeline_label: 'Roadmap',
+    timeline_title: 'From Zero to €10k/Month in 90 Days',
+    timeline_subtitle: 'Week-by-week action plan from idea to cash-flow.',
+    tools_label: 'Platforms & Tools',
+    tools_title: 'Platforms & Tools Covered',
+    tools_subtitle: 'You\'ll learn to use the same tools as 7-figure entrepreneurs.',
+    footer_home: 'Home',
+    footer_trading: 'Trading Formation',
+    footer_dashboard: 'Dashboard',
+    footer_signin: 'Sign In',
+    footer_legal: 'Legal',
+    footer_copy: '© 2025 STATIC Academy · All rights reserved'
+  },
+  fr: {
+    nav_back: '← Retour',
+    nav_cta: 'Commencer →',
+    hero_badge: '🛒 Formation E-Commerce Elite 2025',
+    hero_title: 'Lancez votre boutique. Scalez à 6 chiffres.',
+    hero_desc: 'La formation complète pour construire un business e-commerce rentable — de la création de boutique jusqu\'aux 100k€/mois. Shopify, Facebook Ads, TikTok Shop, Klaviyo, branding et exit strategy.',
+    stat_modules: '12',
+    stat_hours: '40h',
+    stat_satisfaction: '97%',
+    stat_revenue: '€2.4M',
+    what_learn_label: 'Compétences',
+    what_learn_title: 'Ce que vous maîtrisez à la fin',
+    modules_label: 'Programme',
+    modules_title: '12 Modules. 40+ Heures. Résultats concrets.',
+    modules_subtitle: 'Du business model au premier euro, jusqu\'à la vente de votre boutique — un parcours complet.',
+    timeline_label: 'Parcours',
+    timeline_title: 'De zéro à 10k€/mois en 90 jours',
+    timeline_subtitle: 'Plan d\'action semaine par semaine pour aller de l\'idée au cash-flow.',
+    tools_label: 'Outils',
+    tools_title: 'Les plateformes que vous maîtrisez',
+    tools_subtitle: 'Chaque outil est utilisé en situation réelle dans les vidéos — pas en théorie.',
+    footer_home: 'Accueil',
+    footer_trading: 'Formation Trading',
+    footer_dashboard: 'Dashboard',
+    footer_signin: 'Connexion',
+    footer_legal: 'Mentions légales',
+    footer_copy: '© 2025 STATIC Academy · Tous droits réservés'
+  }
+};
+
+// Function to apply translations
+function applyTranslations(lang) {
+  const trans = translations[lang] || translations['en'];
+  document.querySelectorAll('[data-t]').forEach(el => {
+    const key = el.getAttribute('data-t');
+    if (trans[key]) {
+      el.textContent = trans[key];
+    }
+  });
+  localStorage.setItem('sa_lang', lang);
+}
+
+// Language selector
+const langSelect = document.getElementById('lang-select');
+langSelect.addEventListener('change', (e) => {
+  applyTranslations(e.target.value);
+});
+
+// Load stored language on page load
+window.addEventListener('DOMContentLoaded', () => {
+  const storedLang = localStorage.getItem('sa_lang') || 'en';
+  langSelect.value = storedLang;
+  applyTranslations(storedLang);
+});
+
+// Progress bar on scroll
+window.addEventListener('scroll', function() {
+  var doc = document.documentElement;
+  var pct = (doc.scrollTop || document.body.scrollTop) / (doc.scrollHeight - doc.clientHeight) * 100;
+  document.getElementById('prog').style.width = Math.min(100, pct) + '%';
+});
+
+// Auto-scroll (stops on user interaction)
+(function() {
+  var active = true;
+  var stop = function() { active = false; };
+  document.addEventListener('wheel', stop, {once: true, passive: true});
+  document.addEventListener('touchstart', stop, {once: true, passive: true});
+  document.addEventListener('keydown', function(e) { if (e.key !== 'F5') stop(); }, {once: true});
+
+  var start = null;
+  var duration = 30000;
+
+  function tick(ts) {
+    if (!active) return;
+    if (!start) start = ts;
+    var p = Math.min((ts - start) / duration, 1);
+    var eased = p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+    var maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    window.scrollTo(0, eased * maxScroll);
+    if (p < 1) requestAnimationFrame(tick);
+  }
+
+  setTimeout(function() { requestAnimationFrame(tick); }, 2000);
+})();
+
+// Live market ticker
+(function(){
+  function fmt(n){return n>=1000?'$'+n.toLocaleString('en-US',{maximumFractionDigits:0}):'$'+n.toFixed(2);}
+  function setChg(id,c){var el=document.getElementById(id);if(!el)return;el.textContent=(c>=0?'▲ +':'▼ ')+Math.abs(c).toFixed(2)+'%';el.className=c>=0?'ec-t-up':'ec-t-dn';}
+  fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd&include_24hr_change=true&precision=2')
+    .then(function(r){return r.json();})
+    .then(function(d){
+      var bp=document.getElementById('ec-btc-p'),ep=document.getElementById('ec-eth-p');
+      if(bp)bp.textContent=fmt(d.bitcoin.usd);
+      if(ep)ep.textContent=fmt(d.ethereum.usd);
+      setChg('ec-btc-c',d.bitcoin.usd_24h_change);
+      setChg('ec-eth-c',d.ethereum.usd_24h_change);
+      var now=new Date();
+      var tt=document.getElementById('ec-time');
+      if(tt)tt.textContent='Updated '+now.getHours().toString().padStart(2,'0')+':'+now.getMinutes().toString().padStart(2,'0');
+    }).catch(function(){});
+  fetch('https://api.frankfurter.app/latest?from=EUR&to=USD')
+    .then(function(r){return r.json();})
+    .then(function(d){var ep=document.getElementById('ec-eur-p');if(ep)ep.textContent=d.rates.USD.toFixed(4);}).catch(function(){});
+})();
+</script>
+<script src="session-sync.js"></script>
+</body>
+</html>

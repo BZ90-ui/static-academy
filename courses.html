@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>All Courses — STATIC Academy</title>
+  <meta name="description" content="32 courses across 6 learning tracks. From e-commerce foundations to advanced scaling."/>
+      <link rel="icon" href="logo-icon.svg" type="image/svg+xml">
+    <meta name="theme-color" content="#07080f">
+    <link rel="stylesheet" href="styles.css"/>
+  <style>
+    /* Track tabs */
+    .track-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+    .track-tab {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: var(--radius-full);
+      font-size: 13px;
+      font-weight: 600;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      color: var(--text-3);
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+    .track-tab:hover { border-color: var(--border-2); color: var(--text); background: var(--bg-3); }
+    .track-tab.active {
+      background: var(--primary-glow);
+      border-color: rgba(108,99,255,0.4);
+      color: var(--primary-2);
+    }
+    .track-tab .count {
+      background: rgba(255,255,255,0.08);
+      border-radius: 10px;
+      padding: 1px 7px;
+      font-size: 11px;
+    }
+    .track-tab.active .count { background: rgba(108,99,255,0.25); }
+
+    /* Track header */
+    .track-section { margin-bottom: 64px; }
+    .track-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 28px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .track-icon {
+      width: 48px; height: 48px;
+      border-radius: var(--radius);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+    .track-name { font-size: 1.3rem; font-weight: 800; }
+    .track-desc { font-size: 14px; color: var(--text-3); margin-top: 2px; }
+    .track-meta {
+      margin-left: auto;
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    .track-stat { text-align: center; font-size: 12px; color: var(--text-3); }
+    .track-stat strong { display: block; font-size: 16px; font-weight: 800; color: var(--text); }
+
+    /* Course card */
+    .courses-grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+    .course-card-v2 {
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: all var(--transition);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+    }
+    .course-card-v2:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+      border-color: var(--border-2);
+    }
+    .course-card-thumb {
+      aspect-ratio: 16/9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 44px;
+      position: relative;
+      overflow: hidden;
+    }
+    .course-card-thumb::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(0deg, rgba(0,0,0,0.6), rgba(0,0,0,0.1));
+    }
+    .course-card-plan {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 2;
+    }
+    .course-card-body { padding: 16px; flex: 1; display: flex; flex-direction: column; }
+    .course-card-title { font-size: 14px; font-weight: 700; line-height: 1.35; margin-bottom: 8px; }
+    .course-card-desc { font-size: 12.5px; color: var(--text-3); line-height: 1.6; margin-bottom: 12px; flex: 1; }
+    .course-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+    }
+    .course-card-meta { display: flex; gap: 10px; font-size: 11px; color: var(--text-4); }
+    .course-card-meta span { display: flex; align-items: center; gap: 3px; }
+    .course-card-rating { font-size: 11px; color: var(--gold); font-weight: 700; }
+
+    /* Featured course banner */
+    .featured-course {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      margin-bottom: 48px;
+      position: relative;
+    }
+    .featured-course::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--primary), var(--gold));
+    }
+    .featured-course-visual {
+      display: flex; align-items: center; justify-content: center;
+      font-size: 80px;
+      padding: 48px;
+      position: relative;
+    }
+    .featured-course-body { padding: 40px; display: flex; flex-direction: column; justify-content: center; }
+    .featured-course-eyebrow { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--gold); margin-bottom: 10px; }
+    .featured-course-title { font-size: 1.6rem; font-weight: 800; margin-bottom: 12px; }
+    .featured-course-desc { font-size: 14px; color: var(--text-2); line-height: 1.7; margin-bottom: 20px; }
+    .featured-course-stats { display: flex; gap: 20px; margin-bottom: 24px; flex-wrap: wrap; }
+    .fcs { font-size: 12px; color: var(--text-3); display: flex; align-items: center; gap: 5px; }
+
+    /* Stats bar */
+    .courses-stats-bar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-bottom: 48px;
+    }
+    .csb-item {
+      padding: 20px 24px;
+      text-align: center;
+      border-right: 1px solid var(--border);
+    }
+    .csb-item:last-child { border-right: none; }
+    .csb-value { font-size: 1.6rem; font-weight: 900; font-family: var(--font-display); }
+    .csb-label { font-size: 12px; color: var(--text-3); margin-top: 3px; }
+
+    /* Search bar upgrade */
+    .courses-search-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 14px 20px;
+    }
+    .courses-search-input {
+      flex: 1;
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 14px;
+      min-width: 200px;
+    }
+    .courses-search-input::placeholder { color: var(--text-4); }
+    .courses-search-input:focus { outline: none; }
+    .courses-search-icon { font-size: 16px; color: var(--text-4); }
+
+    @media (max-width: 1100px) { .courses-grid-4 { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 800px) {
+      .courses-grid-4 { grid-template-columns: repeat(2, 1fr); }
+      .featured-course { grid-template-columns: 1fr; }
+      .featured-course-visual { padding: 32px; font-size: 60px; }
+      .featured-course-body { padding: 24px; }
+      .courses-stats-bar { grid-template-columns: repeat(2, 1fr); }
+      .track-meta { display: none; }
+    }
+    @media (max-width: 520px) {
+      .courses-grid-4 { grid-template-columns: 1fr; }
+      .courses-stats-bar { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="nav">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" style="display:flex;align-items:center;gap:.65rem;text-decoration:none;">
+        <img src="logo-icon.svg" alt="STATIC Academy" style="width:38px;height:38px;flex-shrink:0;">
+        <div style="display:flex;flex-direction:column;line-height:1.1;">
+          <span style="font-size:.95rem;font-weight:800;letter-spacing:.06em;color:#e8ecff;">STATIC</span>
+          <span style="font-size:.52rem;font-weight:500;letter-spacing:.22em;color:rgba(232,236,255,.38);text-transform:uppercase;">Academy</span>
+        </div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html" data-i18n="nav_home">Home</a></li>
+        <li><a href="courses.html" data-i18n="nav_courses">Courses</a></li>
+        <li><a href="learning-paths.html" data-i18n="nav_paths">Learning Paths</a></li>
+        <li><a href="community.html" data-i18n="nav_community">Community</a></li>
+        <li><a href="pricing.html" data-i18n="nav_pricing">Pricing</a></li>
+        <li><a href="dashboard.html" class="nav-dash-link" data-i18n="nav_dashboard" style="display:none">Dashboard</a></li>
+      </ul>
+      <div class="nav-right" id="navRight">
+        <div class="lang-select">
+          <button class="lang-btn"><span class="lang-current">🇺🇸 EN</span>
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
+          <div class="lang-dropdown">
+            <div class="lang-option" data-lang="en"><span class="lang-flag">🇺🇸</span> English</div>
+            <div class="lang-option" data-lang="fr"><span class="lang-flag">🇫🇷</span> Français</div>
+            <div class="lang-option" data-lang="es"><span class="lang-flag">🇪🇸</span> Español</div>
+            <div class="lang-option" data-lang="de"><span class="lang-flag">🇩🇪</span> Deutsch</div>
+            <div class="lang-option" data-lang="pt"><span class="lang-flag">🇧🇷</span> Português</div>
+          </div>
+        </div>
+        <div class="nav-guest d-flex gap-8 align-center">
+          <a href="auth.html" class="btn btn-ghost btn-sm" data-i18n="nav_login">Sign In</a>
+          <a href="auth.html?tab=register" class="btn btn-primary btn-sm" data-i18n="nav_cta">Get Started</a>
+        </div>
+        <div class="nav-user d-flex gap-8 align-center" style="display:none!important">
+          <a href="dashboard.html" class="btn btn-ghost btn-sm">Dashboard</a>
+          <div class="user-menu">
+            <div class="user-avatar" data-dropdown-trigger=".user-dropdown">SA</div>
+            <div class="user-dropdown">
+              <div class="user-info"><div class="user-name"></div><div class="user-email"></div><span class="user-plan plan-free">Free</span></div>
+              <a href="dashboard.html">Dashboard</a>
+              <a href="pricing.html">Upgrade Plan</a>
+              <div class="divider"></div>
+              <button class="logout-btn" data-i18n="nav_logout">Sign Out</button>
+            </div>
+          </div>
+        </div>
+        <button class="nav-toggle"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="mobile-nav" id="mobileNav">
+  <ul class="mobile-nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="courses.html">Courses</a></li>
+    <li><a href="learning-paths.html">Learning Paths</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a href="dashboard.html">Dashboard</a></li>
+  </ul>
+  <div class="mobile-nav-divider"></div>
+  <div class="mobile-nav-ctas">
+    <a href="auth.html" class="btn btn-outline" style="justify-content:center;text-align:center">Sign In</a>
+    <a href="auth.html?tab=register" class="btn btn-primary" style="justify-content:center;text-align:center">Start for Free →</a>
+  </div>
+</div>
+
+<!-- Hero -->
+<section style="padding:120px 0 60px;background:var(--bg-2);border-bottom:1px solid var(--border);position:relative;overflow:hidden">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 20% 50%,rgba(108,99,255,0.12),transparent);pointer-events:none"></div>
+  <div class="container" style="position:relative;z-index:1">
+    <div class="fade-up" style="max-width:680px">
+      <span class="badge badge-primary" style="margin-bottom:14px;display:inline-flex">📚 32 Courses · 6 Learning Tracks</span>
+      <h1 style="margin-bottom:14px" data-i18n-html="courses_hero_title">The complete <span class="grad-text">e-commerce</span> curriculum</h1>
+      <p style="font-size:1.05rem;color:var(--text-2);line-height:1.7;margin-bottom:28px">From absolute beginner to 7-figure operator. Every course is built from real experience running profitable online stores — no fluff, no theory, just what actually works.</p>
+      <div style="display:flex;gap:20px;flex-wrap:wrap">
+        <div style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--text-3)"><span style="color:var(--green)">✓</span> 2 full modules free</div>
+        <div style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--text-3)"><span style="color:var(--primary-2)">✓</span> 160+ lessons</div>
+        <div style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--text-3)"><span style="color:var(--gold)">✓</span> 70+ hours of content</div>
+        <div style="display:flex;align-items:center;gap:8px;font-size:14px;color:var(--text-3)"><span style="color:var(--green)">✓</span> Lifetime access</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Stats bar -->
+<div class="container" style="margin-top:32px;margin-bottom:0">
+  <div class="courses-stats-bar">
+    <div class="csb-item">
+      <div class="csb-value grad-text-primary" data-counter="32" data-suffix="">32</div>
+      <div class="csb-label">Total Courses</div>
+    </div>
+    <div class="csb-item">
+      <div class="csb-value" style="color:var(--gold)" data-counter="160" data-suffix="+">160+</div>
+      <div class="csb-label">Written Lessons</div>
+    </div>
+    <div class="csb-item">
+      <div class="csb-value" style="color:var(--green)" data-counter="70" data-suffix="h+">70h+</div>
+      <div class="csb-label">Hours of Reading</div>
+    </div>
+    <div class="csb-item">
+      <div class="csb-value" data-counter="2847" data-suffix="+">2,847+</div>
+      <div class="csb-label">Active Students</div>
+    </div>
+  </div>
+</div>
+
+<!-- Main content -->
+<section class="section" style="padding-top:40px">
+  <div class="container">
+
+    <!-- Search + Filters -->
+    <div class="courses-search-wrap">
+      <span class="courses-search-icon">🔍</span>
+      <input type="text" class="courses-search-input" id="globalSearch" placeholder="Search all 32 courses..." oninput="filterAll()"/>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="filter-btn active" data-plan="all" onclick="setPlanFilter(this,'all')" data-i18n="filter_all">All Plans</button>
+        <button class="filter-btn" data-plan="free" onclick="setPlanFilter(this,'free')" data-i18n="filter_free">Free</button>
+        <button class="filter-btn" data-plan="pro" onclick="setPlanFilter(this,'pro')" data-i18n="filter_pro">Pro</button>
+        <button class="filter-btn" data-plan="elite" onclick="setPlanFilter(this,'elite')" data-i18n="filter_elite">Elite</button>
+      </div>
+    </div>
+
+    <!-- Track tabs -->
+    <div class="track-tabs" id="trackTabs">
+      <button class="track-tab active" data-track="all" onclick="setTrack(this,'all')" data-i18n="track_all">🌐 All Tracks <span class="count">32</span></button>
+      <button class="track-tab" data-track="core" onclick="setTrack(this,'core')" data-i18n="track_core">🎓 Core Curriculum <span class="count">12</span></button>
+      <button class="track-tab" data-track="specialty" onclick="setTrack(this,'specialty')" data-i18n="track_specialty">🚀 Specialty Paths <span class="count">8</span></button>
+      <button class="track-tab" data-track="marketing" onclick="setTrack(this,'marketing')" data-i18n="track_marketing">📣 Marketing Deep Dives <span class="count">6</span></button>
+      <button class="track-tab" data-track="advanced" onclick="setTrack(this,'advanced')" data-i18n="track_advanced">⚡ Advanced Business <span class="count">6</span></button>
+    </div>
+
+    <!-- ══════════════════════════════════
+         TRACK 1 — CORE CURRICULUM
+    ══════════════════════════════════ -->
+    <div class="track-section" data-track-section="core">
+      <div class="track-header">
+        <div class="track-icon" style="background:rgba(108,99,255,0.15)">🎓</div>
+        <div>
+          <div class="track-name">Core Curriculum</div>
+          <div class="track-desc">The complete foundation — master every pillar of a successful e-commerce business from Day 1 to scaling.</div>
+        </div>
+        <div class="track-meta">
+          <div class="track-stat"><strong>12</strong>Modules</div>
+          <div class="track-stat"><strong>99</strong>Lessons</div>
+          <div class="track-stat"><strong>42h+</strong>Content</div>
+          <a href="learning-paths.html" class="btn btn-outline btn-sm">View Path →</a>
+        </div>
+      </div>
+      <div class="courses-grid-4">
+
+        <a href="course-player.html?module=1" class="course-card-v2" style="text-decoration:none" data-plan="free" data-track="core" data-title="ecommerce foundations basics beginner start">
+          <div class="course-card-thumb" style="background:linear-gradient(135deg,#1e1b4b,#312e81)">
+            <span style="position:relative;z-index:1">🏪</span>
+            <div class="course-card-plan"><span class="badge badge-green" style="font-size:10px">Free</span></div>
+          </div>
+          <div class="course-card-body">
+            <div class="course-card-title">E-Commerce Foundations</div>
+            <div class="course-card-desc">Business models, market overview, legal setup, and entrepreneurial mindset.</div>
+            <div class="course-card-footer">
+              <div class="course-card-meta"><span>✍️ 6</span><span>⏱ 2.5h</span></div>
+              <div class="course-card-rating">★ 4.9</div>
+            </div>
+          </div>
+        </a>
+
+        <a href="course-player.html?module=2" class="course-card-v2" style="text-decoration:none" data-plan="free" data-track="core" data-title="market research niche selection product validation competitor analysis">
+          <div class="course-card-thumb" style="background:linear-gradient(135deg,#1a2a1a,#14532d)">
+            <span style="position:relative;z-index:1">🔍</span>
+            <div class="course-card-plan"><span class="badge badge-green" style="font-size:10px">Free</span></div>
+          </div>
+          <div class="course-card-body">
+            <div class="course-card-title">Market Research & Niche Selection</div>
+            <div class="course-card-desc">Find winning products, validate ideas, and analyse competitors like a pro.</div>
+            <div class="course-card-footer">
+              <div class="course-card-meta"><span>✍️ 7</span><span>⏱ 3h</span></div>
+              <div class="course-card-rating">★ 4.8</div>
+            </div>
+          </div>
+        </a>
+
+        <a href="course-player.html?module=3" class="course-card-v2" style="text-decoration:none" data-plan="pro" data-track="core" data-title="shopify store building design branding theme mobile">
+          <div class="course-card-thumb" style="background:linear-gradient(135deg,#1e1040,#3730a3)">
+            <span style="position:relative;z-index:1">🏗️</span>
+            <div class="course-card-plan"><span class="badge badge-primary" style="font-size:10px">Pro</span></div>
+          </div>
+          <div class="course-card-body">
+            <div class="course-card-title">Building Your Online Store</div>
+            <div class="course-card-desc">Shopify/WooCommerce setup, design, branding, and mobile optimization.</div>
+            <div class="course-card-footer">
+              <div class="course-card-meta"><span>✍️ 8</span><span>⏱ 4h</span></div>
+              <div class="course-card-rating">★ 4.9</div>
+            </div>
+          </div>
+        </a>
+
+        <a href="course-player.html?module=4" class="course-card-v2" style="text-decoration:none" data-plan="pro" data-track="core" data-title="product sourcing inventory alibaba suppliers dropshipping">
+          <div class="course-card-thumb" style="background:linear-gradient(135deg,#1a1000,#78350f)">
+            <span style="position:relative;z-index:1">📦</span>
+            <div class="course-card-plan"><span class="badge badge-primary" style="font-size:10px">Pro</span></div>
+          </div>
+          <div class="course-card-body">
+            <div class="course-card-title">Product Sourcing & Inventory</div>
+            <div class="course-card-desc">Master Alibaba, AliExpress, and private-label sourcing strategies.</div>
+            <div class="course-card-footer">
+              <div class="course-card-meta"><span>✍️ 9</span><span>⏱ 3.5h</span></div>
+              <div class="course-card-rating">★ 4.7</div>
+            </div>
+          </div>
+        </a>
+
+        <a href="course-player.html?module=5" class="course-card-v2" style="text-decoration:none" data-plan="pro" data-track="core" data-title="payments checkout conversion stripe paypal optimization">
+          <div class="course-card-thumb" style="background:linear-gradient(135deg,#0c1a2e,#1e40af)">
+            <span style="position:relative;z-index:1">💳</span>
+            <div class="course-card-plan"><span class="badge badge-primary" style="font-size:10px">Pro</span></div>
+          </div>
+          <div class="course-card-body">
+            <div class="course-card-title">Payments, Checkout & Conversion</div>
+            <div class="course-card-desc">Optimize checkout, integrate gateways, prevent fraud, and boost CVR.</div>
+            <div class="course-card-footer">
+              <div class="course-card-meta"><span>✍️ 7</span><span>⏱ 2.5h</span></div>
+              <div class="course-card-rating">★ 4.8</div>
+            </div>
+          </div>
+        </a>
+
+        <a href="course-player.html?module=6" class="course-card-v2" style="text-decoration:none" data-plan="pro" data-track="core" data-title="seo search engine optimization organic traffic keywords google">
+          <div class="course-card-thumb" style="background:linear-gradient(135deg,#0a1a0a,#166534)">
+            <span style="position:relative;z-index:1">📈</span>
+            <div class="course-card-plan"><span class="badge badge-primary" style="font-size:10px">Pro</span></div>
+          </div>
+          <div class="course-card-body">
+            <div class="course-card-title">SEO for E-Commerce</div>
+            <div class="course-card-desc">Drive free organic traffic. Keyword research, on-page SEO, link building.</div>
+            <div class="course-card-footer">
+              <div class="course-card-meta"><span>✍️ 8</span><span>⏱ 3.5h</span></div>
+              <div class="course-card-rating">★ 4.9</div>
+            </div>
+          </div>
+        </a>
+
+        <a href="course-player.html?module=7" class="course-card-v2" style="text-decoration:none" data-plan="pro" data-track="core" data-title="paid advertising facebook meta google tiktok ads roas retargeting">
+          <div class="course-card-thumb" style="background:linear-gradient(135deg,#200a30,#7e22ce)">
+            <span style="position:relative;z-index:1">🎯</span>
+            <div class="course-card-plan"><span class="badge badge-primary" style="font-size:10px">Pro</span></div>
+          </div>
+          <div class="course-card-body">
+            <div class="course-card-title">Paid Advertising Mastery</div>
+            <div class="course-card-desc">Run profitable Meta, Google Shopping, and TikTok campaigns at scale.</div>
+            <div class="course-card-footer">
+              <div class="course-card-meta"><span>✍️ 10</span><span>⏱ 5h</span></div>
+              <div class="course-card-rating">★ 5.0</div>
+            </div>
+          </div>
+        </a>
+
+        <a href="course-player.html?module=8" class="course-card-v2" style="text-decoration:none" data-plan="pro" data-track="core" data-title="email marketing klaviyo retention sequences automation abandoned cart">
+          <div class="course-card-thumb" style="background:linear-gradient(135deg,#001a1a,#115e59)">
+            <span style="position:relative;z-index:1">📧</span>
+            <div class="course-card-plan"><span class="badge badge-primary" style="font-size:10px">Pro</span></div>
+          </div>
+          <div class="course-card-body">
+            <div class="course-card-title">Email Marketing & Retention</div>
+            <div class="course-card-desc">Welcome flows, cart abandonment, post-purchase, and win-back sequences.</div>
+            <div class="course-card-footer">
+              <div class="course-card-meta"><span>✍️ 9</span><span>⏱ 3.5h</span></div>
+              <div class="course-card-rating">★ 4.9</div>
+            </div>
+          </div>
+        </a>
+
+        <a href="course-player.html?module=9" class="course-card-v2" style="text-decoration:none" data-plan="elite" data-track="core" data-title="social media instagram tiktok influencer ugc content creator">
+          <div class="course-card-thumb" style="background:linear-gradient(135deg,#1a0a20,#9d174d)">
+            <span style="position:relative;z-index:1">📱</span>
+            <div class="course-card-plan"><span class="badge badge-gold" style="font-size:10px">Elite</span></div>
+          </div>
+          <div class="course-card-body">
+            <div class="course-card-title">Social Media & Influencers</div>
+            <div class="course-card-desc">Build viral brand presence on Instagram & TikTok, partner with creators.</div>
+            <div class="course-card-footer">
+              <div class="course-card-meta"><span>✍️ 8</span><span>⏱ 3h</span></div>
+              <div class="course-card-rating">★ 4.8</div>
+            </div>
+          </div>
+        </a>
+
+        <a href="course-player.html?module=10" class="course-card-v2" style="text-decoration:none" data-plan="elite" data-track="core" data-title="analytics data ga4 google analytics ab testing conversion rate cro">
+          <div class="course-card-thumb" style="background:linear-gradient(135deg,#0a0a1a,#1e3a5f)">
+            <span style="position:relative;z-index:1">📊</span>
+            <div class="course-card-plan"><span class="badge badge-gold" style="font-size:10px">Elite</span></div>
+          </div>
+          <div class="course-card-body">
+            <div class="course-card-title">Analytics & Data-Driven Decisions</div>
+            <div class="course-card-desc">GA4, Hotjar, A/B testing, and CRO frameworks that compound over time.</div>
+            <div class="course-card-footer">
+              <div class="course-card-meta"><span>✍️ 7</span><span>⏱ 3h</span></div>
+              <div class="course-card-rating">★ 4.9</div>
+            </div>
+          </div>
+        </a>
+
+        <a href="course-player.html?module=11" class="course-card-v2" style="text-decoration:none" data-plan="elite" data-track="core" data-title="scaling automation hiring team multichannel international expansion">
+          <div class="course-card-thumb" style="background:linear-gradient(135deg,#0a1a0a,#064e3b)">
+            <span style="position:relative;z-index:1">🚀</span>
+            <div class="course-card-plan"><span class="badge badge-gold" style="font-size:10px">Elite</span></div>
+          </div>
+          <div class="course-card-body">
+            <div class="course-card-title">Scaling & Automation</div>
+            <div class="course-card-desc">Build systems that scale without burning out. Automate, hire, expand.</div>
+            <div class="course-card-footer">
+              <div class="course-card-meta"><span>✍️ 9</span><span>⏱ 4h</span></div>
+              <div class="course-card-rating">★ 4.9</div>
+            </div>
+          </div>
+        </a>
+
+        <a href="course-player.html?module=12" class="course-card-v2" style="text-decoration:none" data-plan="elite" data-track="core" data-title="advanced strategies private label brand amazon fba exit acquisition">
+          <div class="course-card-thumb" style="background:linear-gradient(135deg,#1a0d00,#92400e)">
+            <span style="position:relative;z-index:1">🏆</span>
+            <div class="course-card-plan"><span class="badge badge-gold" style="font-size:10px">Elite</span></div>
+          </div>
+          <div class="course-card-body">
+            <div class="course-card-title">Advanced Strategies & Exit</div>
+            <div class="course-card-desc">Private label, brand building, FBA integration, and 7-figure exits.</div>
+            <div class="course-card-footer">
+              <div class="course-card-meta"><span>✍️ 8</span><span>⏱ 4h</span></div>
+              <div class="course-card-rating">★ 5.0</div>
+            </div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════
+         TRACK 2 — SPECIALTY PATHS
+    ══════════════════════════════════ -->
+    <div class="track-section" data-track-section="specialty">
+      <!-- Featured course -->
+      <div class="featured-course">
+        <div class="featured-course-visual" style="background:linear-gradient(135deg,#1a1000,#451a03)">
+          📦
+          <div style="position:absolute;inset:0;background:radial-gradient(circle at 30% 50%,rgba(245,166,35,0.2),transparent 60%);pointer-events:none"></div>
+        </div>
+        <div class="featured-course-body">
+          <div class="featured-course-eyebrow">🔥 Most Enrolled Specialty Course</div>
+          <h2 class="featured-course-title">Dropshipping <span class="grad-text">Accelerator</span> Program</h2>
+          <p class="featured-course-desc">The complete system to launch, test, and scale a profitable dropshipping store in 90 days. From niche selection to your first $10K month — using real strategies that work in 2025.</p>
+          <div class="featured-course-stats">
+            <div class="fcs">✍️ 14 lessons</div>
+            <div class="fcs">⏱ 6.5 hours</div>
+            <div class="fcs">⭐ 4.9 rating</div>
+            <div class="fcs">👥 3,200+ enrolled</div>
+          </div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <a href="course-player.html?module=4" class="btn btn-gold btn-lg" onclick="checkAccess(event,'pro')">Start Course →</a>
+            <span class="badge badge-primary" style="align-self:center">Pro & Elite</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="track-header">
+        <div class="track-icon" style="background:rgba(245,166,35,0.15)">🚀</div>
+        <div>
+          <div class="track-name">Specialty Paths</div>
+          <div class="track-desc">Deep-dive courses on specific e-commerce business models and channels.</div>
+        </div>
+        <div class="track-meta">
+          <div class="track-stat"><strong>8</strong>Courses</div>
+          <div class="track-stat"><strong>52</strong>Lessons</div>
+          <div class="track-stat"><strong>24h+</strong>Content</div>
+        </div>
+      </div>
+
+      <div class="courses-grid-4">
+
+        <div class="course-card-v2" data-plan="pro" data-track="specialty" data-title="dropshipping accelerator winning products suppliers tiktok 2025">
+          <div class="course-card-thumb" style="background:linear-gradient(135deg,#1a1000,#451a03)">
+            <span style="position:relative;z-index:1">📦</span>
+            <div class="course-card-plan"><span class="badge badge-primary" style="font-size:10px">Pro</span></div>
+          </div>
+          <div class="course-card-body">
+            <div class="course-card-title">Dropshipping Accelerator Program</div>
+            <div class="course-card-desc">Launch, test, and scale a profitable dropshipping store in 90 days.</div>
+            <div class="course-card-footer">
+              <div class="course-card-meta"><span>✍️ 14</span><span>⏱ 6.5h</span></div>
+              <div class="course-card-rating">★ 4.9</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="course-card-v2" data-plan="pro" data-track="specialty" data-title="amazon fba product launch ppc listing optimization seller central">
+          <div class="course-card-thumb" style="background:linear-gradient(135deg,#1a0d00,#7c2d12)">
+            <span style="position:relative;z-index:1">📬</span>
+            <div class="course-card-plan"><span class="badge badge-primary" style="font-size:10px">Pro</span></div>
+          </div>
+          <div class="course-card-body">
+            <div class="course-card-title">Amazon FBA Complete Masterclass</div>
+            <div class="course-card-desc">Launch a private-label product on Amazon and dominate your category.</div>
+            <div class="course-card-footer">
+              <div class="course-card-meta"><span>✍️ 12</span><span>⏱ 5.5h</span></div>
+              <div class="course-card-rating">★ 4.8</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="course-card-v2" data-plan="pro" data-track="specialty" data-title="print on demand printful printify etsy passive income">
+          <div class="course-card-thumb" style="background:linear-gradient(135deg,#1a0030,#6d28d9)">
+            <span style="position:relative;z-index:1">👕</span>
+            <div class="course-card-plan"><span class="badge badge-primary" style="font-size:10px">Pro</span></div>
+          </div>
+          <div class="course-card-body">
+            <div class="course-card-title">Print on Demand Blueprint</div>
+            <div class="course-card-desc">Build a profitable POD business on Etsy and Shopify with zero inventory.</div>
+            <div class="course-card-footer">
+              <div class="course-card-meta"><span>✍️ 10</span><span>⏱ 4h</span></div>
+              <div class="course-card-rating">★ 4.7</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="course-card-v2" data-plan="pro" data-track="specialty" data-title="etsy shop seller handmade digital products organic seo">
+          <div class="course-card-thumb" style="background:linear-gradient(135deg,#1a0000,#7f1d1d)">
+            <span style="position:relative;z-index:1">🏷️</span>
+            <div class="course-card-plan"><span class="badge badge-primary" style="font-size:10px">Pro</span></div>
+          </div>
+          <div class="course-card-body">
+            <div class="course-card-title">Etsy Success Formula</div>
+            <div class="course-card-desc">Rank on Etsy's first page, get organic traffic, and scale to $10K/month.</div>
+            <div class="course-card-footer">
+              <div class="course-card-meta"><span>✍️ 8</span><span>⏱ 3.5h</span></div>
+              <div class="course-card-rating">★ 4.8</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="course-card-v2" data-plan="pro" data-track="specialty" data-title="digital products ebook template gumroad passive income info product">
+          <div class="course-card-thumb" style="background:linear-gradient(135deg,#001a2a,#0c4a6e)">
+            <span style="position:relative;z-index:1">💻</span>
+            <div class="course-card-plan"><span class="badge badge-primary" style="font-size:10px">Pro</span></div>
+          </div>
+          <div class="course-card-body">
+            <div class="course-card-title">Digital Products Empire</div>
+            <div class="course-card-desc">Create and sell digital products with 90%+ margins. E-books, templates, tools.</div>
+            <div class="course-card-footer">
+              <div class="course-card-meta"><span>✍️ 9</span><span>⏱ 3.5h</span></div>
+              <div class="course-card-rating">★ 4.9</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="course-card-v2" data-plan="elite" data-track="specialty" data-title="tiktok shop live selling tiktok affiliate creator commerce">
+          <div class="course-card-thumb" style="background:linear-gradient(135deg,#1a001a,#6b21a8)">
+            <span style="position:relative;z-index:1">🎵</span>
+            <div class="course-card-plan"><span class="badge badge-gold" style="font-size:10px">Elite</span></div>
+          </div>
+          <div class="course-card-body">
+            <div class="course-card-title">TikTok Shop Domination</div>
+            <div class="course-card-desc">Master TikTok Shop, live selling, and affiliate programs for explosive growth.</div>
+            <div class="course-card-footer">
+              <div class="course-card-meta"><span>✍️ 10</span><span>⏱ 4.5h</span></div>
+              <div class="course-card-rating">★ 4.9</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="course-card-v2" data-plan="elite" data-track="specialty" data-title="wholesale b2b bulk buyers trade selling business to business">
+          <div class="course-card-thumb" style="background:linear-gradient(135deg,#001a0a,#14532d)">
+            <span style="position:relative;z-index:1">🏭</span>
+            <div class="course-card-plan"><span class="badge badge-gold" style="font-size:10px">Elite</span></div>
+          </div>
+          <div class="course-card-body">
+            <div class="course-card-title">Wholesale & B2B Selling</div>
+            <div class="course-card-desc">Scale revenue by selling wholesale to retailers and corporate buyers.</div>
+            <div class="course-card-footer">
+              <div class="course-card-meta"><span>✍️ 7</span><span>⏱ 3h</span></div>
+              <div class="course-card-rating">★ 4.6</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="course-card-v2" data-plan="elite" data-track="specialty" data-title="subscription box recurring revenue membership model loyalty">
+          <div class="course-card-thumb" style="background:linear-gradient(135deg,#1a000a,#9f1239)">
+            <span style="position:relative;z-index:1">📬</span>
+            <div class="course-card-plan"><span class="badge badge-gold" style="font-size:10px">Elite</span></div>
+          </div>
+          <div class="course-card-body">
+            <div class="course-card-title">Subscription Box Business</div>
+            <div class="course-card-desc">Build predictable recurring revenue with a subscription-based product model.</div>
+            <div class="course-card-footer">
+              <div class="course-card-meta"><span>✍️ 8</span><span>⏱ 3.5h</span></div>
+              <div class="course-card-rating">★ 4.7</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════
+         TRACK 3 — MARKETING DEEP DIVES
+    ══════════════════════════════════ -->
+    <div class="track-section" data-track-section="marketing">
+      <div class="track-header">
+        <div class="track-icon" style="background:rgba(239,68,68,0.15)">📣</div>
+        <div>
+          <div class="track-name">Marketing Deep Dives</div>
+          <div class="track-desc">Channel-specific masterclasses that go beyond the basics to unlock real growth.</div>
+        </div>
+        <div class="track-meta">
+          <div class="track-stat"><strong>6</strong>Courses</div>
+          <div class="track-stat"><strong>42</strong>Lessons</div>
+          <div class="track-stat"><strong>18h+</strong>Content</div>
+        </div>
+      </div>
+      <div class="courses-grid-4">
+
+        <div class="course-card-v2" data-plan="pro" data-track="marketing" data-title="google shopping performance max pmax product feed smart bidding">
+          <div class="course-card-thumb" style="background:linear-gradient(135deg,#0a1000,#3f6212)">
+            <span style="position:relative;z-index:1">🛍️</span>
+            <div class="course-card-plan"><span class="badge badge-primary" style="font-size:10px">Pro</span></div>
+          </div>
+          <div class="course-card-body">
+            <div class="course-card-title">Google Shopping Mastery</div>
+            <div class="course-card-desc">Performance Max, product feed optimization, and smart bidding strategies.</div>
+            <div class="course-card-footer">
+              <div class="course-card-meta"><span>✍️ 8</span><span>⏱ 3.5h</span></div>
+              <div class="course-card-rating">★ 4.8</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="course-card-v2" data-plan="pro" data-track="marketing" data-title="sms marketing text message attentive klaviyo automation retention">
+          <div class="course-card-thumb" style="background:linear-gradient(135deg,#000a1a,#1e3a8a)">
+            <span style="position:relative;z-index:1">💬</span>
+            <div class="course-card-plan"><span class="badge badge-primary" style="font-size:10px">Pro</span></div>
+          </div>
+          <div class="course-card-body">
+            <div class="course-card-title">SMS Marketing for E-Commerce</div>
+            <div class="course-card-desc">Build an SMS list and drive revenue with 98% open-rate text campaigns.</div>
+            <div class="course-card-footer">
+              <div class="course-card-meta"><span>✍️ 6</span><span>⏱ 2.5h</span></div>
+              <div class="course-card-rating">★ 4.7</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="course-card-v2" data-plan="pro" data-track="marketing" data-title="influencer marketing ugc creator partnership roas track measure">
+          <div class="course-card-thumb" style="background:linear-gradient(135deg,#1a000a,#831843)">
+            <span style="position:relative;z-index:1">🌟</span>
+            <div class="course-card-plan"><span class="badge badge-primary" style="font-size:10px">Pro</span></div>
+          </div>
+          <div class="course-card-body">
+            <div class="course-card-title">Influencer Marketing Mastery</div>
+            <div class="course-card-desc">Find, negotiate, and measure influencer campaigns that drive real sales.</div>
+            <div class="course-card-footer">
+              <div class="course-card-meta"><span>✍️ 7</span><span>⏱ 3h</span></div>
+              <div class="course-card-rating">★ 4.8</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="course-card-v2" data-plan="elite" data-track="marketing" data-title="pinterest visual commerce shopping ads organic traffic traffic">
+          <div class="course-card-thumb" style="background:linear-gradient(135deg,#1a000a,#9f1239)">
+            <span style="position:relative;z-index:1">📌</span>
+            <div class="course-card-plan"><span class="badge badge-gold" style="font-size:10px">Elite</span></div>
+          </div>
+          <div class="course-card-body">
+            <div class="course-card-title">Pinterest & Visual Commerce</div>
+            <div class="course-card-desc">Drive massive organic and paid traffic from Pinterest's 500M buyers.</div>
+            <div class="course-card-footer">
+              <div class="course-card-meta"><span>✍️ 6</span><span>⏱ 2.5h</span></div>
+              <div class="course-card-rating">★ 4.6</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="course-card-v2" data-plan="elite" data-track="marketing" data-title="youtube commerce video marketing tutorials ads sponsored products">
+          <div class="course-card-thumb" style="background:linear-gradient(135deg,#1a0000,#7f1d1d)">
+            <span style="position:relative;z-index:1">▶️</span>
+            <div class="course-card-plan"><span class="badge badge-gold" style="font-size:10px">Elite</span></div>
+          </div>
+          <div class="course-card-body">
+            <div class="course-card-title">YouTube E-Commerce Strategy</div>
+            <div class="course-card-desc">Build a YouTube presence that drives product sales and creates brand authority.</div>
+            <div class="course-card-footer">
+              <div class="course-card-meta"><span>✍️ 8</span><span>⏱ 3.5h</span></div>
+              <div class="course-card-rating">★ 4.7</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="course-card-v2" data-plan="elite" data-track="marketing" data-title="conversion rate optimization cro ab testing heatmaps hotjar landing page">
+          <div class="course-card-thumb" style="background:linear-gradient(135deg,#001a10,#064e3b)">
+            <span style="position:relative;z-index:1">⚡</span>
+            <div class="course-card-plan"><span class="badge badge-gold" style="font-size:10px">Elite</span></div>
+          </div>
+          <div class="course-card-body">
+            <div class="course-card-title">CRO Pro: Advanced Optimization</div>
+            <div class="course-card-desc">Systematic A/B testing, heatmaps, and psychology-driven optimization.</div>
+            <div class="course-card-footer">
+              <div class="course-card-meta"><span>✍️ 7</span><span>⏱ 3h</span></div>
+              <div class="course-card-rating">★ 4.9</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════
+         TRACK 4 — ADVANCED BUSINESS
+    ══════════════════════════════════ -->
+    <div class="track-section" data-track-section="advanced">
+      <div class="track-header">
+        <div class="track-icon" style="background:rgba(245,166,35,0.15)">⚡</div>
+        <div>
+          <div class="track-name">Advanced Business</div>
+          <div class="track-desc">Operations, finance, team, and growth frameworks for 7-figure businesses.</div>
+        </div>
+        <div class="track-meta">
+          <div class="track-stat"><strong>6</strong>Courses</div>
+          <div class="track-stat"><strong>40</strong>Lessons</div>
+          <div class="track-stat"><strong>17h+</strong>Content</div>
+        </div>
+      </div>
+      <div class="courses-grid-4">
+
+        <div class="course-card-v2" data-plan="elite" data-track="advanced" data-title="financial planning ecommerce profit margin cash flow tax planning">
+          <div class="course-card-thumb" style="background:linear-gradient(135deg,#001a0a,#14532d)">
+            <span style="position:relative;z-index:1">💰</span>
+            <div class="course-card-plan"><span class="badge badge-gold" style="font-size:10px">Elite</span></div>
+          </div>
+          <div class="course-card-body">
+            <div class="course-card-title">Financial Planning for E-Commerce</div>
+            <div class="course-card-desc">Master cash flow, margins, P&L, and financial planning for your online store.</div>
+            <div class="course-card-footer">
+              <div class="course-card-meta"><span>✍️ 8</span><span>⏱ 3.5h</span></div>
+              <div class="course-card-rating">★ 4.8</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="course-card-v2" data-plan="elite" data-track="advanced" data-title="legal tax llc business structure sales tax vat international compliance">
+          <div class="course-card-thumb" style="background:linear-gradient(135deg,#0a0020,#3730a3)">
+            <span style="position:relative;z-index:1">⚖️</span>
+            <div class="course-card-plan"><span class="badge badge-gold" style="font-size:10px">Elite</span></div>
+          </div>
+          <div class="course-card-body">
+            <div class="course-card-title">Legal & Tax Guide for Sellers</div>
+            <div class="course-card-desc">Business structure, sales tax, VAT, trademarks, and compliance essentials.</div>
+            <div class="course-card-footer">
+              <div class="course-card-meta"><span>✍️ 7</span><span>⏱ 3h</span></div>
+              <div class="course-card-rating">★ 4.7</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="course-card-v2" data-plan="elite" data-track="advanced" data-title="hiring team building outsourcing VA virtual assistant sop operations">
+          <div class="course-card-thumb" style="background:linear-gradient(135deg,#0a1a10,#166534)">
+            <span style="position:relative;z-index:1">👥</span>
+            <div class="course-card-plan"><span class="badge badge-gold" style="font-size:10px">Elite</span></div>
+          </div>
+          <div class="course-card-body">
+            <div class="course-card-title">Hiring & Building Your Dream Team</div>
+            <div class="course-card-desc">Hire great people, delegate effectively, and build a business that runs itself.</div>
+            <div class="course-card-footer">
+              <div class="course-card-meta"><span>✍️ 8</span><span>⏱ 3h</span></div>
+              <div class="course-card-rating">★ 4.8</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="course-card-v2" data-plan="elite" data-track="advanced" data-title="international expansion global markets localization shipping europe asia">
+          <div class="course-card-thumb" style="background:linear-gradient(135deg,#001020,#1e40af)">
+            <span style="position:relative;z-index:1">🌍</span>
+            <div class="course-card-plan"><span class="badge badge-gold" style="font-size:10px">Elite</span></div>
+          </div>
+          <div class="course-card-body">
+            <div class="course-card-title">International Expansion Playbook</div>
+            <div class="course-card-desc">Take your store global. Markets, localization, shipping, currency, compliance.</div>
+            <div class="course-card-footer">
+              <div class="course-card-meta"><span>✍️ 7</span><span>⏱ 3h</span></div>
+              <div class="course-card-rating">★ 4.7</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="course-card-v2" data-plan="elite" data-track="advanced" data-title="customer retention loyalty program LTV lifetime value repeat purchase churn">
+          <div class="course-card-thumb" style="background:linear-gradient(135deg,#10001a,#7e22ce)">
+            <span style="position:relative;z-index:1">❤️</span>
+            <div class="course-card-plan"><span class="badge badge-gold" style="font-size:10px">Elite</span></div>
+          </div>
+          <div class="course-card-body">
+            <div class="course-card-title">Customer Retention Masterclass</div>
+            <div class="course-card-desc">Loyalty programs, LTV maximization, and turning one-time buyers into fans.</div>
+            <div class="course-card-footer">
+              <div class="course-card-meta"><span>✍️ 6</span><span>⏱ 2.5h</span></div>
+              <div class="course-card-rating">★ 4.9</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="course-card-v2" data-plan="elite" data-track="advanced" data-title="brand photography product photography visual assets studio shooting editing">
+          <div class="course-card-thumb" style="background:linear-gradient(135deg,#1a1000,#78350f)">
+            <span style="position:relative;z-index:1">📸</span>
+            <div class="course-card-plan"><span class="badge badge-gold" style="font-size:10px">Elite</span></div>
+          </div>
+          <div class="course-card-body">
+            <div class="course-card-title">Brand Photography & Visual Assets</div>
+            <div class="course-card-desc">Create scroll-stopping product photos and brand visuals that convert.</div>
+            <div class="course-card-footer">
+              <div class="course-card-meta"><span>✍️ 7</span><span>⏱ 3h</span></div>
+              <div class="course-card-rating">★ 4.8</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- No results -->
+    <div id="noResults" class="text-center hidden" style="padding:80px 0">
+      <div style="font-size:48px;margin-bottom:16px">🔎</div>
+      <h3 style="margin-bottom:8px" data-i18n="courses_empty_title">No courses found</h3>
+      <p style="color:var(--text-3)">Try a different search term or reset filters.</p>
+      <button class="btn btn-outline btn-sm" style="margin-top:16px" onclick="resetFilters()" data-i18n="courses_reset">Reset Filters</button>
+    </div>
+
+    <!-- Upgrade CTA -->
+    <div id="upgradeCta" style="margin-top:32px;padding:48px;background:var(--bg-2);border:1px solid rgba(245,166,35,0.2);border-radius:var(--radius-xl);position:relative;overflow:hidden;text-align:center">
+      <div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 50% 50%,rgba(245,166,35,0.06),transparent);pointer-events:none"></div>
+      <div style="position:relative;z-index:1">
+        <span class="badge badge-gold" style="display:inline-flex;margin-bottom:16px">👑 Unlock 30 Premium Courses</span>
+        <h2 style="font-size:1.8rem;margin-bottom:10px" data-i18n="courses_upgrade_title">Unlock All Modules</h2>
+        <p style="color:var(--text-2);margin-bottom:24px;max-width:500px;margin-left:auto;margin-right:auto">Get instant access to all Pro and Elite courses. Lifetime access with dedicated support.</p>
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+          <a href="pricing.html" class="btn btn-primary btn-lg" data-i18n="courses_view_plans">View All Plans →</a>
+          <a href="auth.html?tab=register" class="btn btn-outline btn-lg" data-i18n="courses_start_free">Start Free</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo" style="display:flex;align-items:center;gap:.65rem;text-decoration:none;">
+          <img src="logo-icon.svg" alt="STATIC Academy" style="width:38px;height:38px;flex-shrink:0;">
+          <div style="display:flex;flex-direction:column;line-height:1.1;">
+            <span style="font-size:.95rem;font-weight:800;letter-spacing:.06em;color:#e8ecff;">STATIC</span>
+            <span style="font-size:.52rem;font-weight:500;letter-spacing:.22em;color:rgba(232,236,255,.38);text-transform:uppercase;">Academy</span>
+          </div>
+        </a>
+        <p data-i18n="footer_tagline">The premium e-commerce academy for modern entrepreneurs.</p>
+      </div>
+      <div><div class="footer-col-title">Learn</div><ul class="footer-links"><li><a href="courses.html">All Courses</a></li><li><a href="learning-paths.html">Learning Paths</a></li><li><a href="courses.html?filter=free">Free Modules</a></li></ul></div>
+      <div><div class="footer-col-title">Company</div><ul class="footer-links"><li><a href="pricing.html">Pricing</a></li><li><a href="#">About</a></li></ul></div>
+      <div><div class="footer-col-title">Support</div><ul class="footer-links"><li><a href="report.html">Signaler un problème</a></li><li><a href="subscription.html">Mon abonnement</a></li><li><a href="legal.html">Mentions légales</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span class="footer-copy">© 2025 STATIC Academy. All rights reserved.</span></div>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+<script src="ai-chat.js"></script>
+<script>
+  let activeTrack = 'all';
+  let activePlan = 'all';
+
+  function setTrack(btn, track) {
+    activeTrack = track;
+    document.querySelectorAll('.track-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    filterAll();
+    // Show/hide track sections
+    document.querySelectorAll('.track-section').forEach(s => {
+      const st = s.dataset.trackSection;
+      if (track === 'all' || track === st) {
+        s.style.display = '';
+      } else {
+        s.style.display = 'none';
+      }
+    });
+  }
+
+  function setPlanFilter(btn, plan) {
+    activePlan = plan;
+    document.querySelectorAll('[data-plan-filter]').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    filterAll();
+  }
+
+  function filterAll() {
+    const q = document.getElementById('globalSearch').value.toLowerCase();
+    const cards = document.querySelectorAll('.course-card-v2');
+    let visible = 0;
+    cards.forEach(card => {
+      const plan = card.dataset.plan;
+      const title = (card.dataset.title || '').toLowerCase();
+      const planMatch = activePlan === 'all' || plan === activePlan;
+      const searchMatch = !q || title.includes(q) || (card.querySelector('.course-card-title')?.textContent || '').toLowerCase().includes(q);
+      if (planMatch && searchMatch) {
+        card.style.display = '';
+        visible++;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+    document.getElementById('noResults').classList.toggle('hidden', visible > 0);
+    // Update featured course visibility
+    const featured = document.querySelector('.featured-course');
+    if (featured) featured.style.display = (activeTrack === 'all' || activeTrack === 'specialty') && !q ? '' : 'none';
+  }
+
+  function resetFilters() {
+    document.getElementById('globalSearch').value = '';
+    activeTrack = 'all';
+    activePlan = 'all';
+    document.querySelectorAll('.track-tab').forEach(b => b.classList.toggle('active', b.dataset.track === 'all'));
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.plan === 'all'));
+    document.querySelectorAll('.track-section').forEach(s => s.style.display = '');
+    filterAll();
+  }
+
+  function checkAccess(e, plan) {
+    if (!App.canAccess(plan)) {
+      e.preventDefault();
+      App.toast('Upgrade to ' + plan + ' to access this content 🔒', 'warning');
+      setTimeout(() => window.location.href = 'pricing.html', 1200);
+    }
+  }
+
+  // Apply URL param filter
+  window.addEventListener('load', () => {
+    const params = new URLSearchParams(window.location.search);
+    const f = params.get('filter');
+    if (f) {
+      const btn = document.querySelector(`[data-plan="${f}"]`);
+      if (btn) setPlanFilter(btn, f);
+    }
+    const t = params.get('track');
+    if (t) {
+      const btn = document.querySelector(`.track-tab[data-track="${t}"]`);
+      if (btn) setTrack(btn, t);
+    }
+  });
+
+  // Click on card -> navigate
+  document.querySelectorAll('.course-card-v2').forEach(card => {
+    card.addEventListener('click', () => {
+      const plan = card.dataset.plan;
+      if (App.canAccess(plan)) {
+        window.location.href = 'course-player.html?module=1';
+      } else {
+        App.toast('Upgrade to ' + plan + ' to access this course 🔒', 'warning');
+        setTimeout(() => window.location.href = 'pricing.html', 1200);
+      }
+    });
+  });
+</script>
+<script src="session-sync.js"></script>
+</body>
+</html>

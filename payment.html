@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paiement Sécurisé — STATIC Academy</title>
+    <meta name="description" content="Finalisez votre achat en toute sécurité sur STATIC Academy.">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#07080f;--bg2:#0c0e1d;--bg3:#131628;
+  --primary:#5b6cf5;--primary2:#8b5cf6;
+  --gold:#c9a84c;--success:#10b981;--danger:#ef4444;
+  --border:rgba(91,108,245,.14);--border2:rgba(255,255,255,.07);
+  --text:#e8ecff;--text2:#9ca3af;--text3:#6b7280;
+  --font:'Inter','Segoe UI',system-ui,sans-serif;
+}
+body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh;line-height:1.6;}
+
+/* ── NAV ── */
+.pay-nav{
+  background:rgba(7,8,15,.97);border-bottom:1px solid var(--border);
+  padding:.9rem 2rem;display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:100;backdrop-filter:blur(12px);
+}
+.pay-nav-logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;color:var(--text);}
+.pay-nav-logo img{width:34px;height:34px;}
+.pay-nav-logo .ln{display:flex;flex-direction:column;line-height:1.1;}
+.pay-nav-logo .lm{font-size:.92rem;font-weight:800;letter-spacing:.06em;}
+.pay-nav-logo .ls{font-size:.5rem;font-weight:500;letter-spacing:.22em;color:var(--text3);text-transform:uppercase;}
+.pay-nav-secure{display:flex;align-items:center;gap:.4rem;font-size:.78rem;color:var(--text3);}
+.pay-nav-secure svg{color:var(--success);}
+
+/* ── LAYOUT ── */
+.pay-wrap{max-width:1060px;margin:0 auto;padding:2.5rem 1.5rem 5rem;}
+
+/* Step header */
+.pay-steps{display:flex;justify-content:center;gap:0;margin-bottom:2.5rem;}
+.step{display:flex;align-items:center;gap:.5rem;font-size:.82rem;color:var(--text3);}
+.step.active{color:var(--primary);}
+.step.done{color:var(--success);}
+.step-num{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;border:1.5px solid currentColor;}
+.step.active .step-num{background:var(--primary);color:#fff;border-color:var(--primary);}
+.step.done .step-num{background:var(--success);color:#fff;border-color:var(--success);}
+.step-line{width:48px;height:1.5px;background:var(--border2);margin:0 .5rem;flex-shrink:0;}
+
+/* Grid */
+.pay-grid{display:grid;grid-template-columns:1fr 420px;gap:1.75rem;align-items:start;}
+
+/* Cards */
+.pay-card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:1.75rem;margin-bottom:1.25rem;}
+.pay-card:last-child{margin-bottom:0;}
+.pay-card-title{font-size:1rem;font-weight:700;margin-bottom:1.25rem;display:flex;align-items:center;gap:.5rem;}
+.pay-card-title span{font-size:1.1rem;}
+
+/* Order summary */
+.order-plan-badge{
+  display:inline-flex;align-items:center;gap:.4rem;
+  padding:.3rem .8rem;border-radius:100px;font-size:.75rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+  background:linear-gradient(135deg,rgba(91,108,245,.15),rgba(139,92,246,.15));
+  border:1px solid rgba(91,108,245,.3);color:var(--primary);
+  margin-bottom:1rem;
+}
+.order-course{font-size:1.1rem;font-weight:700;margin-bottom:.25rem;}
+.order-sub{font-size:.83rem;color:var(--text2);margin-bottom:1.25rem;}
+.order-features{list-style:none;margin-bottom:1.5rem;}
+.order-features li{display:flex;align-items:center;gap:.5rem;font-size:.85rem;color:var(--text2);padding:.3rem 0;}
+.order-features li::before{content:'✓';color:var(--success);font-weight:700;flex-shrink:0;}
+
+.price-table{border-top:1px solid var(--border2);padding-top:1rem;}
+.price-row{display:flex;justify-content:space-between;font-size:.88rem;color:var(--text2);margin-bottom:.6rem;}
+.price-row.total{font-size:1.2rem;font-weight:800;color:var(--text);border-top:1px solid var(--border2);padding-top:.8rem;margin-top:.4rem;}
+.price-row .discount{color:var(--success);font-size:.8rem;}
+
+/* Trust badges */
+.trust-row{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin-top:1.25rem;}
+.trust-item{background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.2);border-radius:10px;padding:.75rem;text-align:center;}
+.trust-item .ti-icon{font-size:1.3rem;margin-bottom:.3rem;}
+.trust-item .ti-label{font-size:.72rem;color:var(--text2);font-weight:500;}
+
+/* Warning disclaimer (trading) */
+.disclaimer-box{
+  background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.22);
+  border-left:3px solid var(--danger);border-radius:0 12px 12px 0;
+  padding:1rem 1.2rem;margin-top:1.25rem;
+  font-size:.8rem;color:rgba(255,180,180,.85);line-height:1.6;
+}
+.disclaimer-box strong{color:rgba(255,130,130,.9);display:block;margin-bottom:.3rem;font-size:.82rem;}
+
+/* Reviews section */
+.reviews-section{margin-top:1.5rem;}
+.reviews-title{font-size:.9rem;font-weight:700;color:var(--text);margin-bottom:1rem;display:flex;align-items:center;gap:.5rem;}
+.stars-avg{display:flex;align-items:center;gap:.4rem;font-size:.83rem;color:var(--text2);}
+.stars{color:#f59e0b;letter-spacing:.05em;}
+.review-cards{display:flex;flex-direction:column;gap:.75rem;max-height:340px;overflow-y:auto;padding-right:2px;}
+.review-cards::-webkit-scrollbar{width:4px;}
+.review-cards::-webkit-scrollbar-track{background:transparent;}
+.review-cards::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+.review-card{background:var(--bg3);border:1px solid var(--border2);border-radius:12px;padding:1rem;}
+.review-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:.5rem;}
+.reviewer{display:flex;align-items:center;gap:.6rem;}
+.reviewer-avatar{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;color:#fff;flex-shrink:0;}
+.reviewer-name{font-size:.85rem;font-weight:600;}
+.reviewer-country{font-size:.72rem;color:var(--text3);}
+.review-stars{color:#f59e0b;font-size:.8rem;}
+.review-text{font-size:.82rem;color:var(--text2);line-height:1.55;}
+.review-plan{margin-top:.4rem;font-size:.7rem;color:var(--primary);font-weight:600;text-transform:uppercase;letter-spacing:.05em;}
+
+/* Form */
+.form-section{position:sticky;top:80px;}
+.form-group{margin-bottom:1.2rem;}
+.form-group label{display:block;font-size:.83rem;font-weight:600;color:var(--text2);margin-bottom:.4rem;letter-spacing:.02em;}
+.form-group input,
+.form-group select{
+  width:100%;padding:.75rem 1rem;
+  background:rgba(7,8,15,.9);border:1.5px solid var(--border2);
+  border-radius:10px;color:var(--text);font-size:.92rem;
+  transition:all .2s;outline:none;font-family:var(--font);
+}
+.form-group input::placeholder{color:var(--text3);}
+.form-group select option{background:#0c0e1d;}
+.form-group input:focus,
+.form-group select:focus{border-color:var(--primary);background:rgba(91,108,245,.06);box-shadow:0 0 0 3px rgba(91,108,245,.1);}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;}
+.card-brand-row{position:relative;}
+.card-brands{position:absolute;right:.75rem;top:50%;transform:translateY(-50%);display:flex;gap:.3rem;}
+.card-brands span{font-size:.7rem;background:rgba(255,255,255,.08);border:1px solid var(--border2);border-radius:4px;padding:.1rem .35rem;color:var(--text3);}
+
+/* Payment methods */
+.payment-methods{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin-bottom:1.2rem;}
+.pm-option{background:var(--bg3);border:1.5px solid var(--border2);border-radius:10px;padding:.7rem;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.2rem;cursor:pointer;transition:all .2s;font-size:.72rem;color:var(--text2);}
+.pm-option:hover{border-color:var(--primary);}
+.pm-option.active{border-color:var(--primary);background:rgba(91,108,245,.08);color:var(--primary);}
+.pm-option .pm-icon{font-size:1.2rem;}
+
+/* Checkbox */
+.form-check{display:flex;align-items:flex-start;gap:.6rem;margin-bottom:1rem;}
+.form-check input[type=checkbox]{width:16px;height:16px;accent-color:var(--primary);flex-shrink:0;margin-top:2px;}
+.form-check label{font-size:.8rem;color:var(--text2);cursor:pointer;line-height:1.5;}
+.form-check a{color:var(--primary);text-decoration:none;}
+.form-check a:hover{text-decoration:underline;}
+
+/* Submit btn */
+.btn-pay{
+  width:100%;padding:1rem 1.5rem;
+  background:linear-gradient(135deg,var(--primary),var(--primary2));
+  color:#fff;border:none;border-radius:12px;font-size:1rem;font-weight:700;
+  cursor:pointer;transition:all .25s;position:relative;overflow:hidden;
+  letter-spacing:.02em;
+}
+.btn-pay:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(91,108,245,.35);}
+.btn-pay:active{transform:none;}
+.btn-pay-sub{display:block;font-size:.75rem;font-weight:400;opacity:.75;margin-top:.1rem;}
+.btn-cancel{width:100%;padding:.7rem;background:transparent;border:1px solid var(--border2);border-radius:10px;color:var(--text2);font-size:.85rem;cursor:pointer;margin-top:.6rem;transition:all .2s;font-family:var(--font);}
+.btn-cancel:hover{border-color:var(--danger);color:var(--danger);}
+
+/* Secure badges row */
+.secure-row{display:flex;align-items:center;justify-content:center;gap:.75rem;margin-top:1rem;flex-wrap:wrap;}
+.secure-badge{display:flex;align-items:center;gap:.25rem;font-size:.72rem;color:var(--text3);}
+
+/* Error messages */
+.err-msg{font-size:.78rem;color:var(--danger);margin-top:.3rem;display:none;}
+.err-msg.show{display:block;}
+
+/* Success overlay */
+.success-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,.85);
+  display:none;align-items:center;justify-content:center;z-index:1000;
+  backdrop-filter:blur(8px);
+}
+.success-overlay.show{display:flex;}
+.success-card{
+  background:var(--bg2);border:1px solid rgba(16,185,129,.3);
+  border-radius:20px;padding:2.5rem;text-align:center;max-width:440px;width:90%;
+}
+.success-icon{
+  width:72px;height:72px;background:linear-gradient(135deg,var(--success),#34d399);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:2rem;margin:0 auto 1.2rem;box-shadow:0 16px 32px rgba(16,185,129,.25);
+}
+.success-card h2{font-size:1.5rem;margin-bottom:.5rem;}
+.success-card p{color:var(--text2);font-size:.9rem;margin-bottom:1.5rem;}
+.success-redirect{font-size:.8rem;color:var(--text3);}
+
+@media(max-width:860px){
+  .pay-grid{grid-template-columns:1fr;}
+  .form-section{position:static;}
+  .trust-row{grid-template-columns:repeat(3,1fr);}
+}
+@media(max-width:480px){
+  .pay-wrap{padding:1.5rem 1rem 4rem;}
+  .form-row{grid-template-columns:1fr;}
+  .trust-row{grid-template-columns:1fr 1fr;}
+  .payment-methods{grid-template-columns:repeat(2,1fr);}
+}
+</style>
+    <link rel="icon" href="logo-icon.svg" type="image/svg+xml">
+    <meta name="theme-color" content="#07080f">
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="pay-nav">
+  <a href="index.html" style="display:flex;align-items:center;gap:.65rem;text-decoration:none;">
+    <img src="logo-icon.svg" alt="STATIC Academy" style="width:38px;height:38px;flex-shrink:0;">
+    <div style="display:flex;flex-direction:column;line-height:1.1;">
+      <span style="font-size:.95rem;font-weight:800;letter-spacing:.06em;color:#e8ecff;">STATIC</span>
+      <span style="font-size:.52rem;font-weight:500;letter-spacing:.22em;color:rgba(232,236,255,.38);text-transform:uppercase;">Academy</span>
+    </div>
+  </a>
+  <div class="pay-nav-secure">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    Paiement 100% sécurisé &amp; chiffré
+  </div>
+</nav>
+
+<div class="pay-wrap">
+
+  <!-- Steps -->
+  <div class="pay-steps">
+    <div class="step done"><div class="step-num">✓</div><span>Offre</span></div>
+    <div class="step-line"></div>
+    <div class="step active"><div class="step-num">2</div><span>Paiement</span></div>
+    <div class="step-line"></div>
+    <div class="step"><div class="step-num">3</div><span>Accès</span></div>
+  </div>
+
+  <div class="pay-grid">
+
+    <!-- LEFT: Summary + Reviews -->
+    <div>
+
+      <!-- Order Card -->
+      <div class="pay-card">
+        <div class="pay-card-title"><span>🛒</span> Récapitulatif de commande</div>
+
+        <div class="order-plan-badge" id="planBadge">⭐ Plan Pro</div>
+        <div class="order-course" id="orderCourse">E-Commerce Mastery</div>
+        <div class="order-sub" id="orderSub">Accès à vie · Contenu exclusif · Support inclus</div>
+
+        <ul class="order-features" id="orderFeatures">
+          <li>Accès immédiat après paiement</li>
+          <li>13+ modules, 50+ leçons en français</li>
+          <li>Mises à jour gratuites à vie</li>
+          <li>Assistant IA intégré dans la formation</li>
+          <li>1 appel vocal mensuel (1h)</li>
+          <li>Support prioritaire inclus</li>
+        </ul>
+
+        <div class="price-table">
+          <div class="price-row">
+            <span>Prix catalogue</span>
+            <span id="origPrice" style="text-decoration:line-through;color:var(--text3)">€149.00</span>
+          </div>
+          <div class="price-row">
+            <span>Réduction lancement</span>
+            <span class="discount" id="discountLine">−€70.00 (-47%)</span>
+          </div>
+          <div class="price-row total">
+            <span>Total aujourd'hui</span>
+            <span id="totalPrice">€79.00</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Trust Badges -->
+      <div class="pay-card">
+        <div class="trust-row">
+          <div class="trust-item">
+            <div class="ti-icon">🔒</div>
+            <div class="ti-label">SSL 256-bit chiffré</div>
+          </div>
+          <div class="trust-item">
+            <div class="ti-icon">🔐</div>
+            <div class="ti-label">Paiement sécurisé</div>
+          </div>
+          <div class="trust-item">
+            <div class="ti-icon">♾️</div>
+            <div class="ti-label">Accès à vie</div>
+          </div>
+        </div>
+
+        <!-- Trading disclaimer — shown only for trading courses -->
+        <div class="disclaimer-box" id="tradingDisclaimer" style="display:none">
+          <strong>⚠️ Avertissement sur les risques financiers</strong>
+          Le trading de CFD, Forex, cryptomonnaies et autres instruments financiers implique un risque élevé de perte en capital. STATIC Academy est un organisme de formation et <strong>non un conseiller financier agréé</strong>. Les informations contenues dans cette formation sont fournies à titre éducatif uniquement et ne constituent pas des conseils financiers, des recommandations d'investissement ni une sollicitation à acheter ou vendre tout instrument financier. <strong>STATIC Academy ne saurait être tenu responsable de pertes financières résultant de l'utilisation de ces formations.</strong> Le trading n'est pas adapté à tous les profils — assurez-vous de comprendre les risques avant d'investir. Les performances passées ne garantissent pas les résultats futurs.
+        </div>
+
+        <!-- General payment disclaimer -->
+        <div class="disclaimer-box" style="background:rgba(201,168,76,.06);border-color:rgba(201,168,76,.22);border-left-color:var(--gold);margin-top:.75rem;">
+          <strong style="color:rgba(255,220,130,.9);">📋 Conditions de vente</strong>
+          <span style="color:rgba(255,220,160,.75);">En effectuant cet achat, vous acceptez nos <a href="legal.html" style="color:var(--gold);text-decoration:none;">conditions générales de vente</a> et notre <a href="legal.html" style="color:var(--gold);text-decoration:none;">mentions légales</a>. Cet achat est réservé à un usage personnel et non commercial. La revente ou redistribution du contenu est strictement interdite. STATIC Academy ne pourra être tenu responsable d'aucune décision commerciale ou financière basée sur le contenu de ces formations.</span>
+        </div>
+      </div>
+
+      <!-- Reviews -->
+      <div class="pay-card">
+        <div class="reviews-title">
+          <span>💬</span> Avis vérifiés
+          <div class="stars-avg"><span class="stars">★★★★★</span> 4.9/5 · 318 avis</div>
+        </div>
+        <div class="review-cards" id="reviewCards"></div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT: Form -->
+    <div class="form-section">
+      <div class="pay-card">
+        <div class="pay-card-title"><span>💳</span> Informations de paiement</div>
+
+        <!-- Stripe badge -->
+        <div style="display:flex;align-items:center;gap:.5rem;background:rgba(91,108,245,.07);border:1px solid rgba(91,108,245,.2);border-radius:10px;padding:.7rem 1rem;margin-bottom:1.2rem;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5b6cf5" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span style="font-size:.82rem;color:var(--text2);">Paiement sécurisé via <strong style="color:#635bff;">Stripe</strong> — Vos données bancaires ne transitent jamais par nos serveurs</span>
+        </div>
+
+        <form id="paymentForm">
+          <div class="form-group">
+            <label>Nom complet</label>
+            <input type="text" id="fullName" placeholder="Jean Dupont" autocomplete="name" required>
+            <div class="err-msg" id="nameError"></div>
+          </div>
+
+          <div class="form-group">
+            <label>Adresse email</label>
+            <input type="email" id="email" placeholder="jean@exemple.com" autocomplete="email" required>
+            <div class="err-msg" id="emailError"></div>
+          </div>
+
+          <div class="form-group">
+            <label>Pays</label>
+            <select id="country" autocomplete="country" required>
+              <option value="">Sélectionner un pays</option>
+              <option value="FR">🇫🇷 France</option>
+              <option value="BE">🇧🇪 Belgique</option>
+              <option value="CH">🇨🇭 Suisse</option>
+              <option value="LU">🇱🇺 Luxembourg</option>
+              <option value="MC">Monaco</option>
+              <option value="CA">🇨🇦 Canada</option>
+              <option value="MA">🇲🇦 Maroc</option>
+              <option value="DZ">🇩🇿 Algérie</option>
+              <option value="TN">🇹🇳 Tunisie</option>
+              <option value="SN">🇸🇳 Sénégal</option>
+              <option value="CI">🇨🇮 Côte d'Ivoire</option>
+              <option value="DE">🇩🇪 Allemagne</option>
+              <option value="ES">🇪🇸 Espagne</option>
+              <option value="IT">🇮🇹 Italie</option>
+              <option value="UK">🇬🇧 Royaume-Uni</option>
+              <option value="US">🇺🇸 États-Unis</option>
+              <option value="Other">Autre</option>
+            </select>
+          </div>
+
+          <!-- Stripe redirect notice -->
+          <div style="background:var(--bg3);border:1px solid var(--border2);border-radius:10px;padding:1.1rem 1.2rem;margin-bottom:1.2rem;display:flex;gap:.75rem;align-items:flex-start;">
+            <span style="font-size:1.3rem;flex-shrink:0;">🔒</span>
+            <div>
+              <div style="font-size:.85rem;font-weight:600;color:var(--text);margin-bottom:.2rem;">Paiement sécurisé Stripe</div>
+              <div style="font-size:.78rem;color:var(--text2);line-height:1.5;">Après avoir cliqué sur le bouton, vous serez redirigé vers la page de paiement sécurisée Stripe pour saisir vos informations bancaires. Carte, Apple Pay &amp; Google Pay acceptés.</div>
+            </div>
+          </div>
+
+          <div class="form-check">
+            <input type="checkbox" id="termsCheck" required>
+            <label for="termsCheck">J'ai lu et j'accepte les <a href="legal.html">conditions générales de vente</a> et la <a href="confidentialite.html">politique de confidentialité</a></label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" id="riskCheck" required>
+            <label for="riskCheck" id="riskCheckLabel">Je reconnais avoir été informé(e) des risques liés à cette formation et que les résultats peuvent varier selon l'effort fourni</label>
+          </div>
+
+          <button type="submit" class="btn-pay" id="btnPay">
+            🔒 Continuer vers le paiement — <span id="btnPrice">€79.00</span>
+            <span class="btn-pay-sub">Paiement sécurisé Stripe · Accès immédiat</span>
+          </button>
+          <button type="button" class="btn-cancel" onclick="window.history.back()">← Retour</button>
+
+          <div class="secure-row">
+            <div class="secure-badge">🔐 Chiffrement 256-bit</div>
+            <div class="secure-badge">🛡️ 3D Secure</div>
+            <div class="secure-badge">✅ PCI-DSS</div>
+          </div>
+
+        </form>
+      </div>
+
+      <!-- Report issue link -->
+      <div style="text-align:center;margin-top:.75rem;">
+        <a href="report.html?type=payment" style="font-size:.78rem;color:var(--text3);text-decoration:none;display:inline-flex;align-items:center;gap:.3rem;">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          Signaler un problème de paiement
+        </a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Success overlay -->
+<div class="success-overlay" id="successOverlay">
+  <div class="success-card">
+    <div class="success-icon">🎉</div>
+    <h2>Paiement confirmé !</h2>
+    <p id="successMsg">Votre accès est activé. Bienvenue dans la formation !</p>
+    <div class="success-redirect">Redirection automatique dans 3 secondes…</div>
+  </div>
+</div>
+
+<script>
+// ── DATA ──
+const params = new URLSearchParams(window.location.search);
+const course = params.get('course') || 'ec';
+const plan   = params.get('plan')   || 'pro';
+
+const COURSES = {
+  ec:     { name:'E-Commerce Mastery',      sub:'Dropshipping · Shopify · Publicité · Branding', path:'course-player.html', trading:false },
+  tr:     { name:'Forex & Crypto Trading',  sub:'Analyse technique · Prop firms · Gestion du risque', path:'trading-player.html', trading:true },
+  bundle: { name:'Elite Bundle — 2 formations', sub:'E-Commerce + Trading · Accès complet', path:'dashboard.html', trading:true }
+};
+const PRICING = {
+  ec:     { pro:{price:79,  orig:149,plan:'Pro',  emoji:'⭐'}, elite:{price:139, orig:249,plan:'Elite',emoji:'💎'} },
+  tr:     { pro:{price:79,  orig:149,plan:'Pro',  emoji:'⭐'}, elite:{price:139, orig:249,plan:'Elite',emoji:'💎'} },
+  bundle: { pro:{price:119, orig:249,plan:'Pro',  emoji:'⭐'}, elite:{price:219, orig:399,plan:'Elite',emoji:'💎'} }
+};
+const FEATURES = {
+  ec: ['13+ modules · 60+ leçons en français','Modules TikTok Shop, IA & CRO','Mises à jour gratuites à vie','Assistant IA spécialisé e-commerce','1 appel vocal mensuel (1h)','Support prioritaire inclus'],
+  tr: ['14+ modules · 70+ leçons en français','SMC, ICT, Prop Firms & IA Trading','Mises à jour gratuites à vie','Assistant IA spécialisé trading','1 appel vocal mensuel (1h)','Support prioritaire inclus'],
+  bundle: ['Accès complet aux 2 formations','27+ modules · 130+ leçons','Mises à jour gratuites à vie','2 assistants IA spécialisés','1 appel vocal mensuel (1h)','Support prioritaire inclus']
+};
+
+const REVIEWS = [
+  {name:'Alexandre M.',country:'🇫🇷 France',   avatar:'AM',color:'#4f6ef7',plan:'Pro E-Commerce', stars:5,text:'Formation incroyable ! J\'ai lancé ma boutique en moins de 3 semaines. Le module sur les Meta Ads m\'a permis de passer de 0 à 2 800€ de CA dès le premier mois. Le rapport qualité/prix est imbattable.'},
+  {name:'Sarah K.',   country:'🇧🇪 Belgique',   avatar:'SK',color:'#10b981',plan:'Elite Trading',   stars:5,text:'Enfin une formation sur le trading qui ne promet pas la lune. Le module sur la gestion du risque et les prop firms m\'a complètement changé la donne. Je suis passée en compte réel chez FTMO après 6 semaines de pratique.'},
+  {name:'Karim B.',   country:'🇲🇦 Maroc',      avatar:'KB',color:'#8b5cf6',plan:'Elite Bundle',    stars:5,text:'J\'ai pris le bundle Elite et c\'est le meilleur investissement que j\'ai fait. L\'IA intégrée répond à toutes mes questions pendant que j\'apprends. Le contenu est dense, professionnel, et actionnable.'},
+  {name:'Léa T.',     country:'🇨🇭 Suisse',     avatar:'LT',color:'#f59e0b',plan:'Pro E-Commerce', stars:5,text:'Le module TikTok Shop m\'a permis de comprendre un canal que mes concurrents ignorent encore. 3 semaines après, ma première vidéo TikTok a généré 47 commandes en 24h. Je recommande à 100%.'},
+  {name:'Mehdi A.',   country:'🇩🇿 Algérie',    avatar:'MA',color:'#ef4444',plan:'Pro Trading',     stars:5,text:'Très bonne pédagogie, les explications sur l\'order flow et les SMC sont les meilleures que j\'ai trouvées sur Internet. L\'assistant IA m\'a aidé à comprendre les zones d\'intérêt sur le EURUSD.'},
+  {name:'Céline R.',  country:'🇫🇷 France',     avatar:'CR',color:'#06b6d4',plan:'Elite E-Commerce',stars:5,text:'En tant qu\'ancienne employée dans le retail, j\'avais peur de me lancer en ligne. Cette formation m\'a donné toutes les bases et plus encore. J\'ai ouvert ma boutique de bijoux artisanaux, 8K€ de CA le 2e mois.'},
+  {name:'Thomas G.',  country:'🇫🇷 France',     avatar:'TG',color:'#ec4899',plan:'Pro E-Commerce', stars:5,text:'Super formation sur le dropshipping. J\'ai particulièrement apprécié la partie sur le sourcing fournisseurs et la négociation. Résultats concrets : 3 produits gagnants identifiés, boutique Shopify lancée.'},
+  {name:'Yasmine H.', country:'🇹🇳 Tunisie',    avatar:'YH',color:'#14b8a6',plan:'Elite Bundle',    stars:5,text:'Le contenu sur l\'IA appliquée au e-commerce est vraiment ce qui fait la différence. J\'utilise maintenant ChatGPT et Claude pour toutes mes fiches produit et mes publicités. J\'économise 20h par semaine minimum.'},
+  {name:'Julien F.',  country:'🇧🇪 Belgique',   avatar:'JF',color:'#84cc16',plan:'Pro Trading',     stars:4,text:'Formation sérieuse et complète. Quelques modules auraient pu être encore plus détaillés sur les stratégies avancées, mais dans l\'ensemble c\'est de très loin la meilleure formation trading francophone.'},
+  {name:'Amina S.',   country:'🇨🇮 Côte d\'Ivoire', avatar:'AS',color:'#fb923c',plan:'Pro E-Commerce',stars:5,text:'Je suis passée de vendeuse sur Instagram à une vraie boutique e-commerce en moins d\'un mois. Le module Klaviyo et la segmentation email ont transformé mon taux de rétention. Merci STATIC Academy !'},
+  {name:'Maxime P.',  country:'🇫🇷 France',     avatar:'MP',color:'#a855f7',plan:'Elite Bundle',    stars:5,text:'J\'avais déjà suivi 4 formations e-commerce et trading. Aucune n\'était au niveau de STATIC Academy. La qualité des modules IA et CRO avancée est simplement sans équivalent sur le marché francophone.'},
+  {name:'Nadia Z.',   country:'🇲🇦 Maroc',      avatar:'NZ',color:'#f43f5e',plan:'Pro E-Commerce', stars:5,text:'L\'appel vocal mensuel inclus est vraiment un plus. J\'ai pu poser toutes mes questions sur ma boutique directement. Grâce aux conseils, j\'ai augmenté mon ROAS de 1.8x à 4.2x en 3 semaines.'},
+];
+
+function renderReviews(){
+  const c = document.getElementById('reviewCards');
+  REVIEWS.forEach(r => {
+    c.innerHTML += '<div class="review-card">'
+      + '<div class="review-header">'
+      + '<div class="reviewer">'
+      + '<div class="reviewer-avatar" style="background:'+r.color+'">'+r.avatar+'</div>'
+      + '<div><div class="reviewer-name">'+r.name+'</div><div class="reviewer-country">'+r.country+'</div></div>'
+      + '</div>'
+      + '<div class="review-stars">'+'★'.repeat(r.stars)+'☆'.repeat(5-r.stars)+'</div>'
+      + '</div>'
+      + '<div class="review-text">'+r.text+'</div>'
+      + '<div class="review-plan">Plan '+r.plan+'</div>'
+      + '</div>';
+  });
+}
+
+function updatePage(){
+  const cd = COURSES[course] || COURSES.ec;
+  const pd = (PRICING[course]||PRICING.ec)[plan] || PRICING.ec.pro;
+
+  document.getElementById('orderCourse').textContent = cd.name;
+  document.getElementById('orderSub').textContent = cd.sub;
+  document.getElementById('planBadge').textContent = pd.emoji + ' Plan ' + pd.plan;
+  document.getElementById('origPrice').textContent = '€' + pd.orig.toFixed(2);
+  const disc = pd.orig - pd.price;
+  const pct  = Math.round(disc/pd.orig*100);
+  document.getElementById('discountLine').textContent = '−€'+disc.toFixed(2)+' (-'+pct+'%)';
+  document.getElementById('totalPrice').textContent  = '€'+pd.price.toFixed(2);
+  document.getElementById('btnPrice').textContent    = '€'+pd.price.toFixed(2);
+
+  const featEl = document.getElementById('orderFeatures');
+  featEl.innerHTML = (FEATURES[course]||FEATURES.ec).map(f=>'<li>'+f+'</li>').join('');
+
+  if(cd.trading){
+    document.getElementById('tradingDisclaimer').style.display='block';
+    document.getElementById('riskCheckLabel').textContent = 'Je comprends que le trading est une activité risquée, que STATIC Academy n\'est pas un conseiller financier, et que les résultats passés ne garantissent pas les résultats futurs';
+  }
+}
+
+// ── STRIPE PAYMENT LINKS ──────────────────────────────────────────────
+// Remplacez ces URLs par vos vrais Payment Links depuis dashboard.stripe.com
+const PAYMENT_LINKS = {
+  ec:     {
+    pro:   'https://buy.stripe.com/fZu28r8cRcWF7gDeDd8Ra00',
+    elite: 'https://buy.stripe.com/00w8wP50F1dXfN9dz98Ra03'
+  },
+  tr:     {
+    pro:   'https://buy.stripe.com/00w9ATfFj7CleJ5cv58Ra05',
+    elite: 'https://buy.stripe.com/00wfZhbp33m57gD2Uv8Ra06'
+  },
+  bundle: {
+    pro:   'https://buy.stripe.com/28E00jfFjf4NfN9eDd8Ra01',
+    elite: 'https://buy.stripe.com/dRm8wP0Kp6yhdF1fHh8Ra02'
+  }
+};
+// ─────────────────────────────────────────────────────────────────────
+
+// Form submit
+document.getElementById('paymentForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  document.querySelectorAll('.err-msg').forEach(el=>el.classList.remove('show'));
+  let ok=true;
+  const V = id => document.getElementById(id).value.trim();
+  if(!V('fullName'))                                     {showErr('nameError','Nom requis');ok=false;}
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(V('email')))   {showErr('emailError','Email invalide');ok=false;}
+  if(!document.getElementById('termsCheck').checked)    {showErr('nameError','Vous devez accepter les conditions');ok=false;}
+  if(!ok) return;
+  processPayment();
+});
+
+function processPayment(){
+  const email = document.getElementById('email').value.trim();
+  const name  = document.getElementById('fullName').value.trim();
+  const links = PAYMENT_LINKS[course] || PAYMENT_LINKS.ec;
+  const link  = links[plan] || links.pro;
+
+  // Check if payment link is configured
+  if(!link || link.includes('PLACEHOLDER')) {
+    alert('⚠️ Lien de paiement non configuré. Veuillez contacter le support.');
+    return;
+  }
+
+  // Redirect to Stripe Payment Link with prefilled email
+  const url = link
+    + '?prefilled_email=' + encodeURIComponent(email)
+    + '&client_reference_id=' + encodeURIComponent(course + '_' + plan);
+
+  // Show loading state
+  const btn = document.getElementById('btnPay');
+  btn.textContent = '⏳ Redirection vers Stripe…';
+  btn.disabled = true;
+
+  window.location.href = url;
+}
+
+function showErr(id,msg){
+  const el=document.getElementById(id);
+  if(el){el.textContent=msg;el.classList.add('show');}
+}
+
+updatePage();
+renderReviews();
+</script>
+<script src="session-sync.js"></script>
+<script>
+(function(){
+  var lang = (localStorage.getItem('sa_lang') || localStorage.getItem('static_user') && JSON.parse(localStorage.getItem('static_user')||'{}').lang) || 'fr';
+  var T = {
+    en: {
+    pay_card: "Card",
+    pay_paypal: "PayPal",
+    pay_apple: "Apple Pay",
+    pay_submit: "Complete Purchase",
+    pay_cancel: "← Back",
+    },
+    fr: {
+    pay_card: "Carte",
+    pay_paypal: "PayPal",
+    pay_apple: "Apple Pay",
+    pay_submit: "Finaliser l'achat",
+    pay_cancel: "← Retour",
+    }
+  };
+  function applyI18n() {
+    var t = T[lang] || T['fr'];
+    document.querySelectorAll('[data-i18n]').forEach(function(el) {
+      var k = el.getAttribute('data-i18n');
+      if (t[k] !== undefined) el.textContent = t[k];
+    });
+    document.querySelectorAll('[data-i18n-ph]').forEach(function(el) {
+      var k = el.getAttribute('data-i18n-ph');
+      if (t[k] !== undefined) el.placeholder = t[k];
+    });
+    document.querySelectorAll('[data-i18n-html]').forEach(function(el) {
+      var k = el.getAttribute('data-i18n-html');
+      if (t[k] !== undefined) el.innerHTML = t[k];
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', applyI18n);
+  } else {
+    applyI18n();
+  }
+})();
+</script>
+</body>
+</html>

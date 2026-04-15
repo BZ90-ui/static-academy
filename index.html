@@ -1,0 +1,4116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STATIC Academy — Formations E-Commerce & Trading en ligne</title>
+    <meta name="description" content="Apprenez le e-commerce et le trading avec STATIC Academy. Formations complètes, mises à jour 2025, accès à vie. De zéro à expert en dropshipping, Amazon FBA, Shopify, et trading.">
+    <meta name="keywords" content="formation e-commerce, formation trading, dropshipping, Amazon FBA, Shopify, académie en ligne, cours trading, apprendre e-commerce">
+    <meta property="og:title" content="STATIC Academy — Formations E-Commerce & Trading">
+    <meta property="og:description" content="Formations premium en e-commerce et trading. Accès à vie, mises à jour incluses. Rejoignez des milliers d'entrepreneurs.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="logo-icon.svg">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="STATIC Academy — Formations E-Commerce & Trading">
+    <meta name="twitter:description" content="Formations premium en e-commerce et trading. Accès à vie, mises à jour incluses.">
+    <meta name="theme-color" content="#07080f">
+    <link rel="icon" href="logo-icon.svg" type="image/svg+xml">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #07080f;
+            --bg2: #0c0d1a;
+            --bg3: #101122;
+            --border: rgba(255,255,255,.08);
+            --border2: rgba(255,255,255,.12);
+            --indigo: #5b6cf5;
+            --violet: #7254e8;
+            --gold: #b8933e;
+            --green: #1db86e;
+            --text: #eceeff;
+            --text2: rgba(236,238,255,.65);
+            --text3: rgba(236,238,255,.38);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ============ PROGRESS BAR ============ */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--indigo), var(--violet));
+            width: 0%;
+            z-index: 9999;
+        }
+
+        /* ============ PAGE TRANSITIONS ============ */
+        #pageTransition {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 28px;
+            background: #07080f;
+            opacity: 0;
+            transition: opacity 0.25s ease;
+            pointer-events: none;
+        }
+        #pageTransition.visible {
+            opacity: 1;
+            pointer-events: all;
+        }
+        .pt-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: rgba(236,238,255,0.35);
+            font-weight: 600;
+        }
+        .pt-bar-track {
+            width: 200px;
+            height: 2px;
+            background: rgba(255,255,255,0.07);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        .pt-bar-fill {
+            height: 100%;
+            width: 0%;
+            border-radius: 2px;
+            transition: width 0.9s cubic-bezier(0.4,0,0.2,1);
+        }
+        /* ========== TRANSITION OVERLAY SHARED ========== */
+        .pt-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: -0.01em;
+            color: #eceeff;
+            margin-bottom: 4px;
+        }
+        .pt-sub {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.78rem;
+            color: rgba(180,188,240,0.5);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        .pt-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 4px 12px;
+            border-radius: 6px;
+            margin-bottom: 28px;
+        }
+
+        /* ========== E-COMMERCE TRANSITION ========== */
+        @keyframes storeFloat {
+            0%,100% { transform: translateY(0) rotate(-1deg); }
+            50% { transform: translateY(-12px) rotate(1deg); }
+        }
+        @keyframes orbitA {
+            from { transform: rotate(0deg) translateX(120px) rotate(0deg); }
+            to   { transform: rotate(360deg) translateX(120px) rotate(-360deg); }
+        }
+        @keyframes orbitB {
+            from { transform: rotate(72deg) translateX(120px) rotate(-72deg); }
+            to   { transform: rotate(432deg) translateX(120px) rotate(-432deg); }
+        }
+        @keyframes orbitC {
+            from { transform: rotate(144deg) translateX(120px) rotate(-144deg); }
+            to   { transform: rotate(504deg) translateX(120px) rotate(-504deg); }
+        }
+        @keyframes orbitD {
+            from { transform: rotate(216deg) translateX(120px) rotate(-216deg); }
+            to   { transform: rotate(576deg) translateX(120px) rotate(-576deg); }
+        }
+        @keyframes orbitE {
+            from { transform: rotate(288deg) translateX(120px) rotate(-288deg); }
+            to   { transform: rotate(648deg) translateX(120px) rotate(-648deg); }
+        }
+        @keyframes pulseRing {
+            0%   { transform: scale(0.7); opacity: 0.6; }
+            100% { transform: scale(1.6); opacity: 0; }
+        }
+        @keyframes fadeSlideUp {
+            from { opacity:0; transform: translateY(10px); }
+            to   { opacity:1; transform: translateY(0); }
+        }
+        @keyframes tickerPop {
+            0%   { opacity:0; transform: scale(0.8) translateY(4px); }
+            100% { opacity:1; transform: scale(1) translateY(0); }
+        }
+        .ec-scene {
+            position: relative;
+            width: 300px; height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .ec-ring {
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid rgba(91,108,245,0.15);
+        }
+        .ec-ring-1 { width: 140px; height: 140px; }
+        .ec-ring-2 { width: 210px; height: 210px; border-style: dashed; animation: spin 12s linear infinite; }
+        .ec-ring-3 { width: 280px; height: 280px; animation: spin 20s linear reverse infinite; }
+        .ec-pulse {
+            position: absolute;
+            width: 80px; height: 80px;
+            border-radius: 50%;
+            background: rgba(91,108,245,0.15);
+            animation: pulseRing 1.6s ease-out infinite;
+        }
+        .ec-pulse-2 { animation-delay: 0.8s; }
+        .ec-center {
+            width: 88px; height: 88px;
+            background: linear-gradient(135deg, #0f1130, #1a1f50);
+            border: 1px solid rgba(91,108,245,0.5);
+            border-radius: 22px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2.4rem;
+            animation: storeFloat 2.2s ease-in-out infinite;
+            position: relative; z-index: 4;
+            box-shadow: 0 0 40px rgba(91,108,245,0.4), 0 0 80px rgba(91,108,245,0.15);
+        }
+        .ec-orbit-item {
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 46px; height: 46px;
+            margin: -23px 0 0 -23px;
+            background: #0d0e22;
+            border: 1px solid rgba(91,108,245,0.3);
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.3rem;
+            z-index: 3;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.5), 0 0 16px rgba(91,108,245,0.15);
+        }
+        .ec-orbit-item:nth-child(5) { animation: orbitA 3.5s linear infinite; }
+        .ec-orbit-item:nth-child(6) { animation: orbitB 3.5s linear infinite; }
+        .ec-orbit-item:nth-child(7) { animation: orbitC 3.5s linear infinite; }
+        .ec-orbit-item:nth-child(8) { animation: orbitD 3.5s linear infinite; }
+        .ec-orbit-item:nth-child(9) { animation: orbitE 3.5s linear infinite; }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        .ec-stats-row {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+        .ec-stat-pill {
+            background: rgba(91,108,245,0.1);
+            border: 1px solid rgba(91,108,245,0.2);
+            border-radius: 8px;
+            padding: 8px 14px;
+            font-family: 'Inter', sans-serif;
+            text-align: center;
+            animation: tickerPop 0.4s ease forwards;
+            opacity: 0;
+        }
+        .ec-stat-pill:nth-child(1) { animation-delay: 0.2s; }
+        .ec-stat-pill:nth-child(2) { animation-delay: 0.4s; }
+        .ec-stat-pill:nth-child(3) { animation-delay: 0.6s; }
+        .ec-stat-val { font-size: 1.05rem; font-weight: 900; color: #818cf8; line-height: 1; }
+        .ec-stat-lbl { font-size: 0.62rem; color: rgba(180,188,240,0.5); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 2px; }
+
+        /* ========== TRADING TRANSITION ========== */
+        @keyframes candleRise {
+            from { transform: scaleY(0); transform-origin: bottom; opacity:0; }
+            to   { transform: scaleY(1); transform-origin: bottom; opacity:1; }
+        }
+        @keyframes arrowShoot {
+            0%  { opacity:0; transform: translateY(18px) scale(0.5); }
+            70% { opacity:1; transform: translateY(-4px) scale(1.15); }
+            100%{ opacity:1; transform: translateY(0) scale(1); }
+        }
+        @keyframes chartLineGrow {
+            from { stroke-dashoffset: 600; }
+            to   { stroke-dashoffset: 0; }
+        }
+        @keyframes tickerScroll {
+            0%   { transform: translateX(100%); opacity:0; }
+            15%  { opacity:1; }
+            85%  { opacity:1; }
+            100% { transform: translateX(-100%); opacity:0; }
+        }
+        @keyframes priceFlash {
+            0%,100% { color: #22c55e; }
+            50% { color: #4ade80; text-shadow: 0 0 12px rgba(34,197,94,0.8); }
+        }
+        @keyframes signalPop {
+            0%   { opacity:0; transform: scale(0.6) translateY(8px); }
+            100% { opacity:1; transform: scale(1) translateY(0); }
+        }
+        .tr-scene { display: flex; flex-direction: column; align-items: center; gap: 0; }
+        .tr-chart-wrap {
+            position: relative;
+            background: rgba(4,5,13,0.8);
+            border: 1px solid rgba(184,147,62,0.2);
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+        .tr-chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            font-family: 'Inter', sans-serif;
+        }
+        .tr-pair { font-size: 0.82rem; font-weight: 800; color: #f5f3ff; letter-spacing: 0.05em; }
+        .tr-price-live {
+            font-size: 1.1rem;
+            font-weight: 900;
+            color: #22c55e;
+            animation: priceFlash 1.2s ease infinite;
+        }
+        .tr-change { font-size: 0.72rem; font-weight: 700; color: #22c55e; background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.2); border-radius: 5px; padding: 2px 8px; }
+        .chart-anim-svg { filter: drop-shadow(0 0 10px rgba(184,147,62,0.3)); }
+        .candle-body { animation: candleRise 0.3s ease-out forwards; opacity:0; }
+        .candle-body:nth-child(1) { animation-delay:0.05s; }
+        .candle-body:nth-child(2) { animation-delay:0.15s; }
+        .candle-body:nth-child(3) { animation-delay:0.25s; }
+        .candle-body:nth-child(4) { animation-delay:0.35s; }
+        .candle-body:nth-child(5) { animation-delay:0.45s; }
+        .candle-body:nth-child(6) { animation-delay:0.55s; }
+        .candle-body:nth-child(7) { animation-delay:0.65s; }
+        .chart-trend-line { stroke-dasharray:600; stroke-dashoffset:600; animation:chartLineGrow 0.9s ease-out 0.3s forwards; }
+        .chart-up-arrow { animation: arrowShoot 0.4s ease-out 1.0s forwards; opacity:0; }
+        .tr-signals {
+            display: flex; gap: 10px;
+            font-family: 'Inter', sans-serif;
+        }
+        .tr-signal {
+            background: rgba(4,5,13,0.9);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 10px;
+            padding: 8px 12px;
+            animation: signalPop 0.4s ease forwards;
+            opacity: 0;
+        }
+        .tr-signal:nth-child(1) { animation-delay: 0.7s; border-color: rgba(34,197,94,0.2); }
+        .tr-signal:nth-child(2) { animation-delay: 0.9s; border-color: rgba(239,68,68,0.2); }
+        .tr-signal:nth-child(3) { animation-delay: 1.1s; border-color: rgba(251,191,36,0.2); }
+        .tr-signal-top { font-size: 0.62rem; color: rgba(180,188,240,0.5); text-transform: uppercase; letter-spacing: 0.06em; }
+        .tr-signal-val { font-size: 0.88rem; font-weight: 800; margin-top: 2px; }
+        .tr-signal:nth-child(1) .tr-signal-val { color: #4ade80; }
+        .tr-signal:nth-child(2) .tr-signal-val { color: #f87171; }
+        .tr-signal:nth-child(3) .tr-signal-val { color: #fbbf24; }
+
+        /* ============ NAVIGATION ============ */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 0 2.5rem;
+            height: 66px;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            background: rgba(7,8,15,0.72);
+            backdrop-filter: blur(22px) saturate(1.6);
+            -webkit-backdrop-filter: blur(22px) saturate(1.6);
+            border-bottom: 1px solid rgba(91,108,245,0.13);
+            box-shadow: 0 1px 0 rgba(255,255,255,0.03);
+            transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(7,8,15,0.93);
+            border-bottom-color: rgba(91,108,245,0.22);
+            box-shadow: 0 4px 32px rgba(0,0,0,0.4);
+        }
+
+        /* Logo: left column */
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 700;
+            font-size: 1.25rem;
+            text-decoration: none;
+            color: var(--text);
+            justify-self: start;
+        }
+
+        .logo-svg {
+            width: 36px;
+            height: 36px;
+            flex-shrink: 0;
+        }
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.1;
+        }
+        .logo-text .logo-main {
+            font-size: 1rem;
+            font-weight: 800;
+            letter-spacing: 0.06em;
+            color: var(--text);
+        }
+        .logo-text .logo-sub {
+            font-size: 0.6rem;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            color: var(--text3);
+            text-transform: uppercase;
+        }
+
+        /* Nav links: perfectly centered column */
+        .nav-center {
+            display: flex;
+            gap: 0.15rem;
+            align-items: center;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 12px;
+            padding: 4px;
+        }
+
+        .nav-center a {
+            color: rgba(180,188,240,0.75);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.01em;
+            padding: 0.38rem 1rem;
+            border-radius: 8px;
+            transition: color 0.2s ease, background 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .nav-center a:hover {
+            color: #eceeff;
+            background: rgba(91,108,245,0.1);
+        }
+
+        .nav-center a.active {
+            color: #aab4ff;
+            background: rgba(91,108,245,0.16);
+        }
+
+        /* Right actions: right column */
+        .nav-right {
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+            justify-self: end;
+        }
+
+        .lang-select {
+            background: var(--bg2);
+            border: 1px solid var(--border2);
+            color: var(--text2);
+            padding: 0.45rem 0.7rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
+            -webkit-appearance: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23a0a8c8' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 8px center;
+            padding-right: 28px;
+        }
+
+        .lang-select option {
+            background-color: #0c0d1a;
+            color: #eceeff;
+        }
+
+        .lang-select:hover,
+        .lang-select:focus {
+            border-color: var(--indigo);
+            color: var(--text);
+            outline: none;
+        }
+
+        .nav-btn {
+            padding: 0.55rem 1.15rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: transparent;
+            color: rgba(200,210,255,0.8);
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 0.85rem;
+            letter-spacing: 0.01em;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .nav-btn:hover {
+            border-color: rgba(91,108,245,0.4);
+            background: rgba(91,108,245,0.07);
+            color: rgba(220,228,255,0.95);
+        }
+
+        .nav-btn-primary {
+            background: linear-gradient(135deg, #5b6cf5, #7254e8);
+            border: none;
+            color: #fff;
+            font-weight: 600;
+            box-shadow: 0 2px 12px rgba(91,108,245,0.35);
+        }
+
+        .nav-btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 18px rgba(91,108,245,0.5);
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .nav-center { display: none; }
+            nav {
+                padding: 0 1.25rem;
+                grid-template-columns: 1fr auto;
+            }
+            .hero { padding-top: 100px; }
+        }
+
+        /* ============ HERO SECTION ============ */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding: 136px 2rem 4rem;
+        }
+
+        .hero-inner {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: 1fr 800px 1fr;
+            gap: 2rem;
+            align-items: center;
+            max-width: 1400px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 1100px) {
+            .hero-inner {
+                grid-template-columns: 1fr;
+            }
+            .hero-side { display: none; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 0 1rem;
+            opacity: 1;
+            transform: none;
+        }
+
+        /* Left/right floating card columns */
+        .hero-side {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            align-items: center;
+        }
+        .hero-side.left { align-items: flex-end; }
+        .hero-side.right { align-items: flex-start; }
+
+        /* Animated floating cards */
+        @keyframes floatCard1 {
+            0%, 100% { transform: translateY(0px) rotate(-2deg); }
+            50% { transform: translateY(-16px) rotate(-2deg); }
+        }
+        @keyframes floatCard2 {
+            0%, 100% { transform: translateY(0px) rotate(2deg); }
+            50% { transform: translateY(-20px) rotate(2deg); }
+        }
+        @keyframes floatCard3 {
+            0%, 100% { transform: translateY(0px) rotate(-1deg); }
+            50% { transform: translateY(-12px) rotate(-1deg); }
+        }
+        @keyframes floatCard4 {
+            0%, 100% { transform: translateY(0px) rotate(1.5deg); }
+            50% { transform: translateY(-18px) rotate(1.5deg); }
+        }
+        @keyframes lineGrow {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        @keyframes tickerNum {
+            0% { transform: translateY(20px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        .float-card {
+            background: linear-gradient(160deg, #10122a 0%, #0c0d1e 100%);
+            border: 1px solid rgba(91,108,245,0.22);
+            border-radius: 20px;
+            padding: 1.25rem 1.5rem;
+            box-shadow: 0 24px 64px rgba(0,0,0,0.6), 0 1px 0 rgba(255,255,255,0.07) inset, 0 0 0 0.5px rgba(255,255,255,0.04);
+            min-width: 210px;
+            max-width: 255px;
+            transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease, border-color 0.3s ease;
+            cursor: default;
+            position: relative;
+            z-index: 1;
+        }
+        .float-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(91,108,245,0.07) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        .float-card:hover {
+            transform: scale(1.08) translateY(-6px) !important;
+            animation-play-state: paused;
+            box-shadow: 0 32px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(91,108,245,0.5), 0 0 40px rgba(91,108,245,0.12);
+            border-color: rgba(91,108,245,0.5);
+            z-index: 10;
+        }
+
+        .fc-ec1 { animation: floatCard1 4s ease-in-out infinite; }
+        .fc-ec2 { animation: floatCard2 5.5s ease-in-out infinite 0.8s; }
+        .fc-tr1 { animation: floatCard3 4.8s ease-in-out infinite 0.4s; }
+        .fc-tr2 { animation: floatCard4 6s ease-in-out infinite 1.2s; }
+
+        .fc-label {
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: rgba(236,238,255,0.38);
+            margin-bottom: 0.5rem;
+        }
+        .fc-value {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #eceeff;
+            margin-bottom: 0.4rem;
+            animation: tickerNum 0.6s ease-out forwards;
+        }
+        .fc-sub {
+            font-size: 0.75rem;
+            color: rgba(236,238,255,0.45);
+        }
+        .fc-green { color: #1db86e; }
+        .fc-gold { color: #b8933e; }
+        .fc-bar {
+            height: 3px;
+            background: rgba(255,255,255,0.07);
+            border-radius: 3px;
+            margin-top: 0.75rem;
+            overflow: hidden;
+        }
+        .fc-bar-fill {
+            height: 100%;
+            border-radius: 3px;
+            animation: lineGrow 1.5s ease-out 0.5s forwards;
+            width: 0;
+        }
+        .fc-chart {
+            margin-top: 0.75rem;
+        }
+        .fc-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            padding: 3px 9px;
+            border-radius: 20px;
+            margin-top: 0.5rem;
+        }
+        .fc-chip.green { background: rgba(29,184,110,0.15); color: #1db86e; border: 1px solid rgba(29,184,110,0.25); }
+        .fc-chip.gold { background: rgba(184,147,62,0.15); color: #b8933e; border: 1px solid rgba(184,147,62,0.25); }
+        .fc-chip.indigo { background: rgba(91,108,245,0.15); color: #5b6cf5; border: 1px solid rgba(91,108,245,0.25); }
+
+        /* Background blobs */
+        .hero-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            pointer-events: none;
+            z-index: 0;
+        }
+        .hero-blob-1 {
+            width: 640px; height: 640px;
+            background: radial-gradient(circle, rgba(91,108,245,0.16) 0%, transparent 70%);
+            top: -10%; left: 5%;
+            animation: float 10s ease-in-out infinite;
+        }
+        .hero-blob-2 {
+            width: 580px; height: 580px;
+            background: radial-gradient(circle, rgba(114,84,232,0.13) 0%, transparent 70%);
+            bottom: 0%; right: 5%;
+            animation: float 12s ease-in-out infinite reverse;
+        }
+        .hero-blob-3 {
+            width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(184,147,62,0.09) 0%, transparent 70%);
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            animation: float 8s ease-in-out infinite 2s;
+        }
+
+        .hero-bg-dots {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(circle, rgba(255,255,255,.022) 1px, transparent 1px);
+            background-size: 44px 44px;
+            z-index: 1;
+        }
+
+        /* Typing/word animation for h1 */
+        @keyframes wordFadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .hero h1 {
+            font-size: clamp(2.2rem, 6vw, 3.8rem);
+            font-weight: 900;
+            line-height: 1.15;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+        .hero h1 .w1 { display: inline-block; animation: wordFadeUp 0.6s ease 0.2s forwards; opacity: 0; }
+        .hero h1 .w2 { display: inline-block; animation: wordFadeUp 0.6s ease 0.4s forwards; opacity: 0; }
+        .hero h1 .w3 { display: inline-block; animation: wordFadeUp 0.6s ease 0.6s forwards; opacity: 0; }
+        .hero h1 .w4 { display: inline-block; animation: wordFadeUp 0.6s ease 0.8s forwards; opacity: 0; }
+        .hero h1 .w5 { display: inline-block; animation: wordFadeUp 0.6s ease 1.0s forwards; opacity: 0; }
+        .hero h1 .gradient-text {
+            background: linear-gradient(135deg, #5b6cf5, #a78bfa, #7254e8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(30px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(91, 108, 245, 0.1);
+            border: 1px solid var(--border);
+            color: var(--indigo);
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 .gradient-text {
+            background: linear-gradient(135deg, var(--indigo), var(--violet));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            color: var(--text2);
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-bottom: 4rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.875rem 2.25rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            border: none;
+            transition: all 0.22s cubic-bezier(0.22,1,0.36,1);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: -0.01em;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #5b6cf5 0%, #7254e8 100%);
+            color: #fff;
+            box-shadow: 0 4px 24px rgba(91,108,245,.4), 0 1px 0 rgba(255,255,255,.15) inset, 0 0 0 0 rgba(91,108,245,0);
+            font-weight: 700;
+            letter-spacing: 0.01em;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 60%);
+            border-radius: inherit;
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 12px 36px rgba(91,108,245,.55), 0 1px 0 rgba(255,255,255,.15) inset;
+        }
+        .btn-primary:active { transform: translateY(-1px) scale(0.99); }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.14);
+            color: rgba(200,210,255,0.85);
+            font-weight: 600;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(91,108,245,0.08);
+            border-color: rgba(91,108,245,0.4);
+            color: rgba(220,228,255,0.98);
+            transform: translateY(-2px);
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+            margin-top: 2.5rem;
+            background: linear-gradient(160deg, rgba(255,255,255,0.03) 0%, rgba(91,108,245,0.04) 100%);
+            border: 1px solid rgba(91,108,245,0.15);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05);
+        }
+
+        .stat {
+            text-align: center;
+            padding: 1.4rem 1rem;
+            position: relative;
+        }
+        .stat:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: 0; top: 20%; height: 60%;
+            width: 1px;
+            background: rgba(255,255,255,0.07);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--indigo);
+            margin-bottom: 0.3rem;
+            line-height: 1;
+            letter-spacing: -0.02em;
+        }
+
+        .stat-label {
+            font-size: 0.72rem;
+            color: var(--text3);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 500;
+        }
+
+        .hero-stats .stat:nth-child(1) .stat-number { color: #818cf8; }
+        .hero-stats .stat:nth-child(2) .stat-number { color: #34d399; }
+        .hero-stats .stat:nth-child(3) .stat-number { color: #fbbf24; }
+
+        .stat-free .stat-free-num {
+            background: linear-gradient(135deg, #4ade80, #22c55e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 2.2rem;
+        }
+
+        /* ============ MARQUEE/TICKER ============ */
+        .marquee-section {
+            position: relative;
+            padding: 2.25rem 0;
+            overflow: hidden;
+            margin: 4rem 0;
+            background: transparent;
+        }
+        .marquee-section::before,
+        .marquee-section::after {
+            content: '';
+            position: absolute;
+            top: 0; bottom: 0;
+            width: 180px;
+            z-index: 2;
+            pointer-events: none;
+        }
+        .marquee-section::before {
+            left: 0;
+            background: linear-gradient(90deg, var(--bg) 0%, transparent 100%);
+        }
+        .marquee-section::after {
+            right: 0;
+            background: linear-gradient(-90deg, var(--bg) 0%, transparent 100%);
+        }
+        .marquee-track {
+            display: flex;
+            animation: scroll-left 35s linear infinite;
+            white-space: nowrap;
+            gap: 0.75rem;
+            align-items: center;
+        }
+        .marquee-track:hover { animation-play-state: paused; }
+
+        .marquee-chip {
+            flex-shrink: 0;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.45rem 1.1rem;
+            border-radius: 100px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            border: 1px solid rgba(91,108,245,0.22);
+            background: rgba(91,108,245,0.07);
+            color: rgba(180,190,255,0.85);
+            transition: border-color 0.2s, background 0.2s;
+            cursor: default;
+        }
+        .marquee-chip:hover {
+            border-color: rgba(91,108,245,0.5);
+            background: rgba(91,108,245,0.13);
+        }
+        .marquee-chip.green {
+            border-color: rgba(16,185,129,0.22);
+            background: rgba(16,185,129,0.07);
+            color: rgba(110,220,170,0.85);
+        }
+        .marquee-chip.green:hover { border-color: rgba(16,185,129,0.5); background: rgba(16,185,129,0.13); }
+        .marquee-chip.gold {
+            border-color: rgba(245,166,35,0.22);
+            background: rgba(245,166,35,0.07);
+            color: rgba(245,200,100,0.85);
+        }
+        .marquee-chip.gold:hover { border-color: rgba(245,166,35,0.5); background: rgba(245,166,35,0.13); }
+        .marquee-sep {
+            flex-shrink: 0;
+            width: 4px; height: 4px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.12);
+            margin: 0 0.25rem;
+        }
+        @keyframes scroll-left {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* ============ STATS STRIP ============ */
+        .stats-strip {
+            max-width: 1200px;
+            margin: 0 auto 5rem;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.25rem;
+        }
+        @media (max-width: 900px) {
+            .stats-strip { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 500px) {
+            .stats-strip { grid-template-columns: 1fr; }
+        }
+        .stat-block {
+            background: linear-gradient(145deg, #0d0e1e 0%, #111327 100%);
+            border: 1px solid rgba(91,108,245,0.14);
+            border-radius: 20px;
+            padding: 2rem 1.75rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), border-color 0.3s ease, box-shadow 0.3s ease;
+            cursor: default;
+        }
+        .stat-block::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            border-radius: 20px 20px 0 0;
+        }
+        .stat-block:nth-child(1)::before { background: linear-gradient(90deg, #5b6cf5, #7254e8); }
+        .stat-block:nth-child(2)::before { background: linear-gradient(90deg, #1db86e, #10b981); }
+        .stat-block:nth-child(3)::before { background: linear-gradient(90deg, #f5a623, #f76b1c); }
+        .stat-block:nth-child(4)::before { background: linear-gradient(90deg, #e040fb, #7c4dff); }
+        .stat-block:hover {
+            transform: translateY(-6px) scale(1.02);
+            border-color: rgba(91,108,245,0.35);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(91,108,245,0.2);
+        }
+        .stat-icon {
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
+            display: block;
+        }
+        .stat-number {
+            font-size: 2.6rem;
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 0.35rem;
+            letter-spacing: -0.02em;
+        }
+        .stat-block:nth-child(1) .stat-number { color: #818cf8; }
+        .stat-block:nth-child(2) .stat-number { color: #34d399; }
+        .stat-block:nth-child(3) .stat-number { color: #fbbf24; }
+        .stat-block:nth-child(4) .stat-number { color: #c084fc; }
+        .stat-label {
+            font-size: 0.82rem;
+            color: var(--text3);
+            font-weight: 500;
+            letter-spacing: 0.03em;
+        }
+        .stat-sublabel {
+            font-size: 0.72rem;
+            color: rgba(140,150,200,0.5);
+            margin-top: 0.25rem;
+        }
+
+        /* Staggered entrance for stat blocks */
+        .stats-strip .stat-block { opacity: 0; transform: translateY(28px); transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.22,1,0.36,1); }
+        .stats-strip .stat-block:nth-child(1) { transition-delay: 0s; }
+        .stats-strip .stat-block:nth-child(2) { transition-delay: 0.1s; }
+        .stats-strip .stat-block:nth-child(3) { transition-delay: 0.2s; }
+        .stats-strip .stat-block:nth-child(4) { transition-delay: 0.3s; }
+        .stats-strip.revealed .stat-block { opacity: 1; transform: translateY(0); }
+
+        /* ============ FORMATIONS SECTION ============ */
+        .formations {
+            padding: 6rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.68rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: rgba(160,170,255,0.8);
+            background: linear-gradient(135deg, rgba(91,108,245,0.1) 0%, rgba(114,84,232,0.07) 100%);
+            border: 1px solid rgba(91,108,245,0.22);
+            padding: 0.32rem 1rem;
+            border-radius: 100px;
+            margin-bottom: 1.25rem;
+            box-shadow: 0 2px 12px rgba(91,108,245,0.12);
+        }
+        .section-label::before {
+            content: '';
+            width: 5px; height: 5px;
+            border-radius: 50%;
+            background: var(--indigo);
+            display: inline-block;
+            box-shadow: 0 0 6px rgba(91,108,245,0.8);
+        }
+
+        .section-title {
+            font-size: clamp(1.85rem, 5vw, 2.85rem);
+            font-weight: 900;
+            margin-bottom: 3rem;
+            letter-spacing: -0.03em;
+            line-height: 1.15;
+        }
+
+        .formations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        /* ─── Formation cards redesign ─── */
+        .formations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 2rem;
+        }
+
+        .formation-card {
+            background: #0b0c1c;
+            border: 1px solid rgba(91,108,245,0.14);
+            border-radius: 24px;
+            overflow: hidden;
+            position: relative;
+            transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s ease, border-color 0.35s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .formation-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(91,108,245,0.38);
+            box-shadow: 0 32px 72px rgba(0,0,0,0.45), 0 0 0 1px rgba(91,108,245,0.18);
+        }
+
+        /* Coloured header banner */
+        .fc-header {
+            position: relative;
+            padding: 2rem 2rem 1.5rem;
+            overflow: hidden;
+        }
+        .fc-header::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            opacity: 0.12;
+        }
+        .formation-card:nth-child(1) .fc-header { background: linear-gradient(135deg, #1a1f4e 0%, #0d1030 100%); }
+        .formation-card:nth-child(1) .fc-header::after { background: radial-gradient(circle at 80% 20%, #5b6cf5 0%, transparent 60%); }
+        .formation-card:nth-child(2) .fc-header { background: linear-gradient(135deg, #1a3028 0%, #0c1f1a 100%); }
+        .formation-card:nth-child(2) .fc-header::after { background: radial-gradient(circle at 80% 20%, #10b981 0%, transparent 60%); }
+
+        .fc-header-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .formation-emoji {
+            font-size: 2.8rem;
+            line-height: 1;
+        }
+
+        .fc-badges {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            align-items: flex-end;
+        }
+
+        .fc-badge {
+            font-size: 0.65rem;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 3px 10px;
+            border-radius: 6px;
+        }
+        .fc-badge.bestseller { background: linear-gradient(90deg,#f5a623,#f76b1c); color: #fff; }
+        .fc-badge.new        { background: linear-gradient(90deg,#5b6cf5,#7254e8); color: #fff; }
+        .fc-badge.updated    { background: rgba(16,185,129,0.2); color: #34d399; border: 1px solid rgba(16,185,129,0.3); }
+
+        .formation-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 4px 12px;
+            border-radius: 6px;
+            margin-bottom: 0.75rem;
+            position: relative;
+            z-index: 1;
+        }
+        .formation-card:nth-child(1) .formation-tag { background: rgba(91,108,245,0.15); color: #818cf8; border: 1px solid rgba(91,108,245,0.25); }
+        .formation-card:nth-child(2) .formation-tag { background: rgba(16,185,129,0.12); color: #34d399; border: 1px solid rgba(16,185,129,0.2); }
+
+        .formation-card h3 {
+            font-size: 1.55rem;
+            font-weight: 800;
+            line-height: 1.2;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Card body */
+        .fc-body {
+            padding: 1.5rem 2rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .formation-card p {
+            color: var(--text2);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Rating row */
+        .fc-rating {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 1.25rem;
+        }
+        .fc-stars { color: #f5a623; font-size: 0.85rem; letter-spacing: 1px; }
+        .fc-rating-num { font-size: 0.88rem; font-weight: 700; color: var(--text); }
+        .fc-rating-count { font-size: 0.78rem; color: var(--text3); }
+
+        /* Progress / enrollment bar */
+        .fc-enroll-bar {
+            margin-bottom: 1.5rem;
+        }
+        .fc-enroll-top {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: var(--text3);
+            margin-bottom: 6px;
+        }
+        .fc-enroll-track {
+            height: 5px;
+            background: rgba(255,255,255,0.06);
+            border-radius: 9px;
+            overflow: hidden;
+        }
+        .fc-enroll-fill {
+            height: 100%;
+            border-radius: 9px;
+            animation: fillBar 1.8s cubic-bezier(0.22,1,0.36,1) forwards;
+            animation-play-state: paused;
+            width: 0;
+        }
+        .formation-card.in-view .fc-enroll-fill { animation-play-state: running; }
+        .formation-card:nth-child(1) .fc-enroll-fill { background: linear-gradient(90deg,#5b6cf5,#7254e8); --fill-w: 78%; }
+        .formation-card:nth-child(2) .fc-enroll-fill { background: linear-gradient(90deg,#10b981,#34d399); --fill-w: 63%; }
+        @keyframes fillBar { to { width: var(--fill-w, 70%); } }
+
+        .formation-benefits {
+            margin-bottom: 1.5rem;
+        }
+
+        .fc-benefits-title {
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: var(--text3);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.75rem;
+        }
+
+        .formation-benefit {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            color: var(--text2);
+            font-size: 0.88rem;
+            margin-bottom: 0.55rem;
+        }
+
+        .formation-benefit::before {
+            content: '';
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            background: rgba(91,108,245,0.15);
+            border: 1px solid rgba(91,108,245,0.3);
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='8' fill='none'%3E%3Cpath d='M1.5 4l2.5 2.5L8.5 1.5' stroke='%235b6cf5' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        .formation-card:nth-child(2) .formation-benefit::before {
+            background-color: rgba(16,185,129,0.12);
+            border-color: rgba(16,185,129,0.3);
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='8' fill='none'%3E%3Cpath d='M1.5 4l2.5 2.5L8.5 1.5' stroke='%2310b981' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+        }
+
+        /* Meta stats row */
+        .formation-meta {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: rgba(255,255,255,0.025);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 12px;
+        }
+
+        .formation-meta-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+            text-align: center;
+        }
+
+        .formation-meta-label {
+            color: var(--text3);
+            font-size: 0.7rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+        }
+
+        .formation-meta-value {
+            color: var(--text);
+            font-weight: 800;
+            font-size: 1.1rem;
+        }
+
+        /* CTA button (full width) */
+        .formation-cta {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 0.9rem 1.5rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.92rem;
+            transition: all 0.25s ease;
+            margin-top: auto;
+        }
+        .formation-card:nth-child(1) .formation-cta {
+            background: linear-gradient(135deg,#5b6cf5,#7254e8);
+            color: #fff;
+            box-shadow: 0 8px 24px rgba(91,108,245,0.3);
+        }
+        .formation-card:nth-child(1) .formation-cta:hover {
+            box-shadow: 0 12px 32px rgba(91,108,245,0.45);
+            transform: translateY(-2px);
+        }
+        .formation-card:nth-child(2) .formation-cta {
+            background: linear-gradient(135deg,#10b981,#059669);
+            color: #fff;
+            box-shadow: 0 8px 24px rgba(16,185,129,0.3);
+        }
+        .formation-card:nth-child(2) .formation-cta:hover {
+            box-shadow: 0 12px 32px rgba(16,185,129,0.45);
+            transform: translateY(-2px);
+        }
+
+        /* ============ CURRICULUM SECTION ============ */
+        .curriculum {
+            padding: 6rem 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .curriculum-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2.5rem;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 12px;
+            padding: 5px;
+            width: fit-content;
+        }
+        .cur-tab {
+            padding: 0.5rem 1.4rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            color: var(--text3);
+            transition: all 0.2s ease;
+            font-family: 'Inter', sans-serif;
+        }
+        .cur-tab.active {
+            background: rgba(91,108,245,0.18);
+            color: #aab4ff;
+        }
+        .cur-panel { display: none; }
+        .cur-panel.active { display: block; }
+        .cur-modules {
+            display: grid;
+            gap: 0.6rem;
+        }
+        .cur-module {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.25rem;
+            background: rgba(255,255,255,0.025);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 12px;
+            transition: border-color 0.2s ease, background 0.2s ease;
+            cursor: pointer;
+        }
+        .cur-module:hover {
+            border-color: rgba(91,108,245,0.25);
+            background: rgba(91,108,245,0.04);
+        }
+        .cur-module-num {
+            min-width: 36px;
+            height: 30px;
+            padding: 0 6px;
+            border-radius: 8px;
+            background: rgba(91,108,245,0.12);
+            border: 1px solid rgba(91,108,245,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.65rem;
+            font-weight: 800;
+            color: #818cf8;
+            flex-shrink: 0;
+            white-space: nowrap;
+        }
+        .cur-module-info { flex: 1; }
+        .cur-module-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 2px;
+        }
+        .cur-module-sub {
+            font-size: 0.75rem;
+            color: var(--text3);
+        }
+        .cur-module-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.73rem;
+            color: var(--text3);
+            flex-shrink: 0;
+        }
+        .cur-free-badge {
+            background: rgba(16,185,129,0.12);
+            color: #34d399;
+            border: 1px solid rgba(16,185,129,0.2);
+            border-radius: 4px;
+            padding: 1px 7px;
+            font-size: 0.65rem;
+            font-weight: 700;
+        }
+
+        /* ============ HOW IT WORKS SECTION ============ */
+        .how-it-works {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .step {
+            background: #0b0c1c;
+            border: 1px solid rgba(91,108,245,0.12);
+            border-radius: 20px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        .step:hover {
+            transform: translateY(-6px);
+            border-color: rgba(91,108,245,0.3);
+        }
+        .step::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            border-radius: 20px 20px 0 0;
+        }
+        .step:nth-child(1)::before { background: linear-gradient(90deg, #5b6cf5, #7254e8); }
+        .step:nth-child(2)::before { background: linear-gradient(90deg, #f5a623, #f76b1c); }
+        .step:nth-child(3)::before { background: linear-gradient(90deg, #10b981, #059669); }
+
+        .step-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            line-height: 1;
+        }
+        .step:nth-child(1) .step-number { color: #818cf8; }
+        .step:nth-child(2) .step-number { color: #fbbf24; }
+        .step:nth-child(3) .step-number { color: #34d399; }
+
+        .step-icon {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .step h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 0.6rem;
+        }
+
+        .step p {
+            color: var(--text2);
+            font-size: 0.88rem;
+            line-height: 1.6;
+        }
+
+        /* ============ FEATURES GRID SECTION ============ */
+        .features {
+            padding: 6rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: linear-gradient(145deg, #0b0c1d 0%, #0e1025 100%);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 20px;
+            padding: 2rem 2rem 2rem;
+            transition: transform 0.3s cubic-bezier(0.22,1,0.36,1), border-color 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+            position: relative;
+        }
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(91,108,245,0.4), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(91,108,245,0.2);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.35), 0 0 0 1px rgba(91,108,245,0.1);
+        }
+        .feature-card:hover::before { opacity: 1; }
+
+        .feature-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: rgba(91,108,245,0.1);
+            border: 1px solid rgba(91,108,245,0.18);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            margin-bottom: 1.25rem;
+            transition: background 0.3s, border-color 0.3s;
+        }
+        .feature-card:hover .feature-icon {
+            background: rgba(91,108,245,0.18);
+            border-color: rgba(91,108,245,0.35);
+        }
+
+        .feature-card h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.6rem;
+            letter-spacing: -0.01em;
+            color: rgba(236,238,255,0.95);
+        }
+
+        .feature-card p {
+            color: rgba(180,188,240,0.55);
+            font-size: 0.875rem;
+            line-height: 1.65;
+        }
+
+        /* ============ TESTIMONIALS CAROUSEL ============ */
+        .testimonials {
+            padding: 6rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .carousel-container {
+            position: relative;
+            overflow: hidden;
+            margin-top: 3rem;
+        }
+
+        .carousel {
+            display: flex;
+            transition: transform 0.6s ease;
+        }
+
+        .testimonial-card {
+            min-width: 100%;
+            padding: 0 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .testimonial-card {
+                min-width: 33.333%;
+            }
+        }
+
+        .testimonial-content {
+            background: linear-gradient(160deg, #0d0e20 0%, #0a0b18 100%);
+            border: 1px solid rgba(91,108,245,0.13);
+            border-radius: 20px;
+            padding: 2rem 2rem 1.75rem;
+            height: 100%;
+            position: relative;
+            transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.04);
+        }
+        .testimonial-content::before {
+            content: '\201C';
+            position: absolute;
+            top: -10px;
+            left: 16px;
+            font-size: 7rem;
+            font-family: Georgia, serif;
+            color: rgba(91,108,245,0.1);
+            line-height: 1;
+            pointer-events: none;
+        }
+        .testimonial-content:hover {
+            border-color: rgba(91,108,245,0.35);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 40px rgba(91,108,245,0.08);
+        }
+
+        .testimonial-stars {
+            color: #fbbf24;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+
+        .testimonial-quote {
+            color: var(--text);
+            margin-bottom: 1.75rem;
+            font-size: 0.93rem;
+            line-height: 1.7;
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #fff;
+            font-size: 1.1rem;
+        }
+
+        .avatar-1 { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .avatar-2 { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        .avatar-3 { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+        .avatar-4 { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+        .avatar-5 { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+
+        .author-info h4 {
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .author-role {
+            font-size: 0.85rem;
+            color: var(--text3);
+        }
+
+        .carousel-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .carousel-arrow {
+            background: var(--bg2);
+            border: 1px solid var(--border2);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text2);
+            transition: all 0.25s ease;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .carousel-arrow:hover {
+            border-color: var(--indigo);
+            background: rgba(91, 108, 245, 0.12);
+            color: var(--indigo);
+            transform: scale(1.1);
+        }
+
+        .carousel-dots {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--border);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .dot.active {
+            background: var(--indigo);
+            width: 28px;
+            border-radius: 5px;
+        }
+
+        /* ============ PRICING SECTION ============ */
+        .pricing {
+            padding: 6rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .pricing-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            border-bottom: 1px solid var(--border);
+            flex-wrap: wrap;
+        }
+
+        .pricing-tab {
+            background: transparent;
+            border: none;
+            color: var(--text2);
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            position: relative;
+            transition: color 0.2s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .pricing-tab:hover {
+            color: var(--indigo);
+        }
+
+        .pricing-tab.active {
+            color: var(--indigo);
+        }
+
+        .pricing-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--indigo);
+        }
+
+        .pricing-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .pricing-card {
+            background: linear-gradient(160deg, #0d0e1f 0%, #0a0b18 100%);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 20px;
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: rgba(255,255,255,0.05);
+            transition: background 0.3s;
+        }
+
+        .pricing-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 20px;
+            background: radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.04) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+        }
+
+        .pricing-card.plan-pro {
+            border-color: rgba(91,108,245,0.45);
+            background: linear-gradient(160deg, rgba(91,108,245,0.09) 0%, rgba(114,84,232,0.05) 100%);
+            box-shadow: 0 0 0 0 rgba(91,108,245,0), inset 0 1px 0 rgba(255,255,255,0.08);
+        }
+
+        .pricing-card.plan-pro::before {
+            background: linear-gradient(90deg, var(--indigo), var(--violet));
+        }
+
+        .pricing-card.plan-pro:hover {
+            border-color: var(--indigo);
+            box-shadow: 0 30px 80px rgba(91,108,245,0.22), 0 0 80px rgba(91,108,245,0.08);
+        }
+
+        .pricing-card.elite {
+            border-color: rgba(184,147,62,0.5);
+            background: linear-gradient(160deg, rgba(184,147,62,0.1) 0%, rgba(114,84,232,0.05) 100%);
+            box-shadow: 0 0 0 0 rgba(184,147,62,0), inset 0 1px 0 rgba(255,255,255,0.08);
+        }
+
+        .pricing-card.elite::before {
+            background: linear-gradient(90deg, #b8933e, #f59e0b, #7254e8);
+        }
+
+        .pricing-card.elite:hover {
+            border-color: var(--gold);
+            box-shadow: 0 30px 80px rgba(184,147,62,0.22), 0 0 80px rgba(184,147,62,0.08);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -1px;
+            right: 24px;
+            background: linear-gradient(135deg, var(--indigo), var(--violet));
+            color: #fff;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 5px 14px;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .pricing-badge.gold {
+            background: linear-gradient(135deg, #b8933e, #f59e0b);
+        }
+
+        .pricing-plan-name {
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 1.2rem;
+            color: var(--text3);
+        }
+
+        .pricing-card.plan-pro .pricing-plan-name { color: var(--indigo); }
+        .pricing-card.elite .pricing-plan-name { color: var(--gold); }
+
+        .pricing-price {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 0.25rem;
+            line-height: 1;
+        }
+
+        .pricing-card.plan-pro .pricing-price { color: var(--text); }
+        .pricing-card.elite .pricing-price { color: var(--text); }
+
+        .pricing-price small {
+            font-size: 0.85rem;
+            color: var(--green);
+            font-weight: 600;
+            background: rgba(29,184,110,0.12);
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-left: 6px;
+        }
+
+        .pricing-description {
+            color: var(--text3);
+            font-size: 0.85rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 2rem;
+            flex-grow: 1;
+        }
+
+        .pricing-features li {
+            padding: 0.75rem 0;
+            color: var(--text2);
+            font-size: 0.9rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+
+        .pricing-features li::before {
+            content: '✓ ';
+            color: var(--green);
+            font-weight: 600;
+        }
+
+        .pricing-cta {
+            background: linear-gradient(135deg, var(--indigo), var(--violet));
+            color: #fff;
+            border: none;
+            padding: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .pricing-cta:hover {
+            opacity: 0.9;
+        }
+
+        /* ============ SECTION DIVIDERS ============ */
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border2), transparent);
+            margin: 0 2rem;
+            position: relative;
+        }
+
+        .section-divider::after {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 8px;
+            background: radial-gradient(ellipse, rgba(91,108,245,0.4), transparent);
+        }
+
+        /* ============ FAQ SECTION ============ */
+        .faq {
+            padding: 6rem 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            background: var(--bg2);
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .faq-question:hover {
+            background: var(--bg3);
+        }
+
+        .faq-icon {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+            color: var(--indigo);
+        }
+
+        .faq-item.open .faq-icon {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            background: var(--bg);
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-answer.open {
+            max-height: 500px;
+        }
+
+        .faq-answer-content {
+            padding: 1.5rem;
+            color: var(--text2);
+            line-height: 1.6;
+        }
+
+        /* ============ FINAL CTA SECTION ============ */
+        .final-cta {
+            padding: 6rem 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(91, 108, 245, 0.05) 0%, rgba(114, 84, 232, 0.05) 100%);
+            border: 2px solid var(--indigo);
+            border-radius: 12px;
+            margin-bottom: 4rem;
+        }
+
+        .final-cta h2 {
+            font-size: clamp(1.75rem, 5vw, 2.5rem);
+            margin-bottom: 1rem;
+        }
+
+        .final-cta p {
+            color: var(--text2);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .final-cta .buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* ============ FOOTER ============ */
+        footer {
+            background: var(--bg2);
+            border-top: 1px solid var(--border);
+            padding: 4rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h4 {
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        .footer-section p {
+            color: var(--text2);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: var(--text2);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--indigo);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border);
+            padding-top: 2rem;
+            text-align: center;
+            color: var(--text3);
+            font-size: 0.85rem;
+        }
+
+        /* ============ SCROLL REVEAL ============ */
+        .scroll-reveal {
+            opacity: 1;
+            transform: none;
+            transition: opacity 0.65s ease, transform 0.65s cubic-bezier(0.22,1,0.36,1);
+        }
+
+        .scroll-reveal.hidden {
+            opacity: 0;
+            transform: translateY(40px);
+        }
+
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 768px) {
+            .formations-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .steps-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .final-cta .buttons {
+                flex-direction: column;
+            }
+
+            .hero-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .stat:nth-child(2)::after { display: none; }
+            .stat:nth-child(1), .stat:nth-child(2) {
+                border-bottom: 1px solid rgba(255,255,255,0.07);
+            }
+
+            .section-title {
+                font-size: 1.75rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        /* ============ LIVE MARKET TICKER ============ */
+        .market-ticker {
+            position: fixed;
+            top: 66px;
+            left: 0; right: 0;
+            z-index: 998;
+            height: 34px;
+            background: rgba(4,5,14,0.96);
+            border-bottom: 1px solid rgba(91,108,245,0.18);
+            backdrop-filter: blur(12px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .ticker-inner {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            width: 100%;
+            max-width: 1200px;
+            padding: 0 2rem;
+        }
+        .ticker-live-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.6rem;
+            font-weight: 800;
+            letter-spacing: 0.18em;
+            color: #ef4444;
+            text-transform: uppercase;
+            margin-right: 1.5rem;
+            flex-shrink: 0;
+        }
+        .ticker-live-dot {
+            width: 5px; height: 5px;
+            border-radius: 50%;
+            background: #ef4444;
+            animation: pulse 1.4s ease infinite;
+            flex-shrink: 0;
+        }
+        .ticker-items {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            flex: 1;
+            overflow: hidden;
+        }
+        .ticker-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0 20px;
+            border-right: 1px solid rgba(255,255,255,0.07);
+            font-size: 0.75rem;
+            white-space: nowrap;
+            font-family: 'Inter', monospace;
+        }
+        .ticker-item:last-child { border-right: none; }
+        .tick-sym { color: rgba(180,188,240,0.55); font-size: 0.68rem; font-weight: 600; letter-spacing: 0.05em; }
+        .tick-price { color: #eceeff; font-weight: 700; }
+        .tick-up { color: #4ade80; font-size: 0.68rem; }
+        .tick-down { color: #f87171; font-size: 0.68rem; }
+        .tick-neutral { color: rgba(180,188,240,0.5); font-size: 0.68rem; }
+        .ticker-updated {
+            margin-left: auto;
+            font-size: 0.6rem;
+            color: rgba(180,188,240,0.3);
+            flex-shrink: 0;
+        }
+        @media (max-width: 640px) {
+            .market-ticker { display: none; }
+        }
+
+        /* ============ TRANSLATION SAFETY ============ */
+        [data-t] {
+            overflow-wrap: break-word;
+            word-break: break-word;
+        }
+
+        .btn, .nav-btn, .pricing-cta, .formation-cta {
+            white-space: normal;
+            overflow-wrap: break-word;
+            hyphens: auto;
+            font-size: clamp(0.75rem, 2vw, 1rem);
+        }
+
+        .feature-card h3, .formation-card h3 {
+            overflow-wrap: break-word;
+            font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+        }
+
+        .pricing-plan-name {
+            overflow-wrap: break-word;
+        }
+
+        .stat-label {
+            overflow-wrap: break-word;
+            font-size: clamp(0.7rem, 2vw, 0.9rem);
+        }
+
+        .section-title {
+            overflow-wrap: break-word;
+            font-size: clamp(1.6rem, 4vw, 3rem);
+        }
+
+        /* Nav on smaller screens with long translations */
+        .nav-center a {
+            white-space: nowrap;
+            font-size: clamp(0.75rem, 1.5vw, 0.95rem);
+        }
+    </style>
+</head>
+<body id="top">
+    <!-- PROGRESS BAR -->
+    <div class="progress-bar"></div>
+
+
+
+    <!-- NAVIGATION -->
+    <nav>
+        <a href="index.html" class="logo">
+            <img src="logo-icon.svg" class="logo-svg" alt="STATIC Academy logo" style="width:38px;height:38px;">
+            <div class="logo-text">
+                <span class="logo-main">STATIC</span>
+                <span class="logo-sub">Academy</span>
+            </div>
+        </a>
+
+        <div class="nav-center">
+            <a href="#formations" data-t="nav_courses">Courses</a>
+            <a href="#pricing" data-t="nav_pricing">Pricing</a>
+            <a href="#how-it-works" data-t="nav_how">How It Works</a>
+            <a href="dashboard.html" data-t="nav_dashboard">Dashboard</a>
+        </div>
+
+        <div class="nav-right" id="navRight">
+            <select class="lang-select" id="lang-select">
+                <option value="en">English</option>
+                <option value="fr">Français</option>
+            </select>
+
+            <a href="auth.html?mode=signin" class="nav-btn" data-t="nav_signin">Sign In</a>
+            <a href="auth.html?mode=signup" class="nav-btn nav-btn-primary" data-t="nav_start">Get Started</a>
+        </div>
+    </nav>
+
+    <!-- TRANSITION OVERLAY (created dynamically in JS) -->
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-blob hero-blob-1"></div>
+        <div class="hero-blob hero-blob-2"></div>
+        <div class="hero-blob hero-blob-3"></div>
+        <div class="hero-bg-dots"></div>
+
+        <div class="hero-inner">
+            <!-- LEFT SIDE CARDS -->
+            <div class="hero-side left">
+                <div class="float-card fc-ec1">
+                    <div class="fc-label">🛒 Revenue Today</div>
+                    <div class="fc-value fc-green">+€2,847</div>
+                    <div class="fc-sub">3 orders · Shopify store</div>
+                    <div class="fc-bar"><div class="fc-bar-fill" style="width:0;background:linear-gradient(90deg,#1db86e,#10b981);"></div></div>
+                </div>
+                <div class="float-card fc-ec2">
+                    <div class="fc-label">📦 Products Active</div>
+                    <div class="fc-value">127</div>
+                    <div class="fc-sub">Drop Shipping · TikTok Shop</div>
+                    <span class="fc-chip green">↑ +12 this week</span>
+                </div>
+            </div>
+
+            <!-- CENTER CONTENT -->
+            <div class="hero-content">
+                <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(91,108,245,0.1);border:1px solid rgba(91,108,245,0.25);border-radius:50px;padding:6px 18px;font-size:0.72rem;font-weight:700;color:#5b6cf5;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:1.75rem;font-family:'Inter',sans-serif;">
+                    <span style="width:6px;height:6px;border-radius:50%;background:#5b6cf5;animation:pulse 2s infinite;display:inline-block;"></span>
+                    <span data-t="hero_badge_text">Platform Now Live · 5,000+ Students</span>
+                </div>
+                <h1>
+                    <span class="w1">Master</span> <span class="w2 gradient-text">E-Commerce</span><br>
+                    <span class="w3">&amp;</span> <span class="w4 gradient-text">Trading</span> <span class="w5">Online</span>
+                </h1>
+                <p class="hero-subtitle" data-t="hero_subtitle">Learn from industry experts. Start your journey from zero to six figures with proven, step-by-step strategies.</p>
+
+                <div class="hero-buttons">
+                    <a href="auth.html?mode=signup" class="btn btn-primary" data-t="hero_cta_free">Begin Now</a>
+                    <a href="#formations" class="btn btn-secondary" data-t="hero_cta_view" onclick="event.preventDefault();document.getElementById('formations').scrollIntoView({behavior:'smooth'});">Explore Courses ↓</a>
+                </div>
+
+                <div class="hero-stats" id="hero-stats">
+                    <div class="stat">
+                        <div class="stat-number" data-count="5284" data-count-suffix="+">0</div>
+                        <div class="stat-label" data-t="stat_students">Active Students</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number" data-count="2">0</div>
+                        <div class="stat-label" data-t="stat_formations">Formations</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number" data-count="97" data-count-suffix="%">0</div>
+                        <div class="stat-label" data-t="stat_satisfaction">Satisfaction</div>
+                    </div>
+                    <div class="stat stat-free">
+                        <div class="stat-number stat-free-num">€0</div>
+                        <div class="stat-label" data-t="stat_start">To Start</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT SIDE CARDS -->
+            <div class="hero-side right">
+                <div class="float-card fc-tr1">
+                    <div class="fc-label">📈 BTC 24h Performance</div>
+                    <div class="fc-value fc-gold" id="heroPerf">—</div>
+                    <div class="fc-sub" id="heroPerfSub">Loading live data…</div>
+                    <svg class="fc-chart" width="180" height="40" viewBox="0 0 180 40" fill="none">
+                        <polyline points="0,35 30,28 55,22 75,26 100,14 130,8 160,4 180,2" stroke="#b8933e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.8"/>
+                        <polyline points="0,35 30,28 55,22 75,26 100,14 130,8 160,4 180,2" stroke="rgba(184,147,62,0.15)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                    </svg>
+                </div>
+                <div class="float-card fc-tr2">
+                    <div class="fc-label">🤖 AI Signal · BTC/USDT</div>
+                    <div class="fc-value" id="heroSignalDir" style="font-size:1rem;margin-bottom:0.6rem;">—</div>
+                    <span class="fc-chip gold" id="heroEntry">Entry: —</span>
+                    <br>
+                    <span class="fc-chip indigo" style="margin-top:6px;" id="heroConf">Signal: —</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MARQUEE SECTION -->
+    <div class="marquee-section">
+        <div class="marquee-track" id="marquee">
+            <span class="marquee-chip">🛒 E-Commerce</span>
+            <div class="marquee-sep"></div>
+            <span class="marquee-chip green">📈 Trading</span>
+            <div class="marquee-sep"></div>
+            <span class="marquee-chip">🚀 Drop Shipping</span>
+            <div class="marquee-sep"></div>
+            <span class="marquee-chip gold">₿ Crypto</span>
+            <div class="marquee-sep"></div>
+            <span class="marquee-chip green">💱 Forex</span>
+            <div class="marquee-sep"></div>
+            <span class="marquee-chip">📣 Digital Marketing</span>
+            <div class="marquee-sep"></div>
+            <span class="marquee-chip gold">⚙️ Automation</span>
+            <div class="marquee-sep"></div>
+            <span class="marquee-chip">🔍 SEO</span>
+            <div class="marquee-sep"></div>
+            <span class="marquee-chip green">💰 Paid Ads</span>
+            <div class="marquee-sep"></div>
+            <span class="marquee-chip">🎨 Branding</span>
+            <div class="marquee-sep"></div>
+            <span class="marquee-chip gold">📊 Analyse Technique</span>
+            <div class="marquee-sep"></div>
+            <span class="marquee-chip">🏗️ Scaling</span>
+            <div class="marquee-sep"></div>
+            <span class="marquee-chip green">📥 Resources</span>
+            <div class="marquee-sep"></div>
+            <span class="marquee-chip">💼 Marque Privée</span>
+            <div class="marquee-sep"></div>
+            <span class="marquee-chip gold">📉 Risk Management</span>
+            <div class="marquee-sep"></div>
+            <span class="marquee-chip">📧 Email Marketing</span>
+            <div class="marquee-sep"></div>
+            <!-- duplicate for seamless loop -->
+            <span class="marquee-chip">🛒 E-Commerce</span>
+            <div class="marquee-sep"></div>
+            <span class="marquee-chip green">📈 Trading</span>
+            <div class="marquee-sep"></div>
+            <span class="marquee-chip">🚀 Drop Shipping</span>
+            <div class="marquee-sep"></div>
+            <span class="marquee-chip gold">₿ Crypto</span>
+            <div class="marquee-sep"></div>
+            <span class="marquee-chip green">💱 Forex</span>
+            <div class="marquee-sep"></div>
+            <span class="marquee-chip">📣 Digital Marketing</span>
+            <div class="marquee-sep"></div>
+            <span class="marquee-chip gold">⚙️ Automation</span>
+            <div class="marquee-sep"></div>
+            <span class="marquee-chip">🔍 SEO</span>
+            <div class="marquee-sep"></div>
+            <span class="marquee-chip green">💰 Paid Ads</span>
+            <div class="marquee-sep"></div>
+            <span class="marquee-chip">🎨 Branding</span>
+            <div class="marquee-sep"></div>
+            <span class="marquee-chip gold">📊 Analyse Technique</span>
+            <div class="marquee-sep"></div>
+            <span class="marquee-chip">🏗️ Scaling</span>
+            <div class="marquee-sep"></div>
+            <span class="marquee-chip green">📥 Resources</span>
+            <div class="marquee-sep"></div>
+            <span class="marquee-chip">💼 Marque Privée</span>
+            <div class="marquee-sep"></div>
+            <span class="marquee-chip gold">📉 Risk Management</span>
+            <div class="marquee-sep"></div>
+            <span class="marquee-chip">📧 Email Marketing</span>
+            <div class="marquee-sep"></div>
+        </div>
+    </div>
+
+    <!-- STATS STRIP -->
+    <div class="stats-strip scroll-reveal hidden">
+        <div class="stat-block">
+            <span class="stat-icon">🎓</span>
+            <div class="stat-number" data-count="5284" data-count-suffix="+">0</div>
+            <div class="stat-label" data-t="strip_students_label">Students Enrolled</div>
+            <div class="stat-sublabel" data-t="strip_students_sub">+340 this month</div>
+        </div>
+        <div class="stat-block">
+            <span class="stat-icon">💰</span>
+            <div class="stat-number" data-count-prefix="€" data-count="3200" data-count-suffix="+">0</div>
+            <div class="stat-label" data-t="strip_revenue_label">Avg. Monthly Revenue</div>
+            <div class="stat-sublabel" data-t="strip_revenue_sub">After 90 days</div>
+        </div>
+        <div class="stat-block">
+            <span class="stat-icon">📚</span>
+            <div class="stat-number" data-count="127">0</div>
+            <div class="stat-label" data-t="strip_hours_label">Hours of Content</div>
+            <div class="stat-sublabel" data-t="strip_hours_sub">Updated weekly</div>
+        </div>
+        <div class="stat-block">
+            <span class="stat-icon">⭐</span>
+            <div class="stat-number" data-count-decimal="4.9" data-count-suffix="/5">0</div>
+            <div class="stat-label" data-t="strip_rating_label">Average Rating</div>
+            <div class="stat-sublabel" data-t="strip_rating_sub">From 1,200+ reviews</div>
+        </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- FORMATIONS SECTION -->
+    <section id="formations" class="formations scroll-reveal hidden">
+        <div class="section-label" data-t="formations_label">FORMATIONS</div>
+        <h2 class="section-title" data-t="formations_title">Master Your Craft</h2>
+
+        <div class="formations-grid">
+
+            <!-- ── E-Commerce Card ── -->
+            <div class="formation-card">
+                <div class="fc-header">
+                    <div class="fc-header-top">
+                        <div class="formation-emoji">📦</div>
+                        <div class="fc-badges">
+                            <span class="fc-badge bestseller">⭐ Bestseller</span>
+                            <span class="fc-badge updated">Updated 2025</span>
+                        </div>
+                    </div>
+                    <div class="formation-tag" data-t="formation_ecom_tag">📦 E-Commerce</div>
+                    <h3 data-t="formation_ecom_title">Complete E-Commerce System</h3>
+                </div>
+
+                <div class="fc-body">
+                    <p data-t="formation_ecom_desc">Learn to build, scale, and automate profitable online stores — from product sourcing to paid ads and full marketing automation.</p>
+
+                    <div class="fc-rating">
+                        <span class="fc-stars">★★★★★</span>
+                        <span class="fc-rating-num">4.9</span>
+                        <span class="fc-rating-count">(1,240 reviews)</span>
+                    </div>
+
+                    <div class="fc-enroll-bar">
+                        <div class="fc-enroll-top">
+                            <span>🔥 2,847 students enrolled</span>
+                            <span>78% spots filled</span>
+                        </div>
+                        <div class="fc-enroll-track"><div class="fc-enroll-fill"></div></div>
+                    </div>
+
+                    <div class="formation-benefits">
+                        <div class="fc-benefits-title" data-t="fc_benefits_title">What you'll master</div>
+                        <div class="formation-benefit" data-t="formation_benefit_1">Store setup from zero — Shopify, WooCommerce</div>
+                        <div class="formation-benefit" data-t="formation_benefit_2">Winning product research & supplier sourcing</div>
+                        <div class="formation-benefit" data-t="formation_benefit_3">Facebook & TikTok paid ads at scale</div>
+                        <div class="formation-benefit" data-t="formation_benefit_4">Email automation & abandoned cart recovery</div>
+                        <div class="formation-benefit" data-t="formation_benefit_ecom5">SEO, influencer & organic growth strategies</div>
+                        <div class="formation-benefit" data-t="formation_benefit_ecom6">Full business automation with AI tools</div>
+                    </div>
+
+                    <div class="formation-meta">
+                        <div class="formation-meta-item">
+                            <span class="formation-meta-value">12</span>
+                            <span class="formation-meta-label" data-t="formation_modules">Modules</span>
+                        </div>
+                        <div class="formation-meta-item">
+                            <span class="formation-meta-value">48h+</span>
+                            <span class="formation-meta-label" data-t="formation_hours">Content</span>
+                        </div>
+                        <div class="formation-meta-item">
+                            <span class="formation-meta-value">All</span>
+                            <span class="formation-meta-label" data-t="formation_level">Level</span>
+                        </div>
+                    </div>
+
+                    <a href="ecommerce-home.html" onclick="event.preventDefault(); navigateWithTransition('ecommerce-home.html', 'ecommerce')" class="formation-cta">
+                        <span data-t="formation_cta_ecom">Start E-Commerce Formation</span>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- ── Trading Card ── -->
+            <div class="formation-card">
+                <div class="fc-header">
+                    <div class="fc-header-top">
+                        <div class="formation-emoji">📈</div>
+                        <div class="fc-badges">
+                            <span class="fc-badge new">🚀 Most Popular</span>
+                            <span class="fc-badge updated">Live Signals</span>
+                        </div>
+                    </div>
+                    <div class="formation-tag" data-t="formation_trading_tag">📈 Trading</div>
+                    <h3 data-t="formation_trading_title">Professional Trading System</h3>
+                </div>
+
+                <div class="fc-body">
+                    <p data-t="formation_trading_desc">Master Forex, crypto and stocks with professional strategies, live market analysis, real trades and a built-in signal system.</p>
+
+                    <div class="fc-rating">
+                        <span class="fc-stars">★★★★★</span>
+                        <span class="fc-rating-num">4.8</span>
+                        <span class="fc-rating-count">(983 reviews)</span>
+                    </div>
+
+                    <div class="fc-enroll-bar">
+                        <div class="fc-enroll-top">
+                            <span>📊 1,940 traders enrolled</span>
+                            <span>63% spots filled</span>
+                        </div>
+                        <div class="fc-enroll-track"><div class="fc-enroll-fill"></div></div>
+                    </div>
+
+                    <div class="formation-benefits">
+                        <div class="fc-benefits-title" data-t="fc_benefits_title">What you'll master</div>
+                        <div class="formation-benefit" data-t="formation_benefit_5">Technical analysis: candlesticks, patterns, indicators</div>
+                        <div class="formation-benefit" data-t="formation_benefit_6">Risk management & position sizing</div>
+                        <div class="formation-benefit" data-t="formation_benefit_7">Live Forex, crypto & stock market trades</div>
+                        <div class="formation-benefit" data-t="formation_benefit_8">Real-time AI trading signals (BTC, ETH, EUR/USD)</div>
+                        <div class="formation-benefit" data-t="formation_benefit_tr5">Trading psychology & emotional discipline</div>
+                        <div class="formation-benefit" data-t="formation_benefit_tr6">Building a consistent €500–€5,000/month system</div>
+                    </div>
+
+                    <div class="formation-meta">
+                        <div class="formation-meta-item">
+                            <span class="formation-meta-value">15</span>
+                            <span class="formation-meta-label" data-t="formation_modules">Modules</span>
+                        </div>
+                        <div class="formation-meta-item">
+                            <span class="formation-meta-value">60h+</span>
+                            <span class="formation-meta-label" data-t="formation_hours">Content</span>
+                        </div>
+                        <div class="formation-meta-item">
+                            <span class="formation-meta-value">All</span>
+                            <span class="formation-meta-label" data-t="formation_level">Level</span>
+                        </div>
+                    </div>
+
+                    <a href="trading-home.html" onclick="event.preventDefault(); navigateWithTransition('trading-home.html', 'trading')" class="formation-cta">
+                        <span data-t="formation_cta_trading">Start Trading Formation</span>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- CURRICULUM PREVIEW SECTION -->
+    <section class="curriculum scroll-reveal hidden">
+        <div class="section-label" data-t="curriculum_label">CURRICULUM</div>
+        <h2 class="section-title" data-t="curriculum_title">Inside the Formations</h2>
+
+        <div class="curriculum-tabs">
+            <button class="cur-tab active" onclick="switchCurTab('ecom', this)" data-t="curriculum_tab_ecom">📦 E-Commerce</button>
+            <button class="cur-tab" onclick="switchCurTab('trading', this)" data-t="curriculum_tab_trading">📈 Trading</button>
+        </div>
+
+        <div id="cur-ecom" class="cur-panel active">
+            <div class="cur-modules">
+                <div class="cur-module">
+                    <div class="cur-module-num">01</div>
+                    <div class="cur-module-info">
+                        <div class="cur-module-title">E-Commerce Foundations & Mindset</div>
+                        <div class="cur-module-sub">Business models, platforms overview, mindset for success</div>
+                    </div>
+                    <div class="cur-module-meta"><span class="cur-free-badge">FREE</span> 3 lessons · 1h 20m</div>
+                </div>
+                <div class="cur-module">
+                    <div class="cur-module-num">02</div>
+                    <div class="cur-module-info">
+                        <div class="cur-module-title">Finding Winning Products</div>
+                        <div class="cur-module-sub">Product research tools, trend analysis, competitor spying</div>
+                    </div>
+                    <div class="cur-module-meta">5 lessons · 2h 45m</div>
+                </div>
+                <div class="cur-module">
+                    <div class="cur-module-num">03</div>
+                    <div class="cur-module-info">
+                        <div class="cur-module-title">Store Setup — Shopify & WooCommerce</div>
+                        <div class="cur-module-sub">Full store build, theme, checkout, domains, payment gateways</div>
+                    </div>
+                    <div class="cur-module-meta">7 lessons · 3h 30m</div>
+                </div>
+                <div class="cur-module">
+                    <div class="cur-module-num">04</div>
+                    <div class="cur-module-info">
+                        <div class="cur-module-title">Supplier Sourcing & Drop Shipping</div>
+                        <div class="cur-module-sub">AliExpress, CJ Dropshipping, private suppliers, negotiation</div>
+                    </div>
+                    <div class="cur-module-meta">6 lessons · 2h 55m</div>
+                </div>
+                <div class="cur-module">
+                    <div class="cur-module-num">05</div>
+                    <div class="cur-module-info">
+                        <div class="cur-module-title">Facebook & Instagram Ads Mastery</div>
+                        <div class="cur-module-sub">Campaigns, targeting, creatives, scaling profitable ads</div>
+                    </div>
+                    <div class="cur-module-meta">8 lessons · 4h 10m</div>
+                </div>
+                <div class="cur-module">
+                    <div class="cur-module-num">06</div>
+                    <div class="cur-module-info">
+                        <div class="cur-module-title">TikTok Shop & Organic Growth</div>
+                        <div class="cur-module-sub">TikTok algorithm, viral content, TikTok Shop integration</div>
+                    </div>
+                    <div class="cur-module-meta">5 lessons · 2h 20m</div>
+                </div>
+                <div class="cur-module">
+                    <div class="cur-module-num">07–12</div>
+                    <div class="cur-module-info">
+                        <div class="cur-module-title">Email Automation · SEO · Brand Building · Scaling & more...</div>
+                        <div class="cur-module-sub">6 advanced modules included with Pro & Elite plans</div>
+                    </div>
+                    <div class="cur-module-meta" style="color:#818cf8;">🔒 Pro</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="cur-trading" class="cur-panel">
+            <div class="cur-modules">
+                <div class="cur-module">
+                    <div class="cur-module-num">01</div>
+                    <div class="cur-module-info">
+                        <div class="cur-module-title">Trading Foundations & Market Structure</div>
+                        <div class="cur-module-sub">How markets work, order types, reading charts, timeframes</div>
+                    </div>
+                    <div class="cur-module-meta"><span class="cur-free-badge">FREE</span> 4 lessons · 2h</div>
+                </div>
+                <div class="cur-module">
+                    <div class="cur-module-num">02</div>
+                    <div class="cur-module-info">
+                        <div class="cur-module-title">Technical Analysis — Candlesticks & Patterns</div>
+                        <div class="cur-module-sub">Doji, engulfing, hammer, head & shoulders, flags, wedges</div>
+                    </div>
+                    <div class="cur-module-meta">6 lessons · 3h 15m</div>
+                </div>
+                <div class="cur-module">
+                    <div class="cur-module-num">03</div>
+                    <div class="cur-module-info">
+                        <div class="cur-module-title">Indicators Masterclass</div>
+                        <div class="cur-module-sub">RSI, MACD, Bollinger Bands, EMA, volume analysis</div>
+                    </div>
+                    <div class="cur-module-meta">5 lessons · 2h 50m</div>
+                </div>
+                <div class="cur-module">
+                    <div class="cur-module-num">04</div>
+                    <div class="cur-module-info">
+                        <div class="cur-module-title">Risk Management & Money Management</div>
+                        <div class="cur-module-sub">Position sizing, stop loss, take profit, R:R ratios</div>
+                    </div>
+                    <div class="cur-module-meta">4 lessons · 1h 45m</div>
+                </div>
+                <div class="cur-module">
+                    <div class="cur-module-num">05</div>
+                    <div class="cur-module-info">
+                        <div class="cur-module-title">Live Trading — Forex (EUR/USD, GBP/USD)</div>
+                        <div class="cur-module-sub">Real market sessions, entries, exits, full trade management</div>
+                    </div>
+                    <div class="cur-module-meta">8 lessons · 5h 30m</div>
+                </div>
+                <div class="cur-module">
+                    <div class="cur-module-num">06</div>
+                    <div class="cur-module-info">
+                        <div class="cur-module-title">Crypto Trading — BTC, ETH, Altcoins</div>
+                        <div class="cur-module-sub">On-chain analysis, DeFi, spot vs futures, exchange setup</div>
+                    </div>
+                    <div class="cur-module-meta">7 lessons · 4h 00m</div>
+                </div>
+                <div class="cur-module">
+                    <div class="cur-module-num">07–15</div>
+                    <div class="cur-module-info">
+                        <div class="cur-module-title">AI Signals · Psychology · Stocks · Automation & more...</div>
+                        <div class="cur-module-sub">9 advanced modules with live signal access included in Pro & Elite</div>
+                    </div>
+                    <div class="cur-module-meta" style="color:#818cf8;">🔒 Pro</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- HOW IT WORKS SECTION -->
+    <section id="how-it-works" class="how-it-works scroll-reveal hidden">
+        <div class="section-label" data-t="how_label">HOW IT WORKS</div>
+        <h2 class="section-title" data-t="how_title">From Zero to Revenue in 3 Steps</h2>
+
+        <div class="steps-grid">
+            <div class="step">
+                <span class="step-icon">🎯</span>
+                <div class="step-number">01</div>
+                <h3 data-t="step_1_title">Create Your Account</h3>
+                <p data-t="step_1_desc">Sign up free in under 30 seconds. Instant access to starter modules, community and resources — no credit card needed.</p>
+            </div>
+
+            <div class="step">
+                <span class="step-icon">📚</span>
+                <div class="step-number">02</div>
+                <h3 data-t="step_2_title">Choose Your Path</h3>
+                <p data-t="step_2_desc">Pick E-Commerce, Trading, or both. Follow the step-by-step curriculum at your own pace, with lifetime access.</p>
+            </div>
+
+            <div class="step">
+                <span class="step-icon">💰</span>
+                <div class="step-number">03</div>
+                <h3 data-t="step_3_title">Launch & Earn</h3>
+                <p data-t="step_3_desc">Apply proven strategies from day one. Our students average their first revenue within 3 weeks of starting.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- FEATURES SECTION -->
+    <section class="features scroll-reveal hidden">
+        <div class="section-label" data-t="features_label">FEATURES</div>
+        <h2 class="section-title" data-t="features_title">Everything You Need to Succeed</h2>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🎬</div>
+                <h3 data-t="feat_1_title">Expert Video Content</h3>
+                <p data-t="feat_1_desc">High-quality, structured video lessons taught by industry professionals with real-world experience.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3 data-t="feat_2_title">Real Market Cases</h3>
+                <p data-t="feat_2_desc">Learn from actual profitable campaigns and trades. Understand what works and why through detailed analysis.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📥</div>
+                <h3 data-t="feat_3_title">Downloadable Resources</h3>
+                <p data-t="feat_3_desc">PDF cheat sheets, strategy templates, and tools you can download and use immediately.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🌍</div>
+                <h3 data-t="feat_4_title">Multi-Language</h3>
+                <p data-t="feat_4_desc">Learn in English or French. Full bilingual content.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">💬</div>
+                <h3 data-t="feat_5_title">Community Access</h3>
+                <p data-t="feat_5_desc">Join our thriving community of entrepreneurs and traders. Share strategies and get support 24/7.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">♾️</div>
+                <h3 data-t="feat_6_title">Lifetime Access</h3>
+                <p data-t="feat_6_desc">One-time purchase. Lifetime access to all content, updates, and new modules added monthly.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📱</div>
+                <h3 data-t="feat_7_title">Mobile Friendly</h3>
+                <p data-t="feat_7_desc">Learn from any device — desktop, tablet, or phone. Your progress syncs automatically across all screens.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3 data-t="feat_8_title">Practical Exercises</h3>
+                <p data-t="feat_8_desc">Every module includes hands-on assignments, real-world scenarios, and step-by-step action plans you apply immediately.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS CAROUSEL SECTION -->
+    <section class="testimonials scroll-reveal hidden">
+        <div class="section-label" data-t="testimonials_label">TESTIMONIALS</div>
+        <h2 class="section-title" data-t="testimonials_title">Loved by Students Worldwide</h2>
+
+        <div class="carousel-container">
+            <div class="carousel" id="carousel">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="testimonial-stars">★★★★★</div>
+                        <p class="testimonial-quote">"Went from zero to my first €2000 sale in 3 weeks. This formation removed all the guesswork and gave me a clear roadmap."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar avatar-1">AM</div>
+                            <div class="author-info">
+                                <h4>Alex M.</h4>
+                                <p class="author-role">Digital Entrepreneur</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="testimonial-stars">★★★★★</div>
+                        <p class="testimonial-quote">"The trading strategies completely changed my approach. I went from emotional trading to systematic, risk-managed profitable trades."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar avatar-2">SK</div>
+                            <div class="author-info">
+                                <h4>Sarah K.</h4>
+                                <p class="author-role">Professional Trader</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="testimonial-stars">★★★★★</div>
+                        <p class="testimonial-quote">"Best investment I made this year. Already made back the cost 10 times over with my drop shipping business."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar avatar-3">LB</div>
+                            <div class="author-info">
+                                <h4>Lucas B.</h4>
+                                <p class="author-role">Drop Shipper</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="testimonial-stars">★★★★★</div>
+                        <p class="testimonial-quote">"Clear, structured, no fluff. Pure value packed into every video. I recommend this to anyone wanting to learn properly."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar avatar-4">MC</div>
+                            <div class="author-info">
+                                <h4>Marie C.</h4>
+                                <p class="author-role">Student</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="testimonial-stars">★★★★★</div>
+                        <p class="testimonial-quote">"The Elite resources and downloadable templates saved me hundreds of hours. Everything is ready to use from day one."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar avatar-5">JT</div>
+                            <div class="author-info">
+                                <h4>James T.</h4>
+                                <p class="author-role">Freelancer & Trader</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="testimonial-stars">★★★★★</div>
+                        <p class="testimonial-quote">"I had zero knowledge about trading before. After 2 months with Static Academy I made my first profitable week consistently."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar" style="background:linear-gradient(135deg,#f59e0b,#b8933e);">KD</div>
+                            <div class="author-info">
+                                <h4>Kevin D.</h4>
+                                <p class="author-role">Crypto Trader</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="testimonial-stars">★★★★★</div>
+                        <p class="testimonial-quote">"The e-commerce modules are incredibly detailed. I followed the product research method and found a winner on my first try."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar" style="background:linear-gradient(135deg,#1db86e,#0ea5e9);">NL</div>
+                            <div class="author-info">
+                                <h4>Nina L.</h4>
+                                <p class="author-role">Shopify Entrepreneur</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="testimonial-stars">★★★★★</div>
+                        <p class="testimonial-quote">"I was skeptical at first but the free modules alone convinced me. Pro plan was a no-brainer — already profitable in month one."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar" style="background:linear-gradient(135deg,#e879f9,#7254e8);">RP</div>
+                            <div class="author-info">
+                                <h4>Romain P.</h4>
+                                <p class="author-role">Side-Hustle Builder</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="testimonial-stars">★★★★★</div>
+                        <p class="testimonial-quote">"Multi-language support is a game changer. I took the whole course in French and the quality was identical. Top tier platform."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar" style="background:linear-gradient(135deg,#5b6cf5,#06b6d4);">TA</div>
+                            <div class="author-info">
+                                <h4>Tarik A.</h4>
+                                <p class="author-role">Student, Morocco</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="testimonial-stars">★★★★★</div>
+                        <p class="testimonial-quote">"The community alone is worth the price. Everyone shares wins, strategies and tips. I learn something new every single day."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar" style="background:linear-gradient(135deg,#f43f5e,#f59e0b);">CW</div>
+                            <div class="author-info">
+                                <h4>Charlotte W.</h4>
+                                <p class="author-role">E-Commerce & Trader</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="testimonial-stars">★★★★★</div>
+                        <p class="testimonial-quote">"Elite plan is insane value. The depth of the modules and the strategy resources are unmatched. Like having a mentor 24/7."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar" style="background:linear-gradient(135deg,#7254e8,#f59e0b);">YB</div>
+                            <div class="author-info">
+                                <h4>Yoann B.</h4>
+                                <p class="author-role">Full-time Trader</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="carousel-controls">
+            <button class="carousel-arrow" id="carousel-prev">←</button>
+            <div class="carousel-dots" id="carousel-dots"></div>
+            <button class="carousel-arrow" id="carousel-next">→</button>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- PRICING SECTION -->
+    <section id="pricing" class="pricing scroll-reveal hidden">
+        <div class="section-label" data-t="pricing_label">PRICING</div>
+        <h2 class="section-title" data-t="pricing_title">Transparent Pricing for Everyone</h2>
+
+        <div class="pricing-tabs" id="pricing-tabs">
+            <button class="pricing-tab active" data-tab="ec">E-Commerce</button>
+            <button class="pricing-tab" data-tab="tr">Trading</button>
+            <button class="pricing-tab" data-tab="bundle">Bundle</button>
+        </div>
+
+        <div class="pricing-cards" id="pricing-ec" data-pricing-tab="ec">
+            <div class="pricing-card">
+                <h3 class="pricing-plan-name">Free</h3>
+                <div class="pricing-price" style="color:var(--text2);">€0</div>
+                <p class="pricing-description">Start learning, no card needed</p>
+                <ul class="pricing-features">
+                    <li>2 Starter Modules</li>
+                    <li>Product Research Intro</li>
+                    <li>Store Creation Basics</li>
+                    <li>Community Access</li>
+                    <li>Email Support</li>
+                </ul>
+                <button class="pricing-cta" style="background:transparent;border:1px solid var(--border2);color:var(--text2);" onclick="window.location.href='auth.html?mode=signup'">Get Started Free</button>
+            </div>
+
+            <div class="pricing-card plan-pro">
+                <div class="pricing-badge">Most Popular</div>
+                <h3 class="pricing-plan-name">Pro</h3>
+                <div class="pricing-price">€79</div>
+                <p class="pricing-description">One-time payment · Lifetime access</p>
+                <ul class="pricing-features">
+                    <li>All 12 E-Commerce Modules</li>
+                    <li>Facebook & TikTok Ads Strategy</li>
+                    <li>Product Research System</li>
+                    <li>Email & SMS Automation</li>
+                    <li>PDF Cheat Sheets</li>
+                    <li>Priority Support</li>
+                    <li>Lifetime Access + Updates</li>
+                </ul>
+                <button class="pricing-cta" onclick="window.location.href='payment.html?course=ec&plan=pro'">Get Pro Access →</button>
+            </div>
+
+            <div class="pricing-card elite">
+                <div class="pricing-badge gold">Elite</div>
+                <h3 class="pricing-plan-name">Elite</h3>
+                <div class="pricing-price" style="color:var(--gold);">€139</div>
+                <p class="pricing-description">One-time payment · Lifetime access</p>
+                <ul class="pricing-features">
+                    <li>All 12 Modules + Bonuses</li>
+                    <li>Scaling to €100k/month</li>
+                    <li>International Expansion</li>
+                    <li>Brand Building Strategy</li>
+                    <li>📥 Full Resource Library (20+ PDFs)</li>
+                    <li>Supplier Negotiation Scripts</li>
+                    <li>Early Access to New Modules</li>
+                </ul>
+                <button class="pricing-cta" style="background:linear-gradient(135deg,#b8933e,#f59e0b);color:#07080f;" onclick="window.location.href='payment.html?course=ec&plan=elite'">Unlock Elite →</button>
+            </div>
+        </div>
+
+        <div class="pricing-cards" id="pricing-tr" data-pricing-tab="tr" style="display:none;">
+            <div class="pricing-card">
+                <h3 class="pricing-plan-name">Free</h3>
+                <div class="pricing-price" style="color:var(--text2);">€0</div>
+                <p class="pricing-description">Start learning, no card needed</p>
+                <ul class="pricing-features">
+                    <li>2 Starter Modules</li>
+                    <li>Trading Fundamentals</li>
+                    <li>Chart Reading Basics</li>
+                    <li>Community Access</li>
+                    <li>Email Support</li>
+                </ul>
+                <button class="pricing-cta" style="background:transparent;border:1px solid var(--border2);color:var(--text2);" onclick="window.location.href='auth.html?mode=signup'">Get Started Free</button>
+            </div>
+
+            <div class="pricing-card plan-pro">
+                <div class="pricing-badge">Most Popular</div>
+                <h3 class="pricing-plan-name">Pro</h3>
+                <div class="pricing-price">€79</div>
+                <p class="pricing-description">One-time payment · Lifetime access</p>
+                <ul class="pricing-features">
+                    <li>All 10 Trading Modules</li>
+                    <li>Technical Analysis Mastery</li>
+                    <li>Risk Management System</li>
+                    <li>50+ Commented Trade Setups</li>
+                    <li>PDF Strategy Sheets</li>
+                    <li>Priority Support</li>
+                    <li>Lifetime Access + Updates</li>
+                </ul>
+                <button class="pricing-cta" onclick="window.location.href='payment.html?course=tr&plan=pro'">Get Pro Access →</button>
+            </div>
+
+            <div class="pricing-card elite">
+                <div class="pricing-badge gold">Elite</div>
+                <h3 class="pricing-plan-name">Elite</h3>
+                <div class="pricing-price" style="color:var(--gold);">€139</div>
+                <p class="pricing-description">One-time payment · Lifetime access</p>
+                <ul class="pricing-features">
+                    <li>All 15 Modules + Bonuses</li>
+                    <li>ICT & Smart Money Concepts</li>
+                    <li>Automation & Trading Bots</li>
+                    <li>Personalized Trading Plan</li>
+                    <li>📥 Full Resource Library (25+ PDFs)</li>
+                    <li>Prop Firm Prep Pack</li>
+                    <li>Early Access to New Modules</li>
+                </ul>
+                <button class="pricing-cta" style="background:linear-gradient(135deg,#b8933e,#f59e0b);color:#07080f;" onclick="window.location.href='payment.html?course=tr&plan=elite'">Unlock Elite →</button>
+            </div>
+        </div>
+
+        <div class="pricing-cards" id="pricing-bundle" data-pricing-tab="bundle" style="display:none;">
+            <div class="pricing-card">
+                <h3 class="pricing-plan-name">Free</h3>
+                <div class="pricing-price" style="color:var(--text2);">€0</div>
+                <p class="pricing-description">Try both formations free</p>
+                <ul class="pricing-features">
+                    <li>Free E-Commerce Modules</li>
+                    <li>Free Trading Modules</li>
+                    <li>Community Access</li>
+                    <li>Email Support</li>
+                </ul>
+                <button class="pricing-cta" style="background:transparent;border:1px solid var(--border2);color:var(--text2);" onclick="window.location.href='auth.html?mode=signup'">Get Started Free</button>
+            </div>
+
+            <div class="pricing-card plan-pro">
+                <div class="pricing-badge">Best Value</div>
+                <h3 class="pricing-plan-name">Bundle Pro</h3>
+                <div class="pricing-price">€119 <small style="font-size:.75rem;color:rgba(255,255,255,.35);text-decoration:line-through;">€158</small></div>
+                <p class="pricing-description" data-t="bundle_pro_desc">Both formations · <strong style="color:#818cf8">Save €39 (25% off)</strong></p>
+                <ul class="pricing-features">
+                    <li>All E-Commerce Pro Modules (12)</li>
+                    <li>All Trading Pro Modules (10)</li>
+                    <li>22+ Total Modules</li>
+                    <li>Facebook, TikTok & Trading Ads</li>
+                    <li>Risk Management System</li>
+                    <li>PDF Cheat Sheets for Both</li>
+                    <li>Priority Support</li>
+                    <li>Lifetime Access + Updates</li>
+                </ul>
+                <button class="pricing-cta" onclick="window.location.href='payment.html?course=bundle&plan=pro'">Get Bundle Pro →</button>
+            </div>
+
+            <div class="pricing-card elite">
+                <div class="pricing-badge gold">Best of Both</div>
+                <h3 class="pricing-plan-name">Bundle Elite</h3>
+                <div class="pricing-price" style="color:var(--gold);">€219 <small style="font-size:.75rem;color:rgba(255,255,255,.35);text-decoration:line-through;">€278</small></div>
+                <p class="pricing-description" data-t="bundle_elite_desc">Both formations · <strong style="color:#c9a84c">Save €59 (21% off)</strong></p>
+                <ul class="pricing-features">
+                    <li>All E-Commerce Elite Modules</li>
+                    <li>All Trading Elite Modules</li>
+                    <li>20+ Total Modules + Bonuses</li>
+                    <li>ICT & Smart Money + Scaling</li>
+                    <li>Automation & Bots</li>
+                    <li>📥 Full Resource Library (45+ PDFs)</li>
+                    <li>Early Access to New Modules</li>
+                </ul>
+                <button class="pricing-cta" style="background:linear-gradient(135deg,#b8933e,#f59e0b);color:#07080f;" onclick="window.location.href='payment.html?course=bundle&plan=elite'">Get Ultimate Bundle →</button>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- FAQ SECTION -->
+    <section class="faq scroll-reveal hidden">
+        <div class="section-label" data-t="faq_label">FAQ</div>
+        <h2 class="section-title" data-t="faq_title">Frequently Asked Questions</h2>
+
+        <div id="faq-container"></div>
+    </section>
+
+    <!-- FINAL CTA SECTION -->
+    <section class="final-cta scroll-reveal hidden">
+        <h2 data-t="cta_title">Ready to Transform Your Financial Future?</h2>
+        <p data-t="cta_subtitle">Join thousands of successful students. Start your formation today, completely free.</p>
+        <div class="buttons">
+            <a href="auth.html?mode=signup" class="btn btn-primary" data-t="cta_btn1">Join Static Academy Free</a>
+            <a href="#pricing" class="btn btn-secondary" data-t="cta_btn2" onclick="event.preventDefault();document.getElementById('pricing').scrollIntoView({behavior:'smooth'});">See All Plans</a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Static Academy</h4>
+                <p data-t="trust_text">Empowering the next generation of entrepreneurs and traders with practical, proven education.</p>
+            </div>
+
+            <div class="footer-section">
+                <h4 data-t="footer_col_courses">Courses</h4>
+                <ul class="footer-links">
+                    <li><a href="ecommerce-home.html" onclick="event.preventDefault(); navigateWithTransition('ecommerce-home.html', 'ecommerce')" data-t="footer_ecommerce">E-Commerce</a></li>
+                    <li><a href="trading-home.html" onclick="event.preventDefault(); navigateWithTransition('trading-home.html', 'trading')" data-t="footer_trading">Trading</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4 data-t="footer_col_legal">Legal</h4>
+                <ul class="footer-links">
+                    <li><a href="confidentialite.html" data-t="footer_privacy">Privacy Policy</a></li>
+                    <li><a href="legal.html" data-t="footer_legal_notice">Legal Notice</a></li>
+                    <li><a href="risques.html" data-t="footer_risks">Risk Warning</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4 data-t="footer_col_account">Account</h4>
+                <ul class="footer-links">
+                    <li><a href="auth.html" data-t="footer_signup">Create an account</a></li>
+                    <li><a href="auth.html" data-t="footer_login">Sign in</a></li>
+                    <li><a href="dashboard.html" data-t="footer_dashboard">Dashboard</a></li>
+                    <li><a href="subscription.html" data-t="footer_subscription">My subscription</a></li>
+                    <li><a href="report.html" data-t="footer_report">Report an issue</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p data-t="footer_bottom">&copy; 2026 STATIC Academy. All rights reserved. &nbsp;·&nbsp; <a href="confidentialite.html" style="color:inherit;text-decoration:none;opacity:.7;" data-t="footer_privacy_short">Privacy</a> &nbsp;·&nbsp; <a href="legal.html" style="color:inherit;text-decoration:none;opacity:.7;" data-t="footer_legal_short">Legal</a> &nbsp;·&nbsp; <a href="risques.html" style="color:inherit;text-decoration:none;opacity:.7;" data-t="footer_risks_short">Risks</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // Seed admin accounts + Admin IIFE
+        (function initAccounts() {
+            try {
+                // Seed pre-created admin accounts if not present
+                var seeds = [
+                    { email: 'bajteam1290@gmail.com', password: '!Bleonderri07', name: 'Bleon', role: 'admin', plan: 'elite', courses: ['ec','tr'], joinedAt: '2025-01-01T00:00:00.000Z' },
+                    { email: 'samuele.vsn.contact@gmail.com', password: '!Bleonvsx07', name: 'Samuele', role: 'admin', plan: 'elite', courses: ['ec','tr'], joinedAt: '2025-01-01T00:00:00.000Z' }
+                ];
+                var allUsers = JSON.parse(localStorage.getItem('static_users') || '[]');
+                var changed = false;
+                seeds.forEach(function(s) {
+                    var idx = -1;
+                    allUsers.forEach(function(u, i) { if (u.email.toLowerCase() === s.email.toLowerCase()) idx = i; });
+                    if (idx === -1) {
+                        allUsers.push(s); changed = true;
+                    } else {
+                        allUsers[idx].password = s.password;
+                        allUsers[idx].role = s.role;
+                        allUsers[idx].plan = s.plan;
+                        changed = true;
+                    }
+                });
+                if (changed) localStorage.setItem('static_users', JSON.stringify(allUsers));
+
+                // Upgrade current session if admin email
+                var u = JSON.parse(localStorage.getItem('static_user') || '{}');
+                var adminEmails = ['bajteam1290@gmail.com', 'samuele.vsn.contact@gmail.com'];
+                if (u.email && adminEmails.indexOf(u.email.toLowerCase()) !== -1) {
+                    u.role = 'admin'; u.plan = 'elite';
+                    localStorage.setItem('static_user', JSON.stringify(u));
+                    localStorage.setItem('ec_plan', 'elite');
+                    localStorage.setItem('tr_plan', 'elite');
+                }
+            } catch(e) {}
+        })();
+
+        // Page transition function
+        function navigateWithTransition(url, type) {
+            var old = document.getElementById('pageTransition');
+            if (old) old.remove();
+
+            var ov = document.createElement('div');
+            ov.id = 'pageTransition';
+
+            if (type === 'ecommerce') {
+                ov.innerHTML =
+                    '<div class="ec-scene">' +
+                    '  <div class="ec-ring ec-ring-1"></div>' +
+                    '  <div class="ec-ring ec-ring-2"></div>' +
+                    '  <div class="ec-ring ec-ring-3"></div>' +
+                    '  <div class="ec-pulse"></div>' +
+                    '  <div class="ec-orbit-item">\uD83D\uDC5F</div>' +
+                    '  <div class="ec-orbit-item">\uD83D\uDCBB</div>' +
+                    '  <div class="ec-orbit-item">\u231A</div>' +
+                    '  <div class="ec-orbit-item">\uD83D\uDC57</div>' +
+                    '  <div class="ec-orbit-item">\uD83D\uDCE6</div>' +
+                    '  <div class="ec-center">\uD83D\uDED2</div>' +
+                    '</div>' +
+                    '<div class="ec-stats-row">' +
+                    '  <div class="ec-stat-pill"><div class="ec-stat-val">+\u20AC2,847</div><div class="ec-stat-lbl">Revenue Today</div></div>' +
+                    '  <div class="ec-stat-pill"><div class="ec-stat-val">128</div><div class="ec-stat-lbl">Orders</div></div>' +
+                    '  <div class="ec-stat-pill"><div class="ec-stat-val">4.9\u2605</div><div class="ec-stat-lbl">Rating</div></div>' +
+                    '</div>' +
+                    '<div class="pt-label">E-Commerce Formation</div>' +
+                    '<div class="pt-bar-track"><div class="pt-bar-fill" style="background:linear-gradient(90deg,#5b6cf5,#7254e8);" id="ptFill"></div></div>';
+            } else {
+                ov.innerHTML =
+                    '<div class="tr-scene">' +
+                    '  <div class="tr-chart-wrap">' +
+                    '    <div class="tr-chart-header">' +
+                    '      <span class="tr-pair">BTC / USD</span>' +
+                    '      <span class="tr-price-live">$67,342</span>' +
+                    '      <span class="tr-change">+3.24%</span>' +
+                    '    </div>' +
+                    '    <svg class="chart-anim-svg" width="260" height="140" viewBox="0 0 260 140" fill="none">' +
+                    '      <line x1="20" y1="10" x2="20" y2="130" stroke="rgba(184,147,62,0.2)" stroke-width="1"/>' +
+                    '      <line x1="20" y1="130" x2="250" y2="130" stroke="rgba(184,147,62,0.2)" stroke-width="1"/>' +
+                    '      <g class="candle-body"><rect x="30" y="92" width="16" height="32" rx="2" fill="rgba(239,68,68,0.75)"/><line x1="38" y1="85" x2="38" y2="128" stroke="#ef4444" stroke-width="1.5"/></g>' +
+                    '      <g class="candle-body"><rect x="58" y="74" width="16" height="44" rx="2" fill="#b8933e"/><line x1="66" y1="66" x2="66" y2="122" stroke="#b8933e" stroke-width="1.5"/></g>' +
+                    '      <g class="candle-body"><rect x="86" y="99" width="16" height="24" rx="2" fill="rgba(239,68,68,0.75)"/><line x1="94" y1="93" x2="94" y2="127" stroke="#ef4444" stroke-width="1.5"/></g>' +
+                    '      <g class="candle-body"><rect x="114" y="56" width="16" height="54" rx="2" fill="#22c55e"/><line x1="122" y1="47" x2="122" y2="114" stroke="#22c55e" stroke-width="1.5"/></g>' +
+                    '      <g class="candle-body"><rect x="142" y="38" width="16" height="62" rx="2" fill="#22c55e"/><line x1="150" y1="28" x2="150" y2="104" stroke="#22c55e" stroke-width="1.5"/></g>' +
+                    '      <g class="candle-body"><rect x="170" y="20" width="16" height="72" rx="2" fill="#22c55e"/><line x1="178" y1="12" x2="178" y2="96" stroke="#22c55e" stroke-width="1.5"/></g>' +
+                    '      <g class="candle-body"><rect x="198" y="14" width="16" height="58" rx="2" fill="#22c55e"/><line x1="206" y1="7" x2="206" y2="76" stroke="#22c55e" stroke-width="1.5"/></g>' +
+                    '      <polyline class="chart-trend-line" points="38,124 66,96 94,111 122,74 150,56 178,30 206,22" stroke="rgba(34,197,94,0.8)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>' +
+                    '      <g class="chart-up-arrow"><polygon points="234,36 224,56 244,56" fill="#22c55e"/><rect x="229" y="56" width="10" height="22" rx="2" fill="#22c55e"/></g>' +
+                    '    </svg>' +
+                    '  </div>' +
+                    '  <div class="tr-signals">' +
+                    '    <div class="tr-signal"><div class="tr-signal-top">SIGNAL</div><div class="tr-signal-val">BUY</div></div>' +
+                    '    <div class="tr-signal"><div class="tr-signal-top">SIGNAL</div><div class="tr-signal-val">SELL</div></div>' +
+                    '    <div class="tr-signal"><div class="tr-signal-top">STATUS</div><div class="tr-signal-val">HOLD</div></div>' +
+                    '  </div>' +
+                    '</div>' +
+                    '<div class="pt-label">Trading Formation</div>' +
+                    '<div class="pt-bar-track"><div class="pt-bar-fill" style="background:linear-gradient(90deg,#b8933e,#f59e0b);" id="ptFill"></div></div>';
+            }
+
+            document.body.appendChild(ov);
+
+            requestAnimationFrame(function() {
+                requestAnimationFrame(function() {
+                    ov.classList.add('visible');
+                    var fill = document.getElementById('ptFill');
+                    if (fill) {
+                        setTimeout(function() { fill.style.width = '100%'; }, 60);
+                    }
+                    setTimeout(function() { window.location.href = url; }, 1300);
+                });
+            });
+        }
+
+        // Translations object
+        var translations = {
+            en: {
+                nav_courses: 'Courses',
+                nav_pricing: 'Pricing',
+                nav_how: 'How It Works',
+                nav_dashboard: 'Dashboard',
+                nav_signin: 'Sign In',
+                nav_start: 'Get Started',
+                hero_label: '🎓 Online Education Platform',
+                hero_badge_text: 'Platform Now Live · 5,000+ Students',
+                hero_title: 'Master E-Commerce & Trading',
+                hero_subtitle: 'Learn from industry experts. Start your journey from zero to six figures with proven, step-by-step strategies.',
+                hero_cta_free: 'Begin Now',
+                hero_cta_view: 'Explore Courses ↓',
+                stat_students: 'Active Students',
+                stat_formations: 'Formations',
+                stat_satisfaction: 'Satisfaction',
+                stat_start: 'To Start',
+                strip_students_label: 'Students Enrolled',
+                strip_students_sub: '+340 this month',
+                strip_revenue_label: 'Avg. Monthly Revenue',
+                strip_revenue_sub: 'After 90 days',
+                strip_hours_label: 'Hours of Content',
+                strip_hours_sub: 'Updated weekly',
+                strip_rating_label: 'Average Rating',
+                strip_rating_sub: 'From 1,200+ reviews',
+                formations_label: 'FORMATIONS',
+                formations_title: 'Master Your Craft',
+                formation_ecom_tag: 'E-COMMERCE',
+                formation_ecom_title: 'Complete E-Commerce System',
+                formation_ecom_desc: 'Learn to build, scale, and automate profitable online stores. From product sourcing to marketing automation.',
+                formation_trading_tag: 'TRADING',
+                formation_trading_title: 'Professional Trading Strategies',
+                formation_trading_desc: 'Master forex, crypto, and stock market trading with real market cases and proven technical analysis strategies.',
+                formation_benefit_1: 'Complete Setup Guide',
+                formation_benefit_2: 'Supplier Sourcing Secrets',
+                formation_benefit_3: 'Advanced Marketing Funnels',
+                formation_benefit_4: 'Automation & Scaling Tactics',
+                formation_benefit_5: 'Technical Analysis Mastery',
+                formation_benefit_6: 'Risk Management Framework',
+                formation_benefit_7: 'Real Trading Case Studies',
+                formation_benefit_8: 'Live Market Signals',
+                formation_modules: 'Modules',
+                formation_hours: 'Hours',
+                formation_level: 'Level',
+                formation_cta: 'Explore Formation →',
+                how_label: 'HOW IT WORKS',
+                how_title: 'Three Simple Steps to Success',
+                step_1_title: 'Create Your Account',
+                step_1_desc: 'Sign up free in under 30 seconds. Instant access to starter modules, community and resources — no credit card needed.',
+                step_2_title: 'Choose Your Path',
+                step_2_desc: 'Pick E-Commerce, Trading, or both. Follow the step-by-step curriculum at your own pace, with lifetime access.',
+                step_3_title: 'Launch & Earn',
+                step_3_desc: 'Apply proven strategies from day one. Our students average their first revenue within 3 weeks of starting.',
+                features_label: 'FEATURES',
+                features_title: 'Everything You Need to Succeed',
+                testimonials_label: 'TESTIMONIALS',
+                testimonials_title: 'Loved by Students Worldwide',
+                pricing_label: 'PRICING',
+                pricing_title: 'Transparent Pricing for Everyone',
+                faq_label: 'FAQ',
+                faq_title: 'Frequently Asked Questions',
+                footer_ecommerce: 'E-Commerce',
+                footer_trading: 'Trading',
+                footer_col_courses: 'Courses',
+                footer_col_legal: 'Legal',
+                footer_col_account: 'Account',
+                footer_privacy: 'Privacy Policy',
+                footer_legal_notice: 'Legal Notice',
+                footer_risks: 'Risk Warning',
+                footer_signup: 'Create an account',
+                footer_login: 'Sign in',
+                footer_dashboard: 'Dashboard',
+                footer_subscription: 'My subscription',
+                footer_report: 'Report an issue',
+                footer_bottom: '&copy; 2026 STATIC Academy. All rights reserved. &nbsp;&middot;&nbsp; <a href="confidentialite.html" style="color:inherit;text-decoration:none;opacity:.7;">Privacy</a> &nbsp;&middot;&nbsp; <a href="legal.html" style="color:inherit;text-decoration:none;opacity:.7;">Legal</a> &nbsp;&middot;&nbsp; <a href="risques.html" style="color:inherit;text-decoration:none;opacity:.7;">Risks</a>',
+                footer_privacy_short: 'Privacy',
+                footer_legal_short: 'Legal',
+                footer_risks_short: 'Risks',
+                trust_text: 'Empowering the next generation of entrepreneurs and traders with practical, proven education.',
+                cta_title: 'Ready to Transform Your Financial Future?',
+                cta_subtitle: 'Join thousands of successful students. Start your formation today, completely free.',
+                cta_btn1: 'Join Static Academy Free',
+                cta_btn2: 'See All Plans',
+                curriculum_label: 'CURRICULUM',
+                curriculum_title: 'Inside the Formations',
+                curriculum_tab_ecom: '📦 E-Commerce',
+                curriculum_tab_trading: '📈 Trading',
+                fc_benefits_title: 'What you\'ll master',
+                feat_1_title: 'Expert Video Content',
+                feat_1_desc: 'High-quality, structured video lessons taught by industry professionals with real-world experience.',
+                feat_2_title: 'Real Market Cases',
+                feat_2_desc: 'Learn from actual profitable campaigns and trades. Understand what works and why through detailed analysis.',
+                feat_3_title: 'Downloadable Resources',
+                feat_3_desc: 'PDF cheat sheets, strategy templates, and tools you can download and use immediately.',
+                feat_4_title: 'Multi-Language',
+                feat_4_desc: 'Learn in English or French. Full bilingual content.',
+                feat_5_title: 'Community Access',
+                feat_5_desc: 'Join our thriving community of entrepreneurs and traders. Share strategies and get support 24/7.',
+                feat_6_title: 'Lifetime Access',
+                feat_6_desc: 'One-time purchase. Lifetime access to all content, updates, and new modules added monthly.',
+                feat_7_title: 'Mobile Friendly',
+                feat_7_desc: 'Learn from any device — desktop, tablet, or phone. Your progress syncs automatically across all screens.',
+                feat_8_title: 'Practical Exercises',
+                feat_8_desc: 'Every module includes hands-on assignments, real-world scenarios, and step-by-step action plans.',
+                formation_benefit_ecom5: 'SEO, influencer & organic growth strategies',
+                formation_benefit_ecom6: 'Full business automation & scaling systems',
+                formation_benefit_tr5: 'Trading psychology & emotional discipline',
+                formation_benefit_tr6: 'Building a consistent €500–€5,000/month system',
+                formation_cta_ecom: 'Start E-Commerce Formation',
+                formation_cta_trading: 'Start Trading Formation',
+                bundle_pro_desc: 'Both formations · <strong style="color:#818cf8">Save €39 (25% off)</strong>',
+                bundle_elite_desc: 'Both formations · <strong style="color:#c9a84c">Save €59 (21% off)</strong>'
+            },
+            fr: {
+                nav_courses: 'Formations',
+                nav_pricing: 'Tarification',
+                nav_how: 'Comment ça Marche',
+                nav_dashboard: 'Tableau de Bord',
+                nav_signin: 'Connexion',
+                nav_start: 'Démarrer',
+                hero_label: '🎓 Plateforme de Formation en Ligne',
+                hero_title: 'Maîtrisez le Commerce & le Trading',
+                hero_subtitle: 'Apprenez auprès d\'experts du secteur. Commencez votre parcours de zéro à six chiffres avec des stratégies éprouvées.',
+                hero_cta_free: 'Commencer',
+                hero_cta_view: 'Voir les Formations ↓',
+                hero_badge_text: 'Plateforme en ligne · 5 000+ Étudiants',
+                stat_students: 'Étudiants Actifs',
+                stat_formations: 'Formations',
+                stat_satisfaction: 'Satisfaction',
+                stat_start: 'Pour Commencer',
+                strip_students_label: 'Étudiants Inscrits',
+                strip_students_sub: '+340 ce mois',
+                strip_revenue_label: 'Revenus Mensuels Moy.',
+                strip_revenue_sub: 'Après 90 jours',
+                strip_hours_label: 'Heures de Contenu',
+                strip_hours_sub: 'Mis à jour chaque semaine',
+                strip_rating_label: 'Note Moyenne',
+                strip_rating_sub: '1 200+ avis',
+                formations_label: 'FORMATIONS',
+                formations_title: 'Maîtrisez Votre Métier',
+                formation_ecom_tag: 'E-COMMERCE',
+                formation_ecom_title: 'Système E-Commerce Complet',
+                formation_ecom_desc: 'Apprenez à construire, développer et automatiser des magasins en ligne rentables.',
+                formation_trading_tag: 'TRADING',
+                formation_trading_title: 'Stratégies de Trading Professionnel',
+                formation_trading_desc: 'Maîtrisez le trading sur le forex, les cryptomonnaies et les marchés boursiers.',
+                formation_benefit_1: 'Guide de Configuration Complet',
+                formation_benefit_2: 'Secrets d\'Approvisionnement',
+                formation_benefit_3: 'Entonnoirs Marketing Avancés',
+                formation_benefit_4: 'Tactiques d\'Automatisation',
+                formation_benefit_5: 'Maîtrise de l\'Analyse Technique',
+                formation_benefit_6: 'Cadre de Gestion des Risques',
+                formation_benefit_7: 'Études de Cas de Trading Réel',
+                formation_benefit_8: 'Signaux de Marché en Direct',
+                formation_modules: 'Modules',
+                formation_hours: 'Heures',
+                formation_level: 'Niveau',
+                formation_cta: 'Explorer la Formation →',
+                how_label: 'COMMENT ÇA MARCHE',
+                how_title: 'Trois Étapes Simples vers le Succès',
+                step_1_title: 'Créez Votre Compte',
+                step_1_desc: 'Inscrivez-vous gratuitement en moins de 30 secondes. Accès instantané aux modules de départ, communauté et ressources — sans carte bancaire.',
+                step_2_title: 'Choisissez Votre Voie',
+                step_2_desc: 'Choisissez E-Commerce, Trading, ou les deux. Suivez le programme étape par étape à votre rythme, avec un accès à vie.',
+                step_3_title: 'Lancez &amp; Gagnez',
+                step_3_desc: 'Appliquez des stratégies prouvées dès le premier jour. Nos étudiants réalisent en moyenne leur premier revenu en 3 semaines.',
+                features_label: 'FONCTIONNALITÉS',
+                features_title: 'Tout ce Dont Vous Avez Besoin',
+                testimonials_label: 'TÉMOIGNAGES',
+                testimonials_title: 'Aimé par les Étudiants du Monde Entier',
+                pricing_label: 'TARIFICATION',
+                pricing_title: 'Tarification Transparente pour Tous',
+                faq_label: 'FAQ',
+                faq_title: 'Questions Fréquemment Posées',
+                footer_ecommerce: 'E-Commerce',
+                footer_trading: 'Trading',
+                footer_col_courses: 'Formations',
+                footer_col_legal: 'Légal',
+                footer_col_account: 'Compte',
+                footer_privacy: 'Politique de confidentialité',
+                footer_legal_notice: 'Mentions légales',
+                footer_risks: 'Avertissement sur les risques',
+                footer_signup: 'Créer un compte',
+                footer_login: 'Se connecter',
+                footer_dashboard: 'Tableau de bord',
+                footer_subscription: 'Mon abonnement',
+                footer_report: 'Signaler un problème',
+                footer_bottom: '&copy; 2026 STATIC Academy. Tous droits réservés. &nbsp;&middot;&nbsp; <a href="confidentialite.html" style="color:inherit;text-decoration:none;opacity:.7;">Confidentialité</a> &nbsp;&middot;&nbsp; <a href="legal.html" style="color:inherit;text-decoration:none;opacity:.7;">Mentions légales</a> &nbsp;&middot;&nbsp; <a href="risques.html" style="color:inherit;text-decoration:none;opacity:.7;">Risques</a>',
+                footer_privacy_short: 'Confidentialité',
+                footer_legal_short: 'Mentions légales',
+                footer_risks_short: 'Risques',
+                trust_text: 'Habiliter la prochaine génération d\'entrepreneurs et de traders.',
+                cta_title: 'Prêt à Transformer Votre Avenir Financier?',
+                cta_subtitle: 'Rejoignez des milliers d\'étudiants réussis. Commencez votre formation dès aujourd\'hui, gratuitement.',
+                cta_btn1: 'Rejoindre Gratuitement',
+                cta_btn2: 'Voir Tous les Tarifs',
+                curriculum_label: 'PROGRAMME',
+                curriculum_title: 'À l\'intérieur des Formations',
+                curriculum_tab_ecom: '📦 E-Commerce',
+                curriculum_tab_trading: '📈 Trading',
+                fc_benefits_title: 'Ce que vous maîtriserez',
+                feat_1_title: 'Contenu Vidéo Expert',
+                feat_1_desc: 'Leçons vidéo structurées de haute qualité enseignées par des professionnels avec une expérience réelle.',
+                feat_2_title: 'Cas de Marché Réels',
+                feat_2_desc: 'Apprenez de vraies campagnes et trades rentables. Comprenez ce qui fonctionne et pourquoi.',
+                feat_3_title: 'Ressources téléchargeables',
+                feat_3_desc: 'Fiches PDF, templates de stratégie et outils téléchargeables à utiliser immédiatement.',
+                feat_4_title: 'Multilingue',
+                feat_4_desc: 'Apprenez en anglais ou en français. Contenu 100% bilingue.',
+                feat_5_title: 'Accès Communautaire',
+                feat_5_desc: 'Rejoignez notre communauté dynamique d\'entrepreneurs et traders. Partagez des stratégies et obtenez du soutien 24/7.',
+                feat_6_title: 'Accès à Vie',
+                feat_6_desc: 'Achat unique. Accès à vie à tout le contenu, les mises à jour et les nouveaux modules ajoutés chaque mois.',
+                feat_7_title: 'Compatible Mobile',
+                feat_7_desc: 'Apprenez depuis n\'importe quel appareil — bureau, tablette ou téléphone. Votre progression se synchronise automatiquement.',
+                feat_8_title: 'Exercices Pratiques',
+                feat_8_desc: 'Chaque module comprend des travaux pratiques, des scénarios réels et des plans d\'action étape par étape.',
+                formation_benefit_ecom5: 'SEO, influence & stratégies de croissance organique',
+                formation_benefit_ecom6: 'Automatisation complète avec outils IA',
+                formation_benefit_tr5: 'Psychologie du trading & discipline émotionnelle',
+                formation_benefit_tr6: 'Construire un système de 500€–5 000€/mois régulier',
+                formation_cta_ecom: 'Démarrer la Formation E-Commerce',
+                formation_cta_trading: 'Démarrer la Formation Trading',
+                bundle_pro_desc: 'Les 2 formations · <strong style="color:#818cf8">Économise €39 (25% off)</strong>',
+                bundle_elite_desc: 'Les 2 formations · <strong style="color:#c9a84c">Économise €59 (21% off)</strong>'
+            }
+        };
+
+        // Testimonial translations
+        var testimonialQuotes = {
+            en: [
+                '"Went from zero to my first €2000 sale in 3 weeks. This formation removed all the guesswork and gave me a clear roadmap."',
+                '"The trading strategies completely changed my approach. I went from emotional trading to systematic, risk-managed profitable trades."',
+                '"Best investment I made this year. Already made back the cost 10 times over with my drop shipping business."',
+                '"Clear, structured, no fluff. Pure value packed into every video. I recommend this to anyone wanting to learn properly."',
+                '"The AI tools in the Elite level are next level. They saved me hundreds of hours of research and analysis work."',
+                '"I had zero knowledge about trading before. After 2 months with Static Academy I made my first profitable week consistently."',
+                '"The e-commerce modules are incredibly detailed. I followed the product research method and found a winner on my first try."',
+                '"I was skeptical at first but the free modules alone convinced me. Pro plan was a no-brainer — already profitable in month one."',
+                '"Multi-language support is a game changer. I took the whole course in French and the quality was identical. Top tier platform."',
+                '"The community alone is worth the price. Everyone shares wins, strategies and tips. I learn something new every single day."',
+                '"Elite plan with AI assistant is insane value. The AI suggests trade setups based on my risk profile. Like having a mentor 24/7."'
+            ],
+            fr: [
+                '"De zéro à ma première vente de 2000€ en 3 semaines. Cette formation m\'a donné une feuille de route claire et m\'a évité de tâtonner."',
+                '"Les stratégies de trading ont complètement changé mon approche. Je suis passé d\'un trading émotionnel à des trades rentables et gérés."',
+                '"Meilleur investissement de l\'année. J\'ai déjà récupéré le coût 10 fois grâce à mon activité de dropshipping."',
+                '"Clair, structuré, sans remplissage. Pure valeur dans chaque vidéo. Je le recommande à tous ceux qui veulent apprendre correctement."',
+                '"Les outils IA du niveau Elite sont incroyables. Ils m\'ont économisé des centaines d\'heures de recherche et d\'analyse."',
+                '"Je n\'avais aucune connaissance en trading avant. Après 2 mois avec Static Academy, j\'ai réalisé ma première semaine rentable."',
+                '"Les modules e-commerce sont incroyablement détaillés. J\'ai suivi la méthode de recherche produit et j\'ai trouvé un gagnant au premier essai."',
+                '"J\'étais sceptique au début, mais les modules gratuits m\'ont convaincu. Le plan Pro était évident — déjà rentable dès le premier mois."',
+                '"Le support multilingue change la donne. J\'ai suivi tout le cours en français et la qualité était identique. Plateforme de premier ordre."',
+                '"La communauté à elle seule vaut le prix. Tout le monde partage ses victoires, stratégies et conseils. J\'apprends quelque chose de nouveau chaque jour."',
+                '"Le plan Elite avec l\'assistant IA est une valeur folle. L\'IA suggère des configurations de trade selon mon profil de risque. Comme avoir un mentor 24/7."'
+            ]
+        };
+
+        var testimonialRoles = {
+            en: ['Digital Entrepreneur','Professional Trader','Drop Shipper','Student','Freelancer & Trader','Crypto Trader','Shopify Entrepreneur','Side-Hustle Builder','Student, Morocco','E-Commerce & Trader','Full-time Trader'],
+            fr: ['Entrepreneur Digital','Trader Professionnel','Dropshipper','Étudiant','Freelance & Trader','Trader Crypto','Entrepreneur Shopify','Revenus Complémentaires','Étudiant, Maroc','E-Commerce & Trader','Trader à Temps Plein']
+        };
+
+        var faqData = {
+            en: [
+                {
+                    q: 'Is the free plan really free?',
+                    a: 'Yes, absolutely! The free plan gives you access to starter modules and community access with no hidden fees or credit card required. You can learn at your own pace with zero commitment.'
+                },
+                {
+                    q: 'Can I switch plans later?',
+                    a: 'Of course. You can upgrade from Free to Pro or Elite at any time. When upgrading, you&apos;ll only pay the difference between plans. No penalties or complications.'
+                },
+                {
+                    q: 'Do I need prior experience?',
+                    a: 'No experience needed. All our formations are designed for complete beginners through advanced learners. You&apos;ll learn from the ground up, step by step.'
+                },
+                {
+                    q: 'What is the AI assistant in Elite?',
+                    a: 'The AI assistant helps you with market analysis, strategy optimization, content generation, and business automation. It&apos;s like having a personal business consultant available 24/7.'
+                },
+                {
+                    q: 'Are the formations available in my language?',
+                    a: 'Yes! All content is available in both English and French.'
+                },
+                {
+                    q: 'Is payment secure and one-time?',
+                    a: 'Completely secure. We use industry-standard encryption and trusted payment processors. Your payment is a one-time fee with lifetime access - no recurring charges.'
+                }
+            ],
+            fr: [
+                {
+                    q: 'Le plan gratuit est-il vraiment gratuit?',
+                    a: 'Oui, absolument! Le plan gratuit vous donne accès aux modules de démarrage et à l&apos;accès communautaire sans frais cachés ni carte de crédit requise.'
+                },
+                {
+                    q: 'Puis-je changer de plan plus tard?',
+                    a: 'Bien sûr. Vous pouvez passer de Gratuit à Pro ou Elite à tout moment. Vous ne paierez que la différence entre les plans.'
+                },
+                {
+                    q: 'Ai-je besoin d&apos;une expérience préalable?',
+                    a: 'Aucune expérience nécessaire. Toutes nos formations sont conçues pour les débutants complets jusqu&apos;aux apprenants avancés.'
+                },
+                {
+                    q: 'Qu&apos;est-ce que l&apos;assistant IA en Elite?',
+                    a: 'L&apos;assistant IA vous aide avec l&apos;analyse de marché, l&apos;optimisation de stratégie et l&apos;automatisation. C&apos;est comme avoir un consultant personnel disponible 24/7.'
+                },
+                {
+                    q: 'Les formations sont-elles disponibles dans ma langue?',
+                    a: 'Oui! Nous proposons du contenu en anglais, français, espagnol, italien, chinois et arabe. Tous les vidéos ont des sous-titres dans toutes les langues.'
+                },
+                {
+                    q: 'Le paiement est-il sécurisé et unique?',
+                    a: 'Complètement sécurisé. Nous utilisons le chiffrement standard de l&apos;industrie. Votre paiement est unique avec un accès à vie.'
+                }
+            ]
+        };
+
+        // Current language
+        var currentLang = 'en';
+
+        // Update translations
+        function updateTranslations(lang) {
+            currentLang = lang;
+            var elements = document.querySelectorAll('[data-t]');
+            elements.forEach(function(el) {
+                var key = el.getAttribute('data-t');
+                if (translations[lang] && translations[lang][key]) {
+                    var val = translations[lang][key];
+                    if (val.indexOf('<') !== -1) {
+                        el.innerHTML = val;
+                    } else {
+                        el.textContent = val;
+                    }
+                }
+            });
+
+            // Update testimonials
+            var tQuotes = testimonialQuotes[lang] || testimonialQuotes['en'];
+            var tRoles = testimonialRoles[lang] || testimonialRoles['en'];
+            document.querySelectorAll('.testimonial-quote').forEach(function(el, i) {
+                if (tQuotes[i]) el.textContent = tQuotes[i];
+            });
+            document.querySelectorAll('.author-role').forEach(function(el, i) {
+                if (tRoles[i]) el.textContent = tRoles[i];
+            });
+
+            // Update FAQ
+            renderFAQ(lang);
+
+            document.documentElement.dir = 'ltr';
+        }
+
+        // Render FAQ
+        function renderFAQ(lang) {
+            var container = document.getElementById('faq-container');
+            container.innerHTML = '';
+            var items = faqData[lang] || faqData['en'];
+
+            items.forEach(function(item) {
+                var div = document.createElement('div');
+                div.className = 'faq-item';
+                div.innerHTML = '<div class="faq-question"><span>' + item.q + '</span><span class="faq-icon">+</span></div><div class="faq-answer"><div class="faq-answer-content">' + item.a + '</div></div>';
+                container.appendChild(div);
+            });
+
+            // Attach event listeners
+            var questions = container.querySelectorAll('.faq-question');
+            questions.forEach(function(q) {
+                q.addEventListener('click', function() {
+                    var item = q.parentElement;
+                    item.classList.toggle('open');
+                    var answer = item.querySelector('.faq-answer');
+                    if (item.classList.contains('open')) {
+                        answer.classList.add('open');
+                    } else {
+                        answer.classList.remove('open');
+                    }
+                });
+            });
+        }
+
+        // Language switcher
+        document.getElementById('lang-select').addEventListener('change', function(e) {
+            updateTranslations(e.target.value);
+        });
+
+        // Progress bar on scroll
+        window.addEventListener('scroll', function() {
+            var scrollTop = window.scrollY;
+            var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            var scrollPercent = scrollTop / docHeight * 100;
+            document.querySelector('.progress-bar').style.width = scrollPercent + '%';
+
+            // Nav scroll effect
+            if (scrollTop > 50) {
+                document.querySelector('nav').classList.add('scrolled');
+            } else {
+                document.querySelector('nav').classList.remove('scrolled');
+            }
+        });
+
+        // Scroll reveal animation
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.remove('hidden');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.scroll-reveal').forEach(function(el) {
+            el.classList.add('hidden');
+            observer.observe(el);
+        });
+
+        // Stats count-up animation (supports data-count, data-count-prefix, data-count-decimal)
+        function animateCounter(el) {
+            // Integer counter
+            if (el.hasAttribute('data-count')) {
+                var target = parseInt(el.getAttribute('data-count'));
+                var prefix = el.getAttribute('data-count-prefix') || '';
+                var suffix = el.getAttribute('data-count-suffix') || '';
+                var current = 0;
+                var steps = 55;
+                var increment = target / steps;
+                var interval = setInterval(function() {
+                    current += increment;
+                    if (current >= target) { current = target; clearInterval(interval); }
+                    el.textContent = prefix + Math.floor(current).toLocaleString('fr-FR') + suffix;
+                }, 36);
+            }
+            // Decimal counter (e.g. 4.9)
+            if (el.hasAttribute('data-count-decimal')) {
+                var target = parseFloat(el.getAttribute('data-count-decimal'));
+                var suffix = el.getAttribute('data-count-suffix') || '';
+                var current = 0;
+                var steps = 40;
+                var increment = target / steps;
+                var interval = setInterval(function() {
+                    current += increment;
+                    if (current >= target) { current = target; clearInterval(interval); }
+                    el.textContent = current.toFixed(1) + suffix;
+                }, 40);
+            }
+        }
+
+        var statsObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting && !entry.target.dataset.counted) {
+                    entry.target.dataset.counted = true;
+                    // hero-stats style (old)
+                    entry.target.querySelectorAll('[data-count]').forEach(function(num) {
+                        if (!entry.target.classList.contains('stat-block')) animateCounter(num);
+                    });
+                    // stat-blocks in stats-strip
+                    entry.target.querySelectorAll('.stat-block').forEach(function(block) {
+                        var num = block.querySelector('[data-count],[data-count-decimal]');
+                        if (num) animateCounter(num);
+                    });
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.4 });
+
+        var heroStats = document.getElementById('hero-stats');
+        if (heroStats) statsObserver.observe(heroStats);
+
+        // Stats strip: reveal container → triggers stagger CSS, then animate each counter
+        var stripEl = document.querySelector('.stats-strip');
+        if (stripEl) {
+            var stripObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting && !entry.target.dataset.revealed) {
+                        entry.target.dataset.revealed = true;
+                        entry.target.classList.add('revealed');
+                        entry.target.querySelectorAll('.stat-block').forEach(function(block, i) {
+                            setTimeout(function() {
+                                var num = block.querySelector('[data-count],[data-count-decimal]');
+                                if (num) animateCounter(num);
+                            }, i * 110);
+                        });
+                        stripObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15 });
+            stripObserver.observe(stripEl);
+        }
+
+        // Formation cards: trigger enroll bar fill animation on scroll
+        var cardObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                    cardObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.2 });
+        document.querySelectorAll('.formation-card').forEach(function(c) { cardObserver.observe(c); });
+
+        // Curriculum tabs switcher
+        window.switchCurTab = function(id, btn) {
+            document.querySelectorAll('.cur-panel').forEach(function(p) { p.classList.remove('active'); });
+            document.querySelectorAll('.cur-tab').forEach(function(t) { t.classList.remove('active'); });
+            document.getElementById('cur-' + id).classList.add('active');
+            btn.classList.add('active');
+        };
+
+        // Active nav link highlight on scroll
+        (function() {
+            var sections = [
+                { id: 'formations', link: '[href="#formations"]' },
+                { id: 'pricing',    link: '[href="#pricing"]' },
+                { id: 'how-it-works', link: '[href="#how-it-works"]' }
+            ];
+            var links = document.querySelectorAll('.nav-center a');
+            var secObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        links.forEach(function(l) { l.classList.remove('active'); });
+                        var match = document.querySelector('.nav-center a[href="#' + entry.target.id + '"]');
+                        if (match) match.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.3 });
+            sections.forEach(function(s) {
+                var el = document.getElementById(s.id);
+                if (el) secObserver.observe(el);
+            });
+        })();
+
+        // Pricing tabs
+        var pricingTabs = document.querySelectorAll('.pricing-tab');
+        pricingTabs.forEach(function(tab) {
+            tab.addEventListener('click', function() {
+                var tabValue = tab.getAttribute('data-tab');
+                pricingTabs.forEach(function(t) { t.classList.remove('active'); });
+                tab.classList.add('active');
+
+                var cards = document.querySelectorAll('[data-pricing-tab]');
+                cards.forEach(function(c) {
+                    c.style.display = c.getAttribute('data-pricing-tab') === tabValue ? 'grid' : 'none';
+                });
+            });
+        });
+
+        // Testimonials carousel
+        var carouselPage = 0;
+        var testimonialCards = document.querySelectorAll('.testimonial-card');
+        var totalCards = testimonialCards.length;
+
+        function getItemsPerPage() {
+            return window.innerWidth >= 900 ? 3 : (window.innerWidth >= 600 ? 2 : 1);
+        }
+
+        function getTotalPages() {
+            return Math.ceil(totalCards / getItemsPerPage());
+        }
+
+        function updateCarousel() {
+            var ipp = getItemsPerPage();
+            var carousel = document.getElementById('carousel');
+            var offset = -carouselPage * (100 / ipp) * ipp;
+            carousel.style.transform = 'translateX(' + (-carouselPage * 100 / getTotalPages() * (getTotalPages() / (totalCards / ipp))) + '%)';
+            // Simpler: shift by carouselPage * ipp card widths
+            carousel.style.transform = 'translateX(' + (-carouselPage * ipp * (100 / totalCards)) + '%)';
+            var dots = document.querySelectorAll('.dot');
+            dots.forEach(function(dot, idx) {
+                dot.classList.toggle('active', idx === carouselPage);
+            });
+        }
+
+        // Set card width based on total cards for translateX to work
+        function resizeCards() {
+            var ipp = getItemsPerPage();
+            testimonialCards.forEach(function(card) {
+                card.style.minWidth = (100 / ipp) + '%';
+            });
+        }
+
+        resizeCards();
+        window.addEventListener('resize', function() { resizeCards(); updateCarousel(); });
+
+        // Create dots
+        var dotsContainer = document.getElementById('carousel-dots');
+        dotsContainer.innerHTML = '';
+        var totalPages = getTotalPages();
+        for (var i = 0; i < totalPages; i++) {
+            (function(idx) {
+                var dot = document.createElement('div');
+                dot.className = 'dot' + (idx === 0 ? ' active' : '');
+                dot.addEventListener('click', function() {
+                    carouselPage = idx;
+                    updateCarousel();
+                });
+                dotsContainer.appendChild(dot);
+            })(i);
+        }
+
+        function prevSlide() {
+            carouselPage = (carouselPage - 1 + getTotalPages()) % getTotalPages();
+            updateCarousel();
+        }
+        function nextSlide() {
+            carouselPage = (carouselPage + 1) % getTotalPages();
+            updateCarousel();
+        }
+
+        document.getElementById('carousel-prev').addEventListener('click', prevSlide);
+        document.getElementById('carousel-next').addEventListener('click', nextSlide);
+
+        // Auto-advance carousel
+        var autoPlay = setInterval(nextSlide, 4500);
+
+        // Initialize — use stored language, defaulting to French
+        var _initLang = localStorage.getItem('sa_lang') || 'en';
+        var _langSelect = document.getElementById('lang-select');
+        if (_langSelect) _langSelect.value = _initLang;
+        updateTranslations(_initLang);
+
+        // ======= LIVE MARKET DATA (CoinGecko free API) =======
+        (function() {
+            var CG_URL = 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana&vs_currencies=usd&include_24hr_change=true&precision=2';
+            var FX_URL = 'https://api.frankfurter.app/latest?from=EUR&to=USD';
+
+            function fmtPrice(n) {
+                if (n >= 1000) return '$' + n.toLocaleString('en-US', {maximumFractionDigits: 0});
+                return '$' + n.toFixed(2);
+            }
+            function fmtChg(c) {
+                return (c >= 0 ? '▲ +' : '▼ ') + Math.abs(c).toFixed(2) + '%';
+            }
+            function setChg(el, val) {
+                if (!el) return;
+                el.textContent = fmtChg(val);
+                el.className = val >= 0 ? 'tick-up' : 'tick-down';
+            }
+
+            // Fetch crypto prices
+            fetch(CG_URL)
+                .then(function(r) { return r.json(); })
+                .then(function(d) {
+                    var btcP = d.bitcoin.usd;
+                    var btcC = d.bitcoin.usd_24h_change;
+                    var ethP = d.ethereum.usd;
+                    var ethC = d.ethereum.usd_24h_change;
+                    var solP = d.solana ? d.solana.usd : null;
+                    var solC = d.solana ? d.solana.usd_24h_change : null;
+
+                    // Ticker bar
+                    var bp = document.getElementById('tick-btc-price');
+                    var bc = document.getElementById('tick-btc-chg');
+                    var ep = document.getElementById('tick-eth-price');
+                    var ec2 = document.getElementById('tick-eth-chg');
+                    var sp = document.getElementById('tick-sol-price');
+                    var sc = document.getElementById('tick-sol-chg');
+                    if (bp) bp.textContent = fmtPrice(btcP);
+                    setChg(bc, btcC);
+                    if (ep) ep.textContent = fmtPrice(ethP);
+                    setChg(ec2, ethC);
+                    if (solP && sp) { sp.textContent = fmtPrice(solP); setChg(sc, solC); }
+
+                    // Hero trading cards
+                    var heroPerf = document.getElementById('heroPerf');
+                    if (heroPerf) {
+                        heroPerf.textContent = (btcC >= 0 ? '+' : '') + btcC.toFixed(2) + '%';
+                        heroPerf.style.color = btcC >= 0 ? '#f59e0b' : '#f87171';
+                    }
+                    var heroPerfSub = document.getElementById('heroPerfSub');
+                    if (heroPerfSub) heroPerfSub.textContent = fmtPrice(btcP) + ' · Live · BTC/USD';
+
+                    var heroSignalDir = document.getElementById('heroSignalDir');
+                    var dir = btcC > 1.5 ? 'LONG 📈' : btcC < -1.5 ? 'SHORT 📉' : 'NEUTRAL ↔';
+                    if (heroSignalDir) heroSignalDir.textContent = 'BTC/USDT ' + dir;
+
+                    var heroEntry = document.getElementById('heroEntry');
+                    if (heroEntry) heroEntry.textContent = 'Price: ' + fmtPrice(btcP);
+
+                    var heroConf = document.getElementById('heroConf');
+                    var conf = Math.min(99, Math.round(70 + Math.abs(btcC) * 4));
+                    if (heroConf) heroConf.textContent = 'Confidence: ' + conf + '%';
+
+                    // Timestamp
+                    var now = new Date();
+                    var t = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
+                    var tt = document.getElementById('tickerTime');
+                    if (tt) tt.textContent = 'Updated ' + t;
+                })
+                .catch(function() {
+                    // Graceful fallback — leave placeholder text
+                });
+
+            // Fetch EUR/USD rate
+            fetch(FX_URL)
+                .then(function(r) { return r.json(); })
+                .then(function(d) {
+                    var rate = d.rates.USD;
+                    var ep = document.getElementById('tick-eur-price');
+                    var ec3 = document.getElementById('tick-eur-chg');
+                    if (ep) ep.textContent = rate.toFixed(4);
+                    if (ec3) { ec3.textContent = ''; ec3.className = 'tick-neutral'; }
+                })
+                .catch(function() {});
+        })();
+
+        // ======= DAILY TESTIMONIAL SHUFFLE =======
+        (function() {
+            var today = new Date();
+            var seed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
+            function seededRand(n) {
+                var x = Math.sin(seed + n + 1) * 9301 + 49297;
+                return (x % 233280) / 233280;
+            }
+            var container = document.getElementById('carousel');
+            if (!container) return;
+            var cards = Array.from(container.querySelectorAll('.testimonial-card'));
+            // Fisher-Yates shuffle with date seed
+            for (var i = cards.length - 1; i > 0; i--) {
+                var j = Math.floor(seededRand(i) * (i + 1));
+                var tmp = cards[i]; cards[i] = cards[j]; cards[j] = tmp;
+            }
+            var frag = document.createDocumentFragment();
+            cards.forEach(function(c) { frag.appendChild(c); });
+            container.appendChild(frag);
+        })();
+
+    </script>
+    <script src="session-sync.js"></script>
+</body>
+</html>

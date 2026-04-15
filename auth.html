@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STATIC Academy — Connexion & Inscription</title>
+    <meta name="description" content="Créez votre compte STATIC Academy ou connectez-vous pour accéder à vos formations e-commerce et trading.">
+    <!-- Redirect immediately if already logged in — runs before any render -->
+    <script>try{var __u=JSON.parse(localStorage.getItem('static_user')||'null');if(__u&&__u.email){window.location.replace('dashboard.html');}}catch(e){}</script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>body{opacity:0;transition:opacity .18s ease;}</style>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #07080f;
+            --bg-secondary: #0c0e1d;
+            --bg3: #131628;
+            --border-color: rgba(255, 255, 255, 0.07);
+            --text-primary: #ffffff;
+            --text-secondary: #9ca3af;
+            --primary: #5b6cf5;
+            --secondary: #8b5cf6;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .auth-container {
+            width: 100%;
+            max-width: 420px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+        }
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .auth-header h1 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .auth-header p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .form-toggle {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            background: rgba(7, 8, 15, 0.9);
+            border: 1.5px solid rgba(255,255,255,.07);
+            padding: 0.4rem;
+            border-radius: 12px;
+        }
+
+        .form-toggle button {
+            flex: 1;
+            padding: 0.65rem;
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .form-toggle button.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: rgba(7, 8, 15, 0.9);
+            border: 1.5px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="password"]:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: rgba(91, 108, 245, 0.06);
+            box-shadow: 0 0 0 3px rgba(91, 108, 245, 0.1);
+        }
+
+        .form-group.hidden {
+            display: none;
+        }
+
+        /* Global hidden class - ensures form toggle always works */
+        .hidden {
+            display: none !important;
+        }
+
+        .auth-form {
+            animation: formFadeIn 0.22s ease;
+        }
+
+        @keyframes formFadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        input[type="checkbox"] {
+            cursor: pointer;
+            accent-color: var(--primary);
+        }
+
+        .forgot-password {
+            color: var(--primary);
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .forgot-password:hover {
+            opacity: 0.8;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 0.85rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(91, 108, 245, 0.35);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .signup-text {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 1.5rem;
+        }
+
+        .signup-text button {
+            background: none;
+            border: none;
+            color: var(--primary);
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: underline;
+        }
+
+        .signup-text button:hover {
+            opacity: 0.8;
+        }
+
+        .error-message {
+            color: #ef4444;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .success-message {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid #10b981;
+            color: #10b981;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            display: none;
+            font-size: 0.9rem;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 2rem 0;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border-color);
+        }
+
+        .social-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-btn {
+            flex: 1;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .social-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        @media (max-width: 480px) {
+            .auth-container {
+                padding: 1.5rem;
+            }
+
+            .form-toggle {
+                flex-direction: column;
+            }
+        }
+    </style>
+    <link rel="icon" href="logo-icon.svg" type="image/svg+xml">
+    <meta name="theme-color" content="#07080f">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-header">
+            <a href="index.html" style="display:inline-flex;align-items:center;gap:.65rem;text-decoration:none;margin-bottom:.5rem;">
+              <img src="logo-icon.svg" alt="STATIC Academy" style="width:38px;height:38px;">
+              <div style="display:flex;flex-direction:column;line-height:1.1;">
+                <span style="font-size:.95rem;font-weight:800;letter-spacing:.06em;color:#e8ecff;">STATIC</span>
+                <span style="font-size:.52rem;font-weight:500;letter-spacing:.22em;color:rgba(232,236,255,.38);text-transform:uppercase;">Academy</span>
+              </div>
+            </a>
+            <h1 id="authTitle">Welcome Back</h1>
+            <p id="authSubtitle">Sign in to your account to continue</p>
+        </div>
+
+        <div class="success-message" id="successMessage"></div>
+
+        <div class="form-toggle">
+            <button class="toggle-btn active" data-form="signin" id="signinToggle" data-i18n="auth_signin_btn">Sign In</button>
+            <button class="toggle-btn" data-form="signup" id="signupToggle" data-i18n="auth_signup_btn">Sign Up</button>
+        </div>
+
+        <!-- Sign In Form -->
+        <form id="signinForm" class="auth-form">
+            <div class="form-group">
+                <label for="signin-email">Email Address</label>
+                <input type="email" id="signin-email" placeholder="you@example.com" required>
+                <div class="error-message" id="signinEmailError"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="signin-password">Password</label>
+                <input type="password" id="signin-password" placeholder="Enter your password" required>
+                <div class="error-message" id="signinPasswordError"></div>
+            </div>
+
+            <div class="form-actions">
+                <label class="remember-me">
+                    <input type="checkbox" id="rememberMe">
+                    <span>Remember me</span>
+                </label>
+                <a href="#" class="forgot-password">Forgot password?</a>
+            </div>
+
+            <button type="submit" class="btn">Sign In</button>
+
+            <div class="signup-text">
+                Don't have an account?
+                <button type="button" class="toggle-btn" data-form="signup">Sign Up</button>
+            </div>
+        </form>
+
+        <!-- Sign Up Form -->
+        <form id="signupForm" class="auth-form hidden">
+            <div class="form-group">
+                <label for="signup-name">Full Name</label>
+                <input type="text" id="signup-name" placeholder="John Doe" required>
+                <div class="error-message" id="signupNameError"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="signup-email">Email Address</label>
+                <input type="email" id="signup-email" placeholder="you@example.com" required>
+                <div class="error-message" id="signupEmailError"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="signup-password">Password</label>
+                <input type="password" id="signup-password" placeholder="Minimum 8 characters" required>
+                <div class="error-message" id="signupPasswordError"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="signup-password-confirm">Confirm Password</label>
+                <input type="password" id="signup-password-confirm" placeholder="Confirm your password" required>
+                <div class="error-message" id="signupConfirmError"></div>
+            </div>
+
+            <button type="submit" class="btn" data-i18n="auth_signup_btn">Create Account</button>
+
+            <div class="signup-text">
+                Already have an account?
+                <button type="button" class="toggle-btn" data-form="signin">Sign In</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // ── Reveal page (only reached if not logged in) ──
+        document.body.style.opacity = '1';
+
+        // ── If already logged in, redirect to dashboard (belt-and-suspenders) ──
+        (function () {
+            try {
+                var u = JSON.parse(localStorage.getItem('static_user') || 'null');
+                if (u && u.email) { window.location.replace('dashboard.html'); }
+            } catch (e) {}
+        })();
+
+        // ── Simple deterministic hash (keeps passwords out of source in plaintext) ──
+        function hashPwd(s) {
+            var h = 0;
+            for (var i = 0; i < s.length; i++) {
+                h = (31 * h + s.charCodeAt(i)) & 0xFFFFFFFF;
+                if (h >= 0x80000000) h -= 0x100000000;
+            }
+            return (h & 0xFFFFFFFF).toString(16);
+        }
+
+        // ── Seed pre-created admin accounts ──
+        (function seedAdminAccounts() {
+            var seeds = [
+                {
+                    email: 'bajteam1290@gmail.com',
+                    password: '35576316',
+                    name: 'Bleon',
+                    role: 'admin',
+                    plan: 'elite',
+                    courses: ['ec', 'tr'],
+                    joinedAt: '2025-01-01T00:00:00.000Z'
+                },
+                {
+                    email: 'samuele.vsn.contact@gmail.com',
+                    password: '675d6769',
+                    name: 'Samuele',
+                    role: 'admin',
+                    plan: 'elite',
+                    courses: ['ec', 'tr'],
+                    joinedAt: '2025-01-01T00:00:00.000Z'
+                }
+            ];
+            var allUsers = JSON.parse(localStorage.getItem('static_users') || '[]');
+            var changed = false;
+            seeds.forEach(function(seed) {
+                var idx = -1;
+                allUsers.forEach(function(u, i) {
+                    if (u.email.toLowerCase() === seed.email.toLowerCase()) idx = i;
+                });
+                if (idx === -1) {
+                    allUsers.push(seed);
+                    changed = true;
+                } else {
+                    // Always update password/role/plan in case previous seed had wrong password
+                    allUsers[idx].password = seed.password;
+                    allUsers[idx].role = seed.role;
+                    allUsers[idx].plan = seed.plan;
+                    allUsers[idx].courses = seed.courses;
+                    changed = true;
+                }
+            });
+            if (changed) {
+                localStorage.setItem('static_users', JSON.stringify(allUsers));
+            }
+        })();
+
+        // Form toggle
+        document.querySelectorAll('.toggle-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const formType = btn.getAttribute('data-form');
+                toggleForm(formType);
+            });
+        });
+
+        var _authLang = localStorage.getItem('sa_lang') || 'en';
+        var _authT = {
+            en: {
+                signin_title: 'Welcome Back',
+                signin_sub: 'Sign in to your account to continue',
+                signup_title: 'Join STATIC Academy',
+                signup_sub: 'Create your account and start learning',
+                signin_btn: 'Sign In',
+                signup_btn: 'Sign Up',
+                err_email_req: 'Email is required',
+                err_pwd_req: 'Password is required',
+                err_invalid: 'Invalid email or password',
+                err_name_req: 'Name is required',
+                err_name_short: 'Name must be at least 2 characters',
+                err_email_invalid: 'Please enter a valid email',
+                err_pwd_short: 'Password must be at least 8 characters',
+                err_pwd_match: 'Passwords do not match',
+                err_email_exists: 'This email is already registered',
+                success_signin: 'Sign in successful! Redirecting...',
+                success_signup: 'Account created successfully! Redirecting...',
+            },
+            fr: {
+                signin_title: 'Bienvenue',
+                signin_sub: 'Connectez-vous à votre compte',
+                signup_title: 'Créer un compte',
+                signup_sub: 'Commencez à apprendre gratuitement',
+                signin_btn: 'Se connecter',
+                signup_btn: 'Inscription',
+                err_email_req: 'L\'email est requis',
+                err_pwd_req: 'Le mot de passe est requis',
+                err_invalid: 'Email ou mot de passe incorrect',
+                err_name_req: 'Le nom est requis',
+                err_name_short: 'Le nom doit contenir au moins 2 caractères',
+                err_email_invalid: 'Veuillez entrer un email valide',
+                err_pwd_short: 'Le mot de passe doit contenir au moins 8 caractères',
+                err_pwd_match: 'Les mots de passe ne correspondent pas',
+                err_email_exists: 'Cet email est déjà enregistré',
+                success_signin: 'Connexion réussie ! Redirection...',
+                success_signup: 'Compte créé avec succès ! Redirection...',
+            }
+        };
+        function _at(key) { return (_authT[_authLang] || _authT['fr'])[key] || (_authT['en'])[key] || key; }
+
+        function toggleForm(formType) {
+            const signinForm = document.getElementById('signinForm');
+            const signupForm = document.getElementById('signupForm');
+            const signinToggle = document.getElementById('signinToggle');
+            const signupToggle = document.getElementById('signupToggle');
+            const authTitle = document.getElementById('authTitle');
+            const authSubtitle = document.getElementById('authSubtitle');
+
+            if (formType === 'signin') {
+                signinForm.classList.remove('hidden');
+                signupForm.classList.add('hidden');
+                signinToggle.classList.add('active');
+                signupToggle.classList.remove('active');
+                authTitle.textContent = _at('signin_title');
+                authSubtitle.textContent = _at('signin_sub');
+            } else {
+                signinForm.classList.add('hidden');
+                signupForm.classList.remove('hidden');
+                signinToggle.classList.remove('active');
+                signupToggle.classList.add('active');
+                authTitle.textContent = _at('signup_title');
+                authSubtitle.textContent = _at('signup_sub');
+            }
+        }
+        // Apply initial bilingual state
+        toggleForm('signin');
+
+        // Sign In Handler
+        document.getElementById('signinForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            clearErrors();
+
+            const email = document.getElementById('signin-email').value.trim();
+            const password = document.getElementById('signin-password').value;
+
+            // Validation
+            if (!email) {
+                showError('signinEmailError', _at('err_email_req'));
+                return;
+            }
+            if (!password) {
+                showError('signinPasswordError', _at('err_pwd_req'));
+                return;
+            }
+
+            // Get all users from localStorage
+            const allUsers = JSON.parse(localStorage.getItem('static_users') || '[]');
+            const user = allUsers.find(u => u.email.toLowerCase() === email.toLowerCase() && u.password === hashPwd(password));
+
+            if (!user) {
+                showError('signinEmailError', _at('err_invalid'));
+                return;
+            }
+
+            // Special admin account check
+            var adminEmails = ['bajteam1290@gmail.com', 'samuele.vsn.contact@gmail.com'];
+            if (adminEmails.indexOf(email.toLowerCase()) !== -1) {
+                user.role = 'admin';
+                user.plan = 'elite';
+                localStorage.setItem('ec_plan', 'elite');
+                localStorage.setItem('tr_plan', 'elite');
+            }
+
+            // Store user session
+            localStorage.setItem('static_user', JSON.stringify(user));
+
+            // Show success and redirect
+            showSuccess(_at('success_signin'));
+            setTimeout(() => {
+                window.location.href = 'dashboard.html';
+            }, 1000);
+        });
+
+        // Sign Up Handler
+        document.getElementById('signupForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            clearErrors();
+
+            const name = document.getElementById('signup-name').value.trim();
+            const email = document.getElementById('signup-email').value.trim();
+            const password = document.getElementById('signup-password').value;
+            const confirmPassword = document.getElementById('signup-password-confirm').value;
+
+            // Validation
+            if (!name) {
+                showError('signupNameError', _at('err_name_req'));
+                return;
+            }
+            if (name.length < 2) {
+                showError('signupNameError', _at('err_name_short'));
+                return;
+            }
+
+            if (!email) {
+                showError('signupEmailError', _at('err_email_req'));
+                return;
+            }
+            if (!isValidEmail(email)) {
+                showError('signupEmailError', _at('err_email_invalid'));
+                return;
+            }
+
+            if (!password) {
+                showError('signupPasswordError', _at('err_pwd_req'));
+                return;
+            }
+            if (password.length < 8) {
+                showError('signupPasswordError', _at('err_pwd_short'));
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                showError('signupConfirmError', _at('err_pwd_match'));
+                return;
+            }
+
+            // Check if email already exists
+            const allUsers = JSON.parse(localStorage.getItem('static_users') || '[]');
+            if (allUsers.some(u => u.email === email)) {
+                showError('signupEmailError', _at('err_email_exists'));
+                return;
+            }
+
+            // Create new user
+            const newUser = {
+                name,
+                email,
+                password: hashPwd(password),
+                plan: 'free',
+                role: 'student',
+                joinedAt: new Date().toISOString(),
+                courses: ['ec', 'tr']
+            };
+
+            // Special admin account
+            var adminEmails = ['bajteam1290@gmail.com', 'samuele.vsn.contact@gmail.com'];
+            if (adminEmails.indexOf(email.toLowerCase()) !== -1) {
+                newUser.role = 'admin';
+                newUser.plan = 'elite';
+                localStorage.setItem('ec_plan', 'elite');
+                localStorage.setItem('tr_plan', 'elite');
+            }
+
+            allUsers.push(newUser);
+            localStorage.setItem('static_users', JSON.stringify(allUsers));
+            localStorage.setItem('static_user', JSON.stringify(newUser));
+
+            showSuccess(_at('success_signup'));
+            setTimeout(() => {
+                window.location.href = 'dashboard.html';
+            }, 1000);
+        });
+
+        function showError(elementId, message) {
+            const errorEl = document.getElementById(elementId);
+            errorEl.textContent = message;
+            errorEl.classList.add('show');
+        }
+
+        function showSuccess(message) {
+            const successEl = document.getElementById('successMessage');
+            successEl.textContent = message;
+            successEl.classList.add('show');
+        }
+
+        function clearErrors() {
+            document.querySelectorAll('.error-message').forEach(el => {
+                el.classList.remove('show');
+                el.textContent = '';
+            });
+            document.getElementById('successMessage').classList.remove('show');
+        }
+
+        function isValidEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        // Detect mode from URL param
+        const urlParams = new URLSearchParams(window.location.search);
+        const modeParam = urlParams.get('mode');
+        if (modeParam === 'signup') {
+            toggleForm('signup');
+        }
+    </script>
+<script>
+(function(){
+  var lang = (localStorage.getItem('sa_lang') || localStorage.getItem('static_user') && JSON.parse(localStorage.getItem('static_user')||'{}').lang) || 'fr';
+  var T = {
+    en: {
+    auth_btn_in: "Sign In",
+    auth_signup_btn: "Sign Up",
+    auth_btn_up: "Create Account",
+    auth_signin_h: "Welcome back",
+    auth_signup_h: "Create your account",
+    auth_signin_btn: "Sign In",
+    },
+    fr: {
+    auth_btn_in: "Se connecter",
+    auth_signup_btn: "Inscription",
+    auth_btn_up: "Créer un compte",
+    auth_signin_h: "Bienvenue",
+    auth_signup_h: "Créer votre compte",
+    auth_signin_btn: "Se connecter",
+    }
+  };
+  function applyI18n() {
+    var t = T[lang] || T['fr'];
+    document.querySelectorAll('[data-i18n]').forEach(function(el) {
+      var k = el.getAttribute('data-i18n');
+      if (t[k] !== undefined) el.textContent = t[k];
+    });
+    document.querySelectorAll('[data-i18n-ph]').forEach(function(el) {
+      var k = el.getAttribute('data-i18n-ph');
+      if (t[k] !== undefined) el.placeholder = t[k];
+    });
+    document.querySelectorAll('[data-i18n-html]').forEach(function(el) {
+      var k = el.getAttribute('data-i18n-html');
+      if (t[k] !== undefined) el.innerHTML = t[k];
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', applyI18n);
+  } else {
+    applyI18n();
+  }
+})();
+</script>
+</body>
+</html>

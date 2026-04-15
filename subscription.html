@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mon Abonnement — STATIC Academy</title>
+    <meta name="description" content="Gérez votre abonnement STATIC Academy : changer de plan, annuler, voir votre historique.">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#07080f;--bg2:#0c0e1d;--bg3:#131628;
+  --primary:#5b6cf5;--primary2:#8b5cf6;
+  --gold:#c9a84c;--success:#10b981;--danger:#ef4444;--orange:#f97316;
+  --border:rgba(91,108,245,.14);--border2:rgba(255,255,255,.07);
+  --text:#e8ecff;--text2:#9ca3af;--text3:#6b7280;
+  --font:'Inter','Segoe UI',system-ui,sans-serif;
+}
+body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh;line-height:1.6;}
+
+/* NAV */
+nav{background:rgba(7,8,15,.97);border-bottom:1px solid var(--border);padding:.9rem 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px);}
+.nav-logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;color:var(--text);}
+.nav-logo img{width:32px;height:32px;}
+.nav-logo .lm{font-size:.9rem;font-weight:800;letter-spacing:.06em;}
+.nav-logo .ls{font-size:.48rem;font-weight:500;letter-spacing:.2em;color:var(--text3);text-transform:uppercase;display:block;}
+.nav-right-links{display:flex;align-items:center;gap:1rem;}
+.nav-link{font-size:.82rem;color:var(--text3);text-decoration:none;transition:color .2s;}
+.nav-link:hover{color:var(--text);}
+.nav-link.active{color:var(--primary);}
+
+/* WRAP */
+.wrap{max-width:800px;margin:0 auto;padding:3rem 1.5rem 5rem;}
+
+/* Header */
+.page-header{margin-bottom:2.5rem;}
+.page-tag{display:inline-flex;align-items:center;gap:.4rem;padding:.28rem .8rem;border-radius:100px;font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:rgba(91,108,245,.1);border:1px solid rgba(91,108,245,.25);color:rgba(160,180,255,.85);margin-bottom:1rem;}
+h1{font-size:clamp(1.5rem,3vw,2rem);font-weight:800;letter-spacing:-.02em;margin-bottom:.4rem;background:linear-gradient(135deg,#e8ecff 0%,#9ba5f7 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.page-sub{font-size:.9rem;color:var(--text2);}
+
+/* Tab nav */
+.tabs{display:flex;gap:.5rem;margin-bottom:2rem;background:var(--bg2);padding:.35rem;border-radius:12px;border:1px solid var(--border);}
+.tab{flex:1;padding:.55rem 1rem;border:none;border-radius:9px;font-size:.83rem;font-weight:600;cursor:pointer;background:transparent;color:var(--text2);transition:all .2s;font-family:var(--font);}
+.tab.active{background:linear-gradient(135deg,var(--primary),var(--primary2));color:#fff;box-shadow:0 4px 16px rgba(91,108,245,.25);}
+.tab-content{display:none;}
+.tab-content.active{display:block;}
+
+/* Cards */
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:1.5rem;margin-bottom:1.25rem;}
+.card-title{font-size:.92rem;font-weight:700;margin-bottom:1.25rem;color:var(--text);display:flex;align-items:center;gap:.5rem;}
+
+/* Current plan */
+.plan-hero{
+  background:linear-gradient(135deg,rgba(91,108,245,.12),rgba(139,92,246,.12));
+  border:1px solid rgba(91,108,245,.25);border-radius:14px;padding:1.5rem;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;
+  margin-bottom:1.25rem;
+}
+.plan-info .plan-name{font-size:1.2rem;font-weight:800;margin-bottom:.25rem;}
+.plan-info .plan-course{font-size:.83rem;color:var(--text2);}
+.plan-badge-big{
+  padding:.45rem 1.1rem;border-radius:100px;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;
+  background:linear-gradient(135deg,var(--primary),var(--primary2));color:#fff;
+  box-shadow:0 4px 16px rgba(91,108,245,.3);
+}
+.plan-stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin-bottom:1.25rem;}
+.plan-stat{background:var(--bg3);border:1px solid var(--border2);border-radius:12px;padding:1rem;text-align:center;}
+.plan-stat .ps-value{font-size:1.1rem;font-weight:700;color:var(--text);}
+.plan-stat .ps-label{font-size:.73rem;color:var(--text3);margin-top:.15rem;}
+
+/* Plan comparison */
+.plan-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;}
+.plan-card{background:var(--bg3);border:1.5px solid var(--border2);border-radius:14px;padding:1.25rem;position:relative;cursor:pointer;transition:all .25s;}
+.plan-card:hover{border-color:var(--primary);}
+.plan-card.current{border-color:var(--success);background:rgba(16,185,129,.05);}
+.plan-card.recommended{border-color:var(--primary);background:rgba(91,108,245,.06);}
+.plan-rec-badge{position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--primary),var(--primary2));color:#fff;font-size:.65rem;font-weight:700;padding:.2rem .65rem;border-radius:100px;white-space:nowrap;letter-spacing:.04em;}
+.plan-card .pc-name{font-size:.95rem;font-weight:800;margin-bottom:.2rem;}
+.plan-card .pc-price{font-size:1.3rem;font-weight:800;color:var(--primary);margin-bottom:.75rem;}
+.plan-card .pc-price span{font-size:.8rem;font-weight:400;color:var(--text3);}
+.plan-card ul{list-style:none;margin-bottom:1rem;}
+.plan-card ul li{font-size:.78rem;color:var(--text2);padding:.2rem 0;display:flex;align-items:center;gap:.4rem;}
+.plan-card ul li::before{content:'✓';color:var(--success);font-weight:700;}
+.plan-card ul li.no::before{content:'✗';color:var(--text3);}
+.plan-card ul li.no{color:var(--text3);}
+.btn-plan{
+  width:100%;padding:.6rem;border-radius:9px;font-size:.8rem;font-weight:700;cursor:pointer;
+  font-family:var(--font);transition:all .2s;
+}
+.btn-plan.upgrade{background:linear-gradient(135deg,var(--primary),var(--primary2));color:#fff;border:none;}
+.btn-plan.upgrade:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgba(91,108,245,.25);}
+.btn-plan.current{background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3);color:var(--success);}
+.btn-plan.downgrade{background:transparent;border:1px solid var(--border2);color:var(--text3);}
+.btn-plan.downgrade:hover{border-color:var(--danger);color:var(--danger);}
+
+/* Benefits list */
+.benefit-list{list-style:none;}
+.benefit-item{display:flex;align-items:flex-start;gap:.75rem;padding:.75rem 0;border-bottom:1px solid var(--border2);}
+.benefit-item:last-child{border-bottom:none;}
+.benefit-icon{font-size:1.1rem;flex-shrink:0;margin-top:.05rem;}
+.benefit-text .bt-title{font-size:.87rem;font-weight:600;color:var(--text);margin-bottom:.1rem;}
+.benefit-text .bt-sub{font-size:.78rem;color:var(--text2);}
+
+/* Danger zone */
+.danger-section{background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.18);border-radius:14px;padding:1.5rem;}
+.danger-title{font-size:.92rem;font-weight:700;color:rgba(255,130,130,.9);margin-bottom:1rem;display:flex;align-items:center;gap:.5rem;}
+.danger-action{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;padding:.9rem 0;border-bottom:1px solid rgba(239,68,68,.12);}
+.danger-action:last-child{border-bottom:none;padding-bottom:0;}
+.da-info .da-title{font-size:.87rem;font-weight:600;color:var(--text);margin-bottom:.2rem;}
+.da-info .da-sub{font-size:.78rem;color:var(--text3);}
+.btn-danger{padding:.5rem 1rem;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.25);border-radius:8px;color:rgba(255,130,130,.9);font-size:.8rem;font-weight:600;cursor:pointer;font-family:var(--font);transition:all .2s;}
+.btn-danger:hover{background:rgba(239,68,68,.18);border-color:rgba(239,68,68,.4);}
+
+/* Refund policy box */
+.refund-box{background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.2);border-radius:12px;padding:1.1rem;margin-top:1.25rem;font-size:.82rem;color:rgba(255,220,150,.8);line-height:1.6;}
+.refund-box strong{color:rgba(255,220,130,.9);display:block;margin-bottom:.3rem;}
+
+/* Modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);display:none;align-items:center;justify-content:center;z-index:200;backdrop-filter:blur(6px);}
+.modal-overlay.show{display:flex;}
+.modal{background:var(--bg2);border:1px solid var(--border);border-radius:18px;padding:2rem;max-width:440px;width:90%;text-align:center;}
+.modal-icon{font-size:2.5rem;margin-bottom:1rem;}
+.modal h2{font-size:1.2rem;font-weight:800;margin-bottom:.6rem;}
+.modal p{font-size:.87rem;color:var(--text2);margin-bottom:1.5rem;line-height:1.6;}
+.modal-actions{display:flex;gap:.75rem;}
+.modal-actions .btn-cancel{flex:1;padding:.7rem;background:var(--bg3);border:1px solid var(--border2);border-radius:10px;color:var(--text2);font-size:.85rem;font-weight:600;cursor:pointer;font-family:var(--font);transition:all .2s;}
+.modal-actions .btn-cancel:hover{border-color:var(--primary);color:var(--primary);}
+.modal-actions .btn-confirm{flex:1;padding:.7rem;background:var(--danger);border:none;border-radius:10px;color:#fff;font-size:.85rem;font-weight:700;cursor:pointer;font-family:var(--font);transition:all .2s;}
+.modal-actions .btn-confirm:hover{background:#dc2626;}
+.modal-actions .btn-upgrade-confirm{flex:1;padding:.7rem;background:linear-gradient(135deg,var(--primary),var(--primary2));border:none;border-radius:10px;color:#fff;font-size:.85rem;font-weight:700;cursor:pointer;font-family:var(--font);transition:all .2s;}
+
+/* Success modal */
+.success-modal{background:var(--bg2);border:1px solid rgba(16,185,129,.3);border-radius:18px;padding:2rem;max-width:380px;width:90%;text-align:center;}
+.success-modal .sm-icon{font-size:2.5rem;margin-bottom:.75rem;}
+.success-modal h2{font-size:1.1rem;margin-bottom:.5rem;}
+.success-modal p{font-size:.85rem;color:var(--text2);margin-bottom:1.25rem;}
+.btn-ok{display:inline-block;padding:.65rem 1.5rem;background:linear-gradient(135deg,var(--primary),var(--primary2));color:#fff;border:none;border-radius:10px;font-size:.85rem;font-weight:700;cursor:pointer;font-family:var(--font);}
+
+/* Not logged in */
+.not-logged{text-align:center;padding:4rem 2rem;}
+.not-logged .nl-icon{font-size:3rem;margin-bottom:1rem;}
+.not-logged h2{font-size:1.2rem;margin-bottom:.5rem;}
+.not-logged p{font-size:.9rem;color:var(--text2);margin-bottom:1.5rem;}
+.btn-signin{display:inline-flex;align-items:center;gap:.4rem;padding:.75rem 1.5rem;background:linear-gradient(135deg,var(--primary),var(--primary2));color:#fff;text-decoration:none;border-radius:10px;font-size:.88rem;font-weight:700;}
+
+@media(max-width:600px){
+  .plan-grid{grid-template-columns:1fr;}
+  .plan-stat-row{grid-template-columns:repeat(2,1fr);}
+  .modal-actions{flex-direction:column;}
+  nav{padding:.75rem 1rem;}
+}
+</style>
+    <link rel="icon" href="logo-icon.svg" type="image/svg+xml">
+    <meta name="theme-color" content="#07080f">
+</head>
+<body>
+
+<nav>
+  <a href="index.html" style="display:flex;align-items:center;gap:.65rem;text-decoration:none;">
+    <img src="logo-icon.svg" alt="STATIC Academy" style="width:38px;height:38px;flex-shrink:0;">
+    <div style="display:flex;flex-direction:column;line-height:1.1;">
+      <span style="font-size:.95rem;font-weight:800;letter-spacing:.06em;color:#e8ecff;">STATIC</span>
+      <span style="font-size:.52rem;font-weight:500;letter-spacing:.22em;color:rgba(232,236,255,.38);text-transform:uppercase;">Academy</span>
+    </div>
+  </a>
+  <div style="display:flex;align-items:center;gap:.75rem;">
+    <button onclick="window.history.length>1?window.history.back():window.location.href='dashboard.html'" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:.4rem .9rem;color:rgba(232,236,255,.55);font-size:.8rem;cursor:pointer;display:flex;align-items:center;gap:.35rem;font-family:inherit;transition:all .2s;" onmouseover="this.style.color='#e8ecff';this.style.borderColor='rgba(91,108,245,.5)'" onmouseout="this.style.color='rgba(232,236,255,.55)';this.style.borderColor='rgba(255,255,255,.1)'">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+      <span id="backBtnLabel">Retour</span>
+    </button>
+    <a href="dashboard.html" class="nav-link">Dashboard</a>
+    <a href="report.html" class="nav-link">Signaler un problème</a>
+  </div>
+</nav>
+
+<div class="wrap" id="mainWrap">
+
+  <!-- Not logged in state -->
+  <div class="not-logged" id="notLoggedState" style="display:none;">
+    <div class="nl-icon">🔐</div>
+    <h2>Connectez-vous pour gérer votre abonnement</h2>
+    <p>Vous devez être connecté à votre compte STATIC Academy pour accéder à la gestion de votre abonnement.</p>
+    <a href="auth.html?mode=signin&redirect=subscription.html" class="btn-signin">→ Se connecter</a>
+  </div>
+
+  <!-- Main content (logged in) -->
+  <div id="subContent">
+
+    <div class="page-header">
+      <div class="page-tag">⚙️ Gestion d'abonnement</div>
+      <h1>Mon abonnement</h1>
+      <p class="page-sub">Gérez vos formations, modifiez votre plan, ou contactez le support.</p>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab active" onclick="showTab('overview',this)">📊 Vue d'ensemble</button>
+      <button class="tab" onclick="showTab('plans',this)">💎 Changer de plan</button>
+      <button class="tab" onclick="showTab('manage',this)">⚙️ Gérer</button>
+    </div>
+
+    <!-- TAB 1: Overview -->
+    <div class="tab-content active" id="tab-overview">
+
+      <!-- E-Commerce plan -->
+      <div class="card">
+        <div class="card-title">🛒 Formation E-Commerce</div>
+        <div class="plan-hero" id="ecPlanHero">
+          <div class="plan-info">
+            <div class="plan-name" id="ecPlanName">Plan Free</div>
+            <div class="plan-course">E-Commerce Mastery · STATIC Academy</div>
+          </div>
+          <div class="plan-badge-big" id="ecPlanBadge">FREE</div>
+        </div>
+        <div class="plan-stat-row">
+          <div class="plan-stat"><div class="ps-value" id="ecModCount">3/16</div><div class="ps-label">Modules accessibles</div></div>
+          <div class="plan-stat"><div class="ps-value">∞</div><div class="ps-label">Accès à vie</div></div>
+          <div class="plan-stat"><div class="ps-value" id="ecCallAccess">✗</div><div class="ps-label">Appel vocal mensuel</div></div>
+        </div>
+      </div>
+
+      <!-- Trading plan -->
+      <div class="card">
+        <div class="card-title">📈 Formation Trading</div>
+        <div class="plan-hero" id="trPlanHero">
+          <div class="plan-info">
+            <div class="plan-name" id="trPlanName">Plan Free</div>
+            <div class="plan-course">Forex & Crypto Trading · STATIC Academy</div>
+          </div>
+          <div class="plan-badge-big" id="trPlanBadge">FREE</div>
+        </div>
+        <div class="plan-stat-row">
+          <div class="plan-stat"><div class="ps-value" id="trModCount">2/14</div><div class="ps-label">Modules accessibles</div></div>
+          <div class="plan-stat"><div class="ps-value">∞</div><div class="ps-label">Accès à vie</div></div>
+          <div class="plan-stat"><div class="ps-value" id="trCallAccess">✗</div><div class="ps-label">Appel vocal mensuel</div></div>
+        </div>
+      </div>
+
+      <!-- Benefits -->
+      <div class="card">
+        <div class="card-title">✨ Inclus dans votre accès actuel</div>
+        <ul class="benefit-list" id="benefitList"></ul>
+      </div>
+
+    </div>
+
+    <!-- TAB 2: Plans -->
+    <div class="tab-content" id="tab-plans">
+
+      <div class="card">
+        <div class="card-title">🛒 E-Commerce — Choisir un plan</div>
+        <div class="plan-grid">
+          <div class="plan-card" id="ecFreeCard" data-course="ec" data-plan="free">
+            <div class="pc-name">Free</div>
+            <div class="pc-price">€0 <span>/ à vie</span></div>
+            <ul>
+              <li>Modules 1-2 accessibles</li>
+              <li>Vidéos de présentation</li>
+              <li class="no">Contenu Pro & Elite</li>
+              <li class="no">Appel vocal mensuel</li>
+              <li class="no">IA spécialisée</li>
+            </ul>
+            <button class="btn-plan downgrade" onclick="changePlan('ec','free')">Plan actuel</button>
+          </div>
+          <div class="plan-card recommended" id="ecProCard" data-course="ec" data-plan="pro">
+            <div class="plan-rec-badge">⭐ RECOMMANDÉ</div>
+            <div class="pc-name">Pro</div>
+            <div class="pc-price">€79 <span>/ à vie</span></div>
+            <ul>
+              <li>13+ modules complets</li>
+              <li>TikTok Shop, IA, CRO</li>
+              <li>1 appel vocal / mois</li>
+              <li>IA spécialisée e-commerce</li>
+              <li class="no">Modules Elite</li>
+            </ul>
+            <button class="btn-plan upgrade" onclick="goUpgrade('ec','pro')">Passer au Pro</button>
+          </div>
+          <div class="plan-card" id="ecEliteCard" data-course="ec" data-plan="elite">
+            <div class="pc-name">Elite 💎</div>
+            <div class="pc-price">€139 <span>/ à vie</span></div>
+            <ul>
+              <li>Tous les modules Pro</li>
+              <li>Modules Elite exclusifs</li>
+              <li>CRO & Psychologie avancée</li>
+              <li>1 appel vocal / mois</li>
+              <li>IA premium illimitée</li>
+            </ul>
+            <button class="btn-plan upgrade" onclick="goUpgrade('ec','elite')">Passer à l'Elite</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">📈 Trading — Choisir un plan</div>
+        <div class="plan-grid">
+          <div class="plan-card" id="trFreeCard" data-course="tr" data-plan="free">
+            <div class="pc-name">Free</div>
+            <div class="pc-price">€0 <span>/ à vie</span></div>
+            <ul>
+              <li>Modules 1-2 accessibles</li>
+              <li>Fondamentaux du trading</li>
+              <li class="no">Contenu Pro & Elite</li>
+              <li class="no">Prop Firms & IA Trading</li>
+              <li class="no">Appel vocal mensuel</li>
+            </ul>
+            <button class="btn-plan downgrade" onclick="changePlan('tr','free')">Plan actuel</button>
+          </div>
+          <div class="plan-card recommended" id="trProCard" data-course="tr" data-plan="pro">
+            <div class="plan-rec-badge">⭐ RECOMMANDÉ</div>
+            <div class="pc-name">Pro</div>
+            <div class="pc-price">€79 <span>/ à vie</span></div>
+            <ul>
+              <li>14+ modules complets</li>
+              <li>SMC, ICT, Prop Firms</li>
+              <li>1 appel vocal / mois</li>
+              <li>IA spécialisée trading</li>
+              <li class="no">Modules Elite avancés</li>
+            </ul>
+            <button class="btn-plan upgrade" onclick="goUpgrade('tr','pro')">Passer au Pro</button>
+          </div>
+          <div class="plan-card" id="trEliteCard" data-course="tr" data-plan="elite">
+            <div class="pc-name">Elite 💎</div>
+            <div class="pc-price">€139 <span>/ à vie</span></div>
+            <ul>
+              <li>Tous les modules Pro</li>
+              <li>Machine Learning trading</li>
+              <li>Stratégies institutionnelles</li>
+              <li>1 appel vocal / mois</li>
+              <li>IA premium illimitée</li>
+            </ul>
+            <button class="btn-plan upgrade" onclick="goUpgrade('tr','elite')">Passer à l'Elite</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🎁 Bundle Elite — Les 2 formations</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
+          <div>
+            <div style="font-size:1.1rem;font-weight:800;margin-bottom:.3rem;">E-Commerce + Trading — Accès Elite</div>
+            <div style="font-size:.85rem;color:var(--text2);">Toutes les formations · Tous les modules · 1 appel vocal / mois · 2 assistants IA</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-size:1.4rem;font-weight:800;color:var(--primary);">€219</div>
+            <div style="font-size:.78rem;color:var(--text3);text-decoration:line-through;">€398</div>
+            <button class="btn-plan upgrade" style="width:auto;padding:.55rem 1.2rem;margin-top:.5rem;" onclick="goUpgrade('bundle','elite')">Prendre le bundle →</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- TAB 3: Manage -->
+    <div class="tab-content" id="tab-manage">
+
+      <div class="card">
+        <div class="card-title">📧 Informations du compte</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem;padding:.5rem 0;">
+          <div>
+            <div style="font-size:.88rem;font-weight:600;" id="userNameDisplay">—</div>
+            <div style="font-size:.8rem;color:var(--text3);" id="userEmailDisplay">—</div>
+          </div>
+          <a href="auth.html?mode=profile" style="font-size:.8rem;color:var(--primary);text-decoration:none;">Modifier →</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🔗 Liens rapides</div>
+        <ul class="benefit-list">
+          <li class="benefit-item">
+            <div class="benefit-icon">📚</div>
+            <div class="benefit-text">
+              <div class="bt-title">Accéder à la formation E-Commerce</div>
+              <div class="bt-sub">Reprendre là où vous en étiez</div>
+            </div>
+            <a href="course-player.html" style="font-size:.8rem;color:var(--primary);text-decoration:none;margin-left:auto;flex-shrink:0;">Accéder →</a>
+          </li>
+          <li class="benefit-item">
+            <div class="benefit-icon">📈</div>
+            <div class="benefit-text">
+              <div class="bt-title">Accéder à la formation Trading</div>
+              <div class="bt-sub">Reprendre là où vous en étiez</div>
+            </div>
+            <a href="trading-player.html" style="font-size:.8rem;color:var(--primary);text-decoration:none;margin-left:auto;flex-shrink:0;">Accéder →</a>
+          </li>
+          <li class="benefit-item">
+            <div class="benefit-icon">🐛</div>
+            <div class="benefit-text">
+              <div class="bt-title">Signaler un problème</div>
+              <div class="bt-sub">Bug, paiement, accès — notre équipe répond sous 24h</div>
+            </div>
+            <a href="report.html" style="font-size:.8rem;color:var(--primary);text-decoration:none;margin-left:auto;flex-shrink:0;">Signaler →</a>
+          </li>
+          <li class="benefit-item">
+            <div class="benefit-icon">📋</div>
+            <div class="benefit-text">
+              <div class="bt-title">Conditions générales</div>
+              <div class="bt-sub">Politique d'achat et d'utilisation</div>
+            </div>
+            <a href="legal.html" style="font-size:.8rem;color:var(--primary);text-decoration:none;margin-left:auto;flex-shrink:0;">Lire →</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Danger zone -->
+      <div class="danger-section">
+        <div class="danger-title">⚠️ Zone de gestion avancée</div>
+
+        <div class="danger-action">
+          <div class="da-info">
+            <div class="da-title">Rétrograder vers le plan Free</div>
+            <div class="da-sub">Vous perdrez l'accès au contenu Pro/Elite</div>
+          </div>
+          <button class="btn-danger" onclick="openModal('downgrade')">Rétrograder vers Free</button>
+        </div>
+
+        <div class="danger-action">
+          <div class="da-info">
+            <div class="da-title">Supprimer mon compte</div>
+            <div class="da-sub">Suppression définitive de toutes vos données</div>
+          </div>
+          <button class="btn-danger" onclick="openModal('delete')">Supprimer mon compte</button>
+        </div>
+      </div>
+
+      <div class="refund-box" style="background:rgba(91,108,245,.06);border-color:rgba(91,108,245,.2);">
+        <strong style="color:rgba(160,180,255,.9);">📋 Politique d'achat</strong>
+        <span style="color:rgba(180,200,255,.7);">Tous les achats sont définitifs. En tant que contenu numérique livré immédiatement, aucun remboursement ne peut être accordé. Si vous rencontrez un problème technique pour accéder à votre contenu, notre équipe support le résoudra sans frais supplémentaires.</span>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<!-- MODALS -->
+<div class="modal-overlay" id="modalOverlay">
+
+  <!-- Refund modal removed — no refund policy -->
+
+  <!-- Downgrade modal -->
+  <div class="modal" id="modal-downgrade" style="display:none;">
+    <div class="modal-icon">⚠️</div>
+    <h2>Rétrograder vers Free ?</h2>
+    <p>Vous perdrez immédiatement l'accès à tous les modules Pro et Elite. Votre progression sera conservée mais vous ne pourrez plus consulter le contenu avancé.</p>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal()">Annuler</button>
+      <button class="btn-confirm" onclick="doDowngrade()">Confirmer la rétrogradation</button>
+    </div>
+  </div>
+
+  <!-- Delete modal -->
+  <div class="modal" id="modal-delete" style="display:none;">
+    <div class="modal-icon">🗑️</div>
+    <h2>Supprimer votre compte ?</h2>
+    <p>Cette action est <strong>irréversible</strong>. Toutes vos données, progression et accès seront définitivement supprimés. Aucun remboursement ne sera automatiquement généré par cette action.</p>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal()">Annuler</button>
+      <button class="btn-confirm" onclick="doDeleteAccount()">Supprimer définitivement</button>
+    </div>
+  </div>
+
+  <!-- Success modal -->
+  <div class="success-modal" id="modal-success" style="display:none;">
+    <div class="sm-icon">✅</div>
+    <h2 id="successModalTitle">Action effectuée</h2>
+    <p id="successModalText">Votre demande a bien été prise en compte.</p>
+    <button class="btn-ok" onclick="closeModal(); refreshPage()">OK</button>
+  </div>
+
+</div>
+
+<script>
+// ── STATE & LANGUAGE ──
+const user = JSON.parse(localStorage.getItem('static_user')||'{}');
+const ecPlan = localStorage.getItem('ec_plan') || 'free';
+const trPlan = localStorage.getItem('tr_plan') || 'free';
+const _subLang = localStorage.getItem('sa_lang') || 'en';
+const _isEN = _subLang === 'en';
+
+// Helper: get text in current language
+const SUB_T = {
+  plan_prefix: _isEN ? 'Plan ' : 'Plan ',
+  btn_current: _isEN ? '✓ Current Plan' : '✓ Plan actuel',
+  btn_downgrade_free: _isEN ? 'Downgrade to Free' : 'Rétrograder vers Free',
+  btn_upgrade_pro: _isEN ? 'Upgrade to Pro' : 'Passer au Pro',
+  btn_upgrade_elite: _isEN ? 'Upgrade to Elite' : "Passer à l'Elite",
+  benefits_free: _isEN
+    ? ['Access to first 2-3 modules of each course','Intro videos','Personal dashboard']
+    : ['Accès aux 2-3 premiers modules de chaque formation','Vidéos de présentation','Tableau de bord personnel'],
+  benefits_pro: _isEN
+    ? ['Access to 13+ E-Commerce / 11+ Trading modules','Specialised AI assistants','1 monthly call (1h)','TikTok Shop, Prop Firms, Applied AI','Free lifetime updates']
+    : ['Accès à 13+ modules E-Commerce / 11+ modules Trading','Assistants IA spécialisés','1 appel vocal mensuel (1h)','TikTok Shop, Prop Firms, IA appliquée','Mises à jour gratuites à vie'],
+  benefits_elite: _isEN
+    ? ['Access to ALL E-Commerce and Trading modules','Exclusive Elite modules (CRO, ML Trading, Advanced AI)','Unlimited premium AI assistants','1 monthly call (1h)','Priority support 24h','Lifetime updates + new modules included']
+    : ['Accès à TOUS les modules E-Commerce et Trading','Modules Elite exclusifs (CRO, ML Trading, IA avancée)','Assistants IA premium illimités','1 appel vocal mensuel (1h)','Priorité support 24h','Mises à jour à vie + nouveaux modules inclus'],
+  downgrade_success_title: _isEN ? 'Plan downgraded' : 'Plan rétrogradé',
+  downgrade_success_text: _isEN ? 'Your plan has been downgraded to Free. Your progress is saved.' : 'Votre plan a été rétrogradé vers Free. Vous conservez votre progression.',
+  delete_alert: _isEN ? 'Your account has been deleted. You will be redirected to the homepage.' : "Votre compte a été supprimé. Vous allez être redirigé vers l'accueil.",
+};
+
+function init(){
+  if(!user||!user.email){
+    document.getElementById('subContent').style.display='none';
+    document.getElementById('notLoggedState').style.display='block';
+    return;
+  }
+
+  // Fill user info
+  document.getElementById('userNameDisplay').textContent = user.name || user.email;
+  document.getElementById('userEmailDisplay').textContent = user.email;
+
+  // Update plan displays
+  updatePlanDisplay('ec', ecPlan);
+  updatePlanDisplay('tr', trPlan);
+
+  // Update plan cards
+  updatePlanCards();
+
+  // Fill benefits
+  renderBenefits();
+}
+
+const PLAN_LABELS = {free:'FREE', pro:'PRO ⭐', elite:'ELITE 💎'};
+const PLAN_COLORS = {free:'rgba(107,114,128,.3)', pro:'linear-gradient(135deg,#5b6cf5,#8b5cf6)', elite:'linear-gradient(135deg,#c9a84c,#f59e0b)'};
+const EC_MODS = {free:'3/16', pro:'13/16', elite:'16/16'};
+const TR_MODS = {free:'2/14', pro:'11/14', elite:'14/14'};
+
+function updatePlanDisplay(course, plan){
+  const planNameLabel = _isEN
+    ? {free:'Free Plan', pro:'Pro Plan', elite:'Elite Plan'}[plan] || plan
+    : 'Plan ' + (plan.charAt(0).toUpperCase()+plan.slice(1));
+  document.getElementById(course+'PlanName').textContent = planNameLabel;
+  const badge = document.getElementById(course+'PlanBadge');
+  badge.textContent = PLAN_LABELS[plan]||plan.toUpperCase();
+  badge.style.background = PLAN_COLORS[plan]||PLAN_COLORS.free;
+  document.getElementById(course+'ModCount').textContent = course==='ec' ? EC_MODS[plan] : TR_MODS[plan];
+  document.getElementById(course+'CallAccess').textContent = plan==='free' ? '✗' : '✓';
+  document.getElementById(course+'CallAccess').style.color = plan==='free' ? 'var(--text3)' : 'var(--success)';
+}
+
+function updatePlanCards(){
+  ['ec','tr'].forEach(c => {
+    const plan = c==='ec' ? ecPlan : trPlan;
+    ['free','pro','elite'].forEach(p => {
+      const card = document.getElementById(c+(p.charAt(0).toUpperCase()+p.slice(1))+'Card');
+      if(!card) return;
+      card.classList.remove('current');
+      const btn = card.querySelector('.btn-plan');
+      if(plan===p){
+        card.classList.add('current');
+        btn.textContent = SUB_T.btn_current;
+        btn.className = 'btn-plan current';
+        btn.onclick = null;
+      } else if(p==='free'){
+        btn.textContent = SUB_T.btn_downgrade_free;
+        btn.className = 'btn-plan downgrade';
+        btn.onclick = ()=>openModal('downgrade');
+      } else {
+        btn.textContent = p==='pro' ? SUB_T.btn_upgrade_pro : SUB_T.btn_upgrade_elite;
+        btn.className = 'btn-plan upgrade';
+        btn.onclick = ()=>goUpgrade(c,p);
+      }
+    });
+  });
+}
+
+const BENEFITS_MAP = {
+  free:  SUB_T.benefits_free,
+  pro:   SUB_T.benefits_pro,
+  elite: SUB_T.benefits_elite
+};
+
+function renderBenefits(){
+  const topPlan = ecPlan==='elite'||trPlan==='elite' ? 'elite' : (ecPlan==='pro'||trPlan==='pro' ? 'pro' : 'free');
+  const el = document.getElementById('benefitList');
+  el.innerHTML = '';
+  BENEFITS_MAP[topPlan].forEach(b => {
+    el.innerHTML += '<li class="benefit-item"><div class="benefit-icon">✓</div><div class="benefit-text"><div class="bt-sub">'+b+'</div></div></li>';
+  });
+}
+
+// Tabs
+function showTab(id, btn){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-'+id).classList.add('active');
+}
+
+// Upgrade
+function goUpgrade(course, plan){
+  window.location.href='payment.html?course='+course+'&plan='+plan;
+}
+
+// Modals
+let currentModal = null;
+function openModal(type){
+  currentModal = type;
+  document.querySelectorAll('.modal, .success-modal').forEach(m=>m.style.display='none');
+  document.getElementById('modal-'+type).style.display='block';
+  document.getElementById('modalOverlay').classList.add('show');
+}
+function closeModal(){
+  document.getElementById('modalOverlay').classList.remove('show');
+  currentModal = null;
+}
+document.getElementById('modalOverlay').addEventListener('click', function(e){
+  if(e.target===this) closeModal();
+});
+
+function doDowngrade(){
+  localStorage.setItem('ec_plan','free');
+  localStorage.setItem('tr_plan','free');
+  closeModal();
+  showSuccess(SUB_T.downgrade_success_title, SUB_T.downgrade_success_text);
+}
+
+function doDeleteAccount(){
+  localStorage.removeItem('static_user');
+  localStorage.removeItem('static_users');
+  localStorage.removeItem('ec_plan');
+  localStorage.removeItem('tr_plan');
+  localStorage.removeItem('ec_done');
+  localStorage.removeItem('tr_done');
+  closeModal();
+  alert(SUB_T.delete_alert);
+  window.location.href='index.html';
+}
+
+function showSuccess(title, text){
+  document.querySelectorAll('.modal, .success-modal').forEach(m=>m.style.display='none');
+  document.getElementById('successModalTitle').textContent = title;
+  document.getElementById('successModalText').textContent = text;
+  document.getElementById('modal-success').style.display = 'block';
+  document.getElementById('modalOverlay').classList.add('show');
+}
+
+function refreshPage(){ window.location.reload(); }
+
+init();
+</script>
+<script src="session-sync.js"></script>
+<script>
+(function(){
+  var ref = document.referrer;
+  var label = document.getElementById('backBtnLabel');
+  if(!label) return;
+  var isFR = (localStorage.getItem('sa_lang') || 'en') !== 'en';
+  var back = isFR ? 'Retour' : 'Back';
+  if(ref.includes('dashboard')) label.textContent = 'Dashboard';
+  else if(ref.includes('course-player')) label.textContent = isFR ? 'Formation E-Commerce' : 'E-Commerce Course';
+  else if(ref.includes('trading-player')) label.textContent = isFR ? 'Formation Trading' : 'Trading Course';
+  else label.textContent = back;
+})();
+</script>
+<script>
+/* ── Full bilingual translation for subscription.html ── */
+(function(){
+  var lang = localStorage.getItem('sa_lang') || 'en';
+  var isEN = lang === 'en';
+  if (!isEN) return; // HTML is already in French — only apply for English
+
+  function txt(id, t) {
+    var el = document.getElementById(id);
+    if (el) el.textContent = t;
+  }
+  function html(id, t) {
+    var el = document.getElementById(id);
+    if (el) el.innerHTML = t;
+  }
+  function qs(sel, t) {
+    var el = document.querySelector(sel);
+    if (el) el.textContent = t;
+  }
+  function qsa(sel, t) {
+    document.querySelectorAll(sel).forEach(function(el){ el.textContent = t; });
+  }
+
+  function applyEN() {
+    // ── Nav ──
+    qs('a[href="report.html"].nav-link', 'Report an Issue');
+
+    // ── Not logged in state ──
+    qs('#notLoggedState h2', 'Sign in to manage your subscription');
+    qs('#notLoggedState p', 'You must be signed in to your STATIC Academy account to manage your subscription.');
+    qs('#notLoggedState .btn-signin', '→ Sign In');
+
+    // ── Page header ──
+    qs('.page-tag', '⚙️ Subscription Management');
+    qs('h1', 'My Subscription');
+    qs('.page-sub', 'Manage your courses, change your plan, or contact support.');
+
+    // ── Tabs ──
+    var tabs = document.querySelectorAll('.tab');
+    if (tabs[0]) tabs[0].textContent = '📊 Overview';
+    if (tabs[1]) tabs[1].textContent = '💎 Change Plan';
+    if (tabs[2]) tabs[2].textContent = '⚙️ Manage';
+
+    // ── Overview tab: card titles ──
+    var cardTitles = document.querySelectorAll('.card-title');
+    // We'll target by position in each card
+    var allCards = document.querySelectorAll('#tab-overview .card-title');
+    if (allCards[0]) allCards[0].textContent = '🛒 E-Commerce Course';
+    if (allCards[1]) allCards[1].textContent = '📈 Trading Course';
+    if (allCards[2]) allCards[2].textContent = '✨ Included in your current plan';
+
+    // ── Overview: course subtitles & stat labels ──
+    qs('#ecPlanHero .plan-course', 'E-Commerce Mastery · STATIC Academy');
+    qs('#trPlanHero .plan-course', 'Forex & Crypto Trading · STATIC Academy');
+
+    // Stat labels
+    var ecStats = document.querySelectorAll('#tab-overview .card:nth-child(1) .ps-label');
+    if (ecStats[0]) ecStats[0].textContent = 'Accessible Modules';
+    if (ecStats[1]) ecStats[1].textContent = 'Lifetime Access';
+    if (ecStats[2]) ecStats[2].textContent = 'Monthly Call';
+    var trStats = document.querySelectorAll('#tab-overview .card:nth-child(2) .ps-label');
+    if (trStats[0]) trStats[0].textContent = 'Accessible Modules';
+    if (trStats[1]) trStats[1].textContent = 'Lifetime Access';
+    if (trStats[2]) trStats[2].textContent = 'Monthly Call';
+
+    // ── Plans tab: section titles ──
+    var planCardTitles = document.querySelectorAll('#tab-plans .card-title');
+    if (planCardTitles[0]) planCardTitles[0].textContent = '🛒 E-Commerce — Choose a plan';
+    if (planCardTitles[1]) planCardTitles[1].textContent = '📈 Trading — Choose a plan';
+    if (planCardTitles[2]) planCardTitles[2].textContent = '🎁 Elite Bundle — Both Courses';
+
+    // Plan card prices (lifetime label)
+    document.querySelectorAll('.pc-price span').forEach(function(el){
+      el.textContent = '/ lifetime';
+    });
+
+    // E-Commerce plan features
+    var ecFreeUl = document.querySelector('#ecFreeCard ul');
+    if (ecFreeUl) ecFreeUl.innerHTML =
+      '<li>Modules 1-2 accessible</li><li>Intro videos</li>' +
+      '<li class="no">Pro &amp; Elite content</li><li class="no">Monthly call</li><li class="no">Specialised AI</li>';
+    var ecProUl = document.querySelector('#ecProCard ul');
+    if (ecProUl) ecProUl.innerHTML =
+      '<li>13+ complete modules</li><li>TikTok Shop, AI, CRO</li><li>1 monthly call (1h)</li>' +
+      '<li>E-commerce AI assistant</li><li class="no">Elite modules</li>';
+    var ecEliteUl = document.querySelector('#ecEliteCard ul');
+    if (ecEliteUl) ecEliteUl.innerHTML =
+      '<li>All Pro modules</li><li>Exclusive Elite modules</li><li>CRO &amp; Advanced Psychology</li>' +
+      '<li>1 monthly call (1h)</li><li>Unlimited premium AI</li>';
+
+    // Trading plan features
+    var trFreeUl = document.querySelector('#trFreeCard ul');
+    if (trFreeUl) trFreeUl.innerHTML =
+      '<li>Modules 1-2 accessible</li><li>Trading fundamentals</li>' +
+      '<li class="no">Pro &amp; Elite content</li><li class="no">Prop Firms &amp; Trading AI</li><li class="no">Monthly call</li>';
+    var trProUl = document.querySelector('#trProCard ul');
+    if (trProUl) trProUl.innerHTML =
+      '<li>14+ complete modules</li><li>SMC, ICT, Prop Firms</li><li>1 monthly call (1h)</li>' +
+      '<li>Specialised trading AI</li><li class="no">Advanced Elite modules</li>';
+    var trEliteUl = document.querySelector('#trEliteCard ul');
+    if (trEliteUl) trEliteUl.innerHTML =
+      '<li>All Pro modules</li><li>Machine Learning trading</li><li>Institutional strategies</li>' +
+      '<li>1 monthly call (1h)</li><li>Unlimited premium AI</li>';
+
+    // Bundle section
+    qs('#tab-plans .card:nth-child(3) div > div > div:first-child', 'E-Commerce + Trading — Elite Access');
+    qs('#tab-plans .card:nth-child(3) div > div > div:nth-child(2)', 'All courses · All modules · 1 monthly call · 2 AI assistants');
+    var bundleBtn = document.querySelector('#tab-plans .card:nth-child(3) button');
+    if (bundleBtn) bundleBtn.textContent = 'Get the bundle →';
+
+    // Plan card recommended badges
+    document.querySelectorAll('.plan-rec-badge').forEach(function(el){
+      el.textContent = '⭐ RECOMMENDED';
+    });
+
+    // ── Manage tab ──
+    var manageTitles = document.querySelectorAll('#tab-manage .card-title');
+    if (manageTitles[0]) manageTitles[0].textContent = '📧 Account Information';
+    if (manageTitles[1]) manageTitles[1].textContent = '🔗 Quick Links';
+
+    qs('#tab-manage a[href="auth.html?mode=profile"]', 'Edit →');
+
+    // Quick links
+    var btItems = document.querySelectorAll('#tab-manage .bt-title');
+    if (btItems[0]) btItems[0].textContent = 'Access E-Commerce Course';
+    if (btItems[1]) btItems[1].textContent = 'Access Trading Course';
+    if (btItems[2]) btItems[2].textContent = 'Report an Issue';
+    if (btItems[3]) btItems[3].textContent = 'Terms & Conditions';
+    var btSubs = document.querySelectorAll('#tab-manage .bt-sub');
+    if (btSubs[0]) btSubs[0].textContent = 'Resume where you left off';
+    if (btSubs[1]) btSubs[1].textContent = 'Resume where you left off';
+    if (btSubs[2]) btSubs[2].textContent = 'Bug, payment, access — our team replies within 24h';
+    if (btSubs[3]) btSubs[3].textContent = 'Purchase & usage policy';
+    document.querySelectorAll('#tab-manage a[style*="margin-left:auto"]').forEach(function(el){
+      el.textContent = 'Access →';
+    });
+    var reportLink = document.querySelector('#tab-manage a[href="report.html"]');
+    if (reportLink) reportLink.textContent = 'Report →';
+    var legalLink = document.querySelector('#tab-manage a[href="legal.html"]');
+    if (legalLink) legalLink.textContent = 'Read →';
+
+    // Danger zone
+    qs('.danger-title', '⚠️ Advanced Management');
+    var daInfos = document.querySelectorAll('.da-info');
+    if (daInfos[0]) {
+      daInfos[0].querySelector('.da-title').textContent = 'Downgrade to Free Plan';
+      daInfos[0].querySelector('.da-sub').textContent = 'You will lose access to Pro/Elite content';
+    }
+    if (daInfos[1]) {
+      daInfos[1].querySelector('.da-title').textContent = 'Delete My Account';
+      daInfos[1].querySelector('.da-sub').textContent = 'Permanent deletion of all your data';
+    }
+    var dangerBtns = document.querySelectorAll('.btn-danger');
+    if (dangerBtns[0]) dangerBtns[0].textContent = 'Downgrade to Free';
+    if (dangerBtns[1]) dangerBtns[1].textContent = 'Delete My Account';
+
+    // Policy box
+    qs('.refund-box strong', '📋 Purchase Policy');
+    qs('.refund-box span', 'All purchases are final. As digital content delivered immediately, no refunds can be granted. If you have technical issues accessing your content, our support team will resolve them at no extra cost.');
+
+    // ── Modals ──
+    qs('#modal-downgrade h2', 'Downgrade to Free?');
+    qs('#modal-downgrade p', 'You will immediately lose access to all Pro and Elite modules. Your progress will be saved but you will no longer be able to view advanced content.');
+    var dwnBtns = document.querySelectorAll('#modal-downgrade .modal-actions button');
+    if (dwnBtns[0]) dwnBtns[0].textContent = 'Cancel';
+    if (dwnBtns[1]) dwnBtns[1].textContent = 'Confirm Downgrade';
+
+    qs('#modal-delete h2', 'Delete your account?');
+    qs('#modal-delete p', 'This action is irreversible. All your data, progress and access will be permanently deleted. No refund will be automatically generated by this action.');
+    var delBtns = document.querySelectorAll('#modal-delete .modal-actions button');
+    if (delBtns[0]) delBtns[0].textContent = 'Cancel';
+    if (delBtns[1]) delBtns[1].textContent = 'Delete Permanently';
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', applyEN);
+  } else {
+    applyEN();
+  }
+})();
+</script>
+</body>
+</html>
