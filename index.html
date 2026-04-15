@@ -2138,50 +2138,7 @@
             transform: translateY(40px);
         }
 
-        /* ============ RESPONSIVE ============ */
-        @media (max-width: 768px) {
-            .formations-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .pricing-cards {
-                grid-template-columns: 1fr;
-            }
-
-            .steps-grid {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-            }
-
-            .hero-buttons {
-                flex-direction: column;
-            }
-
-            .final-cta .buttons {
-                flex-direction: column;
-            }
-
-            .hero-stats {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .stat:nth-child(2)::after { display: none; }
-            .stat:nth-child(1), .stat:nth-child(2) {
-                border-bottom: 1px solid rgba(255,255,255,0.07);
-            }
-
-            .section-title {
-                font-size: 1.75rem;
-            }
-
-            .footer-content {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-        }
+        /* ============ RESPONSIVE — handled in mobile block below ============ */
 
         /* ============ LIVE MARKET TICKER ============ */
         .market-ticker {
@@ -2382,7 +2339,7 @@
         }
 
         /* ============================================================
-           MOBILE — RESPONSIVE LAYOUT
+           MOBILE — FULL RESPONSIVE OVERHAUL
            ============================================================ */
         @media (max-width: 768px) {
 
@@ -2393,36 +2350,90 @@
             .hamburger { display: flex; }
             .mobile-menu { display: flex; }
 
-            /* ── Hero compact ── */
-            .hero { padding: 80px 1.25rem 2.5rem; min-height: auto; }
+            /* ── Hero ── */
+            .hero { padding: 90px 1.5rem 3rem; min-height: auto; }
             .hero-side { display: none !important; }
-            .hero-content { text-align: center; }
-            h1 { font-size: clamp(1.9rem, 7vw, 2.6rem) !important; line-height: 1.15; }
-            .hero-subtitle { font-size: .9rem; }
-            .hero-buttons { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: .6rem; }
-            .hero-buttons .btn { flex: 1 1 140px; max-width: 200px; justify-content: center; text-align: center; font-size: .88rem; padding: .75rem 1rem; }
-            .hero-stats { grid-template-columns: repeat(2, 1fr); gap: .5rem; margin-top: 1.5rem; }
+            .hero-content { text-align: center; max-width: 100%; }
+            h1 { font-size: clamp(2rem, 8vw, 2.8rem) !important; line-height: 1.12; }
+            .hero-subtitle { font-size: .95rem; line-height: 1.65; margin-bottom: 1.75rem; }
+            .hero-buttons { flex-direction: column; align-items: center; gap: .85rem; }
+            .hero-buttons .btn { width: 100%; max-width: 340px; justify-content: center; text-align: center; font-size: .95rem; padding: .95rem 1.5rem; }
+            .hero-stats { grid-template-columns: repeat(2, 1fr); gap: .75rem; margin-top: 2rem; }
+            .stat:nth-child(2)::after { display: none; }
+            .stat:nth-child(1), .stat:nth-child(2) { border-bottom: 1px solid rgba(255,255,255,.07); }
 
-            /* ── Section spacing ── */
-            .section { padding: 2.5rem 1.25rem; }
-            .section-title { font-size: clamp(1.4rem, 5vw, 1.9rem); margin-bottom: .5rem; }
-            .section-sub { font-size: .85rem; margin-bottom: 1.5rem; }
-            .section-label { margin-bottom: .5rem; }
+            /* ── All sections ── */
+            .formations, .features, .testimonials, .faq, .curriculum { padding: 3rem 1.5rem; max-width: 100%; }
+            .section-label { margin-bottom: .75rem; }
+            .section-title { font-size: clamp(1.6rem, 6vw, 2.1rem) !important; margin-bottom: .85rem; line-height: 1.2; }
+            .section-sub { font-size: .88rem; margin-bottom: 1.75rem; line-height: 1.6; }
 
-            /* ── Footer compact ── */
-            .footer-content { grid-template-columns: 1fr 1fr; gap: 1.25rem; }
-            .footer-bottom { flex-direction: column; gap: .5rem; text-align: center; font-size: .75rem; }
+            /* ── Steps (How It Works) ── */
+            .how-it-works { padding: 3rem 1.5rem; }
+            .steps-grid { grid-template-columns: 1fr; gap: 1rem; margin-top: 1.5rem; }
+            .step { padding: 1.5rem; }
+            .step-number { font-size: 2rem; margin-bottom: .6rem; }
+            .step h3 { font-size: 1.05rem; }
 
-            /* ── CTA section ── */
-            .final-cta .buttons { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: .6rem; }
-            .final-cta .buttons .btn { flex: 1 1 130px; text-align: center; justify-content: center; }
-            .final-cta h2 { font-size: 1.6rem; }
+            /* ── Formation cards ── */
+            .formations-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+            .fc-header { padding: 1.5rem 1.5rem 1.25rem; }
+            .fc-body { padding: 1.25rem 1.5rem 1.5rem; }
+            .formation-card h3 { font-size: 1.3rem; }
+            .formation-emoji { font-size: 2.2rem; }
+            .fc-feature { font-size: .83rem; }
+            .formation-cta { padding: .85rem; font-size: .9rem; text-align: center; }
+
+            /* ── Feature cards ── */
+            .features-grid { grid-template-columns: 1fr; gap: 1rem; margin-top: 1.5rem; }
+            .feature-card { padding: 1.5rem; }
+            .feature-card h3 { font-size: 1rem; }
+
+            /* ── Pricing ── */
+            .pricing { padding: 3rem 1.5rem; }
+            .pricing-tabs { flex-wrap: wrap; gap: .5rem; }
+            .pricing-cards { grid-template-columns: 1fr; gap: 1.25rem; }
+            .pricing-card { padding: 1.75rem 1.5rem; }
+            .pricing-price { font-size: 2.6rem; }
+            .pricing-plan-name { font-size: .9rem; margin-bottom: .75rem; }
+
+            /* ── Testimonials ── */
+            .carousel-container { margin-top: 1.5rem; }
+            .testimonial-card { padding: 0 .5rem; }
+            .testimonial-content { padding: 1.5rem 1.25rem 1.25rem; }
+            .carousel-nav { margin-top: 1.25rem; gap: .75rem; }
+
+            /* ── FAQ ── */
+            .faq { padding: 3rem 1.5rem; }
+            .faq-question { padding: 1.1rem 1rem; font-size: .9rem; }
+            .faq-answer-content { padding: 1rem; font-size: .87rem; }
+
+            /* ── Final CTA ── */
+            .final-cta { padding: 2.5rem 1.5rem; margin: 0 1.5rem 2rem; border-radius: 16px; }
+            .final-cta h2 { font-size: 1.7rem; margin-bottom: .75rem; }
+            .final-cta p { font-size: .9rem; margin-bottom: 1.5rem; }
+            .final-cta .buttons { flex-direction: column; align-items: center; gap: .75rem; }
+            .final-cta .buttons .btn { width: 100%; max-width: 340px; text-align: center; justify-content: center; }
+
+            /* ── Footer ── */
+            footer { padding: 2.5rem 1.5rem; margin-top: 2rem; }
+            .footer-content { grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.75rem; }
+            .footer-bottom { flex-direction: column; gap: .4rem; text-align: center; font-size: .75rem; padding-top: 1.25rem; }
+            .footer-section h4 { font-size: .9rem; margin-bottom: .85rem; }
+            .footer-links li { margin-bottom: .5rem; }
+            .footer-links a { font-size: .82rem; }
         }
 
         @media (max-width: 480px) {
             nav { padding: 0 1rem; height: 58px; }
-            .hero-buttons .btn { flex: 1 1 100%; max-width: 100%; }
+            .hero { padding: 80px 1.25rem 2.5rem; }
+            h1 { font-size: clamp(1.8rem, 7.5vw, 2.2rem) !important; }
+            .hero-buttons .btn { max-width: 100%; padding: .9rem 1.25rem; }
+            .hero-stats { gap: .5rem; }
+            .formations, .features, .testimonials, .faq, .pricing, .how-it-works { padding: 2.5rem 1.25rem; }
+            .section-title { font-size: clamp(1.45rem, 6vw, 1.85rem) !important; }
             .footer-content { grid-template-columns: 1fr; }
+            .final-cta { margin: 0 1.25rem 2rem; padding: 2rem 1.25rem; }
         }
     </style>
 </head>

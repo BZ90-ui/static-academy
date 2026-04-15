@@ -233,46 +233,70 @@ footer a:hover{color:#EEF0FF}
 .ec-mob-lang{margin-top:.75rem;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:rgba(238,240,255,.7);padding:.6rem 1rem;border-radius:10px;font-size:.88rem;width:100%;cursor:pointer;}
 
 @media(max-width:768px){
+  /* ── Nav ── */
   .nav{padding:0 20px}
-  .nav-right .nav-account-link{display:none;}
-  .nav-right .nav-lang{display:none;}
-  .nav-right .nav-cta{display:none;}
-  .ec-hamburger{display:flex;}
-  .ec-mobile-menu{display:flex;}
-  .nav-back{margin-left:16px}
-  .hero{padding:80px 20px 40px}
-  .section{padding:60px 20px}
-  .section-alt-in{padding:0 20px}
-  .two-col,.two-col-rev{grid-template-columns:1fr;gap:32px}
-  .checklist{grid-template-columns:1fr}
-  .instructor{flex-direction:column;text-align:center}
-  .hero-nums{gap:28px}
+  .nav-right .nav-account-link,.nav-right .nav-lang,.nav-right .nav-cta{display:none}
+  .ec-hamburger{display:flex}
+  .ec-mobile-menu{display:flex}
+  .nav-back{margin-left:14px}
   .ec-ticker{display:none}
+
+  /* ── Hero ── */
+  .hero{padding:84px 1.5rem 2.5rem;text-align:center}
+  .hero h1{font-size:clamp(1.9rem,7.5vw,2.6rem)!important;line-height:1.12}
+  .hero-desc{font-size:.9rem;margin-bottom:1.5rem;max-width:100%}
+  .hero-ctas{flex-direction:column;align-items:center;gap:.75rem}
+  .hero-ctas a,.btn-main,.btn-outline{width:100%;max-width:340px;justify-content:center;text-align:center;padding:1rem 1.5rem;font-size:.95rem}
+  .hero-nums{gap:20px;justify-content:center;flex-wrap:wrap}
+  .hn-val{font-size:1.5rem}
+
+  /* ── Sections ── */
+  .section{padding:2.75rem 1.5rem;max-width:100%}
+  .section-alt{padding:2.5rem 0}
+  .section-alt-in{padding:0 1.5rem;max-width:100%}
+  .title{font-size:clamp(1.5rem,6vw,2rem)!important;margin-bottom:.75rem}
+  .subtitle{font-size:.88rem;line-height:1.65}
+
+  /* ── Grids → single column ── */
+  .grid-2{grid-template-columns:1fr;gap:14px;margin-top:28px}
+  .module-grid,.modules-grid{grid-template-columns:1fr!important;gap:14px}
+  .pricing-cards,.price-cards{grid-template-columns:1fr!important;gap:14px}
+  .two-col,.two-col-rev{grid-template-columns:1fr;gap:2rem}
+  .checklist{grid-template-columns:1fr;gap:10px;margin-top:20px}
+  .check-item{padding:14px}
+
+  /* ── Cards ── */
+  .card{padding:20px}
+
+  /* ── Instructor ── */
+  .instructor{flex-direction:column;text-align:center;padding:28px 20px;gap:20px;margin-top:28px}
+  .inst-ava{margin:0 auto}
+  .inst-nums{justify-content:center}
+
+  /* ── Pricing box ── */
+  .pricing-box{padding:2rem 1.25rem;margin-top:24px;border-radius:16px}
+  .plans{gap:14px;margin-top:28px}
+  .plan{padding:1.5rem 1.25rem!important}
+  .plan-price{font-size:2.2rem}
+
+  /* ── Final CTA ── */
+  .cta-final{padding:3rem 1.5rem}
+  .cta-final h2{font-size:clamp(1.6rem,6vw,2.2rem)}
+  .cta-final p{font-size:.88rem;margin-bottom:24px}
+
+  /* ── Footer ── */
+  footer{padding:24px 1.5rem}
 }
-@media(max-width:600px){
-  /* ── Compact hero ── */
-  .hero{padding:68px 16px 28px}
-  .hero h1{font-size:clamp(1.75rem,7vw,2.2rem)!important;line-height:1.15}
-  .hero-desc{font-size:.85rem;margin-bottom:1.25rem}
-  .hero-ctas{flex-direction:row;flex-wrap:wrap;gap:.5rem;justify-content:center}
-  .hero-ctas a{flex:1 1 130px;text-align:center;padding:.7rem 1rem;font-size:.85rem}
-  .hero-nums{flex-wrap:wrap;gap:12px}
-  .section,.section-alt{padding:2rem 16px}
-  .section-title{font-size:clamp(1.3rem,5vw,1.75rem)!important;margin-bottom:.4rem}
-  .section-sub{font-size:.82rem;margin-bottom:1rem}
-  footer{padding:20px 16px}
 
-  /* ── Module & pricing grids: clean single column ── */
-  .module-grid,.modules-grid{grid-template-columns:1fr!important}
-  .pricing-cards,.price-cards{grid-template-columns:1fr!important}
-
-  /* ── Tools: 2-col grid ── */
-  .tools-grid{grid-template-columns:repeat(2,1fr);gap:.5rem}
-  .tools-grid .tool-badge{padding:.4rem .6rem;font-size:.72rem}
-
-  /* ── Timeline ── */
-  .timeline-step{padding:.75rem}
-  .two-col,.two-col-rev{gap:1.5rem}
+@media(max-width:480px){
+  .hero{padding:76px 1.25rem 2rem}
+  .hero h1{font-size:clamp(1.7rem,7vw,2rem)!important}
+  .section{padding:2.25rem 1.25rem}
+  .section-alt-in{padding:0 1.25rem}
+  .hero-ctas a,.btn-main,.btn-outline{max-width:100%}
+  .plan{padding:1.25rem 1rem!important}
+  .instructor{padding:20px 16px}
+  .pricing-box{padding:1.5rem 1rem}
 }
 /* LIVE MARKET TICKER */
 .ec-ticker{position:fixed;top:64px;left:0;right:0;z-index:199;height:32px;background:rgba(4,5,13,.97);border-bottom:1px solid rgba(0,229,255,.12);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center}
