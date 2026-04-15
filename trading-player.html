@@ -2194,6 +2194,16 @@ function applyUILang(lang) {
   if (subLink) subLink.title = isEN ? 'My Subscription' : 'Mon abonnement';
   var repLink = document.querySelector('a[href="report.html?type=bug"]');
   if (repLink) repLink.title = isEN ? 'Report an Issue' : 'Signaler un problème';
+  var upgBtn = document.getElementById('upgradeBtn');
+  if (upgBtn) upgBtn.textContent = isEN ? 'Upgrade →' : 'Passer Pro →';
+  var sbSearch = document.getElementById('sbSearch');
+  if (sbSearch) sbSearch.placeholder = isEN ? 'Search lessons...' : 'Rechercher...';
+  var mpHint = document.querySelector('.mp-search-hint');
+  if (mpHint) mpHint.textContent = isEN ? 'Search on YouTube' : 'Rechercher sur YouTube';
+  var mpSub = document.querySelector('.mp-subtitle');
+  if (mpSub) mpSub.textContent = isEN ? 'YouTube · Search' : 'YouTube · Recherche';
+  var unlockBtn = document.querySelector('.unlock-btn');
+  if (unlockBtn) unlockBtn.textContent = isEN ? 'Unlock now →' : 'Débloquer maintenant →';
 }
 
 function setLang(lang) {
@@ -2217,7 +2227,7 @@ function buildSidebar() {
     wrapper.className = 'mod-block';
     wrapper.dataset.mi = mi;
     const cls = { free:'mb-free', pro:'mb-pro', elite:'mb-elite' }[mod.level] || 'mb-free';
-    const lbl = { free:'GRATUIT', pro:'PRO', elite:'ELITE' }[mod.level] || '';
+    const lbl = { free: currentLang === 'fr' ? 'GRATUIT' : 'FREE', pro:'PRO', elite:'ELITE' }[mod.level] || '';
     const hdr = document.createElement('div');
     hdr.className = 'mod-hdr';
     hdr.innerHTML =
@@ -2298,16 +2308,19 @@ function loadLesson(mi, li) {
 
     const lock = document.getElementById('lockOverlay');
     const lvlCls = { free:'mb-free', pro:'mb-pro', elite:'mb-elite' }[les.level] || 'mb-free';
-    const lvlLbl = { free:'GRATUIT', pro:'PRO', elite:'ELITE' }[les.level] || '';
+    const lvlLbl = { free: currentLang === 'fr' ? 'GRATUIT' : 'FREE', pro:'PRO', elite:'ELITE' }[les.level] || '';
     const lvlEmoji = { free:'🟢', pro:'🔵', elite:'🌟' }[les.level] || '🟢';
 
     if (!canAccess(les.level)) {
       lock.style.display = 'flex';
-      document.getElementById('lockTitle').textContent = 'Contenu ' + lvlLbl;
-      document.getElementById('lockMsg').textContent =
-        les.level === 'elite'
-          ? 'Cette leçon est réservée aux membres Elite. Passe en Elite pour tout débloquer.'
-          : 'Cette leçon est réservée aux membres Pro. Passe en Pro pour continuer.';
+      document.getElementById('lockTitle').textContent = currentLang === 'fr' ? 'Contenu ' + lvlLbl : lvlLbl + ' Content';
+      document.getElementById('lockMsg').textContent = currentLang === 'fr'
+        ? (les.level === 'elite'
+            ? 'Cette leçon est réservée aux membres Elite. Passe en Elite pour tout débloquer.'
+            : 'Cette leçon est réservée aux membres Pro. Passe en Pro pour continuer.')
+        : (les.level === 'elite'
+            ? 'This lesson is for Elite members only. Upgrade to Elite to unlock everything.'
+            : 'This lesson is for Pro members only. Upgrade to Pro to continue.');
     } else {
       lock.style.display = 'none';
     }
@@ -2329,7 +2342,7 @@ function loadLesson(mi, li) {
         '<span class="lm-badge ' + lvlCls + '">' + lvlEmoji + ' ' + lvlLbl + '</span>' +
         '<span class="lm-pill">📚 ' + (mod["name_" + currentLang] || mod.name) + '</span>' +
         '<span class="lm-pill">⏱ ' + les.dur + '</span>' +
-        '<span class="lm-pill">📄 Leçon ' + (cur + 1) + ' / ' + all.length + '</span>' +
+        '<span class="lm-pill">📄 ' + (currentLang === 'fr' ? 'Leçon ' + (cur+1) + ' / ' + all.length : 'Lesson ' + (cur+1) + ' of ' + all.length) + '</span>' +
       '</div>';
 
     // 1. Extract video rows from canonical content — always authoritative
@@ -2350,11 +2363,11 @@ function loadLesson(mi, li) {
     pane.innerHTML =
       '<div class="lesson-body">' + bodyText + '</div>' +
       '<div class="lesson-nav">' +
-        (prev ? '<button class="nav-btn" onclick="loadLesson(' + prev.mi + ',' + prev.li + ')">← Précédent</button>' : '<span></span>') +
+        (prev ? '<button class="nav-btn" onclick="loadLesson(' + prev.mi + ',' + prev.li + ')">' + (currentLang === 'fr' ? '← Précédent' : '← Previous') + '</button>' : '<span></span>') +
         '<button class="mark-done' + (isDone ? ' done' : '') + '" id="markDoneBtn" onclick="toggleDone(' + mi + ',' + li + ')">' +
-          (isDone ? '✓ Terminé' : '○ Marquer terminé') +
+          (isDone ? (currentLang === 'fr' ? '✓ Terminé' : '✓ Completed') : (currentLang === 'fr' ? '○ Marquer terminé' : '○ Mark complete')) +
         '</button>' +
-        (next ? '<button class="nav-btn primary" onclick="loadLesson(' + next.mi + ',' + next.li + ')">Suivant →</button>' : '<span></span>') +
+        (next ? '<button class="nav-btn primary" onclick="loadLesson(' + next.mi + ',' + next.li + ')">' + (currentLang === 'fr' ? 'Suivant →' : 'Next →') + '</button>' : '<span></span>') +
       '</div>';
 
     document.getElementById('contentWrap').scrollTop = 0;
@@ -2405,7 +2418,7 @@ function toggleDone(mi, li) {
     else { chk.classList.remove('done'); chk.textContent = ''; }
   }
   const btn = document.getElementById('markDoneBtn');
-  if (btn) { btn.className = 'mark-done' + (done[key] ? ' done' : ''); btn.textContent = done[key] ? '✓ Terminé' : '○ Marquer terminé'; }
+  if (btn) { btn.className = 'mark-done' + (done[key] ? ' done' : ''); btn.textContent = done[key] ? (currentLang === 'fr' ? '✓ Terminé' : '✓ Completed') : (currentLang === 'fr' ? '○ Marquer terminé' : '○ Mark complete'); }
   updateProgress();
 }
 
