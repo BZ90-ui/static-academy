@@ -192,7 +192,38 @@
     .mark-done:hover{background:rgba(129,140,248,.15);}
     .mark-done.done{background:rgba(74,222,128,.08);border-color:rgba(74,222,128,.2);color:#4ade80;}
 
-    @media(max-width:768px){.sidebar{display:none;}.lesson-hero,.lesson-pane{padding:22px 18px;}}
+    /* ── Mobile sidebar toggle ── */
+    .sb-toggle{display:none;flex-direction:column;gap:5px;background:rgba(255,255,255,.06);border:1px solid var(--border);border-radius:8px;cursor:pointer;padding:8px 10px;flex-shrink:0;transition:background .2s,border-color .2s;}
+    .sb-toggle:hover{background:rgba(255,255,255,.1);border-color:rgba(129,140,248,.35);}
+    .sb-toggle span{display:block;width:18px;height:2px;background:var(--text);border-radius:2px;transition:all .25s;}
+    .sb-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+    .sb-toggle.open span:nth-child(2){opacity:0;}
+    .sb-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+    /* ── Sidebar backdrop ── */
+    .sb-overlay{display:none;position:fixed;inset:0;top:60px;background:rgba(0,0,0,.65);z-index:149;backdrop-filter:blur(2px);}
+    .sb-overlay.open{display:block;}
+
+    @media(max-width:768px){
+      .sb-toggle{display:flex;}
+      .course-title{display:none;}
+      .prog-wrap{width:72px;}
+      .prog-txt{display:none;}
+      /* Sidebar as slide-in drawer */
+      .sidebar{
+        display:flex;
+        position:fixed;
+        top:60px;left:0;bottom:0;
+        width:min(85vw,300px);
+        z-index:150;
+        transform:translateX(-100%);
+        transition:transform .3s cubic-bezier(.4,0,.2,1);
+        box-shadow:8px 0 40px rgba(0,0,0,.6);
+      }
+      .sidebar.open{transform:translateX(0);}
+      .lesson-hero{padding:20px 16px 16px;}
+      .lesson-pane{padding:20px 16px 40px;}
+    }
   
     /* Language toggle */
     .lang-toggle{display:flex;align-items:center;gap:5px;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:8px;padding:3px 8px;}
@@ -204,6 +235,9 @@
 <body>
 <div class="topbar">
   <div class="topbar-left">
+    <button class="sb-toggle" id="sbToggle" onclick="toggleSidebar()" aria-label="Modules">
+      <span></span><span></span><span></span>
+    </button>
     <a href="index.html#top" class="back-btn" onclick="sessionStorage.setItem('scrollTop','1')">← Home</a>
     <a href="index.html" class="logo" style="text-decoration:none;">
       <div class="logo-dot"><img src="logo-icon.svg" alt="STATIC Academy"></div>
@@ -233,7 +267,8 @@
   </div>
 </div>
 <div class="main">
-  <div class="sidebar">
+  <div class="sb-overlay" id="sbOverlay" onclick="closeSidebar()"></div>
+  <div class="sidebar" id="sidebar">
     <div class="sb-head">
       <div class="sb-course-pill">
         <div class="cp-icon">🛒</div>
@@ -3474,6 +3509,24 @@ function canAccess(level) {
 }
 
 
+/* ── Mobile sidebar drawer ── */
+function toggleSidebar() {
+  var sb = document.getElementById('sidebar');
+  var ov = document.getElementById('sbOverlay');
+  var btn = document.getElementById('sbToggle');
+  var isOpen = sb.classList.toggle('open');
+  ov.classList.toggle('open', isOpen);
+  if (btn) btn.classList.toggle('open', isOpen);
+}
+function closeSidebar() {
+  var sb = document.getElementById('sidebar');
+  var ov = document.getElementById('sbOverlay');
+  var btn = document.getElementById('sbToggle');
+  sb.classList.remove('open');
+  ov.classList.remove('open');
+  if (btn) btn.classList.remove('open');
+}
+
 function applyUILang(lang) {
   var isEN = lang === 'en';
   var subLink = document.querySelector('a[href="subscription.html"]');
@@ -3538,7 +3591,7 @@ function buildSidebar() {
         (locked ? '<span class="les-lock">&#128274;</span>' : '');
 
       if (!locked) {
-        row.onclick = function() { loadLesson(mi, li); };
+        row.onclick = function() { loadLesson(mi, li); if(window.innerWidth<=768) closeSidebar(); };
       }
       lesWrap.appendChild(row);
     });
