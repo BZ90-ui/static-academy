@@ -250,20 +250,43 @@ footer a:hover{color:#EEF0FF}
   .ec-ticker{display:none}
 }
 @media(max-width:600px){
-  .hero{padding:70px 16px 36px}
-  .hero h1{font-size:clamp(1.75rem,7vw,2.4rem)!important}
-  .hero-desc{font-size:.88rem}
-  .hero-ctas{flex-direction:column;align-items:stretch}
-  .hero-ctas a{text-align:center}
-  .hero-nums{flex-wrap:wrap;gap:20px}
-  .module-grid,.modules-grid{grid-template-columns:1fr}
-  .pricing-cards,.price-cards{grid-template-columns:1fr}
-  .section-title{font-size:clamp(1.4rem,5vw,1.9rem)!important}
-  .section{padding:48px 16px}
-  footer{padding:24px 16px}
-  .timeline-step{flex-direction:column;gap:.75rem}
-  .tools-grid{grid-template-columns:repeat(2,1fr)}
-  .tools-grid .tool-badge{padding:.4rem .75rem;font-size:.75rem}
+  /* ── Compact hero ── */
+  .hero{padding:68px 16px 28px}
+  .hero h1{font-size:clamp(1.75rem,7vw,2.2rem)!important;line-height:1.15}
+  .hero-desc{font-size:.85rem;margin-bottom:1.25rem}
+  .hero-ctas{flex-direction:row;flex-wrap:wrap;gap:.5rem;justify-content:center}
+  .hero-ctas a{flex:1 1 130px;text-align:center;padding:.7rem 1rem;font-size:.85rem}
+  .hero-nums{flex-wrap:wrap;gap:12px}
+  .section,.section-alt{padding:2rem 16px}
+  .section-title{font-size:clamp(1.3rem,5vw,1.75rem)!important;margin-bottom:.4rem}
+  .section-sub{font-size:.82rem;margin-bottom:1rem}
+  footer{padding:20px 16px}
+
+  /* ── Module cards: horizontal swipe ── */
+  .module-grid,.modules-grid{
+    display:flex!important;overflow-x:auto;scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;gap:.75rem;
+    margin:0 -16px;padding:0 16px .75rem;scrollbar-width:none;
+  }
+  .module-grid::-webkit-scrollbar,.modules-grid::-webkit-scrollbar{display:none}
+  .module-grid>*,.modules-grid>*{flex:0 0 82%;scroll-snap-align:start;min-width:0}
+
+  /* ── Pricing: horizontal swipe ── */
+  .pricing-cards,.price-cards{
+    display:flex!important;overflow-x:auto;scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;gap:.75rem;
+    margin:0 -16px;padding:0 16px .75rem;scrollbar-width:none;
+  }
+  .pricing-cards::-webkit-scrollbar,.price-cards::-webkit-scrollbar{display:none}
+  .pricing-cards>*,.price-cards>*{flex:0 0 84%;scroll-snap-align:start;min-width:0}
+
+  /* ── Tools: 2-col grid ── */
+  .tools-grid{grid-template-columns:repeat(2,1fr);gap:.5rem}
+  .tools-grid .tool-badge{padding:.4rem .6rem;font-size:.72rem}
+
+  /* ── Timeline ── */
+  .timeline-step{padding:.75rem}
+  .two-col,.two-col-rev{gap:1.5rem}
 }
 /* LIVE MARKET TICKER */
 .ec-ticker{position:fixed;top:64px;left:0;right:0;z-index:199;height:32px;background:rgba(4,5,13,.97);border-bottom:1px solid rgba(0,229,255,.12);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center}
@@ -778,6 +801,8 @@ window.addEventListener('scroll', function() {
 function toggleECMenu(){var btn=document.getElementById('ecHamburger'),menu=document.getElementById('ecMobileMenu'),open=menu.classList.toggle('open');btn.classList.toggle('open',open);document.body.style.overflow=open?'hidden':'';}
 function closeECMenu(){var btn=document.getElementById('ecHamburger'),menu=document.getElementById('ecMobileMenu');menu.classList.remove('open');btn.classList.remove('open');document.body.style.overflow='';}
 document.addEventListener('click',function(e){var m=document.getElementById('ecMobileMenu'),b=document.getElementById('ecHamburger');if(m&&m.classList.contains('open')&&!m.contains(e.target)&&!b.contains(e.target))closeECMenu();});
+// Touch swipe for horizontal grids
+['.module-grid','.modules-grid','.pricing-cards','.price-cards'].forEach(function(sel){document.querySelectorAll(sel).forEach(function(el){var sx=0,ss=0;el.addEventListener('touchstart',function(e){sx=e.touches[0].clientX;ss=el.scrollLeft;},{passive:true});el.addEventListener('touchmove',function(e){el.scrollLeft=ss+(sx-e.touches[0].clientX);},{passive:true});});});
 </script>
 </body>
 </html>
