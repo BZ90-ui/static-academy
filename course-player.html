@@ -4350,5 +4350,8 @@ loadLesson(0, 0);
 })();
 </script>
 
+<!-- Mobile desktop hint toast -->
+<style>#desktop-hint{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:rgba(20,20,30,.96);color:#fff;padding:13px 20px;border-radius:14px;font-size:13.5px;font-weight:500;z-index:99999;display:flex;align-items:center;gap:10px;box-shadow:0 6px 28px rgba(0,0,0,.45);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.12);max-width:calc(100vw - 40px);opacity:1;transition:opacity .5s ease,transform .5s ease;}#desktop-hint.hide{opacity:0;transform:translateX(-50%) translateY(10px);}</style>
+<script>(function(){if(window.innerWidth>768)return;if(sessionStorage.getItem('dsk_hint'))return;sessionStorage.setItem('dsk_hint','1');function show(){var el=document.createElement('div');el.id='desktop-hint';el.innerHTML='<span style="font-size:16px;flex-shrink:0">💡</span><span>This site is best used on a desktop.</span>';document.body.appendChild(el);setTimeout(function(){el.classList.add('hide');setTimeout(function(){el.remove();},500);},3000);}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',show);}else{show();}})();</script>
 </body>
 </html>
