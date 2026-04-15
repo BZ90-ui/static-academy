@@ -196,12 +196,30 @@ footer a:hover{color:#f59e0b}
 .wick{width:1px;background:#f59e0b}
 .body{width:8px;border-radius:2px;background:#f59e0b}
 
+/* ── Hamburger trading ── */
+.tr-hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:.5rem;margin-left:.5rem;}
+.tr-hamburger span{display:block;width:22px;height:2px;background:#e8ecff;border-radius:2px;transition:all .3s;}
+.tr-hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.tr-hamburger.open span:nth-child(2){opacity:0;}
+.tr-hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.tr-mobile-menu{display:none;position:fixed;top:64px;left:0;right:0;background:rgba(7,8,15,.98);border-bottom:1px solid rgba(245,158,11,.2);backdrop-filter:blur(16px);z-index:999;flex-direction:column;padding:1rem 1.5rem 1.5rem;gap:.25rem;box-shadow:0 16px 40px rgba(0,0,0,.5);opacity:0;transform:translateY(-8px);transition:opacity .25s,transform .25s;pointer-events:none;}
+.tr-mobile-menu.open{opacity:1;transform:translateY(0);pointer-events:all;}
+.tr-mobile-menu a{display:block;padding:.75rem 1rem;color:rgba(200,210,255,.8);text-decoration:none;font-size:.95rem;font-weight:500;border-radius:10px;transition:background .2s,color .2s;}
+.tr-mobile-menu a:hover{background:rgba(245,158,11,.1);color:#e8ecff;}
+.tr-mob-div{height:1px;background:rgba(255,255,255,.07);margin:.5rem 0;}
+.tr-mob-cta{background:linear-gradient(135deg,#c9a84c,#f59e0b)!important;color:#07080f!important;text-align:center;font-weight:700!important;border-radius:10px;}
+.tr-mob-lang{margin-top:.75rem;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:rgba(238,240,255,.7);padding:.6rem 1rem;border-radius:10px;font-size:.88rem;width:100%;cursor:pointer;}
+
 @media(max-width:768px){
   .two-col{grid-template-columns:1fr}
   .checklist{grid-template-columns:1fr}
   .instructor-card{flex-direction:column;text-align:center}
   .candle-deco{display:none}
-  .nav-left{flex-direction:column;gap:8px}
+  .nav-right .lang-select{display:none;}
+  .nav-right .tr-account-link{display:none;}
+  .nav-right .nav-cta{display:none;}
+  .tr-hamburger{display:flex;}
+  .tr-mobile-menu{display:flex;}
   .mkt-ticker{display:none}
 }
 @media(max-width:600px){
@@ -260,10 +278,27 @@ footer a:hover{color:#f59e0b}
       <option value="en" data-t="lang_english">English</option>
       <option value="fr" data-t="lang_french">Français</option>
     </select>
-    <a href="subscription.html" style="font-size:.82rem;color:rgba(238,240,255,.6);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#EEF0FF'" onmouseout="this.style.color='rgba(238,240,255,.6)'">Mon compte</a>
+    <a href="subscription.html" class="tr-account-link" style="font-size:.82rem;color:rgba(238,240,255,.6);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#EEF0FF'" onmouseout="this.style.color='rgba(238,240,255,.6)'">Mon compte</a>
     <a href="auth.html?mode=signup" class="nav-cta" data-t="nav_cta">Get Started</a>
   </div>
+  <!-- Hamburger -->
+  <button class="tr-hamburger" id="trHamburger" aria-label="Menu" onclick="toggleTRMenu()">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- Mobile menu -->
+<div class="tr-mobile-menu" id="trMobileMenu">
+  <a href="index.html" onclick="closeTRMenu()">← Home</a>
+  <a href="#tarifs" onclick="closeTRMenu()">Pricing</a>
+  <a href="dashboard.html" onclick="closeTRMenu()">Dashboard</a>
+  <div class="tr-mob-div"></div>
+  <a href="auth.html?mode=signup" class="tr-mob-cta" data-t="nav_cta" onclick="closeTRMenu()">Get Started</a>
+  <select class="tr-mob-lang" onchange="var s=document.getElementById('langSelect');s.value=this.value;s.dispatchEvent(new Event('change'));closeTRMenu()">
+    <option value="en">English</option>
+    <option value="fr">Français</option>
+  </select>
+</div>
 
 <!-- TRADING RISK DISCLAIMER BANNER -->
 <div id="tradingRiskBanner" style="background:rgba(239,68,68,.1);border-bottom:1px solid rgba(239,68,68,.25);padding:.65rem 1.5rem;display:flex;align-items:flex-start;gap:.75rem;font-size:.78rem;color:rgba(255,180,180,.9);line-height:1.5;position:relative;">
@@ -980,5 +1015,10 @@ window.addEventListener('scroll', function() {
 })();
 </script>
 <script src="session-sync.js"></script>
+<script>
+function toggleTRMenu(){var btn=document.getElementById('trHamburger'),menu=document.getElementById('trMobileMenu'),open=menu.classList.toggle('open');btn.classList.toggle('open',open);document.body.style.overflow=open?'hidden':'';}
+function closeTRMenu(){var btn=document.getElementById('trHamburger'),menu=document.getElementById('trMobileMenu');menu.classList.remove('open');btn.classList.remove('open');document.body.style.overflow='';}
+document.addEventListener('click',function(e){var m=document.getElementById('trMobileMenu'),b=document.getElementById('trHamburger');if(m&&m.classList.contains('open')&&!m.contains(e.target)&&!b.contains(e.target))closeTRMenu();});
+</script>
 </body>
 </html>

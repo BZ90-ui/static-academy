@@ -499,10 +499,14 @@
 
         @media (max-width: 768px) {
             .nav-center { display: none; }
+            .nav-right .nav-btn:not(.nav-btn-primary) { display: none; }
+            .nav-right .lang-select { display: none; }
             nav {
                 padding: 0 1.25rem;
                 grid-template-columns: 1fr auto;
             }
+            .hamburger { display: flex; }
+            .mobile-menu { display: flex; }
             .hero { padding-top: 100px; }
         }
 
@@ -2293,6 +2297,91 @@
         }
 
         /* ============================================================
+           HAMBURGER MENU
+           ============================================================ */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: .5rem;
+            margin-left: .5rem;
+            z-index: 1001;
+        }
+        .hamburger span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: var(--text);
+            border-radius: 2px;
+            transition: all .3s;
+        }
+        .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.open span:nth-child(2) { opacity: 0; }
+        .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 66px;
+            left: 0; right: 0;
+            background: rgba(7,8,15,.98);
+            border-bottom: 1px solid rgba(91,108,245,.2);
+            backdrop-filter: blur(16px);
+            z-index: 999;
+            flex-direction: column;
+            padding: 1rem 1.5rem 1.5rem;
+            gap: .25rem;
+            box-shadow: 0 16px 40px rgba(0,0,0,.5);
+            transform: translateY(-8px);
+            opacity: 0;
+            transition: opacity .25s, transform .25s;
+            pointer-events: none;
+        }
+        .mobile-menu.open {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: all;
+        }
+        .mobile-menu a {
+            display: block;
+            padding: .75rem 1rem;
+            color: rgba(200,210,255,.8);
+            text-decoration: none;
+            font-size: .95rem;
+            font-weight: 500;
+            border-radius: 10px;
+            transition: background .2s, color .2s;
+        }
+        .mobile-menu a:hover { background: rgba(91,108,245,.1); color: var(--text); }
+        .mobile-menu-divider { height: 1px; background: rgba(255,255,255,.07); margin: .5rem 0; }
+        .mobile-menu-signin {
+            border: 1px solid rgba(255,255,255,.12) !important;
+            text-align: center;
+        }
+        .mobile-menu-cta {
+            background: linear-gradient(135deg,#5b6cf5,#7254e8) !important;
+            color: #fff !important;
+            text-align: center;
+            font-weight: 700 !important;
+            margin-top: .25rem;
+            box-shadow: 0 4px 16px rgba(91,108,245,.35);
+        }
+        .mobile-menu-lang {
+            margin-top: .75rem;
+            background: rgba(255,255,255,.05);
+            border: 1px solid rgba(255,255,255,.1);
+            color: var(--text2);
+            padding: .6rem 1rem;
+            border-radius: 10px;
+            font-size: .88rem;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        /* ============================================================
            COMPREHENSIVE MOBILE RESPONSIVE FIXES
            ============================================================ */
 
@@ -2479,7 +2568,27 @@
             <a href="auth.html?mode=signin" class="nav-btn" data-t="nav_signin">Sign In</a>
             <a href="choose-formation.html" class="nav-btn nav-btn-primary" data-t="nav_start">Get Started</a>
         </div>
+
+        <!-- Hamburger button (mobile only) -->
+        <button class="hamburger" id="hamburgerBtn" aria-label="Menu" onclick="toggleMobileMenu()">
+            <span></span><span></span><span></span>
+        </button>
     </nav>
+
+    <!-- Mobile menu overlay -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#formations" data-t="nav_courses" onclick="closeMobileMenu()">Courses</a>
+        <a href="#pricing" data-t="nav_pricing" onclick="closeMobileMenu()">Pricing</a>
+        <a href="#how-it-works" data-t="nav_how" onclick="closeMobileMenu()">How It Works</a>
+        <a href="dashboard.html" data-t="nav_dashboard" onclick="closeMobileMenu()">Dashboard</a>
+        <div class="mobile-menu-divider"></div>
+        <a href="auth.html?mode=signin" class="mobile-menu-signin" data-t="nav_signin" onclick="closeMobileMenu()">Sign In</a>
+        <a href="choose-formation.html" class="mobile-menu-cta" data-t="nav_start" onclick="closeMobileMenu()">Get Started</a>
+        <select class="mobile-menu-lang" onchange="document.getElementById('lang-select').value=this.value;document.getElementById('lang-select').dispatchEvent(new Event('change'));closeMobileMenu()">
+            <option value="en">English</option>
+            <option value="fr">Français</option>
+        </select>
+    </div>
 
     <!-- TRANSITION OVERLAY (created dynamically in JS) -->
 
@@ -4270,5 +4379,38 @@
 
     </script>
     <script src="session-sync.js"></script>
+    <script>
+    // Hamburger menu
+    function toggleMobileMenu() {
+        var btn = document.getElementById('hamburgerBtn');
+        var menu = document.getElementById('mobileMenu');
+        var isOpen = menu.classList.toggle('open');
+        btn.classList.toggle('open', isOpen);
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+        // Sync lang value
+        var langSel = document.getElementById('lang-select');
+        var mobLang = menu.querySelector('.mobile-menu-lang');
+        if(langSel && mobLang) mobLang.value = langSel.value;
+    }
+    function closeMobileMenu() {
+        document.getElementById('mobileMenu').classList.remove('open');
+        document.getElementById('hamburgerBtn').classList.remove('open');
+        document.body.style.overflow = '';
+    }
+    // Close on outside tap
+    document.addEventListener('click', function(e){
+        var menu = document.getElementById('mobileMenu');
+        var btn = document.getElementById('hamburgerBtn');
+        if(menu && menu.classList.contains('open') && !menu.contains(e.target) && !btn.contains(e.target)){
+            closeMobileMenu();
+        }
+    });
+    // Close on scroll up (UX)
+    var lastScrollY = 0;
+    window.addEventListener('scroll', function(){
+        if(window.scrollY < lastScrollY - 60) closeMobileMenu();
+        lastScrollY = window.scrollY;
+    }, {passive:true});
+    </script>
 </body>
 </html>

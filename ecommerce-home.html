@@ -218,9 +218,27 @@ footer{border-top:1px solid rgba(255,255,255,.06);padding:32px 40px;text-align:c
 footer a{color:rgba(238,240,255,.45);text-decoration:none;margin:0 14px}
 footer a:hover{color:#EEF0FF}
 
+/* ── Hamburger ── */
+.ec-hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:.5rem;margin-left:.5rem;}
+.ec-hamburger span{display:block;width:22px;height:2px;background:#e8ecff;border-radius:2px;transition:all .3s;}
+.ec-hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.ec-hamburger.open span:nth-child(2){opacity:0;}
+.ec-hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.ec-mobile-menu{display:none;position:fixed;top:64px;left:0;right:0;background:rgba(7,8,15,.98);border-bottom:1px solid rgba(91,108,245,.2);backdrop-filter:blur(16px);z-index:999;flex-direction:column;padding:1rem 1.5rem 1.5rem;gap:.25rem;box-shadow:0 16px 40px rgba(0,0,0,.5);opacity:0;transform:translateY(-8px);transition:opacity .25s,transform .25s;pointer-events:none;}
+.ec-mobile-menu.open{opacity:1;transform:translateY(0);pointer-events:all;}
+.ec-mobile-menu a{display:block;padding:.75rem 1rem;color:rgba(200,210,255,.8);text-decoration:none;font-size:.95rem;font-weight:500;border-radius:10px;transition:background .2s,color .2s;}
+.ec-mobile-menu a:hover{background:rgba(91,108,245,.1);color:#e8ecff;}
+.ec-mob-div{height:1px;background:rgba(255,255,255,.07);margin:.5rem 0;}
+.ec-mob-cta{background:linear-gradient(135deg,#7b2fff,#00e5ff)!important;color:#fff!important;text-align:center;font-weight:700!important;border-radius:10px;}
+.ec-mob-lang{margin-top:.75rem;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:rgba(238,240,255,.7);padding:.6rem 1rem;border-radius:10px;font-size:.88rem;width:100%;cursor:pointer;}
+
 @media(max-width:768px){
   .nav{padding:0 20px}
-  .nav-right{gap:8px}
+  .nav-right .nav-account-link{display:none;}
+  .nav-right .nav-lang{display:none;}
+  .nav-right .nav-cta{display:none;}
+  .ec-hamburger{display:flex;}
+  .ec-mobile-menu{display:flex;}
   .nav-back{margin-left:16px}
   .hero{padding:80px 20px 40px}
   .section{padding:60px 20px}
@@ -229,7 +247,6 @@ footer a:hover{color:#EEF0FF}
   .checklist{grid-template-columns:1fr}
   .instructor{flex-direction:column;text-align:center}
   .hero-nums{gap:28px}
-  .nav-lang{font-size:.7rem;padding:4px 10px}
   .ec-ticker{display:none}
 }
 @media(max-width:600px){
@@ -286,10 +303,28 @@ footer a:hover{color:#EEF0FF}
       <option value="en">EN</option>
       <option value="fr">FR</option>
     </select>
-    <a href="subscription.html" style="font-size:.82rem;color:rgba(238,240,255,.6);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#EEF0FF'" onmouseout="this.style.color='rgba(238,240,255,.6)'">Mon compte</a>
+    <a href="subscription.html" class="nav-account-link" style="font-size:.82rem;color:rgba(238,240,255,.6);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#EEF0FF'" onmouseout="this.style.color='rgba(238,240,255,.6)'">Mon compte</a>
     <a href="auth.html?mode=signup" class="nav-cta" data-t="nav_cta">Get Started</a>
   </div>
+  <!-- Hamburger -->
+  <button class="ec-hamburger" id="ecHamburger" aria-label="Menu" onclick="toggleECMenu()">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- Mobile menu -->
+<div class="ec-mobile-menu" id="ecMobileMenu">
+  <a href="index.html" onclick="closeECMenu()">← Home</a>
+  <a href="ecommerce-home.html#programme" onclick="closeECMenu()" data-t="nav_programme">Programme</a>
+  <a href="pricing.html" onclick="closeECMenu()">Pricing</a>
+  <a href="dashboard.html" onclick="closeECMenu()">Dashboard</a>
+  <div class="ec-mob-div"></div>
+  <a href="auth.html?mode=signup" class="ec-mob-cta" data-t="nav_cta" onclick="closeECMenu()">Get Started</a>
+  <select class="ec-mob-lang" onchange="document.getElementById('lang-select').value=this.value;document.getElementById('lang-select').dispatchEvent(new Event('change'));closeECMenu()">
+    <option value="en">English</option>
+    <option value="fr">Français</option>
+  </select>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -739,5 +774,10 @@ window.addEventListener('scroll', function() {
 })();
 </script>
 <script src="session-sync.js"></script>
+<script>
+function toggleECMenu(){var btn=document.getElementById('ecHamburger'),menu=document.getElementById('ecMobileMenu'),open=menu.classList.toggle('open');btn.classList.toggle('open',open);document.body.style.overflow=open?'hidden':'';}
+function closeECMenu(){var btn=document.getElementById('ecHamburger'),menu=document.getElementById('ecMobileMenu');menu.classList.remove('open');btn.classList.remove('open');document.body.style.overflow='';}
+document.addEventListener('click',function(e){var m=document.getElementById('ecMobileMenu'),b=document.getElementById('ecHamburger');if(m&&m.classList.contains('open')&&!m.contains(e.target)&&!b.contains(e.target))closeECMenu();});
+</script>
 </body>
 </html>
