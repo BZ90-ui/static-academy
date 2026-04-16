@@ -453,21 +453,26 @@ nav{
   });
 })();
 </script>
-<!-- Mobile desktop hint popup -->
+<!-- Mobile desktop hint - bottom sheet -->
 <style>
-#dsk-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:99998;opacity:1;transition:opacity .35s ease;}
-#dsk-overlay.hide{opacity:0;}
-#desktop-hint{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(1);background:#0f0f1a;color:#fff;padding:28px 24px 24px;border-radius:20px;font-size:15px;font-weight:500;z-index:99999;display:flex;flex-direction:column;align-items:center;gap:16px;box-shadow:0 12px 50px rgba(0,0,0,.7);border:1px solid rgba(255,255,255,.13);width:min(300px,calc(100vw - 48px));text-align:center;opacity:1;transition:opacity .35s ease,transform .35s ease;}
-#desktop-hint.hide{opacity:0;transform:translate(-50%,-50%) scale(.94);}
-#desktop-hint .dh-icon{font-size:36px;line-height:1;}
-#desktop-hint .dh-text{line-height:1.5;color:rgba(255,255,255,.9);}
-#desktop-hint .dh-text strong{display:block;font-size:16px;color:#fff;margin-bottom:4px;}
-.hint-timer{position:relative;width:44px;height:44px;flex-shrink:0;}
-.hint-timer svg{width:44px;height:44px;transform:rotate(-90deg);}
-.hint-track{fill:none;stroke:rgba(255,255,255,.15);stroke-width:3.5;}
-.hint-ring{fill:none;stroke:#fff;stroke-width:3.5;stroke-linecap:round;stroke-dasharray:119.38;stroke-dashoffset:0;animation:hint-cd 3s linear forwards;}
-@keyframes hint-cd{from{stroke-dashoffset:0}to{stroke-dashoffset:119.38}}
-.hint-num{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:13px;font-weight:700;color:#fff;line-height:1;}
+#dsk-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:99998;opacity:0;animation:dov-in .35s ease forwards;}
+@keyframes dov-in{to{opacity:1}}
+#dsk-overlay.hide{animation:dov-out .3s ease forwards;}
+@keyframes dov-out{to{opacity:0}}
+#desktop-hint{position:fixed;bottom:0;left:0;right:0;background:linear-gradient(180deg,#1a1a2e 0%,#0f0f1c 100%);border-top:1px solid rgba(255,255,255,.12);border-radius:28px 28px 0 0;padding:16px 32px calc(48px + env(safe-area-inset-bottom));z-index:99999;display:flex;flex-direction:column;align-items:center;gap:20px;box-shadow:0 -20px 70px rgba(0,0,0,.8);transform:translateY(100%);animation:dsh-in .5s cubic-bezier(.34,1.15,.64,1) .08s forwards;}
+@keyframes dsh-in{to{transform:translateY(0)}}
+#desktop-hint.hide{animation:dsh-out .32s cubic-bezier(.4,0,1,1) forwards;}
+@keyframes dsh-out{to{transform:translateY(110%)}}
+.dh-handle{width:48px;height:5px;background:rgba(255,255,255,.2);border-radius:3px;margin-bottom:4px;}
+.dh-icon-wrap{width:76px;height:76px;border-radius:24px;background:linear-gradient(145deg,#6366f1 0%,#8b5cf6 100%);display:flex;align-items:center;justify-content:center;font-size:32px;box-shadow:0 16px 40px rgba(99,102,241,.55),0 0 0 1px rgba(255,255,255,.12) inset;}
+.dh-title{font-size:23px;font-weight:800;color:#fff;letter-spacing:-.5px;line-height:1.1;}
+.dh-sub{font-size:14.5px;color:rgba(255,255,255,.52);line-height:1.6;text-align:center;max-width:265px;margin-top:-8px;}
+.hint-timer{position:relative;width:54px;height:54px;}
+.hint-timer svg{width:54px;height:54px;transform:rotate(-90deg);}
+.hint-track{fill:none;stroke:rgba(255,255,255,.1);stroke-width:4;}
+.hint-ring{fill:none;stroke:rgba(180,180,255,.75);stroke-width:4;stroke-linecap:round;stroke-dasharray:150.8;stroke-dashoffset:0;animation:hint-cd 3s linear forwards;}
+@keyframes hint-cd{from{stroke-dashoffset:0}to{stroke-dashoffset:150.8}}
+.hint-num{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:15px;font-weight:700;color:#fff;}
 </style>
 <script>(function(){
   if(window.innerWidth>768)return;
@@ -476,7 +481,7 @@ nav{
   function show(){
     var ov=document.createElement('div');ov.id='dsk-overlay';document.body.appendChild(ov);
     var el=document.createElement('div');el.id='desktop-hint';
-    el.innerHTML='<div class="dh-icon">💡</div><div class="dh-text"><strong>Better on desktop</strong>This site is best experienced on a computer.</div><div class="hint-timer"><svg viewBox="0 0 44 44"><circle class="hint-track" cx="22" cy="22" r="19"/><circle class="hint-ring" cx="22" cy="22" r="19"/></svg><span class="hint-num">3</span></div>';
+    el.innerHTML='<div class="dh-handle"></div><div class="dh-icon-wrap">🖥️</div><div class="dh-title">Better on Desktop</div><div class="dh-sub">This site is designed for desktop. For the best experience, open it on your computer.</div><div class="hint-timer"><svg viewBox="0 0 54 54"><circle class="hint-track" cx="27" cy="27" r="24"/><circle class="hint-ring" cx="27" cy="27" r="24"/></svg><span class="hint-num">3</span></div>';
     document.body.appendChild(el);
     var n=3,numEl=el.querySelector('.hint-num'),iv=setInterval(function(){n--;if(numEl)numEl.textContent=n>0?n:'';if(n<=0)clearInterval(iv);},1000);
     setTimeout(function(){el.classList.add('hide');ov.classList.add('hide');setTimeout(function(){el.remove();ov.remove();},400);},3000);
