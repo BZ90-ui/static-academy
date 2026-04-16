@@ -2156,7 +2156,11 @@ function canAccess(level) {
   return false;
 }
 
-function goUpgrade() { window.location.href = 'payment.html'; }
+function goUpgrade(targetPlan, fromPlan) {
+  var url = 'payment.html?plan=' + (targetPlan || 'pro') + '&course=tr';
+  if (fromPlan) url += '&from=' + fromPlan;
+  window.location.href = url;
+}
 
 // ── SIDEBAR ──
 
@@ -2323,14 +2327,33 @@ function loadLesson(mi, li) {
 
     if (!canAccess(les.level)) {
       lock.style.display = 'flex';
-      document.getElementById('lockTitle').textContent = currentLang === 'fr' ? 'Contenu ' + lvlLbl : lvlLbl + ' Content';
-      document.getElementById('lockMsg').textContent = currentLang === 'fr'
-        ? (les.level === 'elite'
-            ? 'Cette leçon est réservée aux membres Elite. Passe en Elite pour tout débloquer.'
-            : 'Cette leçon est réservée aux membres Pro. Passe en Pro pour continuer.')
-        : (les.level === 'elite'
-            ? 'This lesson is for Elite members only. Upgrade to Elite to unlock everything.'
-            : 'This lesson is for Pro members only. Upgrade to Pro to continue.');
+      var unlockBtn = lock.querySelector('.unlock-btn');
+      var isElite = les.level === 'elite';
+      var isProUser = userPlan === 'pro';
+      var fr = currentLang === 'fr';
+
+      if (isElite && isProUser) {
+        // PRO user hitting ELITE wall → upgrade offer, not a repurchase
+        document.getElementById('lockTitle').textContent = fr ? '🌟 Contenu Elite' : '🌟 Elite Content';
+        document.getElementById('lockMsg').textContent = fr
+          ? 'Tu as déjà le plan Pro — tu n\'es plus qu\'à une étape de tout débloquer. Passe à Elite pour accéder à ce contenu exclusif et maximiser tes résultats.'
+          : 'You already have the Pro plan — you\'re one step away from everything. Upgrade to Elite to unlock this exclusive content and maximize your results.';
+        if (unlockBtn) { unlockBtn.textContent = fr ? '⚡ Passer à Elite →' : '⚡ Upgrade to Elite →'; unlockBtn.onclick = function(){ goUpgrade('elite','pro'); }; }
+      } else if (isElite) {
+        // FREE user hitting ELITE wall
+        document.getElementById('lockTitle').textContent = fr ? '🌟 Contenu Elite' : '🌟 Elite Content';
+        document.getElementById('lockMsg').textContent = fr
+          ? 'Cette leçon est réservée aux membres Elite. Rejoins Elite pour accéder à l\'intégralité du cours premium.'
+          : 'This lesson is for Elite members only. Join Elite to unlock the full premium course.';
+        if (unlockBtn) { unlockBtn.textContent = fr ? 'Rejoindre Elite →' : 'Join Elite →'; unlockBtn.onclick = function(){ goUpgrade('elite'); }; }
+      } else {
+        // FREE user hitting PRO wall
+        document.getElementById('lockTitle').textContent = fr ? '🔵 Contenu Pro' : '🔵 Pro Content';
+        document.getElementById('lockMsg').textContent = fr
+          ? 'Cette leçon est réservée aux membres Pro. Passe en Pro pour continuer ta formation et accéder à tous les modules.'
+          : 'This lesson is for Pro members. Upgrade to Pro to continue your training and access all modules.';
+        if (unlockBtn) { unlockBtn.textContent = fr ? 'Passer en Pro →' : 'Upgrade to Pro →'; unlockBtn.onclick = function(){ goUpgrade('pro'); }; }
+      }
     } else {
       lock.style.display = 'none';
     }

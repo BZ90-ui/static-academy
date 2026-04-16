@@ -421,8 +421,9 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:1
 <script>
 // ── DATA ──
 const params = new URLSearchParams(window.location.search);
-const course = params.get('course') || 'ec';
-const plan   = params.get('plan')   || 'pro';
+const course  = params.get('course') || 'ec';
+const plan    = params.get('plan')   || 'pro';
+const fromPlan = params.get('from')  || null; // 'pro' if user is upgrading from Pro → Elite
 
 const COURSES = {
   ec:     { name:'E-Commerce Mastery',      sub:'Dropshipping · Shopify · Publicité · Branding', path:'course-player.html', trading:false },
@@ -476,18 +477,44 @@ function updatePage(){
   const cd = COURSES[course] || COURSES.ec;
   const pd = (PRICING[course]||PRICING.ec)[plan] || PRICING.ec.pro;
 
-  document.getElementById('orderCourse').textContent = cd.name;
-  document.getElementById('orderSub').textContent = cd.sub;
-  document.getElementById('planBadge').textContent = pd.emoji + ' Plan ' + pd.plan;
-  document.getElementById('origPrice').textContent = '€' + pd.orig.toFixed(2);
-  const disc = pd.orig - pd.price;
-  const pct  = Math.round(disc/pd.orig*100);
-  document.getElementById('discountLine').textContent = '−€'+disc.toFixed(2)+' (-'+pct+'%)';
-  document.getElementById('totalPrice').textContent  = '€'+pd.price.toFixed(2);
-  document.getElementById('btnPrice').textContent    = '€'+pd.price.toFixed(2);
+  // ── Upgrade from Pro → Elite: show the difference price ──
+  const isUpgrade = fromPlan === 'pro' && plan === 'elite';
+  const proPd = isUpgrade ? ((PRICING[course]||PRICING.ec)['pro'] || PRICING.ec.pro) : null;
+  const upgradePrice = isUpgrade ? (pd.price - proPd.price) : null;
 
-  const featEl = document.getElementById('orderFeatures');
-  featEl.innerHTML = (FEATURES[course]||FEATURES.ec).map(f=>'<li>'+f+'</li>').join('');
+  if (isUpgrade) {
+    // Upgrade messaging
+    document.getElementById('orderCourse').textContent = cd.name;
+    document.getElementById('orderSub').textContent = '⚡ Upgrade Pro → Elite';
+    document.getElementById('planBadge').textContent = '💎 Upgrade Elite';
+    document.getElementById('origPrice').textContent = '€' + pd.price.toFixed(2);
+    document.getElementById('discountLine').textContent = '−€' + proPd.price.toFixed(2) + ' (crédit Pro déjà payé)';
+    document.getElementById('totalPrice').textContent = '€' + upgradePrice.toFixed(2);
+    document.getElementById('btnPrice').textContent   = '€' + upgradePrice.toFixed(2);
+
+    // Highlight the extra Elite benefits vs Pro
+    const upgFeatures = [
+      '✅ Tout le contenu Pro (déjà inclus)',
+      '🌟 Modules Elite exclusifs débloqués',
+      'Stratégies avancées & cas réels',
+      'Contenu mis à jour en priorité',
+      'Accès aux sessions de coaching avancées',
+      'Support VIP prioritaire'
+    ];
+    document.getElementById('orderFeatures').innerHTML = upgFeatures.map(f=>'<li>'+f+'</li>').join('');
+  } else {
+    // Normal purchase messaging
+    document.getElementById('orderCourse').textContent = cd.name;
+    document.getElementById('orderSub').textContent = cd.sub;
+    document.getElementById('planBadge').textContent = pd.emoji + ' Plan ' + pd.plan;
+    document.getElementById('origPrice').textContent = '€' + pd.orig.toFixed(2);
+    const disc = pd.orig - pd.price;
+    const pct  = Math.round(disc/pd.orig*100);
+    document.getElementById('discountLine').textContent = '−€'+disc.toFixed(2)+' (-'+pct+'%)';
+    document.getElementById('totalPrice').textContent  = '€'+pd.price.toFixed(2);
+    document.getElementById('btnPrice').textContent    = '€'+pd.price.toFixed(2);
+    document.getElementById('orderFeatures').innerHTML = (FEATURES[course]||FEATURES.ec).map(f=>'<li>'+f+'</li>').join('');
+  }
 
   if(cd.trading){
     document.getElementById('tradingDisclaimer').style.display='block';
