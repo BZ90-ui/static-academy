@@ -944,11 +944,14 @@ function init() {
     document.getElementById('heroName').textContent = name.split(' ')[0];
     document.getElementById('pillPlan').textContent = plan + ' ' + dt.plan_label;
 
-    // Joined date
-    var joined = user.joinedAt ? new Date(user.joinedAt) : (user.joined ? new Date(user.joined) : new Date());
-    var joinedStr = joined.toLocaleDateString(dt.date_locale, { day: 'numeric', month: 'long', year: 'numeric' });
+    // Subscription / joined date — prefer the real subscription date if it exists
+    var subDate = user.subscribedAt ? new Date(user.subscribedAt)
+                : (user.joinedAt   ? new Date(user.joinedAt)
+                : (user.joined     ? new Date(user.joined)
+                : new Date()));
+    var joinedStr = subDate.toLocaleDateString(dt.date_locale, { day: 'numeric', month: 'long', year: 'numeric' });
     document.getElementById('pillJoined').textContent = dt.since + ' ' + joinedStr;
-    var days = Math.floor((new Date() - joined) / 86400000);
+    var days = Math.floor((new Date() - subDate) / 86400000);
     document.getElementById('pillCourses').textContent = dt.courses_count;
     document.getElementById('statDays').textContent = days;
     document.getElementById('profileDays').textContent = days;

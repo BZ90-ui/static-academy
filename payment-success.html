@@ -183,11 +183,16 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:1
     var users = [];
     try { users = JSON.parse(localStorage.getItem('static_users') || '[]'); } catch(e){}
     var idx = users.findIndex(function(u){ return u.email === user.email; });
+    var subDate = new Date().toISOString();
     if(idx !== -1){
       if(course === 'bundle'){ users[idx].ec_plan = plan; users[idx].tr_plan = plan; }
       else { users[idx][course + '_plan'] = plan; }
+      users[idx].subscribedAt = subDate;
       localStorage.setItem('static_users', JSON.stringify(users));
     }
+    // Also update the current session user
+    user.subscribedAt = subDate;
+    localStorage.setItem('static_user', JSON.stringify(user));
   }
 
   // Update UI

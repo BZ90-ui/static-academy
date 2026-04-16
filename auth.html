@@ -454,14 +454,18 @@
                     if (u.email.toLowerCase() === seed.email.toLowerCase()) idx = i;
                 });
                 if (idx === -1) {
+                    // New seed: use today as joinedAt so the date is real
+                    seed.joinedAt = new Date().toISOString();
                     allUsers.push(seed);
                     changed = true;
                 } else {
-                    // Always update password/role/plan in case previous seed had wrong password
+                    // Update credentials/role/plan but preserve the real joinedAt
                     allUsers[idx].password = seed.password;
                     allUsers[idx].role = seed.role;
                     allUsers[idx].plan = seed.plan;
                     allUsers[idx].courses = seed.courses;
+                    // Keep existing joinedAt; only set if missing
+                    if (!allUsers[idx].joinedAt) allUsers[idx].joinedAt = new Date().toISOString();
                     changed = true;
                 }
             });
